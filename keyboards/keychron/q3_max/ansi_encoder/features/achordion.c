@@ -21,6 +21,7 @@
  */
 
 #include "achordion.h"
+#include "config.h"
 
 #if !defined(IS_QK_MOD_TAP)
 // Attempt to detect out-of-date QMK installation, which would fail with

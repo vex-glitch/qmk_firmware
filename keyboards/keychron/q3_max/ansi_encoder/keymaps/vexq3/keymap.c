@@ -2401,6 +2401,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_select_word_back(keycode, record, SWORD_B)) return false;
     if (!process_autocorrection(keycode, record)) { return false; }
     if (!process_sentence_case(keycode, record)) { return false; }
+    if (!process_achordion(keycode, record)) { return false; }
 
                // Delwb macro
     switch (keycode) {
