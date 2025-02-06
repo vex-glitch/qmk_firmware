@@ -65,7 +65,7 @@
 #    define RETRO_SHIFT 500
 
 // One shot
-#    define ONESHOT_TIMEOUT 350  /* Time (in ms) before the one shot key is released */
+#    define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
 
 // Caps word
 #    define CAPS_WORD_INVERT_ON_SHIFT
@@ -157,4 +157,26 @@
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 // Enable all effects and palettes in PaletteFx.
+#define ACHORDION_STREAK
+// Home row mod definitions
+#define HOME_A LCTL_T(KC_A)
+#define HOME_R LALT_T(KC_R)
+#define HOME_S LGUI_T(KC_S)
+#define HOME_T LSFT_T(KC_T)
+
+#define HOME_N LSFT_T(KC_N)
+#define HOME_E RGUI_T(KC_E)
+#define HOME_I LALT_T(KC_I)
+#define HOME_O RCTL_T(KC_O)
+
+// Define missing keys
+#define HOME_C KC_C
+#define HOME_D KC_D
+#define HOME_Z KC_Z
+#define HOME_W KC_W
+#define HOME_Q KC_Q
+#define HOME_V KC_V
+#define HOME_X KC_X
+
+
 #endif

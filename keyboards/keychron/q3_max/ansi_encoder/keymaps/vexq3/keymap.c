@@ -20,6 +20,7 @@
 #include "features/autocorrection.h"
 #include "features/repeat_key.h"
 #include "features/sentence_case.h"
+#include "features/achordion.h"
 
 enum unicode_names {
     HASH, // Identifier for the hashtag
@@ -193,19 +194,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define ALT_L LALT_T(KC_L)
     #define CTL_SCLN RCTL_T(KC_SCLN)
 
-// COLEMAK Layout
-// Left-hand home row mods
-    #define HOME_A LCTL_T(KC_A)
-    #define HOME_R LALT_T(KC_R)
-    #define HOME_S LGUI_T(KC_S)
-    #define HOME_T LSFT_T(KC_T)
-// Right-hand home row modsd
-    #define HOME_N LSFT_T(KC_N)
-    #define HOME_E RGUI_T(KC_E)
-    #define HOME_I LALT_T(KC_I)
-    #define HOME_O RCTL_T(KC_O)
-    #define SHIFTZ MT(MOD_LSFT, KC_Z)
-
+        #define SHIFTZ MT(MOD_LSFT, KC_Z)
 
 // F keys
     #define ANYBOX   TD(TD_F15_ANYBOX)
@@ -2396,11 +2385,11 @@ enum custom_keycodes {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Process existing macros
+    if (!process_sentence_case(keycode, record)) { return false; }
     if (!process_repeat_key(keycode, record, REPEAT)) { return false; }
     if (!process_select_word(keycode, record, SELWORD)) return false;
     if (!process_select_word_back(keycode, record, SWORD_B)) return false;
     if (!process_autocorrection(keycode, record)) { return false; }
-    if (!process_sentence_case(keycode, record)) { return false; }
     if (!process_achordion(keycode, record)) { return false; }
 
                // Delwb macro
@@ -3357,7 +3346,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               KC_ENT,
-        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   _______,  KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
+        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   _______,  KC_K,     KC_H,     KC_DOT,   COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   OSSC,                                     SPACE,                                DELC,     CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
