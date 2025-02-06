@@ -24,3 +24,4 @@ LTO_ENABLE = yes
 COMBO_ENABLE = yes
 SRC += features/repeat_key.c
 SRC += features/sentence_case.c
+SRC += features/achordion.c
