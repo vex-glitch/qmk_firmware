@@ -335,12 +335,40 @@ __attribute__((weak)) bool achordion_chord(uint16_t tap_hold_keycode,
                                            keyrecord_t* tap_hold_record,
                                            uint16_t other_keycode,
                                            keyrecord_t* other_record) {
-  return achordion_opposite_hands(tap_hold_record, other_record);
+    // If the key is Z, always treat it as a modifier (Shift) when held
+    if (tap_hold_keycode == KC_Z) {
+        return true;  // Always hold Z as Shift
+    }
+
+    // Special combo cases for S-based shortcuts
+    if (tap_hold_keycode == HOME_S) {
+        switch (other_keycode) {
+            case HOME_A: return true;  // S + A (Select All)
+            case HOME_C: return true;  // S + C (Copy)
+            case HOME_D: return true;  // S + D (Duplicate)
+            case HOME_Z: return true;  // S + Z (Undo)
+            case HOME_W: return true;  // S + W (Close)
+            case HOME_Q: return true;  // S + Q (Quit)
+            case HOME_V: return true;  // S + V (Paste)
+            case HOME_X: return true;  // S + X (Cut)
+        }
+    }
+
+    // Allow S + T + Z for Redo
+    if (tap_hold_keycode == HOME_T && other_keycode == HOME_Z) {
+        return true;
+    }
+
+    // Default: Bilateral Combinations (opposite hands)
+    return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
 // By default, the timeout is 1000 ms for all keys.
 __attribute__((weak)) uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-  return 1000;
+    if (tap_hold_keycode == KC_Z) {
+        return 0;  // No delay: Z acts as Shift instantly when held
+    }
+    return 800;  // Default timeout for all other keys
 }
 
 // By default, Shift and Ctrl mods are eager, and Alt and GUI are not.
