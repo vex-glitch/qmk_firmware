@@ -246,15 +246,15 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     } else if (state->count == 2 && state->pressed) {
         // Double hold: Ctrl + Home
         register_code(KC_LCTL);
+        register_code(KC_LGUI);
         tap_code(KC_F15);
-        unregister_code(KC_LCTL);
+        register_code(KC_LGUI);
+        register_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: Alt + Home
-        register_code(KC_LCTL);
-        register_code(KC_LGUI);
+        register_code(KC_LALT);
         tap_code(KC_F15);
-        register_code(KC_LGUI);
-        register_code(KC_LCTL);
+        unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
         // Triple hold: Ctrl + Alt + Home
         register_code(KC_LCTL);
@@ -1753,7 +1753,10 @@ void dance_space_reset(tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance Actions for Comma
 void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
+    if (state->count == 2 && state->pressed) {
+        // Double hold: ;
+        SEND_STRING("; ");
+    } else if (state->count == 1 && !state->pressed) {
         // Single tap: , followed by Space
         SEND_STRING(", ");
     } else if (state->count == 2 && !state->pressed) {
@@ -1795,7 +1798,10 @@ void dance_bracket_reset(tap_dance_state_t *state, void *user_data) {
 void dance_delfor_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Delete forward
-        tap_code(KC_DEL);       // Forward Delete
+       // tap_code(KC_DEL);       // Forward Delete
+       register_code(KC_LGUI);
+        tap_code(KC_BSPC);
+        unregister_code(KC_LGUI);
     } else if (state->count == 1 && state->pressed) {
         register_code(KC_LALT);  // Hold Option
         tap_code(KC_DEL); // Fonard Delete
@@ -3346,7 +3352,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               KC_ENT,
-        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   _______,  KC_K,     KC_H,     KC_DOT,   COMMA,                CAPW,                KC_UP,
+        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   _______,  KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   OSSC,                                     SPACE,                                DELC,     CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
