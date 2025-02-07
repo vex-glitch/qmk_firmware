@@ -1149,46 +1149,72 @@ void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_F7);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        tap_code(KC_F7);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LALT);
+        register_code(KC_LCTL); // Press Shift
+        tap_code(KC_H);      // Backslash with Shift = Pipe
+        unregister_code(KC_LCTL); // Release Shift
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
-        tap_code(KC_F7);
+        register_code(KC_LGUI);
+        tap_code(KC_H);
+        register_code(KC_LGUI);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LALT);
-        tap_code(KC_F7);
+        tap_code(KC_H);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LALT);
-        tap_code(KC_F7);
+        tap_code(KC_H);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
         register_code(KC_LSFT);
         register_code(KC_LCTL);
-        tap_code(KC_F7);
+        tap_code(KC_H);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F7);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 4 && !state->pressed) {
+        // Step 1: Control + H (Invoke Hookmark)
         register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F7);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
+        tap_code(KC_H);
+        unregister_code(KC_LCTL);
+
+        // Step 2: Wait 500ms (0.5s)
+        wait_ms(500);
+
+        // Step 3: Control + M (Open Action Menu)
+        register_code(KC_LCTL);
+        tap_code(KC_M);
+        unregister_code(KC_LCTL);
+
+        // Step 4: Wait 500ms (0.5s)
+        wait_ms(500);
+
+        // Step 5: Control + Q (Execute Action)
+        register_code(KC_LCTL);
+        tap_code(KC_C);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 4 && !state->pressed) {
+        // Step 1: Control + H (Invoke Hookmark)
+        register_code(KC_LCTL);
+        tap_code(KC_H);
+        unregister_code(KC_LCTL);
+
+        // Step 2: Wait 500ms (0.5s)
+        wait_ms(500);
+
+        // Step 3: Control + M (Open Action Menu)
+        register_code(KC_LCTL);
+        tap_code(KC_M);
+        unregister_code(KC_LCTL);
+
+        // Step 4: Wait 500ms (0.5s)
+        wait_ms(500);
+
+        // Step 5: Control + Q (Execute Action)
+        register_code(KC_LCTL);
+        tap_code(KC_Q);
         unregister_code(KC_LCTL);
     }
 }
@@ -3348,7 +3374,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   KC_F7,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               KC_ENT,
