@@ -1898,10 +1898,7 @@ void dance_bracket_reset(tap_dance_state_t *state, void *user_data) {
 void dance_delfor_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Delete forward
-       // tap_code(KC_DEL);       // Forward Delete
-       register_code(KC_LGUI);
-        tap_code(KC_BSPC);
-        unregister_code(KC_LGUI);
+        tap_code(KC_DEL);       // Forward Delete
     } else if (state->count == 1 && state->pressed) {
         register_code(KC_LALT);  // Hold Option
         tap_code(KC_DEL); // Fonard Delete
@@ -1987,15 +1984,16 @@ void dance_code_reset(tap_dance_state_t *state, void *user_data) {
 
 // Delc
 void dance_del_c_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
+    if (state->count == 1 && state->pressed) {
+        layer_on(WINDOWS);
+    } else if (state->count == 1 && !state->pressed) {
         // Single Tap: Option + Backspace
         SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_BSPC) SS_UP(X_LALT));
+    } else if (state->count == 2 && state->pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_BSPC) SS_UP(X_LGUI));
     } else if (state->count == 2 && !state->pressed) {
         // Double Tap: Tab
         tap_code(KC_TAB);
-    } else if (state->pressed) {
-        // Hold: Activate MO(WINDOWS)
-        layer_on(WINDOWS);
     }
 }
 
@@ -2281,6 +2279,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_CLEANSHOT):
             return TAPPING_TERM + 100;
+        case TD(TD_LEAD_HYPER):
+            return TAPPING_TERM + 50;
         case TD(TD_FINDER):
             return TAPPING_TERM + 100;
         case TD(TD_DEVONTHINK):
@@ -3453,10 +3453,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     MUSE,     OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
+        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     KC_BSPC,    EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
-        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               APOST,
-        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   _______,  KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
+        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     XXXXXXX,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               APOST,
+        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   XXXXXXX,  KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   OSSC,                                     SPACE,                                DELC,     CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
