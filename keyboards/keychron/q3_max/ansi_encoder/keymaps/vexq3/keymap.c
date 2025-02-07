@@ -1232,50 +1232,41 @@ void dance_hook_reset(tap_dance_state_t *state, void *user_data) {
 void dance_alfred_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
-        tap_code(KC_F6);
+        tap_code(KC_F3);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        tap_code(KC_F6);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LALT);
+        tap_code(KC_F3);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
-        tap_code(KC_F6);
+        tap_code(KC_F3);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F6);
-        unregister_code(KC_LALT);
+        tap_code(KC_F3);
+        tap_code(KC_SPC);
     } else if (state->count == 3 && state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LALT);
-        tap_code(KC_F6);
+        register_code(KC_LSFT);
+        tap_code(KC_F3);
+        register_code(KC_LSFT);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_F6);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
+        register_code(KC_LGU);
+        tap_code(KC_F3);
+        unregister_code(KC_LGUI);
     } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F6);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 4 && !state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F6);
-        unregister_code(KC_LSFT);
+        tap_code(KC_F3);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F3);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
     }
 }
 
@@ -3374,7 +3365,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        KC_F3,   HOOK,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ALFRED,   HOOK,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               KC_ENT,
