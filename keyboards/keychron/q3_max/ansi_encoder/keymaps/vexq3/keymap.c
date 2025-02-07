@@ -2272,6 +2272,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_END_OMNIFOCUS):
             return TAPPING_TERM + 100;
+        case TD(TD_CLEANSHOT):
+            return TAPPING_TERM + 100; 
         case TD(TD_FINDER):
             return TAPPING_TERM + 100;
         case TD(TD_DEVONTHINK):
