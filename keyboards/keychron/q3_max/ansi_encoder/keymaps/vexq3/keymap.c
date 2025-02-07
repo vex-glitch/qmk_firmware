@@ -1875,17 +1875,25 @@ void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance Actions for Bracket
 void dance_bracket_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
+    if (state->count == 1 && state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("{}");
+        tap_code(KC_LEFT);
+    } else if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
         SEND_STRING("()");
         tap_code(KC_LEFT);
-    } else if (state->pressed) {
-        // Hold: Inserts { } with the cursor between
-        SEND_STRING("[]");
+    } else if (state->count == 2 && state->pressed) {
+        // Double tap: '
+        SEND_STRING("<");
         tap_code(KC_LEFT);
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
         SEND_STRING("[]");
+        tap_code(KC_LEFT);
+    } else if (state->count == 3 && !state->pressed) {
+    // Double tap: '
+        SEND_STRING(">");
         tap_code(KC_LEFT);
     }
 }
