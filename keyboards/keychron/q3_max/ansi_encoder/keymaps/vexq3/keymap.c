@@ -90,6 +90,7 @@ enum {
     TD_CMOVE_N,
     TD_CMOVE_P,
     TD_SLEEVE,
+    TD_CLEANSHOT,
 };
 
 typedef enum {
@@ -197,28 +198,29 @@ td_state_t cur_dance(tap_dance_state_t *state) {
         #define SHIFTZ MT(MOD_LSFT, KC_Z)
 
 // F keys
-    #define ANYBOX   TD(TD_F15_ANYBOX)
-    #define DRAFTS   TD(TD_PD_DRAFTS)
-    #define OFOCUS   TD(TD_END_OMNIFOCUS)
-    #define FINDER   TD(TD_FINDER)
-    #define DEVON    TD(TD_DEVONTHINK)
-    #define SPARK    TD(TD_SPARK)
-    #define FANTAS   TD(TD_FANTASTICAL)
-    #define DAYONE   TD(TD_DAYONE)
-    #define TRELLO   TD(TD_TRELLO)
-    #define OOUT     TD(TD_OOUTLINER)
-    #define XMIND    TD(TD_XMIND)
-    #define MUSE     TD(TD_MUSE)
-    #define HOOK     TD(TD_HOOK)
-    #define ALFRED   TD(TD_ALFRED)
-    #define DROP     TD(TD_DROP)
-    #define SNIP     TD(TD_SNIP)
-    #define TEXTE    TD(TD_TEXTE)
-    #define PERP     TD(TD_PERP)
-    #define CHAT     TD(TD_CHAT)
-    #define ARC      TD(TD_ARC)
-    #define OBSIDIAN TD(TD_OBSIDIAN)
-    #define EAGLE    TD(TD_EAGLE)
+    #define ANYBOX    TD(TD_F15_ANYBOX)
+    #define DRAFTS    TD(TD_PD_DRAFTS)
+    #define OFOCUS    TD(TD_END_OMNIFOCUS)
+    #define FINDER    TD(TD_FINDER)
+    #define DEVON     TD(TD_DEVONTHINK)
+    #define SPARK     TD(TD_SPARK)
+    #define FANTAS    TD(TD_FANTASTICAL)
+    #define DAYONE    TD(TD_DAYONE)
+    #define TRELLO    TD(TD_TRELLO)
+    #define OOUT      TD(TD_OOUTLINER)
+    #define XMIND     TD(TD_XMIND)
+    #define MUSE      TD(TD_MUSE)
+    #define HOOK      TD(TD_HOOK)
+    #define ALFRED    TD(TD_ALFRED)
+    #define DROP      TD(TD_DROP)
+    #define SNIP      TD(TD_SNIP)
+    #define TEXTE     TD(TD_TEXTE)
+    #define PERP      TD(TD_PERP)
+    #define CHAT      TD(TD_CHAT)
+    #define ARC       TD(TD_ARC)
+    #define OBSIDIAN  TD(TD_OBSIDIAN)
+    #define EAGLE     TD(TD_EAGLE)
+    #define CLEANSHT  TD(TD_CLEANSHOT)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -298,6 +300,77 @@ void dance_f15_anybox_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+    // CleanShot
+    void dance_cleanshot_finished(tap_dance_state_t *state, void *user_data) {
+    // Determine the number of taps or holds
+    if (state->count == 1 && state->pressed) {
+        // Single hold: Shift + Home
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 1 && !state->pressed) {
+        // Single tap: Option + Command + Shift + Home
+        register_code(KC_LALT);
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {
+        // Double hold: Ctrl + Home
+        register_code(KC_LCTL);
+        register_code(KC_LGUI);
+        tap_code(KC_F1);
+        register_code(KC_LGUI);
+        register_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Alt + Home
+        register_code(KC_LALT);
+        tap_code(KC_F1);
+        unregister_code(KC_LALT);
+    } else if (state->count == 3 && state->pressed) {
+        // Triple hold: Ctrl + Alt + Home
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F1);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        // Triple tap: Shift + Ctrl + Home
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        tap_code(KC_F1);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 4 && state->pressed) {
+        // Quad hold: Alt + Shift + Home
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+    } else if (state->count == 4 && !state->pressed) {
+        // Quad tap: Ctrl + Alt + Shift + Home
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_cleanshot_reset(tap_dance_state_t *state, void *user_data) {
+    // Reset logic if needed
+    if (state->pressed) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+    }
+}
 // Obsidian
 void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
     // Determine the number of taps or holds
@@ -3084,6 +3157,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CMOVE_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cmove_n_finished, dance_cmove_n_reset),
     [TD_CMOVE_P] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cmove_p_finished, dance_cmove_p_reset),
     [TD_SLEEVE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sleeve_finished, dance_sleeve_reset),
+    [TD_CLEANSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cleanshot_finished, dance_cleanshot_reset),
 };
 
 // Leader key
@@ -3366,7 +3440,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        ALFRED,   HOOK,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ALFRED,   HOOK,     KC_F1, DROP,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     MUSE,     OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               KC_ENT,
