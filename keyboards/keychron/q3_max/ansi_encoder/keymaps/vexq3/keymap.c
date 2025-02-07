@@ -91,6 +91,7 @@ enum {
     TD_CMOVE_P,
     TD_SLEEVE,
     TD_CLEANSHOT,
+    TD_APOSTROPHE,
 };
 
 typedef enum {
@@ -182,6 +183,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CMOVE_N  TD(TD_CMOVE_N)
     #define CMOVE_P  TD(TD_CMOVE_P)
     #define SLEEVE   TD(TD_SLEEVE)
+    #define APOST    TD(TD_APOSTROPHE)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -1720,13 +1722,11 @@ void dance_period_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: . Space Capitalization
         SEND_STRING(". ");
+        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: : Space Capitalization
         SEND_STRING(": ");
-    } else if (state->pressed) {
-        // Hold: : Space Capitalization
-        SEND_STRING(". ");
-        set_oneshot_mods(MOD_LSFT);  // Activate One Shot Shift
+        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     }
 }
 
@@ -1741,12 +1741,10 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: ? followed by Space Capitalization
         SEND_STRING("? ");
+        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: ! followed by Space Capitalization
         SEND_STRING("! ");
-    } else if (state->pressed) {
-        // Hold: ! followed by Space Capitalization
-        SEND_STRING("? ");
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     }
 }
@@ -1846,23 +1844,32 @@ void dance_space_reset(tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance Actions for Comma
 void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 2 && state->pressed) {
-        // Double hold: ;
-        SEND_STRING("; ");
-    } else if (state->count == 1 && !state->pressed) {
+    if (state->count == 1 && !state->pressed) {
         // Single tap: , followed by Space
         SEND_STRING(", ");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
-        SEND_STRING("'");
-    } else if (state->pressed) {
-        // Hold: "" (double quotes) and place the cursor between them
-        SEND_STRING("\"\"");
-        tap_code(KC_LEFT);  // Move cursor between the double quotes
+        SEND_STRING("; ");
     }
 }
 
 void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
+    // No additional reset logic needed
+}
+
+// Tap Dance Actions for Comma
+void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: , followed by Space
+        SEND_STRING("'");
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: '
+        SEND_STRING("\"\"");
+        tap_code(KC_LEFT); // Move cursor between the double quotes
+    }
+}
+
+void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
     // No additional reset logic needed
 }
 
@@ -2273,7 +2280,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_END_OMNIFOCUS):
             return TAPPING_TERM + 100;
         case TD(TD_CLEANSHOT):
-            return TAPPING_TERM + 100; 
+            return TAPPING_TERM + 100;
         case TD(TD_FINDER):
             return TAPPING_TERM + 100;
         case TD(TD_DEVONTHINK):
@@ -3162,6 +3169,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CMOVE_P] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cmove_p_finished, dance_cmove_p_reset),
     [TD_SLEEVE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sleeve_finished, dance_sleeve_reset),
     [TD_CLEANSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cleanshot_finished, dance_cleanshot_reset),
+    [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
 };
 
 // Leader key
@@ -3447,7 +3455,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     MUSE,     OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
-        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               KC_ENT,
+        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               APOST,
         SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   _______,  KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   OSSC,                                     SPACE,                                DELC,     CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
