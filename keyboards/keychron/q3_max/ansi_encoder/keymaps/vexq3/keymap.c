@@ -327,7 +327,9 @@ void dance_f15_anybox_reset(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: Alt + Home
         register_code(KC_LALT);
+        register_code(KC_LGUI);
         tap_code(KC_F1);
+        unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
         // Triple hold: Ctrl + Alt + Home
@@ -3440,7 +3442,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        ALFRED,   HOOK,     KC_F1, DROP,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     MUSE,     OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     MUSE,     OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     _______,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               KC_ENT,
