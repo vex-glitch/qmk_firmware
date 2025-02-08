@@ -37,6 +37,8 @@ enum layers {
     EXTEND,      // Layer 3 - Extend Layer
     WINDOWS,     // Layer 4 - Windows Layer
     FUN,         // Layer 5 - Function Layer
+    SYM,         // Layer 6 - Symbol Layer
+    ADM,         // Layer 7 - Admin Layer
 };
 
 // Tap Dance Declarations
@@ -92,6 +94,9 @@ enum {
     TD_SLEEVE,
     TD_CLEANSHOT,
     TD_APOSTROPHE,
+    TD_BRACKET_L,
+    TD_BRACKET_R,
+    TD_ADM,
 };
 
 typedef enum {
@@ -184,6 +189,9 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CMOVE_P  TD(TD_CMOVE_P)
     #define SLEEVE   TD(TD_SLEEVE)
     #define APOST    TD(TD_APOSTROPHE)
+    #define BRACKETL TD(TD_BRACKET_L)
+    #define BRACKETR TD(TD_BRACKET_R)
+    #define ADM      TD(TD_ADM)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -1792,11 +1800,6 @@ void dance_tilde_finished(tap_dance_state_t *state, void *user_data) {
             tap_code(KC_GRV);
             break;
 
-        case TD_SINGLE_HOLD:
-            // Hold activates MO(FUN) (Momentary Layer)
-            layer_on(FUN);
-            break;
-
         default:
             break;
     }
@@ -1877,28 +1880,51 @@ void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
 void dance_bracket_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         // Hold: Inserts { } with the cursor between
-        SEND_STRING("{}");
+        SEND_STRING("[[]]");
+        tap_code(KC_LEFT);
         tap_code(KC_LEFT);
     } else if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
         SEND_STRING("()");
         tap_code(KC_LEFT);
-    } else if (state->count == 2 && state->pressed) {
-        // Double tap: '
-        SEND_STRING("<");
-        tap_code(KC_LEFT);
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
         SEND_STRING("[]");
-        tap_code(KC_LEFT);
-    } else if (state->count == 3 && !state->pressed) {
-    // Double tap: '
-        SEND_STRING(">");
         tap_code(KC_LEFT);
     }
 }
 
 void dance_bracket_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+
+// Tap Dance Actions for Bracket
+void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING(">");
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: '
+        SEND_STRING("}");
+    }
+}
+
+void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+
+// Tap Dance Actions for Bracket
+void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING("<");
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: '
+        SEND_STRING("{");
+    }
+}
+
+void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
@@ -1996,12 +2022,11 @@ void dance_del_c_finished(tap_dance_state_t *state, void *user_data) {
         layer_on(WINDOWS);
     } else if (state->count == 1 && !state->pressed) {
         // Single Tap: Option + Backspace
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_BSPC) SS_UP(X_LALT));
-    } else if (state->count == 2 && state->pressed) {
-        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_BSPC) SS_UP(X_LGUI));
-    } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Tab
         tap_code(KC_TAB);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Trigger select_word macro
+        process_record_user(SELWORD, &(keyrecord_t){ .event.pressed = true });
+        process_record_user(SELWORD, &(keyrecord_t){ .event.pressed = false });
     }
 }
 
@@ -2016,10 +2041,11 @@ void dance_del_c_reset(tap_dance_state_t *state, void *user_data) {
 void dance_ossc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate One Shot Shift
-        set_oneshot_mods(MOD_BIT(KC_LSFT));  // Enable Left Shift temporarily
-    } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Option + Shift + Tab
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSFT) SS_TAP(X_TAB) SS_UP(X_LSFT) SS_UP(X_LALT));
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Trigger select_word_back macro
+        process_record_user(SWORD_B, &(keyrecord_t){ .event.pressed = true });
+        process_record_user(SWORD_B, &(keyrecord_t){ .event.pressed = false });
     } else if (state->pressed) {
         // Hold: Activate MO(FUN)
         layer_on(FUN);
@@ -2081,28 +2107,20 @@ void dance_bslash0_reset(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
     }
 
-// Textc
+// Tap Dance for Textc
 void dance_textc_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
+    if (state->count == 1 && state->pressed) {
+        // Single Tap Hold: Activate FUN Layer
+        layer_on(SYM);
+    } else if (state->count == 1 && !state->pressed) {
         // Single Tap: Send " ///"
         SEND_STRING(" ///");
-    } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Send Tab
-        tap_code(KC_TAB);
-    } else if (state->count == 2 && state->pressed) {
-        // Double Hold: Send Option + Shift + Tab
-        register_code(KC_LALT);  // Option
-        register_code(KC_LSFT);  // Shift
-        tap_code(KC_TAB);        // Tab
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
     }
 }
 
 void dance_textc_reset(tap_dance_state_t *state, void *user_data) {
-    // Ensure all keys are unregistered if needed
-    unregister_code(KC_LALT);
-    unregister_code(KC_LSFT);
+    // Ensure layer is turned off when tap dance ends
+    layer_off(SYM);
 }
 
 // Space_p Colemak
@@ -2112,6 +2130,11 @@ void dance_cspc_p_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LCTL);  // Hold Control
         tap_code(KC_LEFT);       // Tap Left Arrow
         unregister_code(KC_LCTL); // Release Control
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Send Command + Left
+        register_code(KC_LGUI);  // Hold Command
+        tap_code(KC_LEFT);       // Tap Left Arrow
+        unregister_code(KC_LGUI); // Release Command
     } else if (state->pressed) {
         // Hold: Send Option
         register_code(KC_LALT);  // Hold Option
@@ -2121,24 +2144,32 @@ void dance_cspc_p_finished(tap_dance_state_t *state, void *user_data) {
 void dance_cspc_p_reset(tap_dance_state_t *state, void *user_data) {
     // Release any keys if held
     unregister_code(KC_LALT);   // Release Option
+    unregister_code(KC_LGUI);   // Release Command
 }
 
 // Space_n Colemak
 void dance_cspc_n_finished(tap_dance_state_t *state, void *user_data) {
-   td_state_t dance_state = cur_dance(state); // Get the tap dance state
+    td_state_t dance_state = cur_dance(state); // Get the tap dance state
 
     switch (dance_state) {
         case TD_SINGLE_TAP:
-            // Single Tap: Option + Left Arrow
-            register_code(KC_LCTL);  // Press Option
-            tap_code(KC_RIGHT);       // Tap Left Arrow
-            unregister_code(KC_LCTL); // Release Option
+            // Single Tap: Control + Right Arrow (Move one word right)
+            register_code(KC_LCTL);
+            tap_code(KC_RGHT);
+            unregister_code(KC_LCTL);
             break;
 
         case TD_SINGLE_HOLD:
-            // Hold: Command
+            // Hold: Option (Alt)
             register_code(KC_LALT);
-            break;;
+            break;
+
+        case TD_DOUBLE_TAP:
+            // Double Tap: Command + Right Arrow (Move to end of line)
+            register_code(KC_LGUI);
+            tap_code(KC_RGHT);
+            unregister_code(KC_LGUI);
+            break;
 
         default:
             break;
@@ -2148,7 +2179,7 @@ void dance_cspc_n_finished(tap_dance_state_t *state, void *user_data) {
 void dance_cspc_n_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic for Hold or Double Hold
     unregister_code(KC_LALT); // Release Option
-    unregister_code(KC_LCTL); // Release Control
+    unregister_code(KC_LGUI); // Release Command
 }
 
 // Tap Dance Actions for App Next Colemak
@@ -2157,9 +2188,17 @@ void dance_capp_n_finished(tap_dance_state_t *state, void *user_data) {
 
     switch (dance_state) {
         case TD_SINGLE_TAP:
-        register_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
-        tap_code(KC_RGHT);
-        unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
+            // Single Tap: Ctrl + Cmd + Right Arrow
+            register_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
+            tap_code(KC_RGHT);
+            unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
+            break;
+
+        case TD_DOUBLE_TAP:
+            // Double Tap: Move forward a word (Option + Right Arrow)
+            register_mods(MOD_BIT(KC_LALT)); // Hold Option
+            tap_code(KC_RGHT);               // Tap Right Arrow
+            unregister_mods(MOD_BIT(KC_LALT)); // Release Option
             break;
 
         case TD_SINGLE_HOLD:
@@ -2176,7 +2215,7 @@ void dance_capp_n_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic for Hold or Double Hold
     unregister_code(KC_LGUI); // Release Command
     unregister_code(KC_LALT); // Release Option
-    unregister_code(KC_LCTL); // Release Option
+    unregister_code(KC_LCTL); // Release Control
 }
 
 // Tap Dance Actions for App Previous Colemak
@@ -2188,6 +2227,13 @@ void dance_capp_p_finished(tap_dance_state_t *state, void *user_data) {
         register_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
         tap_code(KC_LEFT);
         unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
+            break;
+
+        case TD_DOUBLE_TAP:
+            // Double Tap: Move forward a word (Option + Right Arrow)
+            register_mods(MOD_BIT(KC_LALT)); // Hold Option
+            tap_code(KC_LEFT);               // Tap Right Arrow
+            unregister_mods(MOD_BIT(KC_LALT)); // Release Option
             break;
 
         case TD_SINGLE_HOLD:
@@ -2276,6 +2322,22 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic if needed (not required in this case)
 }
 
+// Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
+void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Activate One Shot Layer ADM
+        tap_code16(OSL(ADM));
+    } else if (state->pressed) {
+        // Hold: Act as Right Control
+        register_code(KC_RCTL);
+    }
+}
+
+void dance_adm_reset(tap_dance_state_t *state, void *user_data) {
+    // Reset Right Control when released
+    unregister_code(KC_RCTL);
+}
+
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -2316,7 +2378,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_SNIP):
             return TAPPING_TERM + 100;
         case TD(TD_TEXTE):
-            return TAPPING_TERM + 100;
+            return TAPPING_TERM + 50;
         case TD(TD_PERP):
             return TAPPING_TERM + 100;
         case TD(TD_CHAT):
@@ -2329,7 +2391,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_SLEEVE):
             return TAPPING_TERM + 100;
-
+            case TD(TD_ADM):
+            return TAPPING_TERM + 100;
+            case TD(TD_APOSTROPHE):
+            return TAPPING_TERM + 100;
+            case TD(TD_BRACKET_L):
+            return TAPPING_TERM + 100;
+            case TD(TD_BRACKET_R):
+            return TAPPING_TERM + 100;
         default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -3178,6 +3247,9 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SLEEVE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sleeve_finished, dance_sleeve_reset),
     [TD_CLEANSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cleanshot_finished, dance_cleanshot_reset),
     [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
+    [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
+    [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
+    [TD_ADM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_adm_finished, dance_adm_reset),
 };
 
 // Leader key
@@ -3460,20 +3532,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      CHAT,     PERP,     TEXTE,    SNIP,     MUSE,     OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     KC_BSPC,    EAGLE,    DEVON,    FINDER,
-        TEXTC,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
-        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     XXXXXXX,  KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               APOST,
-        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     REPEAT,   XXXXXXX,  KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
-        CSPACEP,  CAPP_P,   OSSC,                                     SPACE,                                DELC,     CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
+        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REPEAT,   KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
+        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     BRACKETL, BRACKETR, KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
+        CSPACEP,  CAPP_P,   OSSC,                                     SPACE,                                DELC,     CAPP_N,   CSPACEN,    ADM,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         POWER,    MCNTRL,   LNCHPAD,  KC_PGUP,  _______,   _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
         TILDE,    KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
         KC_LCTL,  MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE,  _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
         LEADHYPE, KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,   MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
-        UNDO,               CUT,      COPY,     DUPLICA,   PASTE,    MSEC1,    MSEC4,    MSEC2,    DELWF,    PAGEDN,  DELWB,                _______,              _______,
-        SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                                CMOVE_N,  SELWORD,    SLINE,    _______,    _______,  _______,  _______),
+        UNDO,               CUT,      COPY,     DUPLICA,   PASTE,    MSEC1,    MSEC4,    MSEC2,    DELWF,    PAGEDN,   DELWB,                _______,              _______,
+        SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                                CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
         FULLSCR,  WIN1_1,   WIN1_2,   WIN1_3,   _______,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     _______,    _______,  _______,  _______,
@@ -3490,6 +3562,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,              _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
+
+     [SYM] = LAYOUT_tkl_ansi(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
+        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+
+    [ADM] = LAYOUT_tkl_ansi(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
+        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 };
 
 // clang-format on
