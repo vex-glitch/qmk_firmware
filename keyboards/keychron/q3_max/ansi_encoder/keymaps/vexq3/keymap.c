@@ -61,8 +61,8 @@ enum {
     TD_BSPACE,
     TD_LEAD_HYPER,
     TD_CODE,
-    TD_OSSC,
-    TD_DEL_C,
+    TD_SELBC,
+    TD_SELFC,
     TD_SLASH9,
     TD_BSLASH0,
     TD_FINDER,
@@ -146,8 +146,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     //#define LEADER   QK_LEAD
     #define LEADHYPE TD(TD_LEAD_HYPER)
     #define CODE     TD(TD_CODE)
-    #define OSSC     TD(TD_OSSC)
-    #define DELC     TD(TD_DEL_C)
+    #define SELBC    TD(TD_SELBC)
+    #define SELFC    TD(TD_SELFC)
     #define MOUSEUP  KC_MS_UP
     #define MOUSEDN  KC_MS_DOWN
     #define MOUSELT  KC_MS_LEFT
@@ -2016,50 +2016,56 @@ void dance_code_reset(tap_dance_state_t *state, void *user_data) {
         layer_off(WINDOWS);
 }
 
-// Delc
-void dance_del_c_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        layer_on(WINDOWS);
-    } else if (state->count == 1 && !state->pressed) {
-        // Single Tap: Option + Backspace
+void dance_selfc_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Send Tab Key
         tap_code(KC_TAB);
+    } else if (state->count == 1 && state->pressed) {
+        // Single Hold: Activate WINDOWS Layer
+        layer_on(WINDOWS);
     } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Trigger select_word macro
-        process_record_user(SELWORD, &(keyrecord_t){ .event.pressed = true });
-        process_record_user(SELWORD, &(keyrecord_t){ .event.pressed = false });
+        // Double Tap: Select Word Forward
+        select_word_tap('W');
+    } else if (state->count == 2 && state->pressed) {
+        // Double Hold: Select Line Forward
+        select_word_register('L');
     }
 }
 
-void dance_del_c_reset(tap_dance_state_t *state, void *user_data) {
+void dance_selfc_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(WINDOWS)) {
-        // Ensure the layer is turned off when the key is released
         layer_off(WINDOWS);
     }
+    select_word_unregister(); // Ensure selection is released
 }
 
-// Tap Dance Actions for OSSC
-void dance_ossc_finished(tap_dance_state_t *state, void *user_data) {
+void dance_selbc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single Tap: Activate One Shot Shift
-        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSFT) SS_TAP(X_TAB) SS_UP(X_LSFT) SS_UP(X_LALT));
-    } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Trigger select_word_back macro
-        process_record_user(SWORD_B, &(keyrecord_t){ .event.pressed = true });
-        process_record_user(SWORD_B, &(keyrecord_t){ .event.pressed = false });
-    } else if (state->pressed) {
-        // Hold: Activate MO(FUN)
+        // Single Tap: Send Alt + Shift + Tab
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_TAB);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+    } else if (state->count == 1 && state->pressed) {
+        // Single Hold: Activate WINDOWS Layer
         layer_on(FUN);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Select Word Backward
+        select_word_tap('B');
+    } else if (state->count == 2 && state->pressed) {
+        // Double Hold: Select Line Backward (Shift + Up Arrow)
+        register_mods(MOD_BIT(KC_LSFT));  // Hold Shift
+        tap_code(KC_UP);                   // Tap Up Arrow
+        unregister_mods(MOD_BIT(KC_LSFT)); // Release Shift
     }
 }
 
-void dance_ossc_reset(tap_dance_state_t *state, void *user_data) {
+void dance_selbc_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(FUN)) {
-        // Release MO(FUN) when the key is released
         layer_off(FUN);
-    } else if (state->count == 1) {
-        // Release Shift after a single tap
-        del_weak_mods(MOD_BIT(KC_LSFT));
     }
+    select_word_unregister(); // Ensure selection is released
 }
 
 // Tap dance for slash 0
@@ -2563,6 +2569,10 @@ enum custom_keycodes {
     ZOOMIN,
     ZOOMOUT,
     REPEAT,
+    SELWFWD // Select Word Forward
+    SELWBAK,              // Select Word Backward
+    SELLINE,              // Select Line Forward
+    SELLINE_B,            // Select Line Backward
 };
 
 #include "features/select_word.h"
@@ -2572,10 +2582,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Process existing macros
     if (!process_sentence_case(keycode, record)) { return false; }
     if (!process_repeat_key(keycode, record, REPEAT)) { return false; }
-    if (!process_select_word(keycode, record, SELWORD)) return false;
     if (!process_select_word_back(keycode, record, SWORD_B)) return false;
     if (!process_autocorrection(keycode, record)) { return false; }
     if (!process_achordion(keycode, record)) { return false; }
+
+    if (!process_select_word(keycode, record)) { return false; }
+
+    switch (keycode) {
+        case SELWFWD:  // Forward Word Selection
+            if (record->event.pressed) {
+                select_word_register('W');
+            } else {
+                select_word_unregister();
+            }
+            break;
+
+        case SELWBAK:  // Backward Word Selection
+            if (record->event.pressed) {
+                select_word_register('B');
+            } else {
+                select_word_unregister();
+            }
+            break;
+
+        case SELLINE:  // Select Entire Line Forward
+            if(record->event.pressed) {
+                select_word_register('L');
+            } else {
+                select_word_unregister();
+            }
+            break;
+
+        case SELLINE_B:  // Select Entire Line Backward
+            if(record->event.pressed) {
+                register_mods(MOD_BIT(KC_LSFT));  // Hold Shift
+                tap_code(KC_UP);                  // Tap Up Arrow
+                unregister_mods(MOD_BIT(KC_LSFT)); // Release Shift
+            }
+            break;
+    }
 
                // Delwb macro
     switch (keycode) {
@@ -3214,8 +3259,8 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BSPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bspace_finished, dance_bspace_reset),
     [TD_LEAD_HYPER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lead_hyper_finished, dance_lead_hyper_reset),
     [TD_CODE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_code_finished, dance_code_reset),
-    [TD_OSSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ossc_finished, dance_ossc_reset),
-    [TD_DEL_C] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_del_c_finished, dance_del_c_reset),
+    [TD_SELBC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selbc_finished, dance_selbc_reset),
+    [TD_SELFC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selfc_finished, dance_selfc_reset),
     [TD_SLASH9] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash9_finished, dance_slash9_reset),
     [TD_BSLASH0] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bslash0_finished, dance_bslash0_reset),
     [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
@@ -3537,7 +3582,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REPEAT,   KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     BRACKETL, BRACKETR, KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
-        CSPACEP,  CAPP_P,   OSSC,                                     SPACE,                                DELC,     CAPP_N,   CSPACEN,    ADM,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                                SELFC,    CAPP_N,   CSPACEN,    ADM,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         POWER,    MCNTRL,   LNCHPAD,  KC_PGUP,  _______,   _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
