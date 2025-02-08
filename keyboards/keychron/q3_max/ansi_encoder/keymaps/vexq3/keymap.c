@@ -2622,7 +2622,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_mods(MOD_BIT(KC_LSFT)); // Release Shift
             }
             break;
-    }
 
                // Delwb macro
     switch (keycode) {
