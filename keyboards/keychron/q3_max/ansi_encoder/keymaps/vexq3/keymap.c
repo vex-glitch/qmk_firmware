@@ -191,8 +191,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CMOVE_P  TD(TD_CMOVE_P)
     #define SLEEVE   TD(TD_SLEEVE)
     #define APOST    TD(TD_APOSTROPHE)
-    #define BRACKETL TD(TD_BRACKET_L)
-    #define BRACKETR TD(TD_BRACKET_R)
+    #define TDOSS    TD(TD_BRACKET_L)
+    #define TDDELW   TD(TD_BRACKET_R)
     #define ADM      TD(TD_ADM)
 
 // QWERTY Layout
@@ -378,13 +378,12 @@ void dance_f15_anybox_reset(tap_dance_state_t *state, void *user_data) {
 
 void dance_cleanshot_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic if needed
-    if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
         unregister_code(KC_LALT);
         unregister_code(KC_LGUI);
     }
-}
+
 // Obsidian
 void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
     // Determine the number of taps or holds
@@ -1733,6 +1732,9 @@ void dance_period_finished(tap_dance_state_t *state, void *user_data) {
         // Single tap: . Space Capitalization
         SEND_STRING(". ");
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+    else if (state->count == 1 && state->pressed) {
+            // Single tap: . Space Capitalization
+            SEND_STRING(".");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: : Space Capitalization
         SEND_STRING(": ");
@@ -1752,6 +1754,9 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
         // Single tap: ? followed by Space Capitalization
         SEND_STRING("? ");
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+    else if (state->count == 1 && state->pressed) {
+            // Single tap: ? followed by Space Capitalization
+            SEND_STRING("!");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: ! followed by Space Capitalization
         SEND_STRING("! ");
@@ -1833,12 +1838,17 @@ void dance_space_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Send Space
         tap_code(KC_SPC);
+    } else if (state->count == 1 && state->pressed) {
+        // Hold: Activate MO(EXTEND)
+        layer_on(EXTEND);
     } else if (state->count == 2 && !state->pressed) {
         // Double Tap: Send Enter
         tap_code(KC_ENT);
-    } else if (state->pressed) {
+    } else if (state->count == 2 && state->pressed) {
         // Hold: Activate MO(EXTEND)
-        layer_on(EXTEND);
+        register_code(KC_LSFT);  // Hold Option
+        tap_code(KC_ENT); // Fonard Delete
+        unregister_code(KC_SFT); // Release Conmand
     }
 }
 
@@ -1867,6 +1877,9 @@ void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: , followed by Space
         SEND_STRING("'");
+    } else if (state->count == 1 && state->pressed) {
+            // Single tap: , followed by Space
+            SEND_STRING(",");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
         SEND_STRING("\"\"");
@@ -1903,13 +1916,21 @@ void dance_bracket_reset(tap_dance_state_t *state, void *user_data) {
 // Tap Dance Actions for Bracket
 void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: Inserts < > with the cursor between
-        SEND_STRING(">");
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: '
+        // Single tap: Activate One Shot Shift
+        register_code(KC_LALT);  // Hold Option
+        tap_code(KC_BSPC); // Fonard Delete
+        unregister_code(KC_LALT); // Release Conmand
+    } else if (state->count == 1 && state->pressed) {
+        // Single hold: Inserts "{"
         SEND_STRING("}");
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Inserts "<"
+        SEND_STRING(">");
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LGUI);  // Hold Option
+        tap_code(KC_BSPC); // Fonard Delete
+        unregister_code(KC_LGUI); // Release Conmand
     }
-}
 
 void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
@@ -1918,13 +1939,17 @@ void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
 // Tap Dance Actions for Bracket
 void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: Inserts < > with the cursor between
-        SEND_STRING("<");
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: '
+        // Single tap: Activate One Shot Shift
+        set_oneshot_mods(MOD_LSFT);
+    } else if (state->count == 1 && state->pressed) {
+        // Single hold: Inserts "{"
         SEND_STRING("{");
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Inserts "<"
+        SEND_STRING("<");
+    } else if (state->count == 2 && state->pressed) {
+
     }
-}
 
 void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
@@ -2123,12 +2148,16 @@ void dance_textc_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 1 && !state->pressed) {
         // Single Tap: Send " ///"
         SEND_STRING(" ///");
-    }
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_F19);
+        unregister_code(KC_LALT);
 }
 
 void dance_textc_reset(tap_dance_state_t *state, void *user_data) {
     // Ensure layer is turned off when tap dance ends
     layer_off(SYM);
+    unregister_code(KC_LALT);   // Release Option
 }
 
 // Space_p Colemak
@@ -2386,6 +2415,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_SNIP):
             return TAPPING_TERM + 100;
         case TD(TD_TEXTE):
+            return TAPPING_TERM + 100;
+        case TD(TD_TEXTC):
             return TAPPING_TERM + 50;
         case TD(TD_PERP):
             return TAPPING_TERM + 100;
@@ -2399,14 +2430,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_SLEEVE):
             return TAPPING_TERM + 100;
-            case TD(TD_ADM):
+        case TD(TD_ADM):
             return TAPPING_TERM + 100;
-            case TD(TD_APOSTROPHE):
-            return TAPPING_TERM + 100;
-            case TD(TD_BRACKET_L):
-            return TAPPING_TERM + 100;
-            case TD(TD_BRACKET_R):
-            return TAPPING_TERM + 100;
+        case TD(TD_APOSTROPHE):
+            return TAPPING_TERM + 50;
+        case TD(TD_BRACKET_L):
+            return TAPPING_TERM + 50;
+        case TD(TD_BRACKET_R):
+            return TAPPING_TERM + 50;
         default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -3564,7 +3595,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     KC_BSPC,    EAGLE,    DEVON,    FINDER,
         APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REPEAT,   KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
-        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     BRACKETL, BRACKETR, KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
+        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
