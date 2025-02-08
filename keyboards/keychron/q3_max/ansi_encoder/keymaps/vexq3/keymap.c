@@ -2434,31 +2434,31 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_SPACE):
             return TAPPING_TERM + 50;
         case TD(TD_CSPC_P):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 100;
             case TD(TD_CSPC_N):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 100;
             case TD(TD_CAPP_P):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 100;
             case TD(TD_CAPP_N):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 100;
             case TD(TD_SELBC):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 100;
             case TD(TD_SELFC):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 100;
             case TD(TD_BRACKET_L):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 75;
             case TD(TD_BRACKET_R):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 75;
             case TD(TD_PERIOD):
             return TAPPING_TERM + 50;
             case TD(TD_QUESTION):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 75;
             case TD(TD_BRACKET):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 75;
             case TD(TD_SLASH):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 75;
             case TD(TD_DELFOR):
-            return TAPPING_TERM + 50;
+            return TAPPING_TERM + 75;
         default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -2881,6 +2881,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_LCTL(SS_LGUI(SS_TAP(X_8))))); // Ctrl + Opt + Cmd + F10
         }
+        return false;
         case SLVMUTE:
                 if (record->event.pressed) {
         SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_6)))); // Ctrl + Opt + Cmd + F10
@@ -2890,6 +2891,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) {
         SEND_STRING(SS_LCTL(SS_LALT(SS_LGUI(SS_TAP(X_0))))); // Ctrl + Opt + Cmd + F10
         }
+        return false;
         case VSCODE:
                 if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_LGUI(SS_LSFT(SS_TAP(X_C))))); // Ctrl + Opt + Cmd + F10
