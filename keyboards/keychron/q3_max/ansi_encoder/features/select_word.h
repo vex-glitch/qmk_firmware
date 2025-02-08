@@ -60,6 +60,11 @@ void select_word_task(void);
 static inline void select_word_task(void) {}
 #endif  // SELECT_WORD_TIMEOUT > 0
 
+/** 🔹 Add these missing function declarations */
+void select_word_register(char action);
+void select_word_unregister(void);
+void select_word_tap(char action);
+
 #ifdef __cplusplus
 }
 #endif

@@ -143,3 +143,52 @@ bool process_select_word(uint16_t keycode, keyrecord_t* record,
 
   return true;
 }
+
+void select_word_register(char action) {
+    switch (action) {
+        case 'W':  // Select word forward
+#ifdef MAC_HOTKEYS
+            register_code(KC_LALT);
+#else
+            register_code(KC_LCTL);
+#endif
+            register_code(KC_LSFT);
+            tap_code(KC_RGHT);
+            break;
+
+        case 'B':  // Select word backward
+#ifdef MAC_HOTKEYS
+            register_code(KC_LALT);
+#else
+            register_code(KC_LCTL);
+#endif
+            register_code(KC_LSFT);
+            tap_code(KC_LEFT);
+            break;
+
+        case 'L':  // Select entire line
+#ifdef MAC_HOTKEYS
+            register_code(KC_LGUI);
+#else
+            register_code(KC_HOME);
+#endif
+            register_code(KC_LSFT);
+            tap_code(KC_END);
+            break;
+    }
+}
+
+void select_word_unregister(void) {
+    unregister_code(KC_LSFT);
+#ifdef MAC_HOTKEYS
+    unregister_code(KC_LALT);
+    unregister_code(KC_LGUI);
+#else
+    unregister_code(KC_LCTL);
+#endif
+}
+
+void select_word_tap(char action) {
+    select_word_register(action);
+    select_word_unregister();
+}

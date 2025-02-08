@@ -21,6 +21,8 @@
 #include "features/repeat_key.h"
 #include "features/sentence_case.h"
 #include "features/achordion.h"
+#include "features/select_word.h"
+#include "features/select_word_back.h" 
 
 enum unicode_names {
     HASH, // Identifier for the hashtag
@@ -2574,9 +2576,6 @@ enum custom_keycodes {
     SELLINE,              // Select Line Forward
     SELLINE_B,            // Select Line Backward
 };
-
-#include "features/select_word.h"
-#include "features/select_word_back.h"
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
 
