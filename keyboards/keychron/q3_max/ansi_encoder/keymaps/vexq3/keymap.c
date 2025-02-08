@@ -1754,7 +1754,7 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
         // Single tap: ? followed by Space Capitalization
         SEND_STRING("? ");
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
-    else if (state->count == 1 && state->pressed) {
+    } else if (state->count == 1 && state->pressed) {
             // Single tap: ? followed by Space Capitalization
             SEND_STRING("!");
     } else if (state->count == 2 && !state->pressed) {
@@ -1848,7 +1848,7 @@ void dance_space_finished(tap_dance_state_t *state, void *user_data) {
         // Hold: Activate MO(EXTEND)
         register_code(KC_LSFT);  // Hold Option
         tap_code(KC_ENT); // Fonard Delete
-        unregister_code(KC_SFT); // Release Conmand
+        unregister_code(KC_LSFT); // Release Conmand
     }
 }
 
