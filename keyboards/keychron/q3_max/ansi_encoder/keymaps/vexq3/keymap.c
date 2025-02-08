@@ -2578,6 +2578,8 @@ enum custom_keycodes {
 #include "features/select_word.h"
 #include "features/select_word_back.h"
 
+uint16_t SELECT_WORD_KEYCODE = SELWORD;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Process existing macros
     if (!process_sentence_case(keycode, record)) { return false; }
