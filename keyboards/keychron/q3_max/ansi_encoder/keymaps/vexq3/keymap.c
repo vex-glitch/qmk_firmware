@@ -2443,7 +2443,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
             case TD(TD_SELBC):
             return TAPPING_TERM + 50;
-            case TD(TD_TD_SELF):
+            case TD(TD_SELF):
             return TAPPING_TERM + 50;
             case TD(TD_BRACKET_L):
             return TAPPING_TERM + 50;
