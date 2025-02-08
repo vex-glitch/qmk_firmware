@@ -22,7 +22,7 @@
 #include "features/sentence_case.h"
 #include "features/achordion.h"
 #include "features/select_word.h"
-#include "features/select_word_back.h" 
+#include "features/select_word_back.h"
 
 enum unicode_names {
     HASH, // Identifier for the hashtag
@@ -2586,7 +2586,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_select_word_back(keycode, record, SWORD_B)) return false;
     if (!process_autocorrection(keycode, record)) { return false; }
     if (!process_achordion(keycode, record)) { return false; }
-    if (!process_select_word(keycode, record)) { return false; }
+    if (!process_select_word(keycode, record, SELWORD)) { return false; }
 
     switch (keycode) {
         // WORD SELECTION MACROS
