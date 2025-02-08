@@ -82,6 +82,9 @@
 #define LEADER_TIMEOUT 1000
 #define LEADER_NO_TIMEOUT
 
+// Layer
+#define LAYER_STATE_32BIT
+
 // Mouse keys
 #define MOUSEKEY_DELAY                              300
 #define MOUSEKEY_INTERVAL                           50
