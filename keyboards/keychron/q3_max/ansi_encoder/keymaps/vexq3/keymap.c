@@ -2569,7 +2569,7 @@ enum custom_keycodes {
     ZOOMIN,
     ZOOMOUT,
     REPEAT,
-    SELWFWD // Select Word Forward
+    SELWFWD,  // Select Word Forward
     SELWBAK,              // Select Word Backward
     SELLINE,              // Select Line Forward
     SELLINE_B,            // Select Line Backward
@@ -3630,7 +3630,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [MAC_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [MAC_FN]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-    [CMAK_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, 
+    [CMAK_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [EXTEND]   = {ENCODER_CCW_CW(ZOOMIN, ZOOMOUT)},
     [WINDOWS] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [FUN] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
