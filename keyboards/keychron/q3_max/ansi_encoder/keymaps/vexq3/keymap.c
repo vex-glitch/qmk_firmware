@@ -3263,6 +3263,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LCTL);
                     }
                     return false;
+                case HAZEDN:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_J);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                case HAZEUP:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_G);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
 
          default:
             return true;  // Process all other keycodes normally
@@ -3661,7 +3685,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [MAC_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [MAC_FN]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
     [CMAK_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [EXTEND]   = {ENCODER_CCW_CW(ZOOMIN, ZOOMOUT)},
+    [EXTEND]   = {ENCODER_CCW_CW(HAZDN, HAZUP,)},
     [WINDOWS] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [FUN] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
     [SYM] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
