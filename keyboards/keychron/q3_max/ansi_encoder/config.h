@@ -181,6 +181,6 @@
 #define HOME_V KC_V
 #define HOME_X KC_X
 
-#define LAYER_STATE_8BIT
-#define MAX_LAYER 32
+#define LAYER_STATE_16BIT
+#define MAX_LAYER 16
 #endif
