@@ -2387,8 +2387,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_CLEANSHOT):
             return TAPPING_TERM + 100;
-        case TD(TD_LEAD_HYPER):
-            return TAPPING_TERM + 50;
         case TD(TD_FINDER):
             return TAPPING_TERM + 100;
         case TD(TD_DEVONTHINK):
@@ -2431,13 +2429,43 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_SLEEVE):
             return TAPPING_TERM + 100;
-        case TD(TD_ADM):
-            return TAPPING_TERM + 100;
         case TD(TD_APOSTROPHE):
             return TAPPING_TERM + 50;
         case TD(TD_BRACKET_L):
             return TAPPING_TERM + 50;
         case TD(TD_BRACKET_R):
+            return TAPPING_TERM + 50;
+        case TD(TD_SPACE):
+            return TAPPING_TERM + 50;
+        case TD(TD_CSPC_P):
+            return TAPPING_TERM + 50;
+            case TD(TD_CSPC_N):
+            return TAPPING_TERM + 50;
+            case TD(TD_CAPP_P):
+            return TAPPING_TERM + 50;
+            case TD(TD_CAPP_N):
+            return TAPPING_TERM + 50;
+            case TD(TD_SELBC):
+            return TAPPING_TERM + 50;
+            case TD(TD_SELF):
+            return TAPPING_TERM + 50;
+            case TD(TD_BRACKET_L):
+            return TAPPING_TERM + 50;
+            case TD(TD_BRACKET_R):
+            return TAPPING_TERM + 50;
+            case TD(TD_PERIOD):
+            return TAPPING_TERM + 50;
+            case TD(TD_SLASH):
+            return TAPPING_TERM + 50;
+            case TD(TD_QUESTION):
+            return TAPPING_TERM + 50;
+            case TD(TD_):
+            return TAPPING_TERM + 50;
+            case TD(TD_BRACKET):
+            return TAPPING_TERM + 50;
+            case TD(TD_SLASH):
+            return TAPPING_TERM + 50;
+            case TD(TD_DELFOR):
             return TAPPING_TERM + 50;
         default:
             return TAPPING_TERM;  // Default tapping term

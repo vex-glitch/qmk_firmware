@@ -65,7 +65,7 @@
 #    define RETRO_SHIFT 500
 
 // One shot
-#    define ONESHOT_TIMEOUT 1000  /* Time (in ms) before the one shot key is released */
+#    define ONESHOT_TIMEOUT 2000  /* Time (in ms) before the one shot key is released */
 
 // Caps word
 #    define CAPS_WORD_INVERT_ON_SHIFT
