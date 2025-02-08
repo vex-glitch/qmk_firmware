@@ -2587,10 +2587,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_select_word_back(keycode, record, SWORD_B)) return false;
     if (!process_autocorrection(keycode, record)) { return false; }
     if (!process_achordion(keycode, record)) { return false; }
-
-    if (!process_select_word(keycode, record)) { return false; }
+    if (!process_select_word(keycode, record, SELWORD)) { return false; }
 
     switch (keycode) {
+        // WORD SELECTION MACROS
         case SELWFWD:  // Forward Word Selection
             if (record->event.pressed) {
                 select_word_register('W');
@@ -2608,7 +2608,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case SELLINE:  // Select Entire Line Forward
-            if(record->event.pressed) {
+            if (record->event.pressed) {
                 select_word_register('L');
             } else {
                 select_word_unregister();
@@ -2616,620 +2616,602 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case SELLINE_B:  // Select Entire Line Backward
-            if(record->event.pressed) {
+            if (record->event.pressed) {
                 register_mods(MOD_BIT(KC_LSFT));  // Hold Shift
                 tap_code(KC_UP);                  // Tap Up Arrow
                 unregister_mods(MOD_BIT(KC_LSFT)); // Release Shift
             }
             break;
 
-               // Delwb macro
-    switch (keycode) {
-        case DELWB:
+        // DELETE WORD MACROS
+        case DELWB:  // Delete Word Backward
             if (record->event.pressed) {
-                // Send Option + Delete for deleting a word
-                register_code(KC_LALT); // Hold Option (Alt)
-                tap_code(KC_BSPC);      // Send Backspace
-                unregister_code(KC_LALT); // Release Option
+                register_code(KC_LALT);
+                tap_code(KC_BSPC);
+                unregister_code(KC_LALT);
             }
-            return false; // Skip further processing of this key
-    }
-            // Delwf macro
-    switch (keycode) {
-        case DELWF:
+            return false;
+
+        case DELWF:  // Delete Word Forward
             if (record->event.pressed) {
-                // Send Option + Delete for deleting a word
-                register_code(KC_LALT); // Hold Option (Alt)
-                tap_code(KC_DEL);      // Send Backspace
-                unregister_code(KC_LALT); // Release Option
+                register_code(KC_LALT);
+                tap_code(KC_DEL);
+                unregister_code(KC_LALT);
             }
-            return false; // Skip further processing of this key
-    }
-            // Sline macro
-    switch (keycode) {
-        case SLINE:
+            return false;
+
+        // LINE SELECTION MACROS
+        case SLINE:  // Select Line Forward
             if (record->event.pressed) {
-                // Shift + Command + Right
                 register_code(KC_LSFT);
                 register_code(KC_LCMD);
                 tap_code(KC_RGHT);
                 unregister_code(KC_LCMD);
                 unregister_code(KC_LSFT);
             }
-            return false;  // Skip further processing
-    }
-            // Sline_p macro
-    switch (keycode) {
-        case SLINE_P:
+            return false;
+
+        case SLINE_P:  // Select Line Backward
             if (record->event.pressed) {
-                // Shift + Command + Right
                 register_code(KC_LSFT);
                 register_code(KC_LCMD);
                 tap_code(KC_LEFT);
                 unregister_code(KC_LCMD);
                 unregister_code(KC_LSFT);
             }
-            return false;  // Skip further processing
-    }
-            // Undo macro
-    switch (keycode) {
+            return false;
+
+        // STANDARD MACROS
         case UNDO:
             if (record->event.pressed) {
-                // Command + Z
                 register_code(KC_LCMD);
                 tap_code(KC_Z);
                 unregister_code(KC_LCMD);
             }
-            return false;  // Skip further processing
-    }
-            // Copy macro
-    switch (keycode) {
+            return false;
+
         case COPY:
             if (record->event.pressed) {
                 register_code(KC_LCMD);
                 tap_code(KC_C);
                 unregister_code(KC_LCMD);
             }
-            return false;  // Skip further processing
-    }
-            // Paste macro
-    switch (keycode) {
+            return false;
+
         case PASTE:
             if (record->event.pressed) {
                 register_code(KC_LCMD);
                 tap_code(KC_V);
                 unregister_code(KC_LCMD);
             }
-            return false;  // Skip further processing
-    }
-            // Cut macro
-    switch (keycode) {
+            return false;
+
         case CUT:
             if (record->event.pressed) {
                 register_code(KC_LCMD);
                 tap_code(KC_X);
                 unregister_code(KC_LCMD);
             }
-            return false;  // Skip further processing
-    }
-            // Duplicate macro
-    switch (keycode) {
+            return false;
+
         case DUPLICA:
             if (record->event.pressed) {
                 register_code(KC_LCMD);
                 tap_code(KC_D);
                 unregister_code(KC_LCMD);
             }
-            return false;  // Skip further processing
-    }
-            // Arc
-    switch (keycode) {
-        case ARC_B:
-            if (record->event.pressed) {
-                register_code(KC_LCMD);
-                tap_code(KC_LBRC);
-                unregister_code(KC_LCMD);
-            }
-            return false;  // Skip further processing
-    }
-            // Windows
-            // 1
-    switch (keycode) {
-        case WIN1_1:
-            if (record->event.pressed) {
-                // Send Opt + Shift + Cmd + 1
-                register_code(KC_LALT);   // Hold Option
-                register_code(KC_LSFT);  // Hold Shift
-                register_code(KC_LCMD);  // Hold Command
-                tap_code(KC_1);          // Press 1
-                unregister_code(KC_LCMD);  // Release Command
-                unregister_code(KC_LSFT);  // Release Shift
-                unregister_code(KC_LALT);  // Release Option
-            }
-            return false;  // Skip further processing
-        case WIN1_2:
-            if (record->event.pressed) {
-                // Send Opt + Shift + Cmd + 2
-                register_code(KC_LALT);   // Hold Option
-                register_code(KC_LSFT);  // Hold Shift
-                register_code(KC_LCMD);  // Hold Command
-                tap_code(KC_2);          // Press 2
-                unregister_code(KC_LCMD);  // Release Command
-                unregister_code(KC_LSFT);  // Release Shift
-                unregister_code(KC_LALT);  // Release Option
-            }
-            return false;  // Skip further processing
-        case WIN1_3:
-            if (record->event.pressed) {
-                // Send Opt + Shift + Cmd + 3
-                register_code(KC_LALT);   // Hold Option
-                register_code(KC_LSFT);  // Hold Shift
-                register_code(KC_LCMD);  // Hold Command
-                tap_code(KC_3);          // Press 3
-                unregister_code(KC_LCMD);  // Release Command
-                unregister_code(KC_LSFT);  // Release Shift
-                unregister_code(KC_LALT);  // Release Option
-            }
-            return false;  // Skip further processing
-            // Windows 2
-        case WIN2_1:
-            if (record->event.pressed) {
-                register_code(KC_LALT);   // Hold Option
-                register_code(KC_LSFT);  // Hold Shift
-                register_code(KC_LCMD);  // Hold Command
-                tap_code(KC_4);          // Press 4
-                unregister_code(KC_LCMD);  // Release Command
-                unregister_code(KC_LSFT);  // Release Shift
-                unregister_code(KC_LALT);  // Release Option
-            }
             return false;
-        case WIN2_2:
+
+        // HYPER KEY MACROS (ARC)
+        case ARC_B:  // Hyper + Left
             if (record->event.pressed) {
+                register_code(KC_LCTL);
                 register_code(KC_LALT);
+                register_code(KC_LCMD);
                 register_code(KC_LSFT);
-                register_code(KC_LCMD);
-                tap_code(KC_5);
-                unregister_code(KC_LCMD);
+                tap_code(KC_LEFT);
                 unregister_code(KC_LSFT);
+                unregister_code(KC_LCMD);
                 unregister_code(KC_LALT);
+                unregister_code(KC_LCTL);
             }
             return false;
-        case WIN2_3:
+
+        case ARC_F:  // Hyper + Right
             if (record->event.pressed) {
+                register_code(KC_LCTL);
                 register_code(KC_LALT);
+                register_code(KC_LCMD);
                 register_code(KC_LSFT);
-                register_code(KC_LCMD);
-                tap_code(KC_6);
-                unregister_code(KC_LCMD);
+                tap_code(KC_RIGHT);
                 unregister_code(KC_LSFT);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN2_4:
-            if (record->event.pressed) {
-                register_code(KC_LALT);
-                register_code(KC_LSFT);
-                register_code(KC_LCMD);
-                tap_code(KC_7);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN2_5:
-            if (record->event.pressed) {
-                register_code(KC_LALT);
-                register_code(KC_LSFT);
-                register_code(KC_LCMD);
-                tap_code(KC_8);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN2_6:
-            if (record->event.pressed) {
-                register_code(KC_LALT);
-                register_code(KC_LSFT);
-                register_code(KC_LCMD);
-                tap_code(KC_9);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN2_7:
-            if (record->event.pressed) {
-                register_code(KC_LALT);
-                register_code(KC_LSFT);
-                register_code(KC_LCMD);
-                tap_code(KC_0);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LALT);
-            }
-            return false;
-            // 3
-        case WIN3_1:
-            if (record->event.pressed) {
-                // Option + Command + 1
-                register_code(KC_LALT);   // Hold Option
-                register_code(KC_LCMD);  // Hold Command
-                tap_code(KC_1);          // Press 1
-                unregister_code(KC_LCMD);  // Release Command
-                unregister_code(KC_LALT);  // Release Option
-            }
-            return false;
-        case WIN3_2:
-            if (record->event.pressed) {
-                // Option + Command + 2
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_2);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN3_3:
-            if (record->event.pressed) {
-                // Option + Command + 3
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_3);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN3_4:
-            if (record->event.pressed) {
-                // Option + Command + 4
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_4);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN3_5:
-            if (record->event.pressed) {
-                // Option + Command + 5
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_5);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN3_6:
-            if (record->event.pressed) {
-                // Option + Command + 6
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_6);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN3_7:
-            if (record->event.pressed) {
-                // Option + Command + 7
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_7);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LALT);
-            }
-            return false;
-         case WIN4_1:
-            if (record->event.pressed) {
-                // Shift + Command + 8
-                register_code(KC_LALT);  // Hold Shift
-                register_code(KC_LCMD); // Hold Command
-                tap_code(KC_8);         // Press 8
-                unregister_code(KC_LCMD); // Release Command
-                unregister_code(KC_LALT); // Release Shift
-            }
-            return false;
-        case WIN4_2:
-            if (record->event.pressed) {
-                // Shift + Command + 9
-                register_code(KC_LCTL);
-                register_code(KC_LCMD);
-                tap_code(KC_9);
-                unregister_code(KC_LCTL);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN4_3:
-            if (record->event.pressed) {
-                // Shift + Command + 0
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_0);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case WIN4_4:
-            if (record->event.pressed) {
-                // Control + Shift + 1
-                register_code(KC_LCTL);  // Hold Control
-                register_code(KC_LALT);
-                register_code(KC_LCMD);  // Hold Shift
-                tap_code(KC_1);
-                unregister_code(KC_LCMD);          // Press 1
-                unregister_code(KC_LALT); // Release Shift
-                unregister_code(KC_LCTL); // Release Control
-            }
-            return false;
-            // 5
-         case WIN5_1:
-            if (record->event.pressed) {
-                // Control + Option + 2
-                register_code(KC_LCTL);  // Hold Control
-                register_code(KC_LALT);  // Hold Option
-                tap_code(KC_2);          // Press 2
-                unregister_code(KC_LALT);  // Release Option
-                unregister_code(KC_LCTL);  // Release Control
-            }
-            return false;
-        case WIN5_2:
-            if (record->event.pressed) {
-                // Control + Option + 3
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                tap_code(KC_3);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case WIN5_3:
-            if (record->event.pressed) {
-                // Control + Option + 4
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                tap_code(KC_4);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case WIN5_4:
-            if (record->event.pressed) {
-                // Control + Option + 5
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                tap_code(KC_5);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-            // 6
-        case WIN6_1:
-            if (record->event.pressed) {
-                // Control + Option + 6
-                register_code(KC_LCTL);  // Hold Control
-                register_code(KC_LALT);  // Hold Option
-                tap_code(KC_6);          // Press 6
-                unregister_code(KC_LALT);  // Release Option
-                unregister_code(KC_LCTL);  // Release Control
-            }
-            return false;
-        case WIN6_2:
-            if (record->event.pressed) {
-                // Control + Option + 7
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                tap_code(KC_7);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case WIN6_3:
-            if (record->event.pressed) {
-                // Control + Option + 8
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                tap_code(KC_8);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case ZOOMIN:
-            if (record->event.pressed) {
-                // Control + Option + 8
-                register_code(KC_LALT);
-                tap_code(MSEWHLDO);
-                unregister_code(KC_LALT);
-            }
-            return false;
-                    case ZOOMOUT:
-            if (record->event.pressed) {
-                // Control + Option + 8
-                register_code(KC_LALT);
-                tap_code(MSEWHLUP);
-                unregister_code(KC_LALT);
-            }
-            return false;
-        case WIN6_4:
-            if (record->event.pressed) {
-                // Control + Option + 9
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                tap_code(KC_9);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case WIN6_5:
-            if (record->event.pressed) {
-                // Control + Option + 0
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                tap_code(KC_0);
-                unregister_code(KC_LALT);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-            // 7
-        case WIN7_1:
-            if (record->event.pressed) {
-                // Ctrl + Option + Command + 2
-                register_code(KC_LCTL);  // Hold Control
-                register_code(KC_LALT);  // Hold Option
-                register_code(KC_LCMD);  // Hold Command
-                tap_code(KC_2);          // Press 2
-                unregister_code(KC_LCMD);  // Release Command
-                unregister_code(KC_LALT);  // Release Option
-                unregister_code(KC_LCTL);  // Release Control
-            }
-            return false;
-        case WIN7_2:
-            if (record->event.pressed) {
-                // Ctrl + Option + Command + 3
-                register_code(KC_LCTL);
-                register_code(KC_LALT);
-                register_code(KC_LCMD);
-                tap_code(KC_3);
                 unregister_code(KC_LCMD);
                 unregister_code(KC_LALT);
                 unregister_code(KC_LCTL);
             }
             return false;
-         case FULLSCR:
+
+        // APPLICATION SHORTCUTS
+
+        case FULLSCR:
             if (record->event.pressed) {
-                // Ctrl + Option + Command + 3
                 register_code(KC_LCTL);
                 register_code(KC_LCMD);
                 tap_code(KC_F);
                 unregister_code(KC_LCMD);
                 unregister_code(KC_LCTL);
             }
-        case ARC_B:
+            return false;
+
+        case ITERM:
             if (record->event.pressed) {
-                // Emulate Hyper (Ctrl + Option + Command + Shift) + B
-                register_code(KC_LCTL);   // Hold Control
-                register_code(KC_LALT);   // Hold Option
-                register_code(KC_LCMD);   // Hold Command
-                register_code(KC_LSFT);   // Hold Shift
-                tap_code(KC_LEFT);           // Tap B
-                unregister_code(KC_LSFT); // Release Shift
-                unregister_code(KC_LCMD); // Release Command
-                unregister_code(KC_LALT); // Release Option
-                unregister_code(KC_LCTL); // Release Control
+                register_code(KC_LCTL);
+                register_code(KC_LCMD);
+                register_code(KC_LSFT);
+                tap_code(KC_T);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LCMD);
+                unregister_code(KC_LCTL);
             }
-        case ARC_F:
+            return false;
+
+        case KMESTRO:
             if (record->event.pressed) {
-                // Emulate Hyper (Ctrl + Option + Command + Shift) + B
-                register_code(KC_LCTL);   // Hold Control
-                register_code(KC_LALT);   // Hold Option
-                register_code(KC_LCMD);   // Hold Command
-                register_code(KC_LSFT);   // Hold Shift
-                tap_code(KC_RIGHT);           // Tap B
-                unregister_code(KC_LSFT); // Release Shift
-                unregister_code(KC_LCMD); // Release Command
-                unregister_code(KC_LALT); // Release Option
-                unregister_code(KC_LCTL); // Release Control
-            }
-            case KMESTRO:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F1))))); // Ctrl + Opt + Cmd + F1
-                }
-            return false;
-            case SYSSET:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F2))))); // Ctrl + Opt + Cmd + F2
+                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F1)))));
             }
             return false;
-            case PASS:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F3))))); // Ctrl + Opt + Cmd + F3
+
+        case SYSSET:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F2)))));
             }
             return false;
-            case SPOTIFY:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F4))))); // Ctrl + Opt + Cmd + F4
+
+        case PASS:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F3)))));
             }
             return false;
-            case PORTAL:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F6))))); // Ctrl + Opt + Cmd + F6
+
+        case SPOTIFY:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F4)))));
             }
             return false;
-            case SPEED:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F7))))); // Ctrl + Opt + Cmd + F7
+
+        case ELGATO:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F9)))));
             }
             return false;
-            case MSG:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F8))))); // Ctrl + Opt + Cmd + F8
+
+        case WHATSAPP:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_PGUP)))));
             }
-            return false;
-            case WHATSAPP:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_PGUP))))); // Ctrl + Opt + Cmd + F9
-            }
-            return false;
-            case ELGATO:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F9))))); // Ctrl + Opt + Cmd + F10
-            }
-            return false;
-            case ITERM:
-                  if (record->event.pressed) {
-                // Emulate Hyper (Ctrl + Option + Command + Shift) + B
-                register_code(KC_LCTL);   // Hold Control
-                register_code(KC_LCMD);   // Hold Command
-                register_code(KC_LSFT);   // Hold Shift
-                tap_code(KC_T);           // Tap B
-                unregister_code(KC_LSFT); // Release Shift
-                unregister_code(KC_LCMD); // Release Command
-                unregister_code(KC_LCTL); // Release Control
-            }
-             return false;
-            case SLVPP:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_0))))); // Ctrl + Opt + Cmd + F10
-            }
-            return false;
-            case SLVNEXT:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_0)))); // Ctrl + Opt + Cmd + F10
-            }
-            return false;
-            case SLVPREV:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_9)))); // Ctrl + Opt + Cmd + F10
-            }
-            return false;
-            case SLVVOLU:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_7)))); // Ctrl + Opt + Cmd + F10
-            }
-            return false;
-            case SLVVOLD:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_LCTL(SS_LGUI(SS_TAP(X_8))))); // Ctrl + Opt + Cmd + F10
-            }
-            case SLVMUTE:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_6)))); // Ctrl + Opt + Cmd + F10
-            }
-            return false;
-            case SLVLIKE:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LALT(SS_LGUI(SS_TAP(X_0))))); // Ctrl + Opt + Cmd + F10
-            }
-            case VSCODE:
-                       if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_LGUI(SS_LSFT(SS_TAP(X_C))))); // Ctrl + Opt + Cmd + F10
-            }
-            return false;
-            case LDECK:
-                        if (record->event.pressed) {
-                SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_L))))); // Ctrl + Opt + Cmd + F10
+        return false;
+
+        case PORTAL:
+                    if (record->event.pressed) {
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F6))))); // Ctrl + Opt + Cmd + F6
         }
-            return false;
+        return false;
+        case SPEED:
+                    if (record->event.pressed) {
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F7))))); // Ctrl + Opt + Cmd + F7
+        }
+        return false;
+        case MSG:
+                    if (record->event.pressed) {
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F8))))); // Ctrl + Opt + Cmd + F8
+        }
+        return false;
+        case SLVPP:
+        if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_0))))); // Ctrl + Opt + Cmd + F10
+        }
+        return false;
+        case SLVNEXT:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_0)))); // Ctrl + Opt + Cmd + F10
+        }
+        return false;
+        case SLVPREV:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_9)))); // Ctrl + Opt + Cmd + F10
+        }
+        return false;
+        case SLVVOLU:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_7)))); // Ctrl + Opt + Cmd + F10
+        }
+        return false;
+        case SLVVOLD:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_LCTL(SS_LGUI(SS_TAP(X_8))))); // Ctrl + Opt + Cmd + F10
+        }
+        case SLVMUTE:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_6)))); // Ctrl + Opt + Cmd + F10
+        }
+        return false;
+        case SLVLIKE:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LALT(SS_LGUI(SS_TAP(X_0))))); // Ctrl + Opt + Cmd + F10
+        }
+        case VSCODE:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_LGUI(SS_LSFT(SS_TAP(X_C))))); // Ctrl + Opt + Cmd + F10
+        }
+        return false;
+        case LDECK:
+                if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_L))))); // Ctrl + Opt + Cmd + F10
+        }
+
+            //Window management
+                case WIN1_1:
+                    if (record->event.pressed) {
+                        // Send Opt + Shift + Cmd + 1
+                        register_code(KC_LALT);   // Hold Option
+                        register_code(KC_LSFT);  // Hold Shift
+                        register_code(KC_LCMD);  // Hold Command
+                        tap_code(KC_1);          // Press 1
+                        unregister_code(KC_LCMD);  // Release Command
+                        unregister_code(KC_LSFT);  // Release Shift
+                        unregister_code(KC_LALT);  // Release Option
+                    }
+                    return false;  // Skip further processing
+                case WIN1_2:
+                    if (record->event.pressed) {
+                        // Send Opt + Shift + Cmd + 2
+                        register_code(KC_LALT);   // Hold Option
+                        register_code(KC_LSFT);  // Hold Shift
+                        register_code(KC_LCMD);  // Hold Command
+                        tap_code(KC_2);          // Press 2
+                        unregister_code(KC_LCMD);  // Release Command
+                        unregister_code(KC_LSFT);  // Release Shift
+                        unregister_code(KC_LALT);  // Release Option
+                    }
+                    return false;  // Skip further processing
+                case WIN1_3:
+                    if (record->event.pressed) {
+                        // Send Opt + Shift + Cmd + 3
+                        register_code(KC_LALT);   // Hold Option
+                        register_code(KC_LSFT);  // Hold Shift
+                        register_code(KC_LCMD);  // Hold Command
+                        tap_code(KC_3);          // Press 3
+                        unregister_code(KC_LCMD);  // Release Command
+                        unregister_code(KC_LSFT);  // Release Shift
+                        unregister_code(KC_LALT);  // Release Option
+                    }
+                    return false;  // Skip further processing
+                    // Windows 2
+                case WIN2_1:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);   // Hold Option
+                        register_code(KC_LSFT);  // Hold Shift
+                        register_code(KC_LCMD);  // Hold Command
+                        tap_code(KC_4);          // Press 4
+                        unregister_code(KC_LCMD);  // Release Command
+                        unregister_code(KC_LSFT);  // Release Shift
+                        unregister_code(KC_LALT);  // Release Option
+                    }
+                    return false;
+                case WIN2_2:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_5);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN2_3:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_6);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN2_4:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_7);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN2_5:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_8);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN2_6:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_9);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN2_7:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_0);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                    // 3
+                case WIN3_1:
+                    if (record->event.pressed) {
+                        // Option + Command + 1
+                        register_code(KC_LALT);   // Hold Option
+                        register_code(KC_LCMD);  // Hold Command
+                        tap_code(KC_1);          // Press 1
+                        unregister_code(KC_LCMD);  // Release Command
+                        unregister_code(KC_LALT);  // Release Option
+                    }
+                    return false;
+                case WIN3_2:
+                    if (record->event.pressed) {
+                        // Option + Command + 2
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_2);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN3_3:
+                    if (record->event.pressed) {
+                        // Option + Command + 3
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_3);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN3_4:
+                    if (record->event.pressed) {
+                        // Option + Command + 4
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_4);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN3_5:
+                    if (record->event.pressed) {
+                        // Option + Command + 5
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_5);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN3_6:
+                    if (record->event.pressed) {
+                        // Option + Command + 6
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_6);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN3_7:
+                    if (record->event.pressed) {
+                        // Option + Command + 7
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_7);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                 case WIN4_1:
+                    if (record->event.pressed) {
+                        // Shift + Command + 8
+                        register_code(KC_LALT);  // Hold Shift
+                        register_code(KC_LCMD); // Hold Command
+                        tap_code(KC_8);         // Press 8
+                        unregister_code(KC_LCMD); // Release Command
+                        unregister_code(KC_LALT); // Release Shift
+                    }
+                    return false;
+                case WIN4_2:
+                    if (record->event.pressed) {
+                        // Shift + Command + 9
+                        register_code(KC_LCTL);
+                        register_code(KC_LCMD);
+                        tap_code(KC_9);
+                        unregister_code(KC_LCTL);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN4_3:
+                    if (record->event.pressed) {
+                        // Shift + Command + 0
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_0);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                case WIN4_4:
+                    if (record->event.pressed) {
+                        // Control + Shift + 1
+                        register_code(KC_LCTL);  // Hold Control
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);  // Hold Shift
+                        tap_code(KC_1);
+                        unregister_code(KC_LCMD);          // Press 1
+                        unregister_code(KC_LALT); // Release Shift
+                        unregister_code(KC_LCTL); // Release Control
+                    }
+                    return false;
+                    // 5
+                 case WIN5_1:
+                    if (record->event.pressed) {
+                        // Control + Option + 2
+                        register_code(KC_LCTL);  // Hold Control
+                        register_code(KC_LALT);  // Hold Option
+                        tap_code(KC_2);          // Press 2
+                        unregister_code(KC_LALT);  // Release Option
+                        unregister_code(KC_LCTL);  // Release Control
+                    }
+                    return false;
+                case WIN5_2:
+                    if (record->event.pressed) {
+                        // Control + Option + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        tap_code(KC_3);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                case WIN5_3:
+                    if (record->event.pressed) {
+                        // Control + Option + 4
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        tap_code(KC_4);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                case WIN5_4:
+                    if (record->event.pressed) {
+                        // Control + Option + 5
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        tap_code(KC_5);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    // 6
+                case WIN6_1:
+                    if (record->event.pressed) {
+                        // Control + Option + 6
+                        register_code(KC_LCTL);  // Hold Control
+                        register_code(KC_LALT);  // Hold Option
+                        tap_code(KC_6);          // Press 6
+                        unregister_code(KC_LALT);  // Release Option
+                        unregister_code(KC_LCTL);  // Release Control
+                    }
+                    return false;
+                case WIN6_2:
+                    if (record->event.pressed) {
+                        // Control + Option + 7
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        tap_code(KC_7);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                case WIN6_3:
+                    if (record->event.pressed) {
+                        // Control + Option + 8
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        tap_code(KC_8);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                case ZOOMIN:
+                    if (record->event.pressed) {
+                        // Control + Option + 8
+                        register_code(KC_LALT);
+                        tap_code(MSEWHLDO);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                            case ZOOMOUT:
+                    if (record->event.pressed) {
+                        // Control + Option + 8
+                        register_code(KC_LALT);
+                        tap_code(MSEWHLUP);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WIN6_4:
+                    if (record->event.pressed) {
+                        // Control + Option + 9
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        tap_code(KC_9);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                case WIN6_5:
+                    if (record->event.pressed) {
+                        // Control + Option + 0
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        tap_code(KC_0);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    // 7
+                case WIN7_1:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 2
+                        register_code(KC_LCTL);  // Hold Control
+                        register_code(KC_LALT);  // Hold Option
+                        register_code(KC_LCMD);  // Hold Command
+                        tap_code(KC_2);          // Press 2
+                        unregister_code(KC_LCMD);  // Release Command
+                        unregister_code(KC_LALT);  // Release Option
+                        unregister_code(KC_LCTL);  // Release Control
+                    }
+                    return false;
+                case WIN7_2:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LCMD);
+                        tap_code(KC_3);
+                        unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+
+
         default:
             return true;  // Process all other keycodes normally
     }
