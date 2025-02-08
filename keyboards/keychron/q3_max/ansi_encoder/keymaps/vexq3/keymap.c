@@ -1931,6 +1931,7 @@ void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_BSPC); // Fonard Delete
         unregister_code(KC_LGUI); // Release Conmand
     }
+}
 
 void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
@@ -1947,9 +1948,8 @@ void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: Inserts "<"
         SEND_STRING("<");
-    } else if (state->count == 2 && state->pressed) {
-
     }
+}
 
 void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
