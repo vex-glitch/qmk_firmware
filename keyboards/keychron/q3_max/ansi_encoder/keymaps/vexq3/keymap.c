@@ -40,7 +40,7 @@ enum layers {
     WINDOWS,     // Layer 4 - Windows Layer
     FUN,         // Layer 5 - Function Layer
     SYM,         // Layer 6 - Symbol Layer
-    ADM,         // Layer 7 - Admin Layer
+   ///  ADM,         // Layer 7 - Admin Layer
 };
 
 // Tap Dance Declarations
@@ -2331,20 +2331,20 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
-void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
+ ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
+   ///  if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate One Shot Layer ADM
-        tap_code16(OSL(ADM));
-    } else if (state->pressed) {
+    ///     tap_code16(OSL(ADM));
+     ///} else if (state->pressed) {
         // Hold: Act as Right Control
-        register_code(KC_RCTL);
-    }
-}
+      ///   register_code(KC_RCTL);
+    /// }
+ ///}
 
-void dance_adm_reset(tap_dance_state_t *state, void *user_data) {
+ ///void dance_adm_reset(tap_dance_state_t *state, void *user_data) {
     // Reset Right Control when released
-    unregister_code(KC_RCTL);
-}
+    /// unregister_code(KC_RCTL);
+ ///}
 
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -3565,15 +3565,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REPEAT,   KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     BRACKETL, BRACKETR, KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
-        CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                                SELFC,    CAPP_N,   CSPACEN,    ADM,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
-        POWER,    MCNTRL,   LNCHPAD,  KC_PGUP,  _______,   _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
-        TILDE,    KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
-        KC_LCTL,  MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE,  _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
-        LEADHYPE, KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,   MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
-        UNDO,               CUT,      COPY,     DUPLICA,   PASTE,    MSEC1,    MSEC4,    MSEC2,    DELWF,    PAGEDN,   DELWB,                _______,              _______,
-        SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                                CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
+        POWER,    MCNTRL,   LNCHPAD,  KC_PGUP,  _______,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
+        TILDE,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
+        KC_LCTL,  MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
+        LEADHYPE, KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
+        UNDO,               CUT,      COPY,     DUPLICA,  PASTE,    MSEC1,    MSEC4,    MSEC2,    DELWF,    PAGEDN,   DELWB,                _______,              _______,
+        SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                               CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
         FULLSCR,  WIN1_1,   WIN1_2,   WIN1_3,   _______,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     _______,    _______,  _______,  _______,
@@ -3599,13 +3599,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
-    [ADM] = LAYOUT_tkl_ansi(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
-        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 };
 
 // clang-format on
@@ -3618,7 +3611,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [WINDOWS] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [FUN] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
     [SYM] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [ADM] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
+   ///  [ADM] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
 };
 #endif // ENCODER_MAP_ENABLE
 
