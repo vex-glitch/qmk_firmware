@@ -2431,10 +2431,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_APOSTROPHE):
             return TAPPING_TERM + 50;
-        case TD(TD_BRACKET_L):
-            return TAPPING_TERM + 50;
-        case TD(TD_BRACKET_R):
-            return TAPPING_TERM + 50;
         case TD(TD_SPACE):
             return TAPPING_TERM + 50;
         case TD(TD_CSPC_P):
@@ -2447,15 +2443,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
             case TD(TD_SELBC):
             return TAPPING_TERM + 50;
-            case TD(TD_SELF):
+            case TD(TD_TD_SELF):
             return TAPPING_TERM + 50;
             case TD(TD_BRACKET_L):
             return TAPPING_TERM + 50;
             case TD(TD_BRACKET_R):
             return TAPPING_TERM + 50;
             case TD(TD_PERIOD):
-            return TAPPING_TERM + 50;
-            case TD(TD_SLASH):
             return TAPPING_TERM + 50;
             case TD(TD_QUESTION):
             return TAPPING_TERM + 50;
