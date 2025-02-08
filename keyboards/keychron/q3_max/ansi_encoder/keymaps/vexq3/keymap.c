@@ -2627,6 +2627,8 @@ enum custom_keycodes {
     SELWBAK,              // Select Word Backward
     SELLINE,              // Select Line Forward
     SELLINE_B,            // Select Line Backward
+    HAZEDN,
+    HAZEUP,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
