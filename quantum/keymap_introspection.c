@@ -15,8 +15,6 @@
 // Key mapping
 
 #define NUM_KEYMAP_LAYERS_RAW ((uint8_t)(sizeof(keymaps) / ((MATRIX_ROWS) * (MATRIX_COLS) * sizeof(uint16_t))))
-#warning "NUM_KEYMAP_LAYERS_RAW: " NUM_KEYMAP_LAYERS_RAW
-#pragma message ("DEBUG: NUM_KEYMAP_LAYERS_RAW = " NUM_KEYMAP_LAYERS_RAW)
 
 uint8_t keymap_layer_count_raw(void) {
     return NUM_KEYMAP_LAYERS_RAW;
