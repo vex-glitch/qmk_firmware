@@ -237,6 +237,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
     #define UNDSCR    TD(TD_UNDERSCORE)
+    #define REPEAT    KC_NO
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2258,7 +2259,7 @@ void dance_underscore_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_cspc_n_reset(tap_dance_state_t *state, void *user_data) {
+void dance_underscore_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic for Hold or Double Hold
     unregister_code(KC_LALT); // Release Option
     unregister_code(KC_LGUI); // Release Command
