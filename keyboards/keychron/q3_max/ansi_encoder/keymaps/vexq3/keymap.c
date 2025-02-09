@@ -101,6 +101,7 @@ enum {
     TD_ADM,
     TD_REPEAT,
     TD_UNDERSCORE,
+    REPEAT,
 };
 
 typedef enum {
@@ -2684,7 +2685,7 @@ enum custom_keycodes {
     VSCODE,
     ZOOMIN,
     ZOOMOUT,
-    REPEAT,
+
     SELWFWD,  // Select Word Forward
     SELWBAK,              // Select Word Backward
     SELLINE,              // Select Line Forward
