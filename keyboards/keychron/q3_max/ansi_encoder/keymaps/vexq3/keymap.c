@@ -99,6 +99,8 @@ enum {
     TD_BRACKET_L,
     TD_BRACKET_R,
     TD_ADM,
+    TD_REPEAT,
+    TD_UNDERSCORE,
 };
 
 typedef enum {
@@ -194,6 +196,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define TDOSS    TD(TD_BRACKET_L)
     #define TDDELW   TD(TD_BRACKET_R)
     #define ADM      TD(TD_ADM)
+    #define REP      TD(TD_REPEAT)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -233,6 +236,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define OBSIDIAN  TD(TD_OBSIDIAN)
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
+    #define UNDSCR    TD(TD_UNDERSCORE)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -1930,6 +1934,8 @@ void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LGUI);  // Hold Option
         tap_code(KC_BSPC); // Fonard Delete
         unregister_code(KC_LGUI); // Release Conmand
+    } else if (state->count == 3 && !state->pressed) {
+        tap_code(KC_BSPC); // Fonard Delete
     }
 }
 
@@ -2222,6 +2228,42 @@ void dance_cspc_n_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LGUI); // Release Command
 }
 
+// Space_n Colemak
+void dance_underscore_finished(tap_dance_state_t *state, void *user_data) {
+    td_state_t dance_state = cur_dance(state); // Get the tap dance state
+
+    switch (dance_state) {
+        case TD_SINGLE_TAP:
+            // Single Tap: Control + Right Arrow (Move one word right)
+            SEND_STRING("-");
+            break;
+
+        case TD_SINGLE_HOLD:
+            // Hold: Option (Alt)
+            register_code(KC_LALT);
+            break;
+
+        case TD_DOUBLE_TAP:
+            // Double Tap: Command + Right Arrow (Move to end of line)
+            SEND_STRING("#");
+            break;
+
+            case TD_DOUBLE_HOLD:
+            // Double Tap: Command + Right Arrow (Move to end of line)
+            SEND_STRING("@");
+            break;
+
+        default:
+            break;
+    }
+}
+
+void dance_cspc_n_reset(tap_dance_state_t *state, void *user_data) {
+    // Reset logic for Hold or Double Hold
+    unregister_code(KC_LALT); // Release Option
+    unregister_code(KC_LGUI); // Release Command
+}
+
 // Tap Dance Actions for App Next Colemak
 void dance_capp_n_finished(tap_dance_state_t *state, void *user_data) {
     td_state_t dance_state = cur_dance(state); // Get the tap dance state
@@ -2360,6 +2402,24 @@ void dance_sleeve_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic if needed (not required in this case)
+}
+
+void dance_repeat_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Trigger Repeat macro
+        tap_code(REPEAT);
+    } else if (state->count == 1 && state->pressed) {
+        // Hold: Send F3
+        register_code(KC_F3);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Send F3
+        tap_code(KC_F3);
+    }
+}
+
+void dance_repeat_reset(tap_dance_state_t *state, void *user_data) {
+    // Release F3 when key is released
+    unregister_code(KC_F3);
 }
 
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
@@ -3359,6 +3419,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
     [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
     [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
+    [TD_REPEAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_repeat_finished, dance_repeat_reset),
    ///  [TD_ADM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_adm_finished, dance_adm_reset),
 };
 
@@ -3643,9 +3704,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     XXXXXXX,    EAGLE,    DEVON,    FINDER,
-        APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
-        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REPEAT,   KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
+        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
+        APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      UNDSCR,    OBSIDIAN, OFOCUS,   DRAFTS,
+        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REP,      KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
@@ -3719,6 +3780,7 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
         case RGUI_T(KC_E):
         case LALT_T(KC_I):
         case RCTL_T(KC_O):
+        case LSFT_T(KC_Z):
             return true; // Allow Auto Shift for home row mods when tapped
 
         default:
