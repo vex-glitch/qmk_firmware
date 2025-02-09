@@ -2524,8 +2524,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
             case TD(TD_DELFOR):
             return TAPPING_TERM + 75;
-            case TD(TD_REPEAT):
-            return TAPPING_TERM + 75;
             case TD(TD_UNDERSCORE):
             return TAPPING_TERM + 75;
             case TD(TD_LEAD_HYPER):
