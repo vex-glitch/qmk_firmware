@@ -237,7 +237,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
     #define UNDSCR    TD(TD_UNDERSCORE)
-    #define REPEAT    KC_NO
+    #define REPEAT    KC_F19  // Choose an unused keycode
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
