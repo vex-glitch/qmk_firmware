@@ -3420,6 +3420,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
     [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
     [TD_REPEAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_repeat_finished, dance_repeat_reset),
+    [TD_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_underscore_finished, dance_underscore_reset),
    ///  [TD_ADM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_adm_finished, dance_adm_reset),
 };
 
