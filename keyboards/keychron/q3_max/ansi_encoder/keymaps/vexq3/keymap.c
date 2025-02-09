@@ -2241,12 +2241,14 @@ void dance_underscore_finished(tap_dance_state_t *state, void *user_data) {
 
         case TD_SINGLE_HOLD:
             // Hold: Option (Alt)
-            register_code(KC_LALT);
+            SEND_STRING("_");
             break;
 
         case TD_DOUBLE_TAP:
             // Double Tap: Command + Right Arrow (Move to end of line)
-            SEND_STRING("#");
+            register_code(KC_LALT);
+            tap_code(KC_3);
+            unregister_code(KC_LALT);
             break;
 
             case TD_DOUBLE_HOLD:
@@ -2521,6 +2523,12 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_SLASH):
             return TAPPING_TERM + 75;
             case TD(TD_DELFOR):
+            return TAPPING_TERM + 75;
+            case TD(TD_REPEAT):
+            return TAPPING_TERM + 75;
+            case TD(TD_UNDERSCORE):
+            return TAPPING_TERM + 75;
+            case TD(TD_LEAD_HYPER):
             return TAPPING_TERM + 75;
         default:
             return TAPPING_TERM;  // Default tapping term
