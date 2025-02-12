@@ -2696,7 +2696,7 @@ enum custom_keycodes {
     WIN7_1,
     WIN7_2,
     WIN_EXT,
-    WIN_CEN, 
+    WIN_CEN,
     FULLSCR,
     KC_TITLE,
     KMESTRO,  // Keyboard Maestro
@@ -3369,7 +3369,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LCTL);
                     }
                     return false;
-                    case WIN_EXT
+                case WIN_EXT:
                     if (record->event.pressed) {
                         // Ctrl + Option + Command + 3
                         register_code(KC_LALT);
@@ -3378,7 +3378,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LSFT);
                         unregister_code(KC_LALT);                  }
                     return false;
-                    case WIN_CEN
+                case WIN_CEN: 
                     if (record->event.pressed) {
                         // Ctrl + Option + Command + 3
                         register_code(KC_LALT);
