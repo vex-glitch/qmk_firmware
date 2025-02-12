@@ -2448,11 +2448,6 @@ void dance_z_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LSFT); // Release Shift
 }
 
-// Assign tap dance action in tap dance table
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset)
-};
-
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
    ///  if (state->count == 1 && !state->pressed) {
