@@ -2695,6 +2695,8 @@ enum custom_keycodes {
     WIN6_5,
     WIN7_1,
     WIN7_2,
+    WIN_EXT,
+    WIN_CEN, 
     FULLSCR,
     KC_TITLE,
     KMESTRO,  // Keyboard Maestro
@@ -3367,6 +3369,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LCTL);
                     }
                     return false;
+                    case WIN_EXT
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_5);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);                  }
+                    return false;
+                    case WIN_CEN
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_6);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);                  }
+                    return false;
                 case HAZEDN:
                     if (record->event.pressed) {
                         // Ctrl + Option + Command + 3
@@ -3762,8 +3782,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [WINDOWS] = LAYOUT_tkl_ansi(
         FULLSCR,  WIN1_1,   WIN1_2,   WIN1_3,   _______,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     _______,    _______,  _______,  _______,
-        _______,  WIN2_1,   WIN2_2,   WIN2_3,   WIN2_4,   WIN2_5,   WIN2_6,   WIN2_7,   _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,
-        _______,  WIN3_1,   WIN3_2,   WIN3_3,   WIN3_4,   WIN3_5,   WIN3_6,   WIN3_7,   _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,
+        WIN_CEN,  WIN2_1,   WIN2_2,   WIN2_3,   WIN2_4,   WIN2_5,   WIN2_6,   WIN2_7,   _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,
+        WIN_EXT,  WIN3_1,   WIN3_2,   WIN3_3,   WIN3_4,   WIN3_5,   WIN3_6,   WIN3_7,   _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,
         _______,  WIN6_1,   WIN6_2,   WIN6_3,   WIN6_4,   WIN6_5,   _______,  _______,  _______,  _______,  _______,  _______,              _______,
         _______,            WIN7_1,   WIN7_2,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,              _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
