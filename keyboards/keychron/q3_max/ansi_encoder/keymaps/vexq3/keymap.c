@@ -102,6 +102,7 @@ enum {
     TD_REPEAT,
     TD_UNDERSCORE,
     REPEAT,
+    TD_Z,
 };
 
 typedef enum {
@@ -238,6 +239,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
     #define UNDSCR    TD(TD_UNDERSCORE)
+    #define ZED       TD(TD_Z)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -1828,6 +1830,9 @@ void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
         caps_word_on();                         // Turn on CAPS Word
         is_caps_active_flag = true;             // Set flag for CAPS active
         caps_blink_timer = timer_read32();      // Initialize blinking timer
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Sends '"'
+        SEND_STRING("\"");
     } else if (state->pressed) {                // Press and hold activates Shift
         register_code(KC_LSFT);
     }
@@ -2424,6 +2429,29 @@ void dance_repeat_reset(tap_dance_state_t *state, void *user_data) {
     // Release F3 when key is released
     unregister_code(KC_F3);
 }
+
+void dance_z_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Sends 'Z'
+        tap_code(KC_Z);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Sends '"'
+        SEND_STRING("\"");
+    } else if (state->pressed) {
+        // Hold: Acts as Shift
+        register_code(KC_LSFT); // Press Shift
+    }
+}
+
+// Reset function to release Shift when key is released
+void dance_z_reset(tap_dance_state_t *state, void *user_data) {
+    unregister_code(KC_LSFT); // Release Shift
+}
+
+// Assign tap dance action in tap dance table
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset)
+};
 
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
@@ -3435,6 +3463,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_REPEAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_repeat_finished, dance_repeat_reset),
     [TD_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_underscore_finished, dance_underscore_reset),
    ///  [TD_ADM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_adm_finished, dance_adm_reset),
+    [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
 };
 
 // Leader key
@@ -3721,7 +3750,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
         APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      UNDSCR,    OBSIDIAN, OFOCUS,   DRAFTS,
         LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REP,      KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
-        SHIFTZ,             KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
+        ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     PERIOD,   COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
