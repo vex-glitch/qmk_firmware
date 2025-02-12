@@ -1832,7 +1832,7 @@ void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
         caps_blink_timer = timer_read32();      // Initialize blinking timer
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: Sends '"'
-        SEND_STRING("\"");
+        SEND_STRING(")");
     } else if (state->pressed) {                // Press and hold activates Shift
         register_code(KC_LSFT);
     }
@@ -2028,7 +2028,7 @@ void dance_lead_hyper_finished(tap_dance_state_t *state, void *user_data) {
         register_mods(MOD_HYPR);  // Properly register Hyper modifiers
     } else if (state->count == 2 && !state->pressed) {
         // Hold: Activate Hyper Key
-        tap_code(KC_F3);
+        SEND_STRING("\"");
     }
 }
 
@@ -2436,7 +2436,7 @@ void dance_z_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_Z);
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: Sends '"'
-        SEND_STRING("\"");
+        SEND_STRING("(");
     } else if (state->pressed) {
         // Hold: Acts as Shift
         register_code(KC_LSFT); // Press Shift
@@ -2551,7 +2551,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
             case TD(TD_LEAD_HYPER):
             return TAPPING_TERM + 75;
-        default:
+            case TD(TD_Z):
+            return TAPPING_TERM + 75;
+            case TD(TD_CAPS):
+            return TAPPING_TERM + 75;
+            case TD(TD_LEAD_HYPER):
+            return TAPPING_TERM + 75;
+            default:
             return TAPPING_TERM;  // Default tapping term
     }
 }
