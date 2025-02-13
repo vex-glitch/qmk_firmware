@@ -2417,8 +2417,8 @@ void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
 
         // Single Tap: Activate Leader Key
-        
-        leader_start(); 
+
+        leader_start();
     } else if (state->count == 1 && state->pressed) {
         // Hold: Send F3
         register_code(KC_F3);
@@ -3417,6 +3417,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                     return false;
 
+
+
          default:
             return true;  // Process all other keycodes normally
     }
@@ -3622,6 +3624,21 @@ void leader_end_user(void) {
         register_code(KC_LCMD);   // Hold Command
         register_code(KC_LSFT);   // Hold Shift
         tap_code(KC_W);           // Tap B
+        unregister_code(KC_LSFT); // Release Shift
+        unregister_code(KC_LCMD); // Release Command
+         ///omnifocus
+    }else if (leader_sequence_two_keys(KC_O, KC_I)) {
+        // Leader, b => Close Browser Window
+        register_code(KC_LCMD);   // Hold Command
+        register_code(KC_LSFT);   // Hold Shift
+        SEND_STRING("]");
+        unregister_code(KC_LSFT); // Release Shift
+        unregister_code(KC_LCMD); // Release Command
+    }else if (leader_sequence_two_keys(KC_O, KC_O)) {
+        // Leader, b => Close Browser Window
+        register_code(KC_LCMD);   // Hold Command
+        register_code(KC_LSFT);   // Hold Shift
+        SEND_STRING("[");
         unregister_code(KC_LSFT); // Release Shift
         unregister_code(KC_LCMD); // Release Command
 
