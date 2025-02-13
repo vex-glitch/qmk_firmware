@@ -61,7 +61,7 @@ enum {
     TD_DEL,
     TD_DELFOR,
     TD_BSPACE,
-    TD_LEAD_HYPER,
+    TD_ALFYHYPY,
     TD_CODE,
     TD_SELBC,
     TD_SELFC,
@@ -99,7 +99,7 @@ enum {
     TD_BRACKET_L,
     TD_BRACKET_R,
     TD_ADM,
-    TD_REPEAT,
+    TD_LEADY,
     TD_UNDERSCORE,
     REPEAT,
     TD_Z,
@@ -150,7 +150,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define DELF     TD(TD_DELFOR)
     #define BSPACE   TD(TD_BSPACE)
     //#define LEADER   QK_LEAD
-    #define LEADHYPE TD(TD_LEAD_HYPER)
+    #define ALFYHYPY TD(TD_ALFYHYPY)
     #define CODE     TD(TD_CODE)
     #define SELBC    TD(TD_SELBC)
     #define SELFC    TD(TD_SELFC)
@@ -198,7 +198,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define TDOSS    TD(TD_BRACKET_L)
     #define TDDELW   TD(TD_BRACKET_R)
     #define ADM      TD(TD_ADM)
-    #define REP      TD(TD_REPEAT)
+    #define LEADY    TD(TD_LEADY)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2021,10 +2021,10 @@ void dance_bspace_reset(tap_dance_state_t *state, void *user_data) {
 
 
 // Tap Dance Actions for Leader/Hyper Key
-void dance_lead_hyper_finished(tap_dance_state_t *state, void *user_data) {
+void dance_alfyhypy_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
-        leader_start();
+        tap_code(KC_F3);
     } else if (state->count == 1 && state->pressed) {
         register_mods(MOD_HYPR);  // Properly register Hyper modifiers
     } else if (state->count == 2 && !state->pressed) {
@@ -2033,7 +2033,7 @@ void dance_lead_hyper_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_lead_hyper_reset(tap_dance_state_t *state, void *user_data) {
+void dance_alfyhypy_reset(tap_dance_state_t *state, void *user_data) {
         // Release Hyper modifiers
         unregister_mods(MOD_HYPR);
 }
@@ -2413,10 +2413,12 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic if needed (not required in this case)
 }
 
-void dance_repeat_finished(tap_dance_state_t *state, void *user_data) {
+void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: Trigger Repeat macro
-        tap_code(REPEAT);
+
+        // Single Tap: Activate Leader Key
+        
+        leader_start(); 
     } else if (state->count == 1 && state->pressed) {
         // Hold: Send F3
         register_code(KC_F3);
@@ -2426,7 +2428,7 @@ void dance_repeat_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_repeat_reset(tap_dance_state_t *state, void *user_data) {
+void dance_leady_reset(tap_dance_state_t *state, void *user_data) {
     // Release F3 when key is released
     unregister_code(KC_F3);
 }
@@ -2554,7 +2556,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
             case TD(TD_CAPS):
             return TAPPING_TERM + 75;
-            case TD(TD_LEAD_HYPER):
+            case TD(TD_ALFYHYPY):
+            return TAPPING_TERM + 75;
+            case TD(TD_LEADY):
             return TAPPING_TERM + 75;
             default:
             return TAPPING_TERM;  // Default tapping term
@@ -2606,7 +2610,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case GUI_K:
         case ALT_L:
         case CTL_SCLN:
-            add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
+dd_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
             return true; // Keep Caps Word active
         // Keys that continue Caps Word without shifting
         case KC_1:
@@ -3443,7 +3447,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
     [TD_DELFOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delfor_finished, dance_delfor_reset),
     [TD_BSPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bspace_finished, dance_bspace_reset),
-    [TD_LEAD_HYPER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lead_hyper_finished, dance_lead_hyper_reset),
+    [TD_ALFYHYPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfyhypy_finished, dance_alfyhypy_reset),
     [TD_CODE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_code_finished, dance_code_reset),
     [TD_SELBC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selbc_finished, dance_selbc_reset),
     [TD_SELFC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selfc_finished, dance_selfc_reset),
@@ -3480,7 +3484,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
     [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
     [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
-    [TD_REPEAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_repeat_finished, dance_repeat_reset),
+    [TD_LEADY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leady_finished, dance_leady_reset),
     [TD_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_underscore_finished, dance_underscore_reset),
    ///  [TD_ADM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_adm_finished, dance_adm_reset),
     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
@@ -3769,7 +3773,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
         APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      UNDSCR,    OBSIDIAN, OFOCUS,   DRAFTS,
-        LEADHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     REP,      KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
+        ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     LEADY,      KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
