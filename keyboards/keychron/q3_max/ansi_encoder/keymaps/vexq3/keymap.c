@@ -1934,12 +1934,13 @@ void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
         // Single hold: Inserts "{"
         SEND_STRING("}");
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Inserts "<"
-        SEND_STRING(">");
-    } else if (state->count == 2 && state->pressed) {
         register_code(KC_LGUI);  // Hold Option
         tap_code(KC_BSPC); // Fonard Delete
         unregister_code(KC_LGUI); // Release Conmand
+    } else if (state->count == 2 && state->pressed) {
+        // Double tap: Inserts "<"
+        SEND_STRING(">");
+
     } else if (state->count == 3 && !state->pressed) {
         tap_code(KC_BSPC); // Fonard Delete
     }
@@ -3378,7 +3379,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LSFT);
                         unregister_code(KC_LALT);                  }
                     return false;
-                case WIN_CEN: 
+                case WIN_CEN:
                     if (record->event.pressed) {
                         // Ctrl + Option + Command + 3
                         register_code(KC_LALT);
