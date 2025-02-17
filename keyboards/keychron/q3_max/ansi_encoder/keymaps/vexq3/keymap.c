@@ -3567,7 +3567,7 @@ void leader_end_user(void) {
         tap_code16(SCMD(KC_N));
     } else if (leader_sequence_two_keys(KC_S, KC_W)) {
         // Leader, s, t => GUI+T (New window)
-        tap_code16(LGUI(KC_N));1
+        tap_code16(LGUI(KC_N));
     } else if (leader_sequence_three_keys(KC_S, KC_T, KC_R)) {
         // Leader, a, z, z => GUI+SHIFT+Z (Retore Tab)
         tap_code16(SCMD(KC_T));
