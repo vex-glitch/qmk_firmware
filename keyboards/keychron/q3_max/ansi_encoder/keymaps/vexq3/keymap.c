@@ -24,10 +24,6 @@
 #include "features/select_word.h"
 #include "features/select_word_back.h"
 
-const uint32_t PROGMEM unicode_map[] = {
-    [HASH] = 0x0023, // Unicode for #
-};
-
 enum layers {
     MAC_BASE,    // Layer 0 - Base Layer
     MAC_FN,      // Layer 1 - Function Layer
