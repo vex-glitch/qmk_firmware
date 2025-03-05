@@ -97,7 +97,7 @@
 #define LAYER_LOCK_IDLE_TIMEOUT 60000  // Turn off after 60 seconds.
 
 // Unicode
-#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
+#define UNICODE_SELECTED_MODES UC_LNX
 #define CUSTOM_LAYER_STATE_ENABLE
 // RGB
 #define RGB_MATRIX_LAYER_CHANGE         // Enables layer-based RGB effects
