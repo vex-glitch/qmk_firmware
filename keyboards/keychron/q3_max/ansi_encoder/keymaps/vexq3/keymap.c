@@ -2465,6 +2465,7 @@ void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
         layer_on(SYM);
     } else if (state->count == 2 && !state->pressed) {
         send_string("@");
+    }
 }
 
 void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
