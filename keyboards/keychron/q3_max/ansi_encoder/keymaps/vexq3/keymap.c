@@ -2465,8 +2465,12 @@ void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->count > 1) {
-        layer_off(PIC); // Turn off the PIC layer when released
+    if (state->count == 1) {
+        // Ensure one-shot layer clears after the next key press
+        clear_oneshot_layer_state(ONESHOT_PRESSED);
+    } else if (state->count > 1) {
+        // Turn off PIC layer when released
+        layer_off(PIC);
     }
 }
 
