@@ -2756,6 +2756,10 @@ enum custom_keycodes {
     HAZEDN,
     HAZEUP,
     BTICK,
+    POUND, 
+    DOLLAR, 
+    EURO, 
+    YEN, 
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3440,13 +3444,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LCTL);
                     }
                     return false;
-                        ///Symbol layer
-                    case BTICK:
+                     
+                    ///Symbol layer
+                case BTICK:
                     if (record->event.pressed) {
                         // Ctrl + Option + Command + 3
                         SEND_STRING("`");
                     }
                     return false;
+                case POUND:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        SEND_STRING("£");
+                    }
+                    return false;
+                case DOLLAR:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        SEND_STRING("$");
+                    }
+                    return false;   
+                case EURO:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        SEND_STRING("€");
+                    }
+                    return false;  
+                case YEN:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        SEND_STRING("¥");
+                    }
+                    return false;                   
 
 
 
@@ -3895,7 +3924,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BTICK,    POUND,    DOLLAR,   EURO,     YEN,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
