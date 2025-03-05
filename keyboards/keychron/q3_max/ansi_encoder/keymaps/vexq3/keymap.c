@@ -2462,6 +2462,7 @@ void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         // Ensure one-shot layer clears after the next key press
         clear_oneshot_layer_state(ONESHOT_PRESSED);
+        wait_ms(75);
     }
     // Always turn off the PIC layer when the key is released (no need to check state->pressed)
     layer_off(PIC);
@@ -2598,6 +2599,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_ALFYHYPY):
             return TAPPING_TERM + 75;
             case TD(TD_LEADY):
+            return TAPPING_TERM + 75;
+            case TD(TD_TIL):
             return TAPPING_TERM + 75;
             default:
             return TAPPING_TERM;  // Default tapping term
