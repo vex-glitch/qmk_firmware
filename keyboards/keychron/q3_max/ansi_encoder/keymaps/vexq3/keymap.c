@@ -2455,20 +2455,20 @@ void dance_z_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
+    if (state->count == 1 && !state->pressed) {
         // Single tap: Activate one-shot SYM layer
         set_oneshot_layer(SYM, ONESHOT_START);
-    } else {
+    } else if (state->count == 1 && state->pressed) {
         // Hold: Activate momentary PIC layer
         layer_on(PIC);
     }
 }
 
 void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
+    if (state->count == 1 && !state->pressed) {
         // Ensure one-shot layer clears after the next key press
         clear_oneshot_layer_state(ONESHOT_PRESSED);
-    } else if (state->count > 1) {
+    } else if (state->count == 1 && state->pressed) {
         // Turn off PIC layer when released
         layer_off(PIC);
     }
