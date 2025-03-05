@@ -3495,6 +3495,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+enum unicode_names {
+    COPYRIGHT,  // Define a name for the © symbol
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [COPYRIGHT] = 0x00A9,  // Assign © (Unicode U+00A9)
+};
+
+// Create a shorthand macro
+#define UN_COPY X(COPYRIGHT)
 
 void housekeeping_task_user(void) {
   select_word_task();
@@ -3744,6 +3754,7 @@ void leader_end_user(void) {
     }
 }
 
+
 #include "quantum.h"
 
 // Define custom flags for specific keys
@@ -3933,7 +3944,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UN_COPY,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
