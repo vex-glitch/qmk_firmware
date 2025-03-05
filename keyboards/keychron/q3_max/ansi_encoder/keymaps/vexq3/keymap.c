@@ -101,6 +101,7 @@ enum {
     TD_RB,
     TD_SBL,
     TD_SBR,
+    TD_USCR,
 };
 
 typedef enum {
@@ -243,6 +244,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define TIL       TD(TD_TIL)
     #define SBL       TD(TD_SBL)
     #define SBR       TD(TD_SBR)
+    #define USCR      TD(TD_USCR)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2542,6 +2544,23 @@ void dance_sbr_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
+void dance_uscr_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING("-");
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("_");
+    } else if (state->count == 1 && state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("_");
+    }
+}
+
+void dance_uscr_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
    ///  if (state->count == 1 && !state->pressed) {
@@ -3670,6 +3689,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
     [TD_SBL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbl_finished, dance_sbl_reset),
     [TD_SBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbr_finished, dance_sbr_reset),
+    [TD_USCR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uscr_finished, dance_uscr_reset),
 
 };
 
@@ -3852,6 +3872,53 @@ void leader_end_user(void) {
         tap_code(KC_M);
         unregister_code(KC_LSFT); // Release Command
         unregister_code(KC_LCMD);   // Hold Command
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_Q)) {
+        // Leader, b => Bear - Underline
+        send_string(">");
+        tap_code(KC_SPACE);
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_T)) {
+        // Leader, b => Bear - Underline
+        send_string("- [ ]");
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_L)) {
+        // Leader, b => Bear - Underline
+        send_string("---");
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_C)) {
+        // Leader, b => Bear - Underline
+        send_string("``");
+        tap_code(KC_LEFT);
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_B)) {
+        // Leader, b => Bear - Bold
+       send_string("####");
+       tap_code(KC_LEFT);
+       tap_code(KC_LEFT);
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_I)) {
+        // Leader, b => Bear - Italic
+        send_string("__");
+        tap_code(KC_LEFT);
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_U)) {
+        // Leader, b => Bear - Underline
+        send_string("~~");
+        tap_code(KC_LEFT);
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_S)) {
+        // Leader, b => Bear - Strikethrough
+        send_string("~~~~");
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_H)) {
+        // Leader, b => Bear - Highlights
+        send_string("====");
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+    }else if (leader_sequence_four_keys(KC_B, KC_B, KC_C, KC_B)) {
+        // Leader, b => Bear - Underline
+        tap_code(KC_RETURN);
+        send_string("```");
+        tap_code(KC_RETURN);
+        send_string("```");
+        tap_code(KC_RETURN);
+        tap_code(KC_UP);
+        tap_code(KC_UP);
+
     }
 }
 
@@ -4015,8 +4082,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
-        APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,    OBSIDIAN, OFOCUS,   DRAFTS,
-        ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     LEADY,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
+        ALFYHYPY, KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,    OBSIDIAN, OFOCUS,   DRAFTS,
+        LEADY,    HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
@@ -4045,9 +4112,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        TIL,      LB,       RB,       BB,       LT,       MT,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  SBL,      SBR,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BTICK,    LB,       RB,       BB,       LT,       MT,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        TIL,      SBL,      SBR,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
