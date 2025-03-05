@@ -2753,7 +2753,6 @@ enum custom_keycodes {
     EURO, 
     YEN, 
     OG, 
-    CR, 
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3480,11 +3479,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;     
-                case CR:
-                    if (record->event.pressed) {
-                    send_string("©");
-                    }
-                    return false;                   
+            
 
          default:
             return true;  // Process all other keycodes normally
