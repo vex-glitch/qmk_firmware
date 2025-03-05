@@ -2459,12 +2459,12 @@ void dance_z_reset(tap_dance_state_t *state, void *user_data) {
 void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate one-shot SYM layer
-        send_string("#")
+        send_string("#");
     } else if (state->count == 1 && state->pressed) {
         // Hold: Activate momentary PIC layer
         layer_on(SYM);
     } else if (state->count == 2 && !state->pressed) {
-        send_string("@")
+        send_string("@");
 }
 
 void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
