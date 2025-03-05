@@ -96,9 +96,9 @@ enum {
     TD_UNDERSCORE,
     REPEAT,
     TD_Z,
-    TD_SYMPIC, 
-    TD_TIL, 
-    TD_RB, 
+    TD_SYMPIC,
+    TD_TIL,
+    TD_RB,
 };
 
 typedef enum {
@@ -2499,7 +2499,7 @@ void dance_rb_finished(tap_dance_state_t *state, void *user_data) {
         // Hold: Inserts { } with the cursor between
         SEND_STRING(">");
         tap_code(KC_SPACE);
-    } 
+    }
 }
 
 void dance_rb_reset(tap_dance_state_t *state, void *user_data) {
@@ -2790,13 +2790,15 @@ enum custom_keycodes {
     HAZEDN,
     HAZEUP,
     BTICK,
-    POUND, 
-    DOLLAR, 
-    EURO, 
-    YEN, 
+    POUND,
+    DOLLAR,
+    EURO,
+    YEN,
     OG,
-    LB, 
-    BB,  
+    LB,
+    BB,
+    LT,
+    MT,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3481,7 +3483,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LCTL);
                     }
                     return false;
-                     
+
                     ///Symbol layer
                 case BTICK:
                     if (record->event.pressed) {
@@ -3501,41 +3503,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         // Ctrl + Option + Command + 3
                         SEND_STRING("$");
                     }
-                    return false;   
+                    return false;
                 case EURO:
                     if (record->event.pressed) {
                         register_code(KC_LALT);
                         tap_code(KC_2);
                         unregister_code(KC_LALT);
                     }
-                    return false;  
+                    return false;
                 case YEN:
                     if (record->event.pressed) {
                         register_code(KC_LALT);
                         tap_code(KC_Y);
                         unregister_code(KC_LALT);
                     }
-                    return false;    
+                    return false;
                 case OG:
                     if (record->event.pressed) {
                         register_code(KC_LALT);
                         tap_code(KC_R);
                         unregister_code(KC_LALT);
                     }
-                    return false;   
+                    return false;
                 case LB:
                     if (record->event.pressed) {
                     send_string("<");
                     }
-                    return false; 
+                    return false;
                 case BB:
                     if (record->event.pressed) {
                     send_string("<>");
                     tap_code(KC_LEFT);
                     }
-                    return false;   
-   
-            
+                    return false;
+                case LT:
+                    if (record->event.pressed) {
+                    send_string("≤");
+                    }
+                    return false;
+                case MT:
+                    if (record->event.pressed) {
+                    send_string("≥");
+                    }
+                    return false;
+
+
 
          default:
             return true;  // Process all other keycodes normally
@@ -3921,15 +3933,15 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
                 rgb_matrix_set_color(39, RGB_RED); // Light up 'Y'
                 rgb_matrix_set_color(70, RGB_RED); // Light up 'M'
-            } 
+            }
 
           // SYMBOL Layer: Only S, Y, M should light up
           if (layer == PIC) {
             rgb_matrix_set_color(43, RGB_RED); // Light up 'S'
             rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
             rgb_matrix_set_color(66, RGB_RED); // Light up 'M'
-        } 
-            
+        }
+
 
         // CAPS LOCK Blinking
         if (i == CAPS_LED && is_caps_word_on()) {
@@ -3995,7 +4007,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYM] = LAYOUT_tkl_ansi(
         BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        TIL,      LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        TIL,      LB,       RB,       BB,       LT,       MT,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
