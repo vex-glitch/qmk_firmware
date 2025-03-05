@@ -3814,6 +3814,14 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
 
+          // SYMBOL Layer: Only S, Y, M should light up
+            if (layer == SYMBOL) {
+                    rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
+                    rgb_matrix_set_color(43, RGB_RED); // Light up 'Y'
+                    rgb_matrix_set_color(57, RGB_RED); // Light up 'M'
+                }
+            
+
         // CAPS LOCK Blinking
         if (i == CAPS_LED && is_caps_word_on()) {
             if (timer_elapsed32(caps_blink_timer) > 500) {
