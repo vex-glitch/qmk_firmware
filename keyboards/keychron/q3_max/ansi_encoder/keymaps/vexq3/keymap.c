@@ -3823,22 +3823,14 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
                 rgb_matrix_set_color(39, RGB_RED); // Light up 'Y'
                 rgb_matrix_set_color(70, RGB_RED); // Light up 'M'
-            } else {
-                rgb_matrix_set_color(52, 0, 0, 0); // Turn off 'S'
-                rgb_matrix_set_color(39, 0, 0, 0); // Turn off 'Y'
-                rgb_matrix_set_color(70, 0, 0, 0); // Turn off 'M'
-            }
+            } 
 
           // SYMBOL Layer: Only S, Y, M should light up
           if (layer == SYM) {
             rgb_matrix_set_color(43, RGB_RED); // Light up 'S'
             rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
             rgb_matrix_set_color(66, RGB_RED); // Light up 'M'
-        } else {
-            rgb_matrix_set_color(43, 0, 0, 0); // Turn off 'S'
-            rgb_matrix_set_color(41, 0, 0, 0); // Turn off 'Y'
-            rgb_matrix_set_color(66, 0, 0, 0); // Turn off 'M'
-        }
+        } 
             
 
         // CAPS LOCK Blinking
