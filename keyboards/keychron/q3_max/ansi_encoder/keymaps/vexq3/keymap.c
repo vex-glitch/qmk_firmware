@@ -3494,15 +3494,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 enum unicode_names {
-    COPYRIGHT,  // Define a name for the © symbol
+    CR,  // Define a name for the © symbol
+    TM, // Trademark symbol ™
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-    [COPYRIGHT] = 0x00A9,  // Assign © (Unicode U+00A9)
+    [CR] = 0x00A9,  // Assign © (Unicode U+00A9)
+    [TM] = 0x2122, // Unicode for ™
 };
-
-// Create a shorthand macro
-#define COPYR X(COPYRIGHT)
 
 void housekeeping_task_user(void) {
   select_word_task();
@@ -3942,7 +3941,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(COPYR),       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
