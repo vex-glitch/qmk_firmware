@@ -181,5 +181,5 @@
 #define HOME_V KC_V
 #define HOME_X KC_X
 
-#define UNICODE_SELECTED_MODES UC_OSX
+
 #endif
