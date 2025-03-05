@@ -3538,7 +3538,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 case LT:
                     if (record->event.pressed) {
-                    send_string("≤");
+                    send_string("⇥");
                     }
                     return false;
                 case MT:
