@@ -24,10 +24,6 @@
 #include "features/select_word.h"
 #include "features/select_word_back.h"
 
-enum unicode_names {
-    HASH, // Identifier for the hashtag
-};
-
 const uint32_t PROGMEM unicode_map[] = {
     [HASH] = 0x0023, // Unicode for #
 };
