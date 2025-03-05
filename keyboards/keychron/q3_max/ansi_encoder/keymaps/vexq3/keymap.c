@@ -40,6 +40,7 @@ enum layers {
     WINDOWS,     // Layer 4 - Windows Layer
     FUN,         // Layer 5 - Function Layer
     SYM,         // Layer 6 - Symbol Layer
+    PIC,         // Layer 7 - Picto Layer
    ///  ADM,         // Layer 7 - Admin Layer
 };
 
@@ -2732,6 +2733,7 @@ enum custom_keycodes {
     SELLINE_B,            // Select Line Backward
     HAZEDN,
     HAZEUP,
+    BTICK,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3416,6 +3418,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LCTL);
                     }
                     return false;
+                        ///Symbol layer
+                    case BTICK:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        SEND_STRING("`");
+                    }
+                    return false;
 
 
 
@@ -3855,6 +3864,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
+    [PIC] = LAYOUT_tkl_ansi(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
+        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+
 };
 
 // clang-format on
@@ -3867,6 +3884,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [WINDOWS] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [FUN] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
     [SYM] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [PIC] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
    ///  [ADM] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
 };
 #endif // ENCODER_MAP_ENABLE
