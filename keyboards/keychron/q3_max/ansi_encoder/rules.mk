@@ -23,5 +23,5 @@ COMBO_ENABLE = yes
 SRC += features/repeat_key.c
 SRC += features/sentence_case.c
 SRC += features/achordion.c
-UNICODE_ENABLE = yes
 UNICODEMAP_ENABLE = yes
+UNICODE_COMMON = yes
