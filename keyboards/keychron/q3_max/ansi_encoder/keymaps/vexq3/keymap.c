@@ -2760,6 +2760,7 @@ enum custom_keycodes {
     DOLLAR, 
     EURO, 
     YEN, 
+    OG, 
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3474,13 +3475,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;  
                 case YEN:
                     if (record->event.pressed) {
-                        register_code(KC_LSFT);
+                        register_code(KC_LALT);
                         tap_code(KC_Y);
-                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;    
+                case OG:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        tap_code(KC_R);
+                        unregister_code(KC_LALT);
                     }
                     return false;                   
-
-
 
          default:
             return true;  // Process all other keycodes normally
@@ -3927,7 +3933,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        BTICK,    POUND,    DOLLAR,   EURO,     YEN,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
