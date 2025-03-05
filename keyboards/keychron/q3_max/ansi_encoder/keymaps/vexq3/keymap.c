@@ -3815,7 +3815,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
 
           // SYMBOL Layer: Only S, Y, M should light up
-            if (layer == SYMBOL) {
+            if (layer == SYM) {
                     rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
                     rgb_matrix_set_color(43, RGB_RED); // Light up 'Y'
                     rgb_matrix_set_color(57, RGB_RED); // Light up 'M'
