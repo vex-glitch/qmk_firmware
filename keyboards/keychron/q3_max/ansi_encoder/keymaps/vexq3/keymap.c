@@ -3641,7 +3641,36 @@ void leader_end_user(void) {
         SEND_STRING("[");
         unregister_code(KC_LSFT); // Release Shift
         unregister_code(KC_LCMD); // Release Command
-
+     ///Bear
+    }else if (leader_sequence_two_keys(KC_B, KC_B)) {
+        // Leader, b => Bear - Bold
+        register_code(KC_LCMD);   // Hold Command
+        tap_code(KC_B);
+        unregister_code(KC_LCMD); // Release Command
+    }else if (leader_sequence_two_keys(KC_B, KC_I)) {
+        // Leader, b => Bear - Italic
+        register_code(KC_LCMD);   // Hold Command
+        tap_code(KC_I);
+        unregister_code(KC_LCMD); // Release Command
+    }else if (leader_sequence_two_keys(KC_B, KC_U)) {
+        // Leader, b => Bear - Underline
+        register_code(KC_LCMD);   // Hold Command
+        tap_code(KC_U);
+        unregister_code(KC_LCMD); // Release Command
+    }else if (leader_sequence_two_keys(KC_B, KC_S)) {
+        // Leader, b => Bear - Strikethrough
+        register_code(KC_LCMD);   // Hold Command
+        register_code(KC_LSFT);   // Hold Command
+        tap_code(KC_U);
+        unregister_code(KC_LSFT); // Release Command
+        unregister_code(KC_LCMD);   // Hold Command
+    }else if (leader_sequence_two_keys(KC_B, KC_H)) {
+        // Leader, b => Bear - Highlights
+        register_code(KC_LCMD);   // Hold Command
+        register_code(KC_LSFT);   // Hold Command
+        tap_code(KC_M);
+        unregister_code(KC_LSFT); // Release Command
+        unregister_code(KC_LCMD);   // Hold Command
     }
 }
 
@@ -3790,7 +3819,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
         APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      UNDSCR,    OBSIDIAN, OFOCUS,   DRAFTS,
-        ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     LEADY,      KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
+        ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     LEADY,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
