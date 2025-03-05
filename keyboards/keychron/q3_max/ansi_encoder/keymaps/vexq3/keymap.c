@@ -2891,7 +2891,6 @@ enum custom_keycodes {
     LAARROW,
     SBC,
     SBTD,
-    TM,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3617,12 +3616,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         tap_code(KC_R);
                         unregister_code(KC_LALT);
                     }
-                    return false;
                 case TM:
                     if (record->event.pressed) {
                         register_code(KC_LALT);
                         tap_code(KC_2);
-                        unregister_code(KC_LALT);
+                        
                     return false;
                 case LB:
                     if (record->event.pressed) {
@@ -3663,7 +3661,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 case SBC:
                     if (record->event.pressed) {
                     send_string("[]");
-                    tap_code(KC_LEFT);
+                    tap_code(KC_LEFT)
                     }
                     return false;
                 case SBTD:
@@ -4183,7 +4181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       TM,       XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         BACKT,    LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,   AND,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         TIL,      SBL,      SBR,      SBC,      SBTD,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
