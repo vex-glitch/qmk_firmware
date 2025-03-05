@@ -3454,8 +3454,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 case POUND:
                     if (record->event.pressed) {
-                        // Ctrl + Option + Command + 3
-                        SEND_STRING("£");
+                        register_code(KC_LSFT);
+                        tap_code(KC_3);
+                        unregister_code(KC_LSFT);
                     }
                     return false;
                 case DOLLAR:
@@ -3466,14 +3467,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;   
                 case EURO:
                     if (record->event.pressed) {
-                        // Ctrl + Option + Command + 3
-                        SEND_STRING("€");
+                        register_code(KC_LALT);
+                        tap_code(KC_2);
+                        unregister_code(KC_LALT);
                     }
                     return false;  
                 case YEN:
                     if (record->event.pressed) {
-                        // Ctrl + Option + Command + 3
-                        SEND_STRING("¥");
+                        register_code(KC_LSFT);
+                        tap_code(KC_Y);
+                        unregister_code(KC_LSFT);
                     }
                     return false;                   
 
