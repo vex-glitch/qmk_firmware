@@ -2451,10 +2451,10 @@ void dance_z_reset(tap_dance_state_t *state, void *user_data) {
 void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate one-shot SYM layer
-        set_oneshot_layer(SYM, ONESHOT_START);
+        set_oneshot_layer(PIC, ONESHOT_START);
     } else if (state->count == 1 && state->pressed) {
         // Hold: Activate momentary PIC layer
-        layer_on(PIC);
+        layer_on(SYM);
     }
 }
 
@@ -2462,10 +2462,9 @@ void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         // Ensure one-shot layer clears after the next key press
         clear_oneshot_layer_state(ONESHOT_PRESSED);
-        wait_ms(75);
     }
     // Always turn off the PIC layer when the key is released (no need to check state->pressed)
-    layer_off(PIC);
+    layer_off(SYM);
 }
 
 // Tap Dance Actions for Bracket
