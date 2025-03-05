@@ -2891,7 +2891,7 @@ enum custom_keycodes {
     LAARROW,
     SBC,
     SBTD,
-    TM, 
+    TM,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3683,7 +3683,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 enum unicode_names {
     CR,  // Define a name for the © symbol
-    TM, // Trademark symbol ™
+
 };
 
 const uint32_t PROGMEM unicode_map[] = {
