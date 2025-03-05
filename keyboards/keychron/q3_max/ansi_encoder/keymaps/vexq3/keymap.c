@@ -104,6 +104,7 @@ enum {
     TD_UNDERSCORE,
     REPEAT,
     TD_Z,
+    TD_SYMPIC, 
 };
 
 typedef enum {
@@ -241,6 +242,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CLEANSHT  TD(TD_CLEANSHOT)
     #define UNDSCR    TD(TD_UNDERSCORE)
     #define ZED       TD(TD_Z)
+    #define SYMPIC    TD(TD_SYMPIC)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2452,6 +2454,23 @@ void dance_z_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LSFT); // Release Shift
 }
 
+void dance_sympic_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        // Single tap: Activate one-shot SYM layer
+        set_oneshot_layer(SYM, ONESHOT_START);
+    } else {
+        // Hold: Activate momentary PIC layer
+        layer_on(PIC);
+    }
+}
+
+void dance_sympic_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count > 1) {
+        layer_off(PIC); // Turn off the PIC layer when released
+    }
+}
+
+
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
    ///  if (state->count == 1 && !state->pressed) {
@@ -3499,6 +3518,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_underscore_finished, dance_underscore_reset),
    ///  [TD_ADM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_adm_finished, dance_adm_reset),
     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
+    [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
 };
 
 // Leader key
@@ -3827,7 +3847,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
-        APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      UNDSCR,    OBSIDIAN, OFOCUS,   DRAFTS,
+        APOST,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     BRACKET,  KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,    OBSIDIAN, OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     LEADY,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
