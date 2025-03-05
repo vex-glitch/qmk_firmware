@@ -103,6 +103,7 @@ enum {
     TD_SBR,
     TD_USCR,
     TD_STAR,
+    TD_BACKT,
 };
 
 typedef enum {
@@ -247,7 +248,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define SBR       TD(TD_SBR)
     #define USCR      TD(TD_USCR)
     #define STAR      TD(TD_STAR)
-
+    #define BACKT     TD(TD_BACKT)
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
     static uint32_t caps_blink_timer = 0;    // Timer for CAPS blinking
@@ -2576,6 +2577,21 @@ void dance_star_finished(tap_dance_state_t *state, void *user_data) {
 void dance_star_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
+
+void dance_backt_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING("`");
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("``");
+        tap_code(KC_LEFT);
+    }
+}
+
+void dance_backt_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
    ///  if (state->count == 1 && !state->pressed) {
@@ -3706,6 +3722,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbr_finished, dance_sbr_reset),
     [TD_USCR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uscr_finished, dance_uscr_reset),
     [TD_STAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_star_finished, dance_star_reset),
+    [TD_BACKT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_backt_finished, dance_backt_reset),
 
 };
 
@@ -4129,7 +4146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYM] = LAYOUT_tkl_ansi(
         XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        BTICK,    LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  AND,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BACKT,    LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  AND,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         TIL,      SBL,      SBR,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
