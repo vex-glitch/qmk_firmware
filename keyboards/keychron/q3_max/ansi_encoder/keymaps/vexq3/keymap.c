@@ -2753,6 +2753,7 @@ enum custom_keycodes {
     EURO, 
     YEN, 
     OG, 
+    CR, 
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3478,6 +3479,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         tap_code(KC_R);
                         unregister_code(KC_LALT);
                     }
+                    return false;     
+                case CR:
+                    if (record->event.pressed) {
+                    send_string("©");
+                    }
                     return false;                   
 
          default:
@@ -3936,7 +3942,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(COPYR),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       CR,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
