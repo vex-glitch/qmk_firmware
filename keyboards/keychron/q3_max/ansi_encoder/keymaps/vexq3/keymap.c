@@ -3617,6 +3617,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         tap_code(KC_R);
                         unregister_code(KC_LALT);
                     }
+                    return false;
                 case TM:
                     if (record->event.pressed) {
                         register_code(KC_LALT);
@@ -3662,7 +3663,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 case SBC:
                     if (record->event.pressed) {
                     send_string("[]");
-                    tap_code(KC_LEFT); 
+                    tap_code(KC_LEFT);
                     }
                     return false;
                 case SBTD:
