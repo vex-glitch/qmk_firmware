@@ -2454,7 +2454,7 @@ void dance_z_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LSFT); // Release Shift
 }
 
-void dance_sympic_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         // Single tap: Activate one-shot SYM layer
         set_oneshot_layer(SYM, ONESHOT_START);
@@ -2464,7 +2464,7 @@ void dance_sympic_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_sympic_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count > 1) {
         layer_off(PIC); // Turn off the PIC layer when released
     }
