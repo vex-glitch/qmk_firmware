@@ -98,6 +98,7 @@ enum {
     TD_Z,
     TD_SYMPIC, 
     TD_TIL, 
+    TD_RB, 
 };
 
 typedef enum {
@@ -194,6 +195,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define TDDELW   TD(TD_BRACKET_R)
     #define ADM      TD(TD_ADM)
     #define LEADY    TD(TD_LEADY)
+    #define RB       TD(TD_RB)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2488,7 +2490,21 @@ void dance_til_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
+// Tap Dance Actions for Bracket
+void dance_rb_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING(">");
+    } else if (state->count == 1 && state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING(">");
+        tap_code(KC_SPACE);
+    } 
+}
 
+void dance_rb_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
 
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
@@ -2778,7 +2794,8 @@ enum custom_keycodes {
     DOLLAR, 
     EURO, 
     YEN, 
-    OG, 
+    OG,
+    LB,  
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3505,6 +3522,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;   
+                case LB:
+                    if (record->event.pressed) {
+                    send_string("<");
+                    }
+                    return false;   
    
             
 
@@ -3590,6 +3612,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
     [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
+    [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
 };
 
 // Leader key
@@ -3965,7 +3988,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYM] = LAYOUT_tkl_ansi(
         BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        TIL,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        TIL,      LB,       RB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
