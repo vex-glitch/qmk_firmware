@@ -99,6 +99,8 @@ enum {
     TD_SYMPIC,
     TD_TIL,
     TD_RB,
+    TD_SBL,
+    TD_SBR,
 };
 
 typedef enum {
@@ -239,6 +241,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define ZED       TD(TD_Z)
     #define SYMPIC    TD(TD_SYMPIC)
     #define TIL       TD(TD_TIL)
+    #define SBL       TD(TD_SBL)
+    #define SBR       TD(TD_SBR)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2506,6 +2510,38 @@ void dance_rb_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
+// Tap Dance Actions for Bracket
+void dance_sbl_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING("[");
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("[[");
+        tap_code(KC_SPACE);
+    }
+}
+
+void dance_sbl_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+
+// Tap Dance Actions for Bracket
+void dance_sbr_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING("]");
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("- [ ]");
+        tap_code(KC_SPACE);
+    }
+}
+
+void dance_sbr_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
    ///  if (state->count == 1 && !state->pressed) {
@@ -3632,6 +3668,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
     [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
     [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
+    [TD_SBL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbl_finished, dance_sbl_reset),
 };
 
 // Leader key
@@ -4008,7 +4045,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SYM] = LAYOUT_tkl_ansi(
         BTICK,    POUND,    DOLLAR,   EURO,     YEN,      OG,       UM(CR),   UM(TM),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         TIL,      LB,       RB,       BB,       LT,       MT,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  SBL,      SBR,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
