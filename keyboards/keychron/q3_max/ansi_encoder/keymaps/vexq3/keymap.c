@@ -3972,9 +3972,6 @@ void leader_end_user(void) {
 #define LED_FLAG_W  0x10  // W key
 #define LED_FLAG_I  0x20  // I key
 
-// Define F-row LED indexes (adjust based on your keyboard's LED matrix)
-const uint8_t f_row_leds[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-
 void keyboard_post_init_user(void) {
     // Enable RGB Matrix
     rgb_matrix_enable();
@@ -4097,23 +4094,29 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
 
 
-// CAPS WORD Blinking - Entire F-row
-if (is_caps_word_on()) {
-    if (timer_elapsed32(caps_blink_timer) > 500) { // Adjust blink interval
-        caps_blink_timer = timer_read32();
+// Define a global timer for blinking
+static uint32_t caps_blink_timer = 0;
+static bool caps_led_state = false; // Tracks if the F-row is on or off
 
-        // Toggle color (Red on, Off on next cycle)
-        static bool led_state = false;
-        led_state = !led_state;
+bool rgb_matrix_indicators_advanced_user(uint8_t min, uint8_t max) {
+    if (is_caps_word_on()) { // Check if Caps Word is active
+        if (timer_elapsed32(caps_blink_timer) > 500) { // Blink every 500ms
+            caps_blink_timer = timer_read32();
+            caps_led_state = !caps_led_state; // Toggle state
+        }
 
-        for (uint8_t j = 0; j < sizeof(f_row_leds); j++) {
-            if (led_state) {
-                rgb_matrix_set_color(f_row_leds[j], RGB_RED); // Turn on Red
-            } else {
-                rgb_matrix_set_color(f_row_leds[j], 0, 0, 0); // Turn Off
+        // Iterate through all LEDs
+        for (uint8_t i = min; i < max; i++) {
+            if (g_led_config.matrix[i][1] == 0) { // Check if it's in the F-row (row 0)
+                if (caps_led_state) {
+                    rgb_matrix_set_color(i, RGB_RED); // Turn on red
+                } else {
+                    rgb_matrix_set_color(i, 0, 0, 0); // Turn off
+                }
             }
         }
     }
+    return false; // Allow other effects to continue running
 }
 
     return false;  // Allow other matrix effects to run
