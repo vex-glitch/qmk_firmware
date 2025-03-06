@@ -2943,6 +2943,7 @@ enum custom_keycodes {
     CBL,
     CBR,
     CBB,
+    INF,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3779,6 +3780,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_LEFT);
                     }
                     return false;
+                case INF:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        tap_code(KC_5);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
 
 
          default:
@@ -4296,7 +4304,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       TM,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         BACKT,    LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,   AND,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         TIL,      SBL,      SBR,      SBC,      SBTD,     TROSA,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  PLUS,     EQUALS,   STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  BRL,      BRR,      BRB,      DONE,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MINUS,    UNSC,                 XXXXXXX,
+        XXXXXXX,  BRL,      BRR,      BRB,      DONE,     INF,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MINUS,    UNSC,                 XXXXXXX,
         XXXXXXX,            CBL,      CBR,      CBB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
