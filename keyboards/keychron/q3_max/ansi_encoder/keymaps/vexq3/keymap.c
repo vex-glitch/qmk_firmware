@@ -4094,6 +4094,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
 
 
+    static bool caps_led_state = false; // Tracks if the F-row is ON or OFF
+    static uint32_t caps_blink_timer = 0; // Timer to control blinking
+
 // Caps Word Blinking - Entire F-row
 if (is_caps_word_on()) {
     if (timer_elapsed32(caps_blink_timer) > 500) { // Blink every 500ms
