@@ -2763,6 +2763,9 @@ enum custom_keycodes {
     DSLASH,
     DLB,
     DRB,
+    SHTDWN,
+    SLEEP,
+    RSTART,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3645,6 +3648,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     send_string(">>");
                     }
                     return false;
+                case SHTDWN:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LGUI);
+                        register_code(KC_LCTL);
+                        tap_code(KC_1);
+                        unregister_code(KC_LCTL);
+                        unregister_code(KC_LGUI);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                 case SLEEP:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LGUI);
+                        register_code(KC_LCTL);
+                        tap_code(KC_2);
+                        unregister_code(KC_LCTL);
+                        unregister_code(KC_LGUI);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case RSTART:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LGUI);
+                        register_code(KC_LCTL);
+                        tap_code(KC_3);
+                        unregister_code(KC_LCTL);
+                        unregister_code(KC_LGUI);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
 
 
          default:
@@ -4133,7 +4175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
-        POWER,    MCNTRL,   LNCHPAD,  KC_PGUP,  _______,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
+        SHTDWN,   SLEEP,    RSTART,  KC_PGUP,    MCNTRL,  LNCHPAD,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
         TILDE,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
         KC_LCTL,  MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
         ALFYHYPY, KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
