@@ -55,9 +55,7 @@ enum {
     TD_ALFYHYPY,
     TD_SELBC,
     TD_SELFC,
-    TD_SLASH9,
-    TD_BSLASH0,
-    TD_FINDER,
+       TD_FINDER,
     TD_DEVONTHINK,
     TD_SPARK,
     TD_FANTASTICAL,
@@ -174,9 +172,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define POWER    KC_SYSTEM_POWER
     #define BBACK    KC_WWW_BACK
     #define BFORW    KC_WWW_FORWARD
-    #define SLASH9   TD(TD_SLASH9)
-    #define BSLASH0  TD(TD_BSLASH0)
-    #define TEXTC    TD(TD_TEXTC)
+       #define TEXTC    TD(TD_TEXTC)
     #define CSPACEP  TD(TD_CSPC_P)
     #define CSPACEN  TD(TD_CSPC_N)
     #define CAPP_N   TD(TD_CAPP_N)
@@ -2044,51 +2040,6 @@ void dance_selbc_reset(tap_dance_state_t *state, void *user_data) {
     select_word_unregister(); // Ensure selection is released
 }
 
-// Tap dance for slash 0
-void dance_slash9_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single tap: Send '9'
-        tap_code(KC_9);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Send '//'
-        tap_code(KC_SLSH); // Send '/'
-        tap_code(KC_SLSH); // Send another '/'
-    } else if (state->pressed) {
-        // Hold: Send '/'
-        register_code(KC_SLSH);
-        unregister_code(KC_SLSH); // Release '/' immediately
-    }
-}
-
-void dance_slash9_reset(tap_dance_state_t *state, void *user_data) {
-        // Release '/'
-        unregister_code(KC_SLSH);
-        unregister_code(KC_LSFT);
-    }
-
-// Tap dance for Bslash
-void dance_bslash0_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single tap: Send '0'
-        tap_code(KC_0);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Send '|'
-        register_code(KC_LSFT); // Hold Shift
-        tap_code(KC_BSLS);      // Send Backslash (| with Shift)
-        unregister_code(KC_LSFT);
-    } else if (state->pressed) {
-        // Hold: Send '\'
-        register_code(KC_BSLS);
-        unregister_code(KC_BSLS); // Release '\' immediately
-    }
-}
-
-void dance_bslash0_reset(tap_dance_state_t *state, void *user_data) {
-        // Release '\'
-        unregister_code(KC_BSLS);
-        unregister_code(KC_LSFT);
-    }
-
 // Tap Dance for Textc
 void dance_textc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -2732,8 +2683,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_UNDS:
         case KC_LEFT_BRACKET:
         case KC_RIGHT_BRACKET:
-        case KC_BACKSLASH:
-        case KC_NONUS_HASH:
+          case KC_NONUS_HASH:
         case KC_SEMICOLON:
         case KC_GRAVE:
              case DELF:
@@ -3793,9 +3743,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ALFYHYPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfyhypy_finished, dance_alfyhypy_reset),
     [TD_SELBC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selbc_finished, dance_selbc_reset),
     [TD_SELFC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selfc_finished, dance_selfc_reset),
-    [TD_SLASH9] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash9_finished, dance_slash9_reset),
-    [TD_BSLASH0] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bslash0_finished, dance_bslash0_reset),
-    [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
+        [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
     [TD_DEVONTHINK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_devonthink_finished, dance_devonthink_reset),
     [TD_SPARK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_spark_finished, dance_spark_reset),
     [TD_FANTASTICAL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_fantastical_finished, dance_fantastical_reset),
@@ -4214,7 +4162,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_tkl_ansi(
         ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    KC_F15,
-        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     SLASH9,   BSLASH0,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
+        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     XXXXXXX,   XXXXXXX,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
         TEXTC,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
