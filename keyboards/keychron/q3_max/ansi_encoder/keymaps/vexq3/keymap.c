@@ -3992,7 +3992,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             // Return to the default layer RGB effect
             switch (default_layer) {
                 case CMAK_BASE:
-                    new_mode = RGB_MATRIX_TYPING_HEATMAP;  // Typing heatmap for Colemak
+                    new_mode = RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS;  // Typing heatmap for Colemak
                     break;
                 case MAC_BASE:
                     new_mode = RGB_MATRIX_TYPING_HEATMAP;
@@ -4020,7 +4020,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     // Update RGB effects or colors based on default layer
     switch (default_layer) {
         case CMAK_BASE:
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
             break;
         case MAC_BASE:
             rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
