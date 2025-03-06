@@ -42,7 +42,6 @@ enum {
     TD_PD_DRAFTS,
     TD_END_OMNIFOCUS,
     TD_PERIOD,
-    TD_BRACKET,
     TD_QUESTION,
     TD_SLASH,
     TD_TILDE,
@@ -53,9 +52,7 @@ enum {
     TD_LEAD,
     TD_DEL,
     TD_DELFOR,
-    TD_BSPACE,
     TD_ALFYHYPY,
-    TD_CODE,
     TD_SELBC,
     TD_SELFC,
     TD_SLASH9,
@@ -151,10 +148,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define SPACE    TD(TD_SPACE)
     #define COMMA    TD(TD_COMMA)
     #define DELF     TD(TD_DELFOR)
-    #define BSPACE   TD(TD_BSPACE)
-    //#define LEADER   QK_LEAD
     #define ALFYHYPY TD(TD_ALFYHYPY)
-    #define CODE     TD(TD_CODE)
     #define SELBC    TD(TD_SELBC)
     #define SELFC    TD(TD_SELFC)
     #define MOUSEUP  KC_MS_UP
@@ -173,17 +167,11 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define PAGEDN   KC_PGDN
     #define HOME     KC_HOME
     #define END      KC_END
-    //#define PAGE_UP  KC_PAGE_UP
-    //#define PAGE_DN  KC_PAGE_DOWN
-    //#define HOME     KC_HOME
-    //#define END      KC_END
     #define PLAY     KC_MEDIA_PLAY_PAUSE
     #define REWIND   KC_MEDIA_PREV_TRACK
     #define NEXT     KC_MEDIA_FAST_FORWARD
     #define MCNTRL   KC_MISSION_CONTROL
     #define LNCHPAD  KC_LAUNCHPAD
-    //#define SLEEP    KC_SYSTEM_SLEEP
-    //#define WAKE     KC_SYSTEM_WAKE
     #define POWER    KC_SYSTEM_POWER
     #define BBACK    KC_WWW_BACK
     #define BFORW    KC_WWW_FORWARD
@@ -1915,28 +1903,6 @@ void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance Actions for Bracket
-void dance_bracket_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single tap: Inserts < > with the cursor between
-        SEND_STRING("()");
-        tap_code(KC_LEFT);
-    } else if (state->count == 1 && state->pressed) {
-        // Hold: Inserts { } with the cursor between
-        SEND_STRING("[[]]");
-        tap_code(KC_LEFT);
-        tap_code(KC_LEFT);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: '
-        SEND_STRING("[]");
-        tap_code(KC_LEFT);
-    }
-}
-
-void dance_bracket_reset(tap_dance_state_t *state, void *user_data) {
-    // No reset logic needed
-}
-
-// Tap Dance Actions for Bracket
 void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate One Shot Shift
@@ -2008,31 +1974,6 @@ void dance_delfor_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LGUI);  // Release Command if it was held
 }
 
-// Tap Dance Actions for Backspace
-void dance_bspace_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single tap: Backspace
-        tap_code(KC_BSPC);
-    } else if (state->count == 1 && state->pressed) {
-        // Hold: Option + Backspace (delete previous word)
-        register_code(KC_LALT);
-        tap_code(KC_BSPC);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        // Tap Hold: Command + Backspace (delete current line backward)
-        register_code(KC_LGUI);
-        tap_code(KC_BSPC);
-        unregister_code(KC_LGUI);
-    }
-}
-
-void dance_bspace_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic: Ensure all held modifiers are released
-    unregister_code(KC_LALT);  // Release Option
-    unregister_code(KC_LGUI);  // Release Command
-}
-
-
 // Tap Dance Actions for Leader/Hyper Key
 void dance_alfyhypy_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -2051,25 +1992,6 @@ void dance_alfyhypy_reset(tap_dance_state_t *state, void *user_data) {
         unregister_mods(MOD_HYPR);
 }
 
-void dance_code_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single Tap: Inserts <> with the cursor between
-        SEND_STRING("<>");
-        tap_code(KC_LEFT);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Inserts {}
-        SEND_STRING("{}");
-        tap_code(KC_LEFT);
-    } else if (state->pressed) {
-        // Hold: Activate MO(WINDOWS) (Momentary Layer Switch)
-        layer_on(WINDOWS);
-    }
-}
-
-void dance_code_reset(tap_dance_state_t *state, void *user_data) {
-        // Turn off MO(WINDOWS) when the key is released
-        layer_off(WINDOWS);
-}
 
 void dance_selfc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -3865,7 +3787,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_PD_DRAFTS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_pd_drafts_finished, dance_pd_drafts_reset),
     [TD_END_OMNIFOCUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_end_omnifocus_finished, dance_end_omnifocus_reset),
     [TD_PERIOD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_period_finished, dance_period_reset),
-    [TD_BRACKET] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracket_finished, dance_bracket_reset),
     [TD_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_question_finished, dance_question_reset),
     [TD_SLASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash_finished, dance_slash_reset),
     [TD_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tilde_finished, dance_tilde_reset),
@@ -3873,9 +3794,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_space_finished, dance_space_reset),
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
     [TD_DELFOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delfor_finished, dance_delfor_reset),
-    [TD_BSPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bspace_finished, dance_bspace_reset),
     [TD_ALFYHYPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfyhypy_finished, dance_alfyhypy_reset),
-    [TD_CODE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_code_finished, dance_code_reset),
     [TD_SELBC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selbc_finished, dance_selbc_reset),
     [TD_SELFC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selfc_finished, dance_selfc_reset),
     [TD_SLASH9] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash9_finished, dance_slash9_reset),
@@ -3913,7 +3832,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
     [TD_LEADY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leady_finished, dance_leady_reset),
     [TD_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_underscore_finished, dance_underscore_reset),
-   ///  [TD_ADM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_adm_finished, dance_adm_reset),
     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
     [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
@@ -4300,8 +4218,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_tkl_ansi(
         ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    KC_F15,
-        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     SLASH9,   BSLASH0,  KC_MINS,  KC_EQL,     BSPACE,     EAGLE,    DEVON,    FINDER,
-        TEXTC,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     BRACKET,  CODE,       DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
+        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     SLASH9,   BSLASH0,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
+        TEXTC,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     BRACKET,  XXXXXXX,       DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  REPEAT,               KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
         CSPACEP,  CAPP_P,   XXXXXXX,                           SPACE,                                       XXXXXXX,  CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
