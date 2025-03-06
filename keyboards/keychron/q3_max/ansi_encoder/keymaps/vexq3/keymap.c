@@ -2945,6 +2945,12 @@ enum custom_keycodes {
     CBB,
     INF,
     PI,
+    PER,
+    DPIPE,
+    DDOT,
+    DSLASH,
+    TLB,
+    DRB,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3795,6 +3801,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;
+                case PER:
+                    if (record->event.pressed) {
+                        register_code(KC_LSFT);
+                        tap_code(KC_5);
+                        unregister_code(KC_LSFT);
+                    }
+                    return false;
+                case DPIPE:
+                    if (record->event.pressed) {
+                    send_string("||");
+                    }
+                    return false;
+                case DDOT:
+                    if (record->event.pressed) {
+                    send_string("::");
+                    }
+                    return false;
+                case DSLASH:
+                    if (record->event.pressed) {
+                    send_string("//");
+                    }
+                    return false;
+                case DLB:
+                    if (record->event.pressed) {
+                    send_string("<<");
+                    }
+                    return false;
+                case DRB:
+                    if (record->event.pressed) {
+                    send_string(">>");
+                    }
+                    return false;
 
 
          default:
@@ -4310,11 +4348,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYM] = LAYOUT_tkl_ansi(
         XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       TM,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        BACKT,    LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,   AND,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        BACKT,    LB,       RB,       BB,       DLB,      BRB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         TIL,      SBL,      SBR,      SBC,      SBTD,     TROSA,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  PLUS,     EQUALS,   STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  BRL,      BRR,      BRB,      DONE,     INF,      PI,       XXXXXXX,  XXXXXXX,  XXXXXXX,  MINUS,    UNSC,                 XXXXXXX,
-        XXXXXXX,            CBL,      CBR,      CBB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+        DPIPE,    BRL,      BRR,      BRB,      DONE,     INF,      PI,       PER,      XXXXXXX,  XXXXXXX,  MINUS,    UNSC,                 XXXXXXX,
+        DSLASH,             CBL,      CBR,      CBB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  AND,                  XXXXXXX,              XXXXXXX,
+        DDOT,     XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [PIC] = LAYOUT_tkl_ansi(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
