@@ -105,7 +105,7 @@ enum {
     TD_STAR,
     TD_BACKT,
     TD_EQUALS,
-    TD_USCCR,
+    TD_UNSC,
 };
 
 typedef enum {
@@ -252,7 +252,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define STAR      TD(TD_STAR)
     #define BACKT     TD(TD_BACKT)
     #define EQUALS    TD(TD_EQUALS)
-    #define USCCR     TD(TD_USCR)
+    #define UNSC      TD(TD_UNSC)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2614,7 +2614,7 @@ void dance_equals_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
-void dance_usccr_finished(tap_dance_state_t *state, void *user_data) {
+void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
         SEND_STRING("_");
@@ -2629,9 +2629,10 @@ void dance_usccr_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_usccr_reset(tap_dance_state_t *state, void *user_data) {
+void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
+
 // Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
  ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
    ///  if (state->count == 1 && !state->pressed) {
@@ -3817,7 +3818,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_STAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_star_finished, dance_star_reset),
     [TD_BACKT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_backt_finished, dance_backt_reset),
     [TD_EQUALS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_equals_finished, dance_equals_reset),
-    [TD_USCCR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_usccr_finished, dance_usccr_reset),
+    [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
 
 };
 
@@ -4243,7 +4244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       TM,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         BACKT,    LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,   AND,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         TIL,      SBL,      SBR,      SBC,      SBTD,     TROSA,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  PLUS,     EQUALS,   STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  USCCR,                 XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  UNSC,                 XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
