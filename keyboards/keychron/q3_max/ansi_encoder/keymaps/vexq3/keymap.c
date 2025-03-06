@@ -2255,7 +2255,6 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic if needed (not required in this case)
 }
 
-RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
