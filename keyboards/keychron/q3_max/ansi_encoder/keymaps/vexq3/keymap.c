@@ -4156,16 +4156,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
-        ALFYHYPY, KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,    BEAR, OFOCUS,   DRAFTS,
+        ALFYHYPY, KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         LEADY,    HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
-        SHTDWN,   SLEEP,    RSTART,  KC_PGUP,    MCNTRL,  LNCHPAD,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
+        SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
         TILDE,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
-        KC_LCTL,  MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
-        ALFYHYPY, KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
+        ALFYHYPY, MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
+        KC_LCTL,  KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
         UNDO,               CUT,      COPY,     DUPLICA,  PASTE,    MSEC1,    MSEC4,    MSEC2,    DELWF,    PAGEDN,   DELWB,                _______,              _______,
         SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                               CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
 
