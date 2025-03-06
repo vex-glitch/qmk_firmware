@@ -33,8 +33,7 @@ enum layers {
     FUN,         // Layer 5 - Function Layer
     SYM,         // Layer 6 - Symbol Layer
     PIC,         // Layer 7 - Picto Layer
-   ///  ADM,         // Layer 7 - Admin Layer
-};
+  };
 
 // Tap Dance Declarations
 enum {
@@ -86,8 +85,7 @@ enum {
     TD_APOSTROPHE,
     TD_BRACKET_L,
     TD_BRACKET_R,
-    TD_ADM,
-    TD_LEADY,
+     TD_LEADY,
     TD_UNDERSCORE,
     REPEAT,
     TD_Z,
@@ -183,8 +181,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define APOST    TD(TD_APOSTROPHE)
     #define TDOSS    TD(TD_BRACKET_L)
     #define TDDELW   TD(TD_BRACKET_R)
-    #define ADM      TD(TD_ADM)
-    #define LEADY    TD(TD_LEADY)
+     #define LEADY    TD(TD_LEADY)
     #define RB       TD(TD_RB)
 
 // QWERTY Layout
@@ -2505,21 +2502,6 @@ void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
-// Tap Dance for TD_ADM (OSL(ADM) on tap, RCTL on hold)
- ///void dance_adm_finished(tap_dance_state_t *state, void *user_data) {
-   ///  if (state->count == 1 && !state->pressed) {
-        // Single Tap: Activate One Shot Layer ADM
-    ///     tap_code16(OSL(ADM));
-     ///} else if (state->pressed) {
-        // Hold: Act as Right Control
-      ///   register_code(KC_RCTL);
-    /// }
- ///}
-
- ///void dance_adm_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset Right Control when released
-    /// unregister_code(KC_RCTL);
- ///}
 
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -4237,8 +4219,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [FUN] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
     [SYM] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [PIC] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-   ///  [ADM] = {ENCODER_CCW_CW(SLVVOLD, SLVVOLU)},
-};
+ };
 #endif // ENCODER_MAP_ENABLE
 
 // Auto Shift Definitions
