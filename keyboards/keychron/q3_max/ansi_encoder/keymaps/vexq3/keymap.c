@@ -2738,8 +2738,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_SEMICOLON:
         case KC_GRAVE:
              case DELF:
-        case BRACKET:
-            return true;
+                return true;
         default:
             return false; // End Caps Word for other keys
     }
@@ -4217,8 +4216,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_tkl_ansi(
         ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    KC_F15,
         TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     SLASH9,   BSLASH0,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
-        TEXTC,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     BRACKET,  XXXXXXX,       DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
-        ALFYHYPY, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  REPEAT,               KC_ENT,
+        TEXTC,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       OBSIDIAN, OFOCUS,   DRAFTS,
+        ALFYHYPY, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
         CSPACEP,  CAPP_P,   XXXXXXX,                           SPACE,                                       XXXXXXX,  CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
