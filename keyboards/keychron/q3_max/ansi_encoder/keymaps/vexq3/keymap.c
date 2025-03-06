@@ -140,7 +140,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 // Definitons
 
     #define PERIOD   TD(TD_PERIOD)
-    #define BRACKET  TD(TD_BRACKET)
     #define QUESTION TD(TD_QUESTION)
     #define SLASH    TD(TD_SLASH)
     #define TILDE    TD(TD_TILDE)
@@ -2738,8 +2737,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_NONUS_HASH:
         case KC_SEMICOLON:
         case KC_GRAVE:
-        case BSPACE:
-        case DELF:
+             case DELF:
         case BRACKET:
             return true;
         default:
