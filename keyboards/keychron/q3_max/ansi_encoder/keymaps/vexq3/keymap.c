@@ -1917,7 +1917,7 @@ void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate One Shot Shift
         set_oneshot_mods(MOD_LSFT);
-    }RING("<");
+    }
 }
 
 void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
