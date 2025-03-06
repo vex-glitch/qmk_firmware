@@ -2912,7 +2912,7 @@ enum custom_keycodes {
     SBTD,
     TM,
     TROSA,
-    X,
+    PLUS,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3700,9 +3700,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LSFT);
                     }
                     return false;
-                case X:
+                case PLUS:
                     if (record->event.pressed) {
-                    send_string("×");
+                    send_string("+");
                     }
                     return false;
 
@@ -4220,7 +4220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SYM] = LAYOUT_tkl_ansi(
         XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       TM,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         BACKT,    LB,       RB,       BB,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,   AND,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        TIL,      SBL,      SBR,      SBC,      SBTD,     TROSA,    XXXXXXX,  XXXXXXX,  XXXXXXX,  X,        XXXXXXX,  EQUALS,   STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        TIL,      SBL,      SBR,      SBC,      SBTD,     TROSA,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  PLUS,  EQUALS,   STAR,          XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
