@@ -1899,19 +1899,12 @@ void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LALT);  // Hold Option
         tap_code(KC_BSPC); // Fonard Delete
         unregister_code(KC_LALT); // Release Conmand
-    } else if (state->count == 1 && state->pressed) {
-        // Single hold: Inserts "{"
-        SEND_STRING("}");
     } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_BSPC); // Fonard Delete
+    } else if (state->count == 2 && state->pressed) {
         register_code(KC_LGUI);  // Hold Option
         tap_code(KC_BSPC); // Fonard Delete
         unregister_code(KC_LGUI); // Release Conmand
-    } else if (state->count == 2 && state->pressed) {
-        // Double tap: Inserts "<"
-        SEND_STRING(">");
-
-    } else if (state->count == 3 && !state->pressed) {
-        tap_code(KC_BSPC); // Fonard Delete
     }
 }
 
@@ -1924,13 +1917,7 @@ void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate One Shot Shift
         set_oneshot_mods(MOD_LSFT);
-    } else if (state->count == 1 && state->pressed) {
-        // Single hold: Inserts "{"
-        SEND_STRING("{");
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Inserts "<"
-        SEND_STRING("<");
-    }
+    }RING("<");
 }
 
 void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
