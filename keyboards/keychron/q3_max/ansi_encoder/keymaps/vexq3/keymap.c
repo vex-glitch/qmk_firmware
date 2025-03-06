@@ -2949,7 +2949,7 @@ enum custom_keycodes {
     DPIPE,
     DDOT,
     DSLASH,
-    TLB,
+    DLB,
     DRB,
 };
 
