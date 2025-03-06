@@ -236,7 +236,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
     static uint32_t caps_blink_timer = 0;    // Timer for CAPS blinking
 
-    #define CAPS_LED 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12  // Set this to the correct LED index for your CAPS key
+    #define CAPS_LED 0    // Set this to the correct LED index for your CAPS key
 
     // Anybox
     void dance_f15_anybox_finished(tap_dance_state_t *state, void *user_data) {
