@@ -236,7 +236,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
     static uint32_t caps_blink_timer = 0;    // Timer for CAPS blinking
 
-    #define CAPS_LED 74  // Set this to the correct LED index for your CAPS key
+    #define CAPS_LED 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12  // Set this to the correct LED index for your CAPS key
 
     // Anybox
     void dance_f15_anybox_finished(tap_dance_state_t *state, void *user_data) {
@@ -4094,44 +4094,15 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
 
 
-    static bool caps_led_state = false; // Tracks if the F-row is ON or OFF
-    static uint32_t caps_blink_timer = 0; // Timer to control blinking
-
-// Caps Word Blinking - Entire F-row
-if (is_caps_word_on()) {
-    if (timer_elapsed32(caps_blink_timer) > 500) { // Blink every 500ms
-        caps_blink_timer = timer_read32();
-        caps_led_state = !caps_led_state; // Toggle state
+        // CAPS LOCK Blinking
+        if (i == CAPS_LED && is_caps_word_on()) {
+            if (timer_elapsed32(caps_blink_timer) > 500) {
+                caps_blink_timer = timer_read32();
+                rgb_matrix_set_color(i, RGB_RED);
+            }
+        }
     }
 
-    if (caps_led_state) { // Only turn on LEDs if state is true
-        rgb_matrix_set_color(3, RGB_RED); // F1
-        rgb_matrix_set_color(4, RGB_RED); // F2
-        rgb_matrix_set_color(5, RGB_RED); // F3
-        rgb_matrix_set_color(6, RGB_RED); // F4
-        rgb_matrix_set_color(7, RGB_RED); // F5
-        rgb_matrix_set_color(8, RGB_RED); // F6
-        rgb_matrix_set_color(9, RGB_RED); // F7
-        rgb_matrix_set_color(10, RGB_RED); // F8
-        rgb_matrix_set_color(11, RGB_RED); // F9
-        rgb_matrix_set_color(12, RGB_RED); // F10
-        rgb_matrix_set_color(13, RGB_RED); // F11
-        rgb_matrix_set_color(14, RGB_RED); // F12
-    } else { // Turn off LEDs when state is false
-        rgb_matrix_set_color(3, 0, 0, 0); // F1 Off
-        rgb_matrix_set_color(4, 0, 0, 0); // F2 Off
-        rgb_matrix_set_color(5, 0, 0, 0); // F3 Off
-        rgb_matrix_set_color(6, 0, 0, 0); // F4 Off
-        rgb_matrix_set_color(7, 0, 0, 0); // F5 Off
-        rgb_matrix_set_color(8, 0, 0, 0); // F6 Off
-        rgb_matrix_set_color(9, 0, 0, 0); // F7 Off
-        rgb_matrix_set_color(10, 0, 0, 0); // F8 Off
-        rgb_matrix_set_color(11, 0, 0, 0); // F9 Off
-        rgb_matrix_set_color(12, 0, 0, 0); // F10 Off
-        rgb_matrix_set_color(13, 0, 0, 0); // F11 Off
-        rgb_matrix_set_color(14, 0, 0, 0); // F12 Off
-    }
-}
     return false;  // Allow other matrix effects to run
 }
 
