@@ -2753,6 +2753,8 @@ enum custom_keycodes {
     SHTDWN,
     SLEEP,
     RSTART,
+    VPN,
+    WORK,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3674,6 +3676,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;
+                case VPN:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LGUI);
+                        tap_code(KC_UP);
+                        unregister_code(KC_LGUI);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
+                case WORK:
+                    if (record->event.pressed) {
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LGUI);
+                        tap_code(KC_DOWN);
+                        unregister_code(KC_LGUI);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                    }
+                    return false;
 
 
          default:
@@ -4178,8 +4202,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
 
     [FUN] = LAYOUT_tkl_ansi(
-        SYSSET,   PASS,     PORTAL,   MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  _______,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  _______,  SPEED,
-        _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,
+        SYSSET,   PASS,     PORTAL,   MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  _______,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  VPN,      SPEED,
+        _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  WORK,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    KMESTRO,  VSCODE,   ITERM,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,              _______,
