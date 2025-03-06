@@ -86,8 +86,7 @@ enum {
     TD_BRACKET_L,
     TD_BRACKET_R,
      TD_LEADY,
-    TD_UNDERSCORE,
-    REPEAT,
+      REPEAT,
     TD_Z,
     TD_SYMPIC,
     TD_TIL,
@@ -222,8 +221,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define BEAR  TD(TD_BEAR)
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
-    #define UNDSCR    TD(TD_UNDERSCORE)
-    #define ZED       TD(TD_Z)
+      #define ZED       TD(TD_Z)
     #define SYMPIC    TD(TD_SYMPIC)
     #define TIL       TD(TD_TIL)
     #define SBL       TD(TD_SBL)
@@ -2117,44 +2115,6 @@ void dance_cspc_n_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LGUI); // Release Command
 }
 
-// Space_n Colemak
-void dance_underscore_finished(tap_dance_state_t *state, void *user_data) {
-    td_state_t dance_state = cur_dance(state); // Get the tap dance state
-
-    switch (dance_state) {
-        case TD_SINGLE_TAP:
-            // Single Tap: Control + Right Arrow (Move one word right)
-            SEND_STRING("-");
-            break;
-
-        case TD_SINGLE_HOLD:
-            // Hold: Option (Alt)
-            SEND_STRING("_");
-            break;
-
-        case TD_DOUBLE_TAP:
-            // Double Tap: Command + Right Arrow (Move to end of line)
-            register_code(KC_LALT);
-            tap_code(KC_3);
-            unregister_code(KC_LALT);
-            break;
-
-            case TD_DOUBLE_HOLD:
-            // Double Tap: Command + Right Arrow (Move to end of line)
-            SEND_STRING("@");
-            break;
-
-        default:
-            break;
-    }
-}
-
-void dance_underscore_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic for Hold or Double Hold
-    unregister_code(KC_LALT); // Release Option
-    unregister_code(KC_LGUI); // Release Command
-}
-
 // Tap Dance Actions for App Next Colemak
 void dance_capp_n_finished(tap_dance_state_t *state, void *user_data) {
     td_state_t dance_state = cur_dance(state); // Get the tap dance state
@@ -2584,8 +2544,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_SLASH):
             return TAPPING_TERM + 75;
             case TD(TD_DELFOR):
-            return TAPPING_TERM + 75;
-            case TD(TD_UNDERSCORE):
             return TAPPING_TERM + 75;
             case TD(TD_Z):
             return TAPPING_TERM + 75;
@@ -3757,8 +3715,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
     [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
     [TD_LEADY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leady_finished, dance_leady_reset),
-    [TD_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_underscore_finished, dance_underscore_reset),
-    [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
+     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
     [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
     [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
