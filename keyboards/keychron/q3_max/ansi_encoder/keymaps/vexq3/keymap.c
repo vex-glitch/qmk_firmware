@@ -3972,6 +3972,9 @@ void leader_end_user(void) {
 #define LED_FLAG_W  0x10  // W key
 #define LED_FLAG_I  0x20  // I key
 
+// Define F-row LED indexes (adjust based on your keyboard's LED matrix)
+const uint8_t f_row_leds[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+
 void keyboard_post_init_user(void) {
     // Enable RGB Matrix
     rgb_matrix_enable();
@@ -4094,14 +4097,24 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
 
 
-        // CAPS LOCK Blinking
-        if (i == CAPS_LED && is_caps_word_on()) {
-            if (timer_elapsed32(caps_blink_timer) > 500) {
-                caps_blink_timer = timer_read32();
-                rgb_matrix_set_color(i, RGB_RED);
+// CAPS WORD Blinking - Entire F-row
+if (is_caps_word_on()) {
+    if (timer_elapsed32(caps_blink_timer) > 500) { // Adjust blink interval
+        caps_blink_timer = timer_read32();
+
+        // Toggle color (Red on, Off on next cycle)
+        static bool led_state = false;
+        led_state = !led_state;
+
+        for (uint8_t j = 0; j < sizeof(f_row_leds); j++) {
+            if (led_state) {
+                rgb_matrix_set_color(f_row_leds[j], RGB_RED); // Turn on Red
+            } else {
+                rgb_matrix_set_color(f_row_leds[j], 0, 0, 0); // Turn Off
             }
         }
     }
+}
 
     return false;  // Allow other matrix effects to run
 }
