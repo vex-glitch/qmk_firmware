@@ -2255,24 +2255,29 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic if needed (not required in this case)
 }
 
+RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-
         // Single Tap: Activate Leader Key
-
         leader_start();
-    } else if (state->count == 1 && state->pressed) {
-        // Hold: Send F3
-        register_code(KC_F3);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Send F3
+    }
+    else if (state->count == 1 && state->pressed) {
+        // Hold: Act as MEH key (⇧ + ⌃ + ⌘)
+        register_code(KC_LSFT);  // Press Shift (⇧)
+        register_code(KC_LCTL);  // Press Control (⌃)
+        register_code(KC_LGUI);  // Press Command (⌘)
+    }
+    else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Send F3
         tap_code(KC_F3);
     }
 }
 
 void dance_leady_reset(tap_dance_state_t *state, void *user_data) {
-    // Release F3 when key is released
-    unregister_code(KC_F3);
+    // Release MEH modifiers when the key is released
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+    unregister_code(KC_LGUI);
 }
 
 void dance_z_finished(tap_dance_state_t *state, void *user_data) {
