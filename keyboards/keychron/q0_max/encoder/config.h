@@ -56,9 +56,21 @@
 #    define BOOTMAGIC_LITE_COLUMN 1
 
  /// My modifications
+
  // Tapping term
 #define TAPPING_TERM 175
 #define TAPPING_TERM_PER_KEY
 #define PERMISSIVE_HOLD
+
+// Retro shift
+#    define RETRO_SHIFT 500
+
+// One shot
+#    define ONESHOT_TIMEOUT 2000  /* Time (in ms) before the one shot key is released */
+
+// Leader key
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 1000
+#define LEADER_NO_TIMEOUT
 
 #endif
