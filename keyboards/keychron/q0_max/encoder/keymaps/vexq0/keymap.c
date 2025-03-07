@@ -142,9 +142,9 @@ void keyboard_post_init_user(void) {
 // Advanced user function for per-key RGB lighting
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
-    uint8_t default_layer = get_highest_layer(default_layer_state);
 
     for (uint8_t i = led_min; i < led_max; i++) {
+        
         if (layer == LCTL) {
           rgb_matrix_set_color(5, RGB_RED);
       }
