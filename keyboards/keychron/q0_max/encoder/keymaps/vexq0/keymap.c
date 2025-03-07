@@ -54,6 +54,36 @@ td_state_t cur_dance(tap_dance_state_t *state) {
         return state->interrupted || !state->pressed ? TD_QUAD_TAP : TD_QUAD_HOLD;
     }
 }
+
+// Tap Dance Declarations
+enum {
+    TD_UNSC,
+};
+
+void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        SEND_STRING("_");
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("____");
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+    } else if (state->count == 1 && state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        SEND_STRING("___");
+    }
+}
+
+void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
+};
+
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
