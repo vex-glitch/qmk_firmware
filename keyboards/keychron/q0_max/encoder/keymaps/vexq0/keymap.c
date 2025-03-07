@@ -93,7 +93,7 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 // Macro Declarations
-enum {
+enum custom_keycodes {
     C0,
     C1,
     C2,
