@@ -4112,30 +4112,24 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(40, RGB_RED); // Light up 'Y'
             rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
         }
-
-
         // WINDOWS Layer: Only W, I, N should light up
         if (layer == WINDOWS) {
             rgb_matrix_set_color(35, RGB_RED); // Light up 'S'
             rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
             rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
         }
-
           // SYMBOL Layer: Only S, Y, M should light up
             if (layer == SYM) {
                 rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
                 rgb_matrix_set_color(39, RGB_RED); // Light up 'Y'
                 rgb_matrix_set_color(70, RGB_RED); // Light up 'M'
             }
-
           // SYMBOL Layer: Only S, Y, M should light up
           if (layer == PIC) {
             rgb_matrix_set_color(43, RGB_RED); // Light up 'S'
             rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
             rgb_matrix_set_color(66, RGB_RED); // Light up 'M'
         }
-
-
         // CAPS LOCK Blinking
         if (i == CAPS_LED && is_caps_word_on()) {
             if (timer_elapsed32(caps_blink_timer) > 500) {
