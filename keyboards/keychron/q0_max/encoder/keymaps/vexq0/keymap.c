@@ -105,6 +105,9 @@ enum custom_keycodes {
     KC_C8,
     KC_C9,
     KC_CDOT,
+    KC_CMM,
+    KC_CMNS,
+    KC_CPLS,
     KC_G0,
     KC_G1,
     KC_G2,
@@ -116,6 +119,9 @@ enum custom_keycodes {
     KC_G8,
     KC_G9,
     KC_GDOT,
+    KC_GMM,
+    KC_GMNS,
+    KC_GPLS,
     KC_A0,
     KC_A1,
     KC_A2,
@@ -127,6 +133,10 @@ enum custom_keycodes {
     KC_A8,
     KC_A9,
     KC_ADOT,
+    KC_AMM,
+    KC_AMNS,
+    KC_APLS
+
 };
 
  ///RGB
