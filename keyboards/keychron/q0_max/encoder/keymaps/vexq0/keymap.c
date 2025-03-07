@@ -42,6 +42,18 @@ typedef struct {
     td_state_t state;
 } td_tap_t;
 
+// Common function to determine tap dance state
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        return state->interrupted || !state->pressed ? TD_SINGLE_TAP : TD_SINGLE_HOLD;
+    } else if (state->count == 2) {
+        return state->interrupted || !state->pressed ? TD_DOUBLE_TAP : TD_DOUBLE_HOLD;
+    } else if (state->count == 3) {
+        return state->interrupted || !state->pressed ? TD_TRIPLE_TAP : TD_TRIPLE_HOLD;
+    } else {
+        return state->interrupted || !state->pressed ? TD_QUAD_TAP : TD_QUAD_HOLD;
+    }
+}
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
