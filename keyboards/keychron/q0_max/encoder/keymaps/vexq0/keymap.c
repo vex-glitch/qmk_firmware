@@ -144,7 +144,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
 
     for (uint8_t i = led_min; i < led_max; i++) {
-        
+
         if (layer == LCTL) {
           rgb_matrix_set_color(5, RGB_RED);
       }
@@ -156,7 +156,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
       if (layer == LALT) {
         rgb_matrix_set_color(7, RGB_RED);
     }
-    }
+}
+
+return false;  // Allow other matrix effects to run
 }
 
 // clang-format off
