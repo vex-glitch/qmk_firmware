@@ -150,39 +150,22 @@ void keyboard_post_init_user(void) {
     eeconfig_update_rgb_matrix(); // Ensure it persists across power cycles
 }
 
+// Advanced user function for per-key RGB lighting
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    static uint16_t last_toggle = 0;
-    static bool led_on = false;
-
     uint8_t layer = get_highest_layer(layer_state);
-    uint16_t now = timer_read();
 
-    // Toggle every 500ms (adjust timing as needed)
-    if (now - last_toggle > 500) {
-        led_on = !led_on;  // Toggle LED state
-        last_toggle = now;  // Reset timer
-    }
-
-    if (led_on) {
+    for (uint8_t i = led_min; i < led_max; i++) {
         if (layer == LCTL) {
-            rgb_matrix_set_color(0, RGB_RED);
-        } else if (layer == LGUI) {
-            rgb_matrix_set_color(1, RGB_CHARTREUSE);
-        } else if (layer == LALT) {
-            rgb_matrix_set_color(2, RGB_SPRINGGREEN);
-        }
-    } else {
-        // Turn off the LEDs when blinking state is off
-        if (layer == LCTL) {
-            rgb_matrix_set_color(0, 0, 0, 0);
-        } else if (layer == LGUI) {
-            rgb_matrix_set_color(1, 0, 0, 0);
-        } else if (layer == LALT) {
-            rgb_matrix_set_color(2, 0, 0, 0);
-        }
+        rgb_matrix_set_color(0, RGB_RED);
     }
-
-    return true;
+        if (layer == LGUI) {
+        rgb_matrix_set_color(1, RGB_GREEN);
+    }
+        if (layer == LALT) {
+        rgb_matrix_set_color(2, RGB_YELLOW);
+    }
+}
+     return false;  // Allow other matrix effects to run
 }
 
 // clang-format off
