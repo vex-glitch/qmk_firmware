@@ -165,20 +165,20 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (led_on) {
         if (layer == LCTL) {
-            rgb_matrix_set_color(5, RGB_RED);
+            rgb_matrix_set_color(0, RGB_RED);
         } else if (layer == LGUI) {
-            rgb_matrix_set_color(6, RGB_CHARTREUSE);
+            rgb_matrix_set_color(1, RGB_CHARTREUSE);
         } else if (layer == LALT) {
-            rgb_matrix_set_color(7, RGB_SPRINGGREEN);
+            rgb_matrix_set_color(2, RGB_SPRINGGREEN);
         }
     } else {
         // Turn off the LEDs when blinking state is off
         if (layer == LCTL) {
-            rgb_matrix_set_color(5, 0, 0, 0);
+            rgb_matrix_set_color(0, 0, 0, 0);
         } else if (layer == LGUI) {
-            rgb_matrix_set_color(6, 0, 0, 0);
+            rgb_matrix_set_color(1, 0, 0, 0);
         } else if (layer == LALT) {
-            rgb_matrix_set_color(7, 0, 0, 0);
+            rgb_matrix_set_color(2, 0, 0, 0);
         }
     }
 
