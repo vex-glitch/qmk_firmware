@@ -135,7 +135,7 @@ enum custom_keycodes {
     KC_ADOT,
     KC_AMM,
     KC_AMNS,
-    KC_APLS
+    KC_APLS,
 
 };
 
@@ -205,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [LCTL] = LAYOUT_tenkey_27(
         _______,   _______,   _______,   _______,   _______,
-        _______,   _______,   _______,   _______,   _______,
+        _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   _______,
         _______,   KC_C7,     KC_C8,     KC_C9,     _______,
         _______,   KC_C4,     KC_C5,     KC_C6,
         _______,   KC_C1,     KC_C2,     KC_C3,     _______,
@@ -213,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [LGUI] = LAYOUT_tenkey_27(
         _______,   _______,   _______,   _______,   _______,
-        _______,   _______,   _______,   _______,   _______,
+        _______,   KC_GMM,    KC_GMNS,   KC_GPLS,   _______,
         _______,   KC_G7,     KC_G8,     KC_G9,     _______,
         _______,   KC_G4,     KC_G5,     KC_G6,
         _______,   KC_G1,     KC_G2,     KC_G3,     _______,
@@ -221,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [LALT] = LAYOUT_tenkey_27(
         _______,   _______,   _______,   _______,   _______,
-        _______,   _______,   _______,   _______,   _______,
+        _______,   KC_AMM,    KC_AMNS,   KC_APLS,   _______,
         _______,   KC_A7,     KC_A8,     KC_A9,     _______,
         _______,   KC_A4,     KC_A5,     KC_A6,
         _______,   KC_A1,     KC_A2,     KC_A3,     _______,

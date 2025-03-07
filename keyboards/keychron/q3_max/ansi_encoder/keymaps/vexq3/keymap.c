@@ -4095,76 +4095,57 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-#include "timer.h"
-
+// Advanced user function for per-key RGB lighting
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
     uint8_t default_layer = get_highest_layer(default_layer_state);
-    
-    static uint16_t last_toggle = 0;
-    static bool led_on = false;
-    uint16_t now = timer_read();
-
-    // Toggle every 300ms (adjust timing as needed)
-    if (now - last_toggle > 300) {
-        led_on = !led_on;  // Toggle LED state
-        last_toggle = now;  // Reset timer
-    }
 
     // Force MAC_BASE to use its color
     if (default_layer == MAC_BASE) {
-        // rgb_matrix_sethsv(132, 102, 255);  // 🔹 Explicitly reapply color (Uncomment if needed)
+        //rgb_matrix_sethsv(132, 102, 255);  // 🔹 Explicitly reapply color
     }
 
     for (uint8_t i = led_min; i < led_max; i++) {
-        // FUN Layer: Light up specific keys
-        if (layer == FUN) {
+          // SYMBOL Layer: Only S, Y, M should light up
+          if (layer == FUN) {
             rgb_matrix_set_color(54, RGB_RED); // Light up 'S'
             rgb_matrix_set_color(40, RGB_RED); // Light up 'Y'
             rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
         }
 
-        // WINDOWS Layer: Light up specific keys
-        else if (layer == WINDOWS) {
-            rgb_matrix_set_color(35, RGB_RED); // Light up 'W'
-            rgb_matrix_set_color(41, RGB_RED); // Light up 'I'
-            rgb_matrix_set_color(69, RGB_RED); // Light up 'N'
+
+        // WINDOWS Layer: Only W, I, N should light up
+        if (layer == WINDOWS) {
+            rgb_matrix_set_color(35, RGB_RED); // Light up 'S'
+            rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
+            rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
         }
 
-        // SYM Layer: Light up specific keys
-        else if (layer == SYM) {
-            rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
-            rgb_matrix_set_color(39, RGB_RED); // Light up 'Y'
-            rgb_matrix_set_color(70, RGB_RED); // Light up 'M'
-        }
+          // SYMBOL Layer: Only S, Y, M should light up
+            if (layer == SYM) {
+                rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
+                rgb_matrix_set_color(39, RGB_RED); // Light up 'Y'
+                rgb_matrix_set_color(70, RGB_RED); // Light up 'M'
+            }
 
-        // PIC Layer: Light up specific keys
-        else if (layer == PIC) {
+          // SYMBOL Layer: Only S, Y, M should light up
+          if (layer == PIC) {
             rgb_matrix_set_color(43, RGB_RED); // Light up 'S'
             rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
             rgb_matrix_set_color(66, RGB_RED); // Light up 'M'
         }
 
+
         // CAPS LOCK Blinking
         if (i == CAPS_LED && is_caps_word_on()) {
-            if (led_on) {
-                rgb_matrix_set_color(i, RGB_RED); // Blink red when Caps Lock is active
-            } else {
-                rgb_matrix_set_color(i, 0, 0, 0); // Turn off when blinking cycle is off
-            }
-        }
-
-        // Leader Key Blinking (LED 1 blinks while Leader Key is active)
-        if (i == 1 && is_leader_active()) {
-            if (led_on) {
-                rgb_matrix_set_color(1, RGB_BLUE);  // Blink blue when Leader Key is active
-            } else {
-                rgb_matrix_set_color(1, 0, 0, 0);   // Turn off during blink cycle
+            if (timer_elapsed32(caps_blink_timer) > 500) {
+                caps_blink_timer = timer_read32();
+                rgb_matrix_set_color(i, RGB_RED);
             }
         }
     }
 
-    return true;
+    return false;  // Allow other matrix effects to run
 }
 
 // clang-format off
