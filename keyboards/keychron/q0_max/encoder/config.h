@@ -66,7 +66,7 @@
 #    define RETRO_SHIFT 500
 
 // One shot
-#    define ONESHOT_TIMEOUT 2500  /* Time (in ms) before the one shot key is released */
+#    define ONESHOT_TIMEOUT 4000  /* Time (in ms) before the one shot key is released */
 
 // Leader key
 #define LEADER_PER_KEY_TIMING
