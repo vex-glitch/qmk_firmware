@@ -20,8 +20,9 @@
 enum layers {
     BASE,
     FN,
-    L2,
-    L3,
+    LCTL,
+    LGUI,
+    LALT, 
 };
 typedef enum {
     TD_NONE,
@@ -59,6 +60,12 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 enum {
     TD_UNSC,
 };
+
+// Definitions
+    #define KC_UNSC TD(TD_UNSC)
+    #define CTL_L  OSL(L_CTL)
+    #define GUI_L   OSL(L_GUI)
+    #define ALT_L   OSL(L_ALT)
 
 void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -98,7 +105,7 @@ void keyboard_post_init_user(void) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
         KC_MUTE, KC_GRV, KC_BSLS,KC_QUOT,KC_PCMM,
-        MC_1,	 KC_NUM, KC_PSLS,KC_PAST,KC_PMNS,
+        MC_1,	 CTL_L,  GUI_L,  ALT_L,  KC_PMNS,
         MC_2,	 KC_P7,	 KC_P8,	 KC_P9,	 KC_PPLS,
         MC_3,	 KC_P4,	 KC_P5,	 KC_P6,
         MC_4,	 KC_P1,	 KC_P2,	 KC_P3,	 KC_PEQL,
@@ -112,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, RGB_SAD, RGB_SPD, KC_MPLY, _______,
         _______, RGB_TOG,          KC_MNXT          ),
 
-    [L2] = LAYOUT_tenkey_27(
+    [LCTL] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
@@ -120,7 +127,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______,
         _______, _______,          _______          ),
 
-    [L3] = LAYOUT_tenkey_27(
+    [LGUI] = LAYOUT_tenkey_27(
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______,          _______          )
+    [LALT] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
@@ -134,8 +148,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [FN]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-    [L2]   = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [L3]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [LCTL]   = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LGUI]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [LALT]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
 };
 #endif // ENCODER_MAP_ENABLE
 
