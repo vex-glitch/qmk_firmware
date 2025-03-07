@@ -94,37 +94,37 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // Macro Declarations
 enum custom_keycodes {
-    C0,
-    C1,
-    C2,
-    C3,
-    C4,
-    C5,
-    C6,
-    C7,
-    C8,
-    C9,
-    CDOT,
-    G1,
-    G2,
-    G3,
-    G4,
-    G5,
-    G6,
-    G7,
-    G8,
-    G9,
-    GDOT,
-    A1,
-    A2,
-    A3,
-    A4,
-    A5,
-    A6,
-    A7,
-    A8,
-    A9,
-    ADOT,
+    KC_C0,
+    KC_C1,
+    KC_C2,
+    KC_C3,
+    KC_C4,
+    KC_C5,
+    KC_C6,
+    KC_C7,
+    KC_C8,
+    KC_C9,
+    KC_CDOT,
+    KC_G1,
+    KC_G2,
+    KC_G3,
+    KC_G4,
+    KC_G5,
+    KC_G6,
+    KC_G7,
+    KC_G8,
+    KC_G9,
+    KC_GDOT,
+    KC_A1,
+    KC_A2,
+    KC_A3,
+    KC_A4,
+    KC_A5,
+    KC_A6,
+    KC_A7,
+    KC_A8,
+    KC_A9,
+    KC_ADOT,
 };
 
  ///RGB
@@ -159,26 +159,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LCTL] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, C7,      C8,      C9,      _______,
-        _______, C4,      C5,      C6,
-        _______, C1,      C2,      C3,      _______,
-        _______, C0,               CDOT            ),
+        _______, KC_C7,   KC_C8,   KC_C9,   _______,
+        _______, KC_C4,   KC_C5,   KC_C6,
+        _______, KC_C1,   KC_C2,   KC_C3,   _______,
+        _______, KC_C0,            KC_CDOT         ),
 
     [LGUI] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, G7,      G8,      G9,      _______,
-        _______, G4,      G5,      G6,
-        _______, G1,      G2,      G3,      _______,
-        _______, G0,               GDOT            ),
+        _______, KC_G7,   KC_G8,   KC_G9,   _______,
+        _______, KC_G4,   KC_G5,   KC_G6,
+        _______, KC_G1,   KC_G2,   KC_G3,   _______,
+        _______, KC_G0,            KC_GDOT         ),
 
     [LALT] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, A7,      A8,      A9,      _______,
-        _______, A4,      A5,      A6,
-        _______, A1,      A2,      A3,      _______,
-        _______, A0,               ADOT            ),
+        _______, KC_A7,   KC_A8,   KC_A9,   _______,
+        _______, KC_A4,   KC_A5,   KC_A6,
+        _______, KC_A1,   KC_A2,   KC_A3,   _______,
+        _______, KC_A0,            KC_ADOT         ),
 };
 
 // clang-format on
@@ -417,8 +417,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            unregister_code(KC_LALT);
        }
        return false;
-   
-   
+
+
        default:
        return true;  // Process all other keycodes normally
    }
