@@ -105,6 +105,7 @@ enum custom_keycodes {
     KC_C8,
     KC_C9,
     KC_CDOT,
+    KC_G0,
     KC_G1,
     KC_G2,
     KC_G3,
@@ -115,6 +116,7 @@ enum custom_keycodes {
     KC_G8,
     KC_G9,
     KC_GDOT,
+    KC_A0,
     KC_A1,
     KC_A2,
     KC_A3,
@@ -198,77 +200,77 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     switch (keycode) {
         /// CTL Layer
-       case C0:
+       case KC_C0:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P0);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C1:
+       case KC_C1:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P1);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C2:
+       case KC_C2:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P2);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C3:
+       case KC_C3:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P3);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C4:
+       case KC_C4:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P4);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C5:
+       case KC_C5:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P5);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C6:
+       case KC_C6:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P6);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C7:
+       case KC_C7:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P7);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C8:
+       case KC_C8:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P8);
            unregister_code(KC_LCTL);
        }
        return false;
-       case C9:
+       case KC_C9:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_P9);
            unregister_code(KC_LCTL);
        }
        return false;
-       case CDOT:
+       case KC_CDOT:
        if (record->event.pressed) {
            register_code(KC_LCTL);
            tap_code(KC_PDOT);
@@ -276,70 +278,77 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        }
        return false;
         /// GUI Layer
-       case G1:
+        case KC_G0:
+        if (record->event.pressed) {
+            register_code(KC_LGUI);
+            tap_code(KC_P0);
+            unregister_code(KC_LGUI);
+        }
+        return false;
+       case KC_G1:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P1);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G2:
+       case KC_G2:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P2);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G3:
+       case KC_G3:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P3);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G4:
+       case KC_G4:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P4);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G5:
+       case KC_G5:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P5);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G6:
+       case KC_G6:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P6);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G7:
+       case KC_G7:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P7);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G8:
+       case KC_G8:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P8);
            unregister_code(KC_LGUI);
        }
        return false;
-       case G9:
+       case KC_G9:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_P9);
            unregister_code(KC_LGUI);
        }
        return false;
-       case GDOT:
+       case KC_GDOT:
        if (record->event.pressed) {
            register_code(KC_LGUI);
            tap_code(KC_PDOT);
@@ -347,70 +356,77 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        }
        return false;
         /// ALT Layer
-       case A1:
+        case KC_A0:
+        if (record->event.pressed) {
+            register_code(KC_LALT);
+            tap_code(KC_P0);
+            unregister_code(KC_LALT);
+        }
+        return false;
+       case KC_A1:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P1);
            unregister_code(KC_LALT);
        }
        return false;
-       case A2:
+       case KC_A2:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P2);
            unregister_code(KC_LALT);
        }
        return false;
-       case A3:
+       case KC_A3:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P3);
            unregister_code(KC_LALT);
        }
        return false;
-       case A4:
+       case KC_A4:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P4);
            unregister_code(KC_LALT);
        }
        return false;
-       case A5:
+       case KC_A5:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P5);
            unregister_code(KC_LALT);
        }
        return false;
-       case A6:
+       case KC_A6:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P6);
            unregister_code(KC_LALT);
        }
        return false;
-       case A7:
+       case KC_A7:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P7);
            unregister_code(KC_LALT);
        }
        return false;
-       case A8:
+       case KC_A8:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P8);
            unregister_code(KC_LALT);
        }
        return false;
-       case A9:
+       case KC_A9:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_P9);
            unregister_code(KC_LALT);
        }
        return false;
-       case ADOT:
+       case KC_ADOT:
        if (record->event.pressed) {
            register_code(KC_LALT);
            tap_code(KC_PDOT);
