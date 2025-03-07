@@ -4106,30 +4106,19 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 
     for (uint8_t i = led_min; i < led_max; i++) {
-        // FUN Layer: Only F, U, N should light up
-        if (layer == FUN) {
-            if (g_led_config.flags[i] & LED_FLAG_F) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
-            if (g_led_config.flags[i] & LED_FLAG_U) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
-            if (g_led_config.flags[i] & LED_FLAG_N) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
+          // SYMBOL Layer: Only S, Y, M should light up
+          if (layer == FUN) {
+            rgb_matrix_set_color(54, RGB_RED); // Light up 'S'
+            rgb_matrix_set_color(40, RGB_RED); // Light up 'Y'
+            rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
         }
+
 
         // WINDOWS Layer: Only W, I, N should light up
         if (layer == WINDOWS) {
-            if (g_led_config.flags[i] & LED_FLAG_W) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
-            if (g_led_config.flags[i] & LED_FLAG_I) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
-            if (g_led_config.flags[i] & LED_FLAG_N) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
+            rgb_matrix_set_color(35, RGB_RED); // Light up 'S'
+            rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
+            rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
         }
 
           // SYMBOL Layer: Only S, Y, M should light up
