@@ -4054,11 +4054,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             // Return to the default layer RGB effect
             switch (default_layer) {
                 case CMAK_BASE:
-                    new_mode = RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS;  // Typing heatmap for Colemak
+                    new_mode = RGB_MATRIX_STARLIGHT;  // Typing heatmap for Colemak
                     break;
                 case MAC_BASE:
-                    new_mode = RGB_MATRIX_TYPING_HEATMAP;
-                   // rgb_matrix_sethsv(132, 102, 180);   // 🔹 Temporarily disable STARLIGHT
+                    new_mode = RGB_MATRIX_STARLIGHT;
+                    rgb_matrix_sethsv(132, 102, 180);
                     break;
                 default:
                     break;
@@ -4082,11 +4082,11 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     // Update RGB effects or colors based on default layer
     switch (default_layer) {
         case CMAK_BASE:
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS);
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_STARLIGHT);
             break;
         case MAC_BASE:
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
-           // rgb_matrix_sethsv(132, 102, 180);   // 🔹 Disable STARLIGHT
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_STARLIGHT);
+            rgb_matrix_sethsv(132, 102, 180);
             break;
         default:
             break;
