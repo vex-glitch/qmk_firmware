@@ -157,7 +157,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         if (layer == LCTL) {
             rgb_matrix_set_color(5, RGB_RED);
         } else if (layer == LGUI) {
-            rgb_matrix_set_color(6, RGB_BLUE);
+            rgb_matrix_set_color(6, RGB_CHARTREUSE);
         } else if (layer == LALT) {
             rgb_matrix_set_color(7, RGB_SPRINGGREEN);
         }
