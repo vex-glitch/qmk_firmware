@@ -83,6 +83,16 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
 };
 
+ ///RGB
+void keyboard_post_init_user(void) {
+    // Enable RGB Matrix
+    rgb_matrix_enable();
+
+    // Set the default effect to Starlight
+    rgb_matrix_mode(RGB_MATRIX_STARLIGHT);
+    rgb_matrix_sethsv(132, 102, 180);
+    eeconfig_update_rgb_matrix(); // Ensure it persists across power cycles
+}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
