@@ -55,4 +55,10 @@
 #    define BOOTMAGIC_LITE_ROW 0
 #    define BOOTMAGIC_LITE_COLUMN 1
 
+ /// My modifications
+ // Tapping term
+#define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
+#define PERMISSIVE_HOLD
+
 #endif
