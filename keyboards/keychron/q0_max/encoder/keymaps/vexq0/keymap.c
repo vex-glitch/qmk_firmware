@@ -156,13 +156,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     for (uint8_t i = led_min; i < led_max; i++) {
         if (layer == LCTL) {
-        rgb_matrix_set_color(0, RGB_RED);
+        rgb_matrix_set_color(1, RGB_RED);
     }
         if (layer == LGUI) {
-        rgb_matrix_set_color(1, RGB_GREEN);
+        rgb_matrix_set_color(2, RGB_GREEN);
     }
         if (layer == LALT) {
-        rgb_matrix_set_color(2, RGB_YELLOW);
+        rgb_matrix_set_color(0, RGB_YELLOW);
     }
 }
      return false;  // Allow other matrix effects to run
