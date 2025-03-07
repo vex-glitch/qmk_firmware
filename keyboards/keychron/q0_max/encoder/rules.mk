@@ -1,1 +1,26 @@
 # This file intentionally left blank
+RETRO_SHIFT_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+LEADER_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+SRC += features/select_word.c
+SRC += features/select_word_back.c
+LAYER_LOCK_ENABLE = yes
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+RGB_MATRIX_ENABLE = yes # For advanced RGB effects
+RGB_MATRIX_EFFECTS = yes
+RGB_MATRIX_EXTRA_EFFECTS = yes
+#CUSTOM_LAYER_STATE_ENABLE = yes
+RGB_MATRIX_SOLID_REACTIVE_NEXUS_ENABLE = yes
+RGB_MATRIX_KEYREACTIVE_ENABLE = yes
+RGB_MATRIX_STARLIGHT = yes
+SRC += features/autocorrection.c
+LTO_ENABLE = yes
+COMBO_ENABLE = yes
+SRC += features/repeat_key.c
+SRC += features/sentence_case.c
+SRC += features/achordion.c
+UNICODEMAP_ENABLE = yes
+UNICODE_COMMON = yes
