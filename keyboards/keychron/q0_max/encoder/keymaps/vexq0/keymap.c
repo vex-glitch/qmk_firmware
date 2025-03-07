@@ -130,6 +130,7 @@ enum {
 // Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Process existing macros
+    switch (keycode) {
      /// CTL Layer
     case C0:
     if (record->event.pressed) {
@@ -349,6 +350,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code(KC_PDOT);
         unregister_code(KC_LALT);
     }
+    return false;
+
+
+    default:
+    return true;  // Process all other keycodes normally
+}
+
+return true;
+}
+
  ///RGB
 void keyboard_post_init_user(void) {
     // Enable RGB Matrix
