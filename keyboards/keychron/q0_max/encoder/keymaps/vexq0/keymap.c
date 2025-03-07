@@ -139,6 +139,25 @@ void keyboard_post_init_user(void) {
     rgb_matrix_sethsv(132, 102, 180);
     eeconfig_update_rgb_matrix(); // Ensure it persists across power cycles
 }
+// Advanced user function for per-key RGB lighting
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t layer = get_highest_layer(layer_state);
+    uint8_t default_layer = get_highest_layer(default_layer_state);
+
+    for (uint8_t i = led_min; i < led_max; i++) {
+        if (layer == LCTL) {
+          rgb_matrix_set_color(5, RGB_RED);
+      }
+
+      if (layer == LGUI) {
+          rgb_matrix_set_color(6, RGB_RED);
+      }
+
+      if (layer == LALT) {
+        rgb_matrix_set_color(7, RGB_RED);
+    }
+    }
+}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
