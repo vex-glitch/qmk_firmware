@@ -22,7 +22,8 @@ enum layers {
     FN,
     LCTL,
     LGUI,
-    LALT, 
+    LALT,
+
 };
 typedef enum {
     TD_NONE,
@@ -67,6 +68,7 @@ enum {
     #define GUI_L   OSL(LGUI)
     #define ALT_L   OSL(LALT)
 
+
 void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
@@ -90,6 +92,263 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
 };
 
+// Macro Declarations
+enum {
+    C0,
+    C1,
+    C2,
+    C3,
+    C4,
+    C5,
+    C6,
+    C7,
+    C8,
+    C9,
+    CDOT,
+    G1,
+    G2,
+    G3,
+    G4,
+    G5,
+    G6,
+    G7,
+    G8,
+    G9,
+    GDOT,
+    A1,
+    A2,
+    A3,
+    A4,
+    A5,
+    A6,
+    A7,
+    A8,
+    A9,
+    ADOT,
+};
+
+// Macros
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Process existing macros
+     /// CTL Layer
+    case C0:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P0);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C1:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P1);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C2:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P2);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C3:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P3);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C4:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P4);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C5:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P5);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C6:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P6);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C7:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P7);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C8:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P8);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case C9:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_P9);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+    case CDOT:
+    if (record->event.pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_PDOT);
+        unregister_code(KC_LCTL);
+    }
+    return false;
+     /// GUI Layer
+    case G1:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P1);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G2:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P2);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G3:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P3);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G4:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P4);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G5:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P5);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G6:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P6);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G7:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P7);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G8:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P8);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case G9:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_P9);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+    case GDOT:
+    if (record->event.pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_PDOT);
+        unregister_code(KC_LGUI);
+    }
+    return false;
+     /// ALT Layer
+    case A1:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P1);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A2:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P2);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A3:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P3);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A4:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P4);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A5:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P5);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A6:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P6);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A7:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P7);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A8:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P8);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case A9:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_P9);
+        unregister_code(KC_LALT);
+    }
+    return false;
+    case ADOT:
+    if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_PDOT);
+        unregister_code(KC_LALT);
+    }
  ///RGB
 void keyboard_post_init_user(void) {
     // Enable RGB Matrix
@@ -122,26 +381,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LCTL] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______, _______,          _______          ),
+        _______, C7,      C8,      C9,      _______,
+        _______, C4,      C5,      C6,
+        _______, C1,      C2,      C3,      _______,
+        _______, C0,               CDOT            ),
 
     [LGUI] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______, _______,          _______          ), 
-    
+        _______, G7,      G8,      G9,      _______,
+        _______, G4,      G5,      G6,
+        _______, G1,      G2,      G3,      _______,
+        _______, G0,               GDOT            ),
+
     [LALT] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-        _______, _______,          _______          ), 
+        _______, A7,      A8,      A9,      _______,
+        _______, A4,      A5,      A6,
+        _______, A1,      A2,      A3,      _______,
+        _______, A0,               ADOT            ),
 };
 
 // clang-format on
