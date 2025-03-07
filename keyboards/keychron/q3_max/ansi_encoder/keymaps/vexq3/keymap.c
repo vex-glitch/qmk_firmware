@@ -2255,7 +2255,7 @@ void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     }
     else if (state->count == 2 && !state->pressed) {
         // Double Tap: Send F3
-        tap_code(KC_F3);
+        tap_code(KC_PEQL);
     }
 }
 
