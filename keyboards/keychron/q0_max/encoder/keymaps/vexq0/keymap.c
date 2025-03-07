@@ -63,9 +63,9 @@ enum {
 
 // Definitions
     #define KC_UNSC TD(TD_UNSC)
-    #define CTL_L  OSL(L_CTL)
-    #define GUI_L   OSL(L_GUI)
-    #define ALT_L   OSL(L_ALT)
+    #define CTL_L   OSL(LCTL)
+    #define GUI_L   OSL(LGUI)
+    #define ALT_L   OSL(LALT)
 
 void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -134,6 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
         _______, _______,          _______          )
+    
     [LALT] = LAYOUT_tenkey_27(
         _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
