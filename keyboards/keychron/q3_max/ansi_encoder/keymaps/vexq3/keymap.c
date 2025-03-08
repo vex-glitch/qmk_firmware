@@ -2618,7 +2618,6 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_NONUS_HASH:
         case KC_SEMICOLON:
         case KC_GRAVE:
-        case ZED:
         case DELF:
         case TDOSS:
         case TDDELW:
