@@ -2614,10 +2614,20 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_UNDS:
         case KC_LEFT_BRACKET:
         case KC_RIGHT_BRACKET:
-          case KC_NONUS_HASH:
+        case KC_NONUS_HASH:
         case KC_SEMICOLON:
         case KC_GRAVE:
-             case DELF:
+        case ZED:
+        case DELF:
+        case TDOSS:
+        case TDDELW:
+        case QUESTION:
+        case SLASH:
+        case COMMA:
+        case PERIOD:
+        case USCR:
+        case APOST
+
                 return true;
         default:
             return false; // End Caps Word for other keys
@@ -3799,10 +3809,10 @@ void leader_end_user(void) {
         // Leader, d, d, s => Types the below string
         SEND_STRING("https://start.duckduckgo.com\n");
     // Global
-    } else if (leader_sequence_two_keys(KC_A, KC_Z)) {
+    } else if (leader_sequence_two_keys(KC_A, ZED)) {
         // Leader, a, z => GUI+Z (Undo)
         tap_code16(LGUI(KC_Z));
-    } else if (leader_sequence_three_keys(KC_A, KC_Z, KC_Z)) {
+    } else if (leader_sequence_three_keys(KC_A, ZED, ZED)) {
         // Leader, a, z, z => GUI+SHIFT+Z (Redo)
         tap_code16(SCMD(KC_Z));
     } else if (leader_sequence_two_keys(KC_A, KC_Q)) {
