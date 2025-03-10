@@ -2257,7 +2257,7 @@ void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
         // Hold: Act as MEH key (⇧ + ⌃ + ⌘)
         register_code(KC_LSFT);  // Press Shift (⇧)
         register_code(KC_LCTL);  // Press Control (⌃)
-        register_code(KC_LGUI);  // Press Command (⌘)
+        register_code(KC_LALT);  // Press Command (⌘)
     }
     else if (state->count == 2 && !state->pressed) {
         // Double Tap: Send F3
@@ -2269,7 +2269,7 @@ void dance_leady_reset(tap_dance_state_t *state, void *user_data) {
     // Release MEH modifiers when the key is released
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
-    unregister_code(KC_LGUI);
+    unregister_code(KC_LALT);
 }
 
 void dance_z_finished(tap_dance_state_t *state, void *user_data) {
