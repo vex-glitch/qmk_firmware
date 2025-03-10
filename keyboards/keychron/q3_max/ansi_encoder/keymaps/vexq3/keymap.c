@@ -98,6 +98,9 @@ enum {
     TD_BACKT,
     TD_EQUALS,
     TD_UNSC,
+    TD_ONE,
+    TD_TWO,
+    TD_THREE,
 };
 
 typedef enum {
@@ -231,6 +234,9 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define BACKT     TD(TD_BACKT)
     #define EQUALS    TD(TD_EQUALS)
     #define UNSC      TD(TD_UNSC)
+    #define ONE       TD(TD_ONE)
+    #define TWO       TD(TD_TWO)
+    #define THREE     TD(TD_THREE)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2453,6 +2459,51 @@ void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
+void dance_one_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        tap_code(KC_1);
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        register_code(KC_LCTL);
+        tap_code(KC_1);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_one_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+void dance_two_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        tap_code(KC_2);
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        register_code(KC_LCTL);
+        tap_code(KC_2);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_two_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+void dance_three_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single tap: Inserts < > with the cursor between
+        tap_code(KC_3);
+    } else if (state->count == 2 && !state->pressed) {
+        // Hold: Inserts { } with the cursor between
+        register_code(KC_LCTL);
+        tap_code(KC_3);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_three_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
 
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -2546,6 +2597,32 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
             case TD(TD_TIL):
             return TAPPING_TERM + 50;
+            case TD(TD_ONE):
+            return TAPPING_TERM + 25;
+            case TD(TD_TWO):
+            return TAPPING_TERM + 25;
+            case TD(TD_THREE):
+            return TAPPING_TERM + 25;
+            case TD(TD_BACKT):
+            return TAPPING_TERM + 50;
+            case TD(TD_TIL):
+            return TAPPING_TERM + 50;
+            case TD(TD_SBL):
+            return TAPPING_TERM + 50;
+            case TD(TD_SBR):
+            return TAPPING_TERM + 50;
+            case TD(TD_STAR):
+            return TAPPING_TERM + 50;
+            case TD(TD_UNSC):
+            return TAPPING_TERM + 50;
+            case TD(TD_EQUALS):
+            return TAPPING_TERM + 50;
+            case TD(TD_SYMPIC):
+            return TAPPING_TERM + 50;
+            case TD(TD_RB):
+            return TAPPING_TERM + 50;
+            case TD(TD_USCR):
+            return TAPPING_TERM + 50;
             default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -2589,6 +2666,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case HOME_E:
         case HOME_I:
         case HOME_O:
+        case USCR:
         case ALT_S:
         case GUI_D:
         case SFT_F:
@@ -3793,6 +3871,9 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BACKT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_backt_finished, dance_backt_reset),
     [TD_EQUALS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_equals_finished, dance_equals_reset),
     [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
+    [TD_ONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_one_finished, dance_one_reset),
+    [TD_TWO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_two_finished, dance_two_reset),
+    [TD_THREE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_three_finished, dance_three_reset),
 
 };
 
@@ -4172,8 +4253,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
-        ALFYHYPY, KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
+        TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
+        ALFYHYPY, KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     UNSC,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         LEADY,    HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
