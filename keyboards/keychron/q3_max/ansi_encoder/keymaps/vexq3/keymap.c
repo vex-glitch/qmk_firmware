@@ -2605,8 +2605,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 25;
             case TD(TD_BACKT):
             return TAPPING_TERM + 50;
-            case TD(TD_TIL):
-            return TAPPING_TERM + 50;
             case TD(TD_SBL):
             return TAPPING_TERM + 50;
             case TD(TD_SBR):
