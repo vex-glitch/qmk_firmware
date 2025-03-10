@@ -573,7 +573,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            register_code(KC_LSFT);
            register_code(KC_LCTL);
            tap_code(KC_PMNS);
-            register_code(KC_LCTL);
+            unregister_code(KC_LCTL);
            unregister_code(KC_LSFT);
        }
        return false;
@@ -591,7 +591,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            register_code(KC_LSFT);
            register_code(KC_LGUI);
            tap_code(KC_PPLS);
-           register_code(KC_LGUI);
+           unregister_code(KC_LGUI);
            unregister_code(KC_LSFT);
        }
        return false;
@@ -600,7 +600,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            register_code(KC_LSFT);
            register_code(KC_LGUI);
            tap_code(KC_PMNS);
-            register_code(KC_LGUI);
+            unregister_code(KC_LGUI);
            unregister_code(KC_LSFT);
        }
        return false;
@@ -618,7 +618,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            register_code(KC_LSFT);
            register_code(KC_LALT);
            tap_code(KC_PPLS);
-           register_code(KC_LALT);
+           unregister_code(KC_LALT);
            unregister_code(KC_LSFT);
        }
        return false;
@@ -627,7 +627,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            register_code(KC_LSFT);
            register_code(KC_LALT);
            tap_code(KC_PMNS);
-            register_code(KC_LALT);
+            unregister_code(KC_LALT);
            unregister_code(KC_LSFT);
        }
        return false;
