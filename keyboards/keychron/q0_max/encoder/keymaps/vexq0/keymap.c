@@ -564,7 +564,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            register_code(KC_LSFT);
            register_code(KC_LCTL);
            tap_code(KC_PPLS);
-           register_code(KC_LCTL);
+           unregister_code(KC_LCTL);
            unregister_code(KC_LSFT);
        }
        return false;
