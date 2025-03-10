@@ -51,7 +51,7 @@
 // Tapping term
 #define TAPPING_TERM 175
 #define TAPPING_TERM_PER_KEY
-#define PERMISSIVE_HOLD
+
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 
