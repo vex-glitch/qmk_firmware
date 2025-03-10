@@ -2701,7 +2701,6 @@ bool caps_word_press_user(uint16_t keycode) {
         case SLASH:
         case COMMA:
         case PERIOD:
-        case USCR:
         case APOST:
 
                 return true;
