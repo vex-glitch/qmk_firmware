@@ -108,6 +108,9 @@ enum custom_keycodes {
     KC_CMM,
     KC_CMNS,
     KC_CPLS,
+    KC_CIM,
+    KC_CIIM,
+    KC_CIIIM,
     KC_G0,
     KC_G1,
     KC_G2,
@@ -122,6 +125,9 @@ enum custom_keycodes {
     KC_GMM,
     KC_GMNS,
     KC_GPLS,
+    KC_GIM,
+    KC_GIIM,
+    KC_GIIIM,
     KC_A0,
     KC_A1,
     KC_A2,
@@ -136,6 +142,14 @@ enum custom_keycodes {
     KC_AMM,
     KC_AMNS,
     KC_APLS,
+    KC_AIM,
+    KC_AIIM,
+    KC_AIIIM,
+    KC_IM,
+    KC_IIM,
+    KC_IIIM,
+
+
 
 };
 
@@ -171,9 +185,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
-        KC_MUTE,   ALT_L,     CTL_L,     GUI_L,     KC_QUOT,
-        MC_1,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_BSLS,
-        MC_2,	   KC_P7,	  KC_P8,	 KC_P9,	    KC_GRV,
+        KC_MUTE,   ALT_L,     CTL_L,     GUI_L,     KC_IM,
+        MC_1,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
+        MC_2,	   KC_P7,	  KC_P8,	 KC_P9,	    KC_IIIM,
         MC_3,	   KC_P4,	  KC_P5,	 KC_P6,
         MC_4,	   KC_P1,	  KC_P2,	 KC_P3,	    KC_PEQL,
         MO(FN),    KC_P0,                KC_PDOT           ),
@@ -187,25 +201,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   RGB_TOG,              KC_MNXT           ),
 
     [LCTL] = LAYOUT_tenkey_27(
-        _______,   _______,   _______,   _______,   _______,
-        _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   _______,
-        _______,   KC_C7,     KC_C8,     KC_C9,     _______,
+        _______,   _______,   _______,   _______,   KC_CIM,
+        _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   KC_CIIM,
+        _______,   KC_C7,     KC_C8,     KC_C9,     KC_CIIIM,
         _______,   KC_C4,     KC_C5,     KC_C6,
         _______,   KC_C1,     KC_C2,     KC_C3,     _______,
         _______,   KC_C0,                KC_CDOT           ),
 
     [LGUI] = LAYOUT_tenkey_27(
-        _______,   _______,   _______,   _______,   _______,
-        _______,   KC_GMM,    KC_GMNS,   KC_GPLS,   _______,
-        _______,   KC_G7,     KC_G8,     KC_G9,     _______,
+        _______,   _______,   _______,   _______,   KC_GIM,
+        _______,   KC_GMM,    KC_GMNS,   KC_GPLS,   KC_GIIM,
+        _______,   KC_G7,     KC_G8,     KC_G9,     KC_GIIIM,
         _______,   KC_G4,     KC_G5,     KC_G6,
         _______,   KC_G1,     KC_G2,     KC_G3,     _______,
         _______,   KC_G0,                KC_GDOT           ),
 
     [LALT] = LAYOUT_tenkey_27(
-        _______,   _______,   _______,   _______,   _______,
-        _______,   KC_AMM,    KC_AMNS,   KC_APLS,   _______,
-        _______,   KC_A7,     KC_A8,     KC_A9,     _______,
+        _______,   _______,   _______,   _______,   KC_AIM,
+        _______,   KC_AMM,    KC_AMNS,   KC_APLS,   KC_AIIM,
+        _______,   KC_A7,     KC_A8,     KC_A9,     KC_AIIIM,
         _______,   KC_A4,     KC_A5,     KC_A6,
         _______,   KC_A1,     KC_A2,     KC_A3,     _______,
         _______,   KC_A0,                KC_ADOT           ),
@@ -524,7 +538,108 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            unregister_code(KC_LALT);
        }
        return false;
-
+       case KC_IM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           tap_code(KC_PPLS);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_IIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           tap_code(KC_PMNS);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_IIIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           tap_code(KC_PCMM);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_CIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           register_code(KC_LCTL);
+           tap_code(KC_PPLS);
+           register_code(KC_LCTL);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_CIIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           register_code(KC_LCTL);
+           tap_code(KC_PMNS);
+            register_code(KC_LCTL);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_CIIIM:
+       if (record->event.pressed) {
+            register_code(KC_LCTL);
+           register_code(KC_LSFT);
+           tap_code(KC_PCMM);
+           unregister_code(KC_LSFT);
+              unregister_code(KC_LCTL);
+       }
+       return false;
+       case KC_GIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           register_code(KC_LGUI);
+           tap_code(KC_PPLS);
+           register_code(KC_LGUI);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_GIIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           register_code(KC_LGUI);
+           tap_code(KC_PMNS);
+            register_code(KC_LGUI);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_GIIIM:
+       if (record->event.pressed) {
+            register_code(KC_LGUI);
+           register_code(KC_LSFT);
+           tap_code(KC_PCMM);
+           unregister_code(KC_LSFT);
+              unregister_code(KC_LGUI);
+       }
+       return false;
+       case KC_AIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           register_code(KC_LALT);
+           tap_code(KC_PPLS);
+           register_code(KC_LALT);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_AIIM:
+       if (record->event.pressed) {
+           register_code(KC_LSFT);
+           register_code(KC_LALT);
+           tap_code(KC_PMNS);
+            register_code(KC_LALT);
+           unregister_code(KC_LSFT);
+       }
+       return false;
+       case KC_AIIIM:
+       if (record->event.pressed) {
+            register_code(KC_LALT);
+           register_code(KC_LSFT);
+           tap_code(KC_PCMM);
+           unregister_code(KC_LSFT);
+              unregister_code(KC_LALT);
+       }
+       return false;
 
        default:
        return true;  // Process all other keycodes normally
