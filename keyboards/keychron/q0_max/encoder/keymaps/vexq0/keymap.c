@@ -154,7 +154,7 @@ enum custom_keycodes {
 
 };
 
- ///RGB
+ ///RGBsj
 void keyboard_post_init_user(void) {
     // Enable RGB Matrix
     rgb_matrix_enable();
