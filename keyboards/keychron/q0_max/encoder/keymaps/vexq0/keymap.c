@@ -148,6 +148,7 @@ enum custom_keycodes {
     KC_IM,
     KC_IIM,
     KC_IIIM,
+    ESCAPE,
 
 
 
@@ -186,7 +187,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
         KC_MUTE,   ALT_L,     CTL_L,     GUI_L,     KC_IM,
-        KC_ESC,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
+        ESCAPE,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
         MC_2,	   KC_P7,	  KC_P8,	 KC_P9,	    KC_IIIM,
         MC_3,	   KC_P4,	  KC_P5,	 KC_P6,
         MC_4,	   KC_P1,	  KC_P2,	 KC_P3,	    KC_PEQL,
@@ -638,6 +639,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            tap_code(KC_PCMM);
            unregister_code(KC_LSFT);
               unregister_code(KC_LALT);
+       }
+       return false;
+       case ESCAPE:
+       if (record->event.pressed) {
+           tap_code(KC_ESC);
        }
        return false;
 
