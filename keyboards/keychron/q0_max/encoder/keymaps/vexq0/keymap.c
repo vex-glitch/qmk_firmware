@@ -186,7 +186,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
         KC_MUTE,   ALT_L,     CTL_L,     GUI_L,     KC_IM,
-        MC_1,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
+        KC_ESC,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
         MC_2,	   KC_P7,	  KC_P8,	 KC_P9,	    KC_IIIM,
         MC_3,	   KC_P4,	  KC_P5,	 KC_P6,
         MC_4,	   KC_P1,	  KC_P2,	 KC_P3,	    KC_PEQL,
