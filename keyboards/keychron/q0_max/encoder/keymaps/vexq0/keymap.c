@@ -113,6 +113,7 @@ void dance_layalt_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_layalt_reset(tap_dance_state_t *state, void *user_data) {
+    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED); // Properly reset the one-shot layer
     layer_off(FN);  // Deactivates FN layer
 }
 
