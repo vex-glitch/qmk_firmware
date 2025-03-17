@@ -61,6 +61,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 enum {
     TD_UNSC,
     TD_CONE,
+    TD_LALT,
 };
 
 // Definitions
@@ -69,6 +70,7 @@ enum {
     #define GUI_L   OSL(LGUI)
     #define ALT_L   OSL(LALT)
     #define CONE    TD(TD_CONE)
+    #define LAYALT  TD(TD_LALT)
 
 // Tap Dance Logic
 void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
@@ -102,9 +104,22 @@ void dance_cone_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
+void dance_layalt_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+            set_oneshot_layer(LALT, ONESHOT_START);  // One-shot layer activation
+    } else if (state->count == 1 && state->pressed) {
+            layer_on(FN);  // Hold activates FN layer
+    }
+}
+
+void dance_layalt_reset(tap_dance_state_t *state, void *user_data) {
+    zlayer_off(FN);  // Deactivates FN layer
+}
+
 tap_dance_action_t tap_dance_actions[] = {
     [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
     [TD_CONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cone_finished, dance_cone_reset),
+    [TD_LAYALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layalt_finished, dance_layalt_reset),
 };
 
 // Macro Declarations
