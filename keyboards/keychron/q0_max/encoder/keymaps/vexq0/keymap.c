@@ -149,9 +149,8 @@ enum custom_keycodes {
     KC_IIM,
     KC_IIIM,
     ESCAPE,
-
-
-
+    KC_ENCUP,
+    KC_ENCDOWN,
 };
 
  ///RGBsj
@@ -644,6 +643,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        case ESCAPE:
        if (record->event.pressed) {
            tap_code(KC_ESC);
+       }
+       return false;
+       case KC_ENCUP:
+       if (record->event.pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_UP);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+       }
+       return false;
+       case KC_ENCDOWN:
+       if (record->event.pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_DOWN);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
        }
        return false;
 
