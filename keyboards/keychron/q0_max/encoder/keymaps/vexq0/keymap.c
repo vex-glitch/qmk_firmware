@@ -61,7 +61,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 enum {
     TD_UNSC,
     TD_CONE,
-    TD_LALT,
+    TD_LAYALT,
 };
 
 // Definitions
@@ -70,7 +70,7 @@ enum {
     #define GUI_L   OSL(LGUI)
     #define ALT_L   OSL(LALT)
     #define CONE    TD(TD_CONE)
-    #define LAYALT  TD(TD_LALT)
+    #define LAYALT  TD(TD_LAYALT)
 
 // Tap Dance Logic
 void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
@@ -113,7 +113,7 @@ void dance_layalt_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_layalt_reset(tap_dance_state_t *state, void *user_data) {
-    zlayer_off(FN);  // Deactivates FN layer
+    layer_off(FN);  // Deactivates FN layer
 }
 
 tap_dance_action_t tap_dance_actions[] = {
