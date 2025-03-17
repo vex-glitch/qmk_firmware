@@ -4099,8 +4099,10 @@ void leader_end_user(void) {
         tap_code(KC_RETURN);
         tap_code(KC_UP);
         tap_code(KC_UP);
-
+    }else if (leader_sequence_two_keys(KC_K, KC_P)) {
+        tap_code(KC_PENT);
     }
+
 }
 
 
@@ -4196,27 +4198,27 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i < led_max; i++) {
           // SYMBOL Layer: Only S, Y, M should light up
           if (layer == FUN) {
-            rgb_matrix_set_color(54, RGB_RED); // Light up 'S'
-            rgb_matrix_set_color(40, RGB_RED); // Light up 'Y'
-            rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
+            rgb_matrix_set_color(36, RGB_RED); // Light up 'S'
+            rgb_matrix_set_color(42, RGB_RED); // Light up 'Y'
+            rgb_matrix_set_color(58, RGB_RED); // Light up 'M'
         }
         // WINDOWS Layer: Only W, I, N should light up
         if (layer == WINDOWS) {
-            rgb_matrix_set_color(35, RGB_RED); // Light up 'S'
-            rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
-            rgb_matrix_set_color(69, RGB_RED); // Light up 'M'
+            rgb_matrix_set_color(35, RGB_CYAN); // Light up 'S'
+            rgb_matrix_set_color(60, RGB_CYAN); // Light up 'Y'
+            rgb_matrix_set_color(58, RGB_CYAN); // Light up 'M'
         }
           // SYMBOL Layer: Only S, Y, M should light up
             if (layer == SYM) {
-                rgb_matrix_set_color(52, RGB_RED); // Light up 'S'
-                rgb_matrix_set_color(39, RGB_RED); // Light up 'Y'
-                rgb_matrix_set_color(70, RGB_RED); // Light up 'M'
+                rgb_matrix_set_color(53, RGB_GOLDENROD); // Light up 'S'
+                rgb_matrix_set_color(43, RGB_GOLDENROD); // Light up 'Y'
+                rgb_matrix_set_color(57, RGB_GOLDENROD); // Light up 'M'
             }
           // SYMBOL Layer: Only S, Y, M should light up
           if (layer == PIC) {
-            rgb_matrix_set_color(43, RGB_RED); // Light up 'S'
-            rgb_matrix_set_color(41, RGB_RED); // Light up 'Y'
-            rgb_matrix_set_color(66, RGB_RED); // Light up 'M'
+            rgb_matrix_set_color(37, RGB_RED); // Light up 'S'
+            rgb_matrix_set_color(60, RGB_RED); // Light up 'Y'
+            rgb_matrix_set_color(65, RGB_RED); // Light up 'M'
         }
         // CAPS LOCK Blinking
         if (i == CAPS_LED && is_caps_word_on()) {
