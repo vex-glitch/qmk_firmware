@@ -187,7 +187,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
-        KC_ENC,   ALT_L,     CTL_L,     GUI_L,     KC_IM,
+        KC_ENC,    ALT_L,     CTL_L,     GUI_L,     KC_IM,
         ESCAPE,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
         KC_SET,	   KC_P7,	  KC_P8,	 KC_P9,	    KC_IIIM,
         MC_3,	   KC_P4,	  KC_P5,	 KC_P6,
@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   KC_CIIM,
         _______,   KC_C7,     KC_C8,     KC_C9,     KC_CIIIM,
         _______,   KC_C4,     KC_C5,     KC_C6,
-        _______,   KC_C1,     KC_C2,     KC_C3,     _______,
+        _______,   KC_CON1,     KC_C2,     KC_C3,     _______,
         _______,   KC_C0,                KC_CDOT           ),
 
     [LGUI] = LAYOUT_tenkey_27(
@@ -251,11 +251,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LCTL);
         }
         return false;
-        case KC_C1:
-        if (record->event.pressed) {
-            register_code(KC_LCTL);
-            tap_code(KC_KP_1);
-            unregister_code(KC_LCTL);
+         case KC_CON1:
+         if (record->event.pressed) {
+             register_code(KC_LCTL);
+             tap_code(KC_KP_1);
+             unregister_code(KC_LCTL);
         }
         return false;
          case KC_C2:
