@@ -106,15 +106,21 @@ void dance_cone_reset(tap_dance_state_t *state, void *user_data) {
 
 void dance_layalt_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-            set_oneshot_layer(LALT, ONESHOT_START);  // One-shot layer activation
+        // Single Tap: Activate One-Shot Layer
+        set_oneshot_layer(LALT, ONESHOT_START);
     } else if (state->count == 1 && state->pressed) {
-            layer_on(FN);  // Hold activates FN layer
+        // Hold: Activate Momentary Layer
+        layer_on(FN);
     }
 }
 
 void dance_layalt_reset(tap_dance_state_t *state, void *user_data) {
-    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED); // Properly reset the one-shot layer
-    layer_off(FN);  // Deactivates FN layer
+    if (state->count == 1 && state->pressed) {
+        // Turn off Momentary Layer when released
+        layer_off(FN);
+    }
+    // Reset One-Shot Layer if needed
+    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
