@@ -253,7 +253,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         case KC_C1:
         if (record->event.pressed) {
-            register_code16(C(KC_KP_1)); // Sends Control + Numpad 1 in a single event
+            register_code(KC_LCTL);
+            tap_code(KC_KP_1);
+            unregister_code(KC_LCTL);
         }
         return false;
          case KC_C2:
