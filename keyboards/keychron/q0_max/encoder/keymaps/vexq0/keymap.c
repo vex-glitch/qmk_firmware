@@ -95,7 +95,7 @@ tap_dance_action_t tap_dance_actions[] = {
 // Macro Declarations
 enum custom_keycodes {
     KC_C0,
-    KC_CC1,
+    KC_C1,
     KC_C2,
     KC_C3,
     KC_C4,
@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   KC_CIIM,
         _______,   KC_C7,     KC_C8,     KC_C9,     KC_CIIIM,
         _______,   KC_C4,     KC_C5,     KC_C6,
-        KC_CC1,   _______,     KC_C2,     KC_C3,     _______,
+        _______,   KC_C1,     KC_C2,     KC_C3,     _______,
         _______,   KC_C0,                KC_CDOT           ),
 
     [LGUI] = LAYOUT_tenkey_27(
@@ -251,13 +251,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LCTL);
         }
         return false;
-        case KC_CC1:
-        if (record->event.pressed) {
-            layer_on(LCTL);  // Ensure LCTL layer is active
-            register_code(KC_LCTL);
-            tap_code(KC_P1);
-            unregister_code(KC_LCTL);
-            layer_off(LCTL);  // Reset back to previous layer state
+         case KC_C1:
+         if (record->event.pressed) {
+             register_code(KC_LCTL);
+             register_code(KC_ALT);
+             tap_code(KC_P1);
+             unregister_code(KC_ALT);
+             unregister_code(KC_LCTL);
         }
         return false;
          case KC_C2:
@@ -660,7 +660,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LSFT);
              unregister_code(KC_LALT);
              unregister_code(KC_LCTL);
-       }
+        }
         return false;
          case KC_ENCDOWN:
          if (record->event.pressed) {
@@ -673,7 +673,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LSFT);
              unregister_code(KC_LALT);
              unregister_code(KC_LCTL);
-       }
+        }
         return false;
          case KC_ENC:
          if (record->event.pressed) {
@@ -685,15 +685,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LGUI);
              unregister_code(KC_LSFT);
              unregister_code(KC_LALT);
-            unregister_code(KC_LCTL);
-       }
+             unregister_code(KC_LCTL);
+        }
         return false;
          case KC_SET:
          if (record->event.pressed) {
              register_code(KC_LGUI);
              tap_code(KC_COMMA);
              unregister_code(KC_LGUI);
-       }
+        }
         return false;
 
          default:
