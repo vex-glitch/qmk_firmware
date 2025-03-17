@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   KC_CIIM,
         _______,   KC_C7,     KC_C8,     KC_C9,     KC_CIIIM,
         _______,   KC_C4,     KC_C5,     KC_C6,
-        _______,   KC_A,     KC_C2,     KC_C3,     _______,
+        _______,   KC_C1,     KC_C2,     KC_C3,     _______,
         _______,   KC_C0,                KC_CDOT           ),
 
     [LGUI] = LAYOUT_tenkey_27(
@@ -251,13 +251,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LCTL);
         }
         return false;
-         case KC_C1:
-         if (record->event.pressed) {
-             register_code(KC_LCTL);
-             register_code(KC_LALT);
-             tap_code(KC_P1);
-             unregister_code(KC_LALT);
-             unregister_code(KC_LCTL);
+        case KC_C1:
+        if (record->event.pressed) {
+            register_code16(C(KC_KP_1)); // Sends Control + Numpad 1 in a single event
         }
         return false;
          case KC_C2:
