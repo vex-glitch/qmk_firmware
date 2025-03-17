@@ -119,8 +119,6 @@ void dance_layalt_reset(tap_dance_state_t *state, void *user_data) {
         // Turn off Momentary Layer when released
         layer_off(FN);
     }
-    // Reset One-Shot Layer if needed
-    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
