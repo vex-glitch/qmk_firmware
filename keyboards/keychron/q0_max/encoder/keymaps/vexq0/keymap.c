@@ -251,11 +251,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LCTL);
         }
         return false;
-         case KC_CC1:
-         if (record->event.pressed) {
-             register_code(KC_LCTL);
-             tap_code(KC_P1);
-             unregister_code(KC_LCTL);
+        case KC_CC1:
+        if (record->event.pressed) {
+            layer_on(LCTL);  // Ensure LCTL layer is active
+            register_code(KC_LCTL);
+            tap_code(KC_P1);
+            unregister_code(KC_LCTL);
+            layer_off(LCTL);  // Reset back to previous layer state
         }
         return false;
          case KC_C2:
