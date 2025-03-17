@@ -162,7 +162,7 @@ void keyboard_post_init_user(void) {
 
     // Set the default effect to Starlight
     rgb_matrix_mode(RGB_MATRIX_STARLIGHT);
-    rgb_matrix_sethsv(132, 102, 180);
+    rgb_matrix_sethsv(11, 176, 255);
     eeconfig_update_rgb_matrix(); // Ensure it persists across power cycles
 }
 
@@ -254,9 +254,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case KC_C1:
          if (record->event.pressed) {
              register_code(KC_LCTL);
-             register_code(KC_ALT);
+             register_code(KC_LALT);
              tap_code(KC_P1);
-             unregister_code(KC_ALT);
+             unregister_code(KC_LALT);
              unregister_code(KC_LCTL);
         }
         return false;
