@@ -401,7 +401,7 @@ void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
-        tap_code(KC_INS);
+        tap_code(KC_EQL);
         unregister_code(KC_LSFT);
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
