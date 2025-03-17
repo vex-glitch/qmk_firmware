@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   KC_CIIM,
         _______,   KC_C7,     KC_C8,     KC_C9,     KC_CIIIM,
         _______,   KC_C4,     KC_C5,     KC_C6,
-        _______,   KC_C1,     KC_C2,     KC_C3,     _______,
+        _______,   KC_A,     KC_C2,     KC_C3,     _______,
         _______,   KC_C0,                KC_CDOT           ),
 
     [LGUI] = LAYOUT_tenkey_27(
