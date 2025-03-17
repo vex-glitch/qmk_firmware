@@ -4100,7 +4100,7 @@ void leader_end_user(void) {
         tap_code(KC_UP);
         tap_code(KC_UP);
     }else if (leader_sequence_two_keys(KC_K, KC_P)) {
-        tap_code(KC_PENT);
+        tap_code(KC_PEQL);
     }
 
 }
