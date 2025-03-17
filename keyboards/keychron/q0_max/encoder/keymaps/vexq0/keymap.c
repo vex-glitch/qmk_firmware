@@ -60,6 +60,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 // Tap Dance Declarations
 enum {
     TD_UNSC,
+    TD_CON1,
 };
 
 // Definitions
@@ -67,8 +68,9 @@ enum {
     #define CTL_L   OSL(LCTL)
     #define GUI_L   OSL(LGUI)
     #define ALT_L   OSL(LALT)
+    #define CON1 TD(TD_CON1)
 
-
+// Tap Dance Logic
 void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
@@ -88,8 +90,21 @@ void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
+void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        register_code(KC_LCTL);
+        tap_code (KC_P1);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
+    // No reset logic needed
+}
+
 tap_dance_action_t tap_dance_actions[] = {
     [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
+    [TD_CON1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_con1_finished, dance_con1_reset),
 };
 
 // Macro Declarations
@@ -207,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   KC_CMM,    KC_CMNS,   KC_CPLS,   KC_CIIM,
         _______,   KC_C7,     KC_C8,     KC_C9,     KC_CIIIM,
         _______,   KC_C4,     KC_C5,     KC_C6,
-        _______,   KC_CON1,     KC_C2,     KC_C3,     _______,
+        _______,   CON1,      KC_C2,     KC_C3,     _______,
         _______,   KC_C0,                KC_CDOT           ),
 
     [LGUI] = LAYOUT_tenkey_27(
@@ -251,7 +266,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              unregister_code(KC_LCTL);
         }
         return false;
-         case KC_CON1:
+         case KC_C1:
          if (record->event.pressed) {
              register_code(KC_LCTL);
              tap_code(KC_KP_1);
