@@ -151,6 +151,7 @@ enum custom_keycodes {
     ESCAPE,
     KC_ENCUP,
     KC_ENCDOWN,
+    KC_ENC,
 };
 
  ///RGBsj
@@ -185,7 +186,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_tenkey_27(
-        KC_MUTE,   ALT_L,     CTL_L,     GUI_L,     KC_IM,
+        KC_ENC,   ALT_L,     CTL_L,     GUI_L,     KC_IM,
         ESCAPE,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
         MC_2,	   KC_P7,	  KC_P8,	 KC_P9,	    KC_IIIM,
         MC_3,	   KC_P4,	  KC_P5,	 KC_P6,
@@ -665,6 +666,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LSFT);
         register_code(KC_LGUI);
         tap_code(KC_DOWN);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+       }
+       return false;
+       case KC_ENC:
+       if (record->event.pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_SPC);
         unregister_code(KC_LGUI);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
