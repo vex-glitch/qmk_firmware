@@ -202,13 +202,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     for (uint8_t i = led_min; i < led_max; i++) {
         if (layer == LCTL) {
-        rgb_matrix_set_color(1, RGB_RED);
+        rgb_matrix_set_color(18, RGB_RED);
     }
         if (layer == LGUI) {
-        rgb_matrix_set_color(2, RGB_GREEN);
+        rgb_matrix_set_color(14, RGB_GREEN);
     }
         if (layer == LALT) {
-        rgb_matrix_set_color(0, RGB_YELLOW);
+        rgb_matrix_set_color(23, RGB_YELLOW);
     }
 }
      return false;  // Allow other matrix effects to run
@@ -220,9 +220,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENC,    ALT_L,     CTL_L,     GUI_L,     KC_IM,
         ESCAPE,	   KC_PCMM,   KC_PMNS,   KC_PPLS,   KC_IIM,
         KC_SET,	   KC_P7,	  KC_P8,	 KC_P9,	    KC_IIIM,
-        MC_3,	   KC_P4,	  KC_P5,	 KC_P6,
-        MC_4,	   KC_P1,	  KC_P2,	 KC_P3,	    KC_PEQL,
-        MO(FN),    KC_P0,                KC_PDOT           ),
+        GUI_L,	   KC_P4,	  KC_P5,	 KC_P6,
+        CTL_L,	   KC_P1,	  KC_P2,	 KC_P3,	    KC_PEQL,
+        LAYALT,    KC_P0,                KC_PDOT           ),
 
     [FN] = LAYOUT_tenkey_27(
         RGB_TOG,   BT_HST1,   BT_HST2,   BT_HST3,   P2P4G,
