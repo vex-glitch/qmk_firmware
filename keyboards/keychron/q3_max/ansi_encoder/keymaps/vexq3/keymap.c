@@ -2552,7 +2552,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TD(TD_PD_DRAFTS):  // Use the keycode TD(...) for the tap dance
             return TAPPING_TERM + 100;  // Adjust this value as needed
-        case TD(TD_F15_ANYBOX):
+        case TD(TD_ANYBOX):
             return TAPPING_TERM + 100;
         case TD(TD_END_OMNIFOCUS):
             return TAPPING_TERM + 100;
@@ -2630,7 +2630,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_DELFOR):
             return TAPPING_TERM + 75;
             case TD(TD_Z):
-            return TAPPING_TERM + 75;
+            return TAPPING_TERM + 35;
             case TD(TD_CAPS):
             return TAPPING_TERM + 75;
             case TD(TD_ALFYHYPY):
