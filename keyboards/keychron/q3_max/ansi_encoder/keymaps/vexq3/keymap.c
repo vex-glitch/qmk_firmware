@@ -2008,7 +2008,8 @@ void dance_alfyhypy_finished(tap_dance_state_t *state, void *user_data) {
         register_mods(MOD_HYPR);  // Properly register Hyper modifiers
     } else if (state->count == 2 && !state->pressed) {
         // Hold: Activate Hyper Key
-        SEND_STRING("\"");
+        tap_code(KC_F3);
+        send_string("!  ");
     }
 }
 
@@ -2424,7 +2425,7 @@ void dance_uscr_finished(tap_dance_state_t *state, void *user_data) {
         SEND_STRING("-");
     } else if (state->count == 2 && !state->pressed) {
         // Hold: Inserts { } with the cursor between
-        SEND_STRING("_");
+        SEND_STRING("\"");
     } else if (state->count == 1 && state->pressed) {
         // Hold: Inserts { } with the cursor between
         SEND_STRING("_");
@@ -4285,7 +4286,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
-        ALFYHYPY,    HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
+        ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
