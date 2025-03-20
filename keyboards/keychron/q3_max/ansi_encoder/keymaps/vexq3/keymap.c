@@ -2886,7 +2886,6 @@ enum custom_keycodes {
     SHTDWN,
     SLEEP,
     RSTART,
-    VPN,
     WORK,
 };
 
@@ -3804,17 +3803,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         register_code(KC_LCTL);
                         tap_code(KC_3);
                         unregister_code(KC_LCTL);
-                        unregister_code(KC_LGUI);
-                        unregister_code(KC_LSFT);
-                        unregister_code(KC_LALT);
-                    }
-                    return false;
-                case VPN:
-                    if (record->event.pressed) {
-                        register_code(KC_LALT);
-                        register_code(KC_LSFT);
-                        register_code(KC_LGUI);
-                        tap_code(KC_UP);
                         unregister_code(KC_LGUI);
                         unregister_code(KC_LSFT);
                         unregister_code(KC_LALT);
