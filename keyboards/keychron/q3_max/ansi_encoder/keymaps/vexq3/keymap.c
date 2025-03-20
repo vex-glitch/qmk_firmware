@@ -1232,79 +1232,47 @@ void dance_muse_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Hook
+// Hookmark
 void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_F7);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LCTL); // Press Shift
-        tap_code(KC_H);      // Backslash with Shift = Pipe
-        unregister_code(KC_LCTL); // Release Shift
+        tap_code(KC_F7);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
-        register_code(KC_LGUI);
-        tap_code(KC_H);
-        register_code(KC_LGUI);
+        tap_code(KC_F7);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LALT);
-        tap_code(KC_H);
+        tap_code(KC_F7);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LALT);
-        tap_code(KC_H);
+        tap_code(KC_F7);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LCTL);
         register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_H);
-        unregister_code(KC_LCTL);
+        tap_code(KC_F7);
         unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
     } else if (state->count == 4 && state->pressed) {
-        // Step 1: Control + H (Invoke Hookmark)
-        register_code(KC_LCTL);
-        tap_code(KC_H);
-        unregister_code(KC_LCTL);
-
-        // Step 2: Wait 500ms (0.5s)
-        wait_ms(500);
-
-        // Step 3: Control + M (Open Action Menu)
-        register_code(KC_LCTL);
-        tap_code(KC_M);
-        unregister_code(KC_LCTL);
-
-        // Step 4: Wait 500ms (0.5s)
-        wait_ms(500);
-
-        // Step 5: Control + Q (Execute Action)
-        register_code(KC_LCTL);
-        tap_code(KC_C);
-        unregister_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+        tap_code(KC_F7);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
     } else if (state->count == 4 && !state->pressed) {
-        // Step 1: Control + H (Invoke Hookmark)
         register_code(KC_LCTL);
-        tap_code(KC_H);
-        unregister_code(KC_LCTL);
-
-        // Step 2: Wait 500ms (0.5s)
-        wait_ms(500);
-
-        // Step 3: Control + M (Open Action Menu)
-        register_code(KC_LCTL);
-        tap_code(KC_M);
-        unregister_code(KC_LCTL);
-
-        // Step 4: Wait 500ms (0.5s)
-        wait_ms(500);
-
-        // Step 5: Control + Q (Execute Action)
-        register_code(KC_LCTL);
-        tap_code(KC_Q);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F7);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     }
 }
