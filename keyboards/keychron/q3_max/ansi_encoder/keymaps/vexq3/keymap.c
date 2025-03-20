@@ -1239,7 +1239,13 @@ void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_F7);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
         tap_code(KC_F7);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
         tap_code(KC_F7);
@@ -1261,7 +1267,7 @@ void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
     } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LSFT);
+        register_code(KC_LSFT);rq
         register_code(KC_LALT);
         tap_code(KC_F7);
         unregister_code(KC_LALT);
@@ -1467,7 +1473,13 @@ void dance_texte_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_F19);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
         tap_code(KC_F19);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
         tap_code(KC_F19);
@@ -1489,7 +1501,7 @@ void dance_texte_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
     } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LSFT);
+        register_code(KC_LSFT);rq
         register_code(KC_LALT);
         tap_code(KC_F19);
         unregister_code(KC_LALT);
