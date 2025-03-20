@@ -2010,7 +2010,8 @@ void dance_alfyhypy_finished(tap_dance_state_t *state, void *user_data) {
         // Hold: Activate Hyper Key
         tap_code(KC_F3);
         wait_ms(200);
-        send_string("!  ");
+        send_string(". ");
+        set_oneshot_mods(MOD_LSFT);
     }
 }
 
