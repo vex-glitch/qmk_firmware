@@ -37,7 +37,7 @@ enum layers {
 
 // Tap Dance Declarations
 enum {
-    TD_F15_ANYBOX,
+    TD_ANYBOX,
     TD_PD_DRAFTS,
     TD_END_OMNIFOCUS,
     TD_PERIOD,
@@ -203,7 +203,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
         #define SHIFTZ MT(MOD_LSFT, KC_Z)
 
 // F keys
-    #define ANYBOX    TD(TD_F15_ANYBOX)
+    #define ANYBOX    TD(TD_ANYBOX)
     #define DRAFTS    TD(TD_PD_DRAFTS)
     #define OFOCUS    TD(TD_END_OMNIFOCUS)
     #define FINDER    TD(TD_FINDER)
@@ -3841,7 +3841,7 @@ void housekeeping_task_user(void) {
 
 // Tap Dance Array
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_F15_ANYBOX] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_f15_anybox_finished, dance_f15_anybox_reset),
+    [TD_ANYBOX] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_anybox_finished, dance_anybox_reset),
     [TD_PD_DRAFTS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_pd_drafts_finished, dance_pd_drafts_reset),
     [TD_END_OMNIFOCUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_end_omnifocus_finished, dance_end_omnifocus_reset),
     [TD_PERIOD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_period_finished, dance_period_reset),
