@@ -1301,7 +1301,13 @@ void dance_alfred_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_F3);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
         tap_code(KC_F3);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
         tap_code(KC_F3);
