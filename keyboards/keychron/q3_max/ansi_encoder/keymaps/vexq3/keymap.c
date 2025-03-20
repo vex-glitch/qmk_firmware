@@ -1885,12 +1885,22 @@ void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
         // Single tap: , followed by Space
         SEND_STRING("'");
     } else if (state->count == 1 && state->pressed) {
-            // Single tap: , followed by Space
-            SEND_STRING(",");
+        register_code(KC_LSFT); // Hold Shift
+        register_code(KC_LGUI); // Hold Command
+        register_code(KC_LALT); // Hold Command
+        tap_code(KC_K);      // Arrow Right
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI); // Release Command
+        unregister_code(KC_LSFT); // Release Shift
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
-        SEND_STRING("\"\"");
-        tap_code(KC_LEFT); // Move cursor between the double quotes
+        register_code(KC_LSFT); // Hold Shift
+        register_code(KC_LGUI); // Hold Command
+        register_code(KC_LALT); // Hold Command
+        tap_code(KC_K);      // Arrow Right
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI); // Release Command
+        unregister_code(KC_LSFT); // Release Shift
     }
 }
 
