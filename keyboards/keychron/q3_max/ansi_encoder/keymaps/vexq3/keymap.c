@@ -101,6 +101,7 @@ enum {
     TD_ONE,
     TD_TWO,
     TD_THREE,
+    TD_VPN,
 };
 
 typedef enum {
@@ -185,6 +186,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define TDDELW   TD(TD_BRACKET_R)
      #define LEADY    TD(TD_LEADY)
     #define RB       TD(TD_RB)
+    #define VPN      TD(TD_VPN)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -1698,6 +1700,66 @@ void dance_arc_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_arc_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+    }
+}
+
+// ClearVPN
+void dance_vpn_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_F6);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F6);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_F6);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_F6);
+        unregister_code(KC_LALT);
+    } else if (state->count == 3 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F6);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_F6);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 4 && state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+        tap_code(KC_F6);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F6);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_vpn_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -3857,6 +3919,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_one_finished, dance_one_reset),
     [TD_TWO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_two_finished, dance_two_reset),
     [TD_THREE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_three_finished, dance_three_reset),
+    [TD_VPN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_vpn_finished, dance_vpn_reset),
 
 };
 
