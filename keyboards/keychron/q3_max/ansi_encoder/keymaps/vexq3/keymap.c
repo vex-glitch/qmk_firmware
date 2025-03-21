@@ -2400,7 +2400,6 @@ void dance_sbl_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 2 && !state->pressed) {
         // Hold: Inserts { } with the cursor between
         SEND_STRING("[[");
-        tap_code(KC_SPACE);
     }
 }
 
@@ -3868,7 +3867,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_DAYONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dayone_finished, dance_dayone_reset),
     [TD_TRELLO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_trello_finished, dance_trello_reset),
     [TD_OOUTLINER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ooutliner_finished, dance_ooutliner_reset),
-    [TD_XMIND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_xmind_finished, dance_xmind_reset),
+    [TD_XMINjD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_xmind_finished, dance_xmind_reset),
     [TD_MUSE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_muse_finished, dance_muse_reset),
     [TD_HOOK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hook_finished, dance_hook_reset),
     [TD_ALFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfred_finished, dance_alfred_reset),
