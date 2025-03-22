@@ -1812,6 +1812,7 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
         // Double tap: ! followed by Space Capitalization
         SEND_STRING("!");
 }
+}
 
 void dance_question_reset(tap_dance_state_t *state, void *user_data) {
     // No need to clear the one-shot mods manually; timeout will handle it
