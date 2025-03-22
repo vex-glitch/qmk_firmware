@@ -105,6 +105,7 @@ enum {
     TD_COPY,
     TD_PASTE,
     TD_CUT,
+    TD_SMILE,
 };
 
 typedef enum {
@@ -176,7 +177,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define POWER    KC_SYSTEM_POWER
     #define BBACK    KC_WWW_BACK
     #define BFORW    KC_WWW_FORWARD
-       #define TEXTC    TD(TD_TEXTC)
+    #define TEXTC    TD(TD_TEXTC)
     #define CSPACEP  TD(TD_CSPC_P)
     #define CSPACEN  TD(TD_CSPC_N)
     #define CAPP_N   TD(TD_CAPP_N)
@@ -187,9 +188,10 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define APOST    TD(TD_APOSTROPHE)
     #define TDOSS    TD(TD_BRACKET_L)
     #define TDDELW   TD(TD_BRACKET_R)
-     #define LEADY    TD(TD_LEADY)
+    #define LEADY    TD(TD_LEADY)
     #define RB       TD(TD_RB)
     #define VPN      TD(TD_VPN)
+    #define SMILE    TD(TD_SMILE)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2618,6 +2620,26 @@ void dance_paste_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_smile_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Command + Right
+        tap_code(KC_EQLS);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LCTL);
+        register_code(KC_LGUI)
+        tap_code(KC_RET);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_smile_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        // Unregister any held mods on reset
+    }
+}
+
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -2738,7 +2760,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 25;
             case TD(TD_COPY):
             return TAPPING_TERM + 25;
-            case TD(TD_PASTE): 
+            case TD(TD_PASTE):
+            return TAPPING_TERM + 25;
+            case TD(TD_SMILE):
             return TAPPING_TERM + 25;
             default:
             return TAPPING_TERM;  // Default tapping term
@@ -2792,6 +2816,9 @@ bool caps_word_press_user(uint16_t keycode) {
         case ALT_L:
         case CTL_SCLN:
         case ZED:
+        case TD_COPY:
+        case TD_CUT:
+        case TD_PASTE:
         add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
             return true; // Keep Caps Word active
         // Keys that continue Caps Word without shifting
@@ -2821,6 +2848,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case COMMA:
         case PERIOD:
         case APOST:
+        case TD_SMILE:
 
                 return true;
         default:
@@ -3982,6 +4010,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cut_finished, dance_cut_reset),
     [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
     [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
+    [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
 
 };
 
