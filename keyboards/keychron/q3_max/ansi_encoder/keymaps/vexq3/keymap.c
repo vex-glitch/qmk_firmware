@@ -2623,7 +2623,7 @@ void dance_paste_reset(tap_dance_state_t *state, void *user_data) {
 void dance_smile_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Command + Right
-        tap_code(KC_EQLS);
+        tap_code(KC_EQL);
     } else if (state->count == 2 && !state->pressed) {
         // Double Tap: Control + Right
         register_code(KC_LCTL);
