@@ -102,6 +102,9 @@ enum {
     TD_TWO,
     TD_THREE,
     TD_VPN,
+    TD_COPY,
+    TD_PASTE,
+    TD_CUT,
 };
 
 typedef enum {
@@ -239,6 +242,9 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define ONE       TD(TD_ONE)
     #define TWO       TD(TD_TWO)
     #define THREE     TD(TD_THREE)
+    #define COPY      TD(TD_COPY)
+    #define PASTE     TD(TD_PASTE)
+    #define CUT       TD(TD_CUT)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -1864,7 +1870,11 @@ void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
         caps_blink_timer = timer_read32();      // Initialize blinking timer
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: Sends '"'
-        SEND_STRING(")");
+        register_code(KC_LSFT);  // Hold Shift
+        register_code(KC_LGUI);  // Hold Command
+        tap_code(KC_Z);
+        unregister_code(KC_LGUI); // Release Command
+        unregister_code(KC_LSFT); // Release Shift
     } else if (state->pressed) {                // Press and hold activates Shift
         register_code(KC_LSFT);
     }
@@ -2326,7 +2336,9 @@ void dance_z_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_Z);
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: Sends '"'
-        SEND_STRING("(");
+        register_code(KC_LGUI);
+        tap_code(KC_Z);
+        unregister_code(KC_LGUI);
     } else if (state->pressed) {
         // Hold: Acts as Shift
         register_code(KC_LSFT); // Press Shift
@@ -2552,6 +2564,60 @@ void dance_three_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
+void dance_copy_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Command + Right
+        tap_code(KC_C);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LGUI);
+        tap_code(KC_C);
+        unregister_code(KC_LGUI);
+    }
+}
+
+void dance_copy_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        // Unregister any held mods on reset
+    }
+}
+
+void dance_cut_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Command + Right
+        tap_code(KC_X);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LGUI);
+        tap_code(KC_X);
+        unregister_code(KC_LGUI);
+    }
+}
+
+void dance_cut_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        // Unregister any held mods on reset
+    }
+}
+
+void dance_paste_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Command + Right
+        tap_code(KC_V);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LGUI);
+        tap_code(KC_V);
+        unregister_code(KC_LGUI);
+    }
+}
+
+void dance_cut_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        // Unregister any held mods on reset
+    }
+}
+
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -2635,9 +2701,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_DELFOR):
             return TAPPING_TERM + 75;
             case TD(TD_Z):
-            return TAPPING_TERM + 35;
+            return TAPPING_TERM + 25;
             case TD(TD_CAPS):
-            return TAPPING_TERM + 75;
+            return TAPPING_TERM + 25;
             case TD(TD_ALFYHYPY):
             return TAPPING_TERM + 75;
             case TD(TD_LEADY):
@@ -2668,6 +2734,12 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
             case TD(TD_USCR):
             return TAPPING_TERM + 50;
+            case TD(TD_CUT)
+            return TAPPING_TERM + 25;
+            case TD(TD_COPY)
+            return TAPPING_TERM + 25;
+            case TD(TD_PASTE)
+            return TAPPING_TERM + 25;
             default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -3892,7 +3964,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
     [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
     [TD_LEADY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leady_finished, dance_leady_reset),
-     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
+    [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
     [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
     [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
@@ -3907,6 +3979,9 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_TWO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_two_finished, dance_two_reset),
     [TD_THREE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_three_finished, dance_three_reset),
     [TD_VPN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_vpn_finished, dance_vpn_reset),
+    [TD_CUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cut_finished, dance_cut_reset),
+    [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
+    [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
 
 };
 
@@ -4291,7 +4366,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
-        ZED,                KC_X,     KC_C,     KC_D,     KC_V,     TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
+        ZED,                CUT,      COPY,     KC_D,     PASTE,    TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
