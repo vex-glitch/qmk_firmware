@@ -1803,14 +1803,12 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     } else if (state->count == 1 && state->pressed) {
             // Single tap: ? followed by Space Capitalization
-            SEND_STRING("?");
+            SEND_STRING("!");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: ! followed by Space Capitalization
         SEND_STRING("! ");
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
-    } else if (state->count == 2 && state->pressed) {
-        // Double tap: ! followed by Space Capitalization
-        SEND_STRING("!");
+    }
 }
 
 void dance_question_reset(tap_dance_state_t *state, void *user_data) {
@@ -1918,13 +1916,10 @@ void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: , followed by Space
         SEND_STRING(", ");
-        
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
         SEND_STRING("; ");
-    } else if (state->count == 2 && state->pressed) {
-        // Double tap: '
-        SEND_STRING(";");
+    }
 }
 
 void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
@@ -2628,12 +2623,12 @@ void dance_paste_reset(tap_dance_state_t *state, void *user_data) {
 void dance_smile_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Command + Right
-        tap_code(KC_EQL);
+        tap_code(KC_EQLS);
     } else if (state->count == 2 && !state->pressed) {
         // Double Tap: Control + Right
         register_code(KC_LCTL);
-        register_code(KC_LGUI);
-        tap_code(KC_ENT);
+        register_code(KC_LGUI)
+        tap_code(KC_RET);
         unregister_code(KC_LGUI);
         unregister_code(KC_LCTL);
     }
@@ -2853,7 +2848,6 @@ bool caps_word_press_user(uint16_t keycode) {
         case COMMA:
         case PERIOD:
         case APOST:
-        case TD_SMILE:
 
                 return true;
         default:
@@ -4015,7 +4009,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cut_finished, dance_cut_reset),
     [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
     [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
-    [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
 
 };
 
@@ -4397,7 +4390,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
+        TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                CCUT,     CCOPY,    KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
