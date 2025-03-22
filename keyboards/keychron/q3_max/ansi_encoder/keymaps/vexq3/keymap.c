@@ -1916,9 +1916,15 @@ void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: , followed by Space
         SEND_STRING(", ");
+    } else if (state->count == 1 && state->pressed) {
+            // Single tap: , followed by Space
+            SEND_STRING(",");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
         SEND_STRING("; ");
+    } else if (state->count == 2 && state->pressed) {
+        // Double tap: '
+        SEND_STRING(";");
     }
 }
 
