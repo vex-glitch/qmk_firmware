@@ -2817,9 +2817,9 @@ bool caps_word_press_user(uint16_t keycode) {
         case ALT_L:
         case CTL_SCLN:
         case ZED:
-        case TD_COPY:
-        case TD_CUT:
-        case TD_PASTE:
+        case CCOPY:
+        case PPASTE:
+        case CCUT:
         add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
             return true; // Keep Caps Word active
         // Keys that continue Caps Word without shifting
