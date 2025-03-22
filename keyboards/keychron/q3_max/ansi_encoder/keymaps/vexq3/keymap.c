@@ -1803,12 +1803,14 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     } else if (state->count == 1 && state->pressed) {
             // Single tap: ? followed by Space Capitalization
-            SEND_STRING("!");
+            SEND_STRING("?");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: ! followed by Space Capitalization
         SEND_STRING("! ");
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
-    }
+    } else if (state->count == 2 && state->pressed) {
+        // Double tap: ! followed by Space Capitalization
+        SEND_STRING("!");
 }
 
 void dance_question_reset(tap_dance_state_t *state, void *user_data) {
@@ -1916,10 +1918,16 @@ void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: , followed by Space
         SEND_STRING(", ");
+    } else if (state->count == 1 && state->pressed) {
+            // Double tap: '
+            SEND_STRING(",");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
         SEND_STRING("; ");
-    }
+    } else if (state->count == 2 && state->pressed) {
+        // Double tap: '
+        SEND_STRING(";");
+}
 }
 
 void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
@@ -2757,8 +2765,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_USCR):
             return TAPPING_TERM + 50;
             case TD(TD_CUT):
-            return TAPPING_TERM + 25;
-            case TD(TD_COPY):
             return TAPPING_TERM + 25;
             case TD(TD_PASTE):
             return TAPPING_TERM + 25;
@@ -4392,7 +4398,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
+        TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                CCUT,     CCOPY,    KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
