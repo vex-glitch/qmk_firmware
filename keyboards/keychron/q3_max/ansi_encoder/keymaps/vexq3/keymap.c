@@ -2758,8 +2758,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
             case TD(TD_CUT):
             return TAPPING_TERM + 25;
-            case TD(TD_COPY):
-            return TAPPING_TERM + 25;
             case TD(TD_PASTE):
             return TAPPING_TERM + 25;
             case TD(TD_SMILE):
