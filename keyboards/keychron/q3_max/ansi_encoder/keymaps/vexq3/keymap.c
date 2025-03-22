@@ -2612,7 +2612,7 @@ void dance_paste_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_cut_reset(tap_dance_state_t *state, void *user_data) {
+void dance_paste_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         // Unregister any held mods on reset
     }
