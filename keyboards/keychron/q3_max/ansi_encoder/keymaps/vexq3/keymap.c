@@ -242,9 +242,9 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define ONE       TD(TD_ONE)
     #define TWO       TD(TD_TWO)
     #define THREE     TD(TD_THREE)
-    #define COPY      TD(TD_COPY)
-    #define PASTE     TD(TD_PASTE)
-    #define CUT       TD(TD_CUT)
+    #define CCOPY      TD(TD_COPY)
+    #define PPASTE     TD(TD_PASTE)
+    #define CCUT       TD(TD_CUT)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2701,7 +2701,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_DELFOR):
             return TAPPING_TERM + 75;
             case TD(TD_Z):
-            return TAPPING_TERM + 25;
+            return TAPPING_TERM + 25 ;
             case TD(TD_CAPS):
             return TAPPING_TERM + 25;
             case TD(TD_ALFYHYPY):
@@ -4366,7 +4366,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     PERIOD,   SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
-        ZED,                CUT,      COPY,     KC_D,     PASTE,    TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
+        ZED,                CCUT,     CCOPY,    KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     QUESTION, COMMA,                CAPW,                KC_UP,
         CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
