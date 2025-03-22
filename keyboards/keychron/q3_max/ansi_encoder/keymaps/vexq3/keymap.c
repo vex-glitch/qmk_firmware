@@ -1803,12 +1803,14 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     } else if (state->count == 1 && state->pressed) {
             // Single tap: ? followed by Space Capitalization
-            SEND_STRING("!");
+            SEND_STRING("?");
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: ! followed by Space Capitalization
         SEND_STRING("! ");
         set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
-    }
+    } else if (state->count == 2 && state->pressed) {
+        // Double tap: ! followed by Space Capitalization
+        SEND_STRING("!");
 }
 
 void dance_question_reset(tap_dance_state_t *state, void *user_data) {
