@@ -2986,6 +2986,7 @@ enum custom_keycodes {
     SLEEP,
     RSTART,
     WORK,
+    AST,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3868,6 +3869,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     send_string(">>");
                     }
                     return false;
+                case AST:
+                    if (record->event.pressed) {
+                    send_string("*");
+                    }
+                    return false;
                 case SHTDWN:
                     if (record->event.pressed) {
                         register_code(KC_LALT);
@@ -4426,8 +4432,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         BACKT,    LB,       RB,       BB,       DLB,      BRB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         TIL,      SBL,      SBR,      SBC,      SBTD,     TROSA,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  PLUS,     EQUALS,   STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         DPIPE,    BRL,      BRR,      BRB,      DONE,     INF,      PI,       PER,      XXXXXXX,  XXXXXXX,  MINUS,    UNSC,                 XXXXXXX,
-        DDOT,             CBL,      CBR,      CBB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  AND,                  XXXXXXX,              XXXXXXX,
-        DSLASH,     XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+        DDOT,               CBL,      CBR,      CBB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  AND,                  XXXXXXX,              XXXXXXX,
+        DSLASH,   XXXXXXX,  XXXXXXX,                                XXXXXXX,                                AST,      XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [PIC] = LAYOUT_tkl_ansi(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
