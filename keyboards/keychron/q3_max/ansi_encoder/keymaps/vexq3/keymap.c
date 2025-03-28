@@ -2987,7 +2987,7 @@ enum custom_keycodes {
     RSTART,
     WORK,
     AST,
-    TERMIN, 
+    TERMIN,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -3927,7 +3927,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 case TERMIN:
                     if (record->event.pressed) {
-                        send_string("xttterrminalx");
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCTL);
+                        tap_code(KC_9);
+                        unregister_code(KC_LCTL);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
                     }
                     return false;
 
