@@ -4279,7 +4279,7 @@ void keyboard_post_init_user(void) {
 
     // Set the default effect to Starlight
     rgb_matrix_mode(RGB_MATRIX_STARLIGHT);
-    rgb_matrix_sethsv(170, 255, 255);
+    rgb_matrix_sethsv(36, 255, 255);
     eeconfig_update_rgb_matrix(); // Ensure it persists across power cycles
 }
 
@@ -4501,3 +4501,24 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
             return false; // Auto Shift disabled for all other keys
     }
 }
+
+ /// HSV_AZURE       132, 102, 255
+ /// HSV_BLACK         0,   0,   0
+ /// HSV_BLUE        170, 255, 255
+ /// HSV_CHARTREUSE   64, 255, 255
+ /// HSV_CORAL        11, 176, 255
+ /// HSV_CYAN        128, 255, 255
+ /// HSV_GOLD         36, 255, 255
+ /// HSV_GOLDENROD    30, 218, 218
+ /// HSV_GREEN        85, 255, 255
+ /// HSV_MAGENTA     213, 255, 255
+ /// HSV_ORANGE       21, 255, 255
+ /// HSV_PINK        234, 128, 255
+ /// HSV_PURPLE      191, 255, 255
+ /// HSV_RED           0, 255, 255
+ /// HSV_SPRINGGREEN 106, 255, 255
+ /// HSV_TEAL        128, 255, 128
+ /// HSV_TURQUOISE   123,  90, 112
+ /// HSV_WHITE         0,   0, 255
+ /// HSV_YELLOW       43, 255, 255
+ /// HSV_OFF         HSV_BLACK
