@@ -4293,7 +4293,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
                     break;
                 case MAC_BASE:
                     new_mode = RGB_MATRIX_STARLIGHT;
-                    rgb_matrix_sethsv(132, 102, 180);
+                    rgb_matrix_sethsv(128, 255, 128);
                     break;
                 default:
                     break;
