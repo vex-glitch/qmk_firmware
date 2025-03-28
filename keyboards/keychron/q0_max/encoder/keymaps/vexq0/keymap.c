@@ -198,7 +198,7 @@ void keyboard_post_init_user(void) {
 
     // Set the default effect to Starlight
     rgb_matrix_mode(RGB_MATRIX_STARLIGHT);
-    rgb_matrix_sethsv(170, 255, 255);
+    rgb_matrix_sethsv(11, 176, 255);
     eeconfig_update_rgb_matrix(); // Ensure it persists across power cycles
 }
 
