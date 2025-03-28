@@ -4028,6 +4028,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cut_finished, dance_cut_reset),
     [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
     [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
+    [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
 
 };
 
