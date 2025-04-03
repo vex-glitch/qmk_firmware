@@ -52,8 +52,8 @@ enum {
     TD_DEL,
     TD_DELFOR,
     TD_ALFYHYPY,
-    TD_SELBC,
-    TD_SELFC,
+    TD_ALFUA,
+    TD_UAALF,
        TD_FINDER,
     TD_DEVONTHINK,
     TD_SPARK,
@@ -151,8 +151,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define COMMA    TD(TD_COMMA)
     #define DELF     TD(TD_DELFOR)
     #define ALFYHYPY TD(TD_ALFYHYPY)
-    #define SELBC    TD(TD_SELBC)
-    #define SELFC    TD(TD_SELFC)
+    #define ALFUA    TD(TD_ALFUA)
+    #define UAALF    TD(TD_UAALF)
     #define MOUSEUP  KC_MS_UP
     #define MOUSEDN  KC_MS_DOWN
     #define MOUSELT  KC_MS_LEFT
@@ -2045,52 +2045,41 @@ void dance_alfyhypy_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 
-void dance_selfc_finished(tap_dance_state_t *state, void *user_data) {
+void dance_uaalf_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Send Tab Key
         tap_code(KC_TAB);
     } else if (state->count == 1 && state->pressed) {
         // Single Hold: Activate WINDOWS Layer
         layer_on(WINDOWS);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Select Word Forward
-        select_word_tap('W');
-    } else if (state->count == 2 && state->pressed) {
-        // Double Hold: Select Line Forward
-        select_word_register('L');
     }
 }
 
-void dance_selfc_reset(tap_dance_state_t *state, void *user_data) {
+void dance_uaalf_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(WINDOWS)) {
         layer_off(WINDOWS);
     }
     select_word_unregister(); // Ensure selection is released
 }
 
-void dance_selbc_finished(tap_dance_state_t *state, void *user_data) {
+void dance_alfua_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Send Alt + Shift + Tab
         register_code(KC_LALT);
         register_code(KC_LSFT);
-        tap_code(KC_TAB);
+        register_code(KC_LCTL);
+        tap_code(KC_L);
+        unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 1 && state->pressed) {
         // Single Hold: Activate WINDOWS Layer
         layer_on(FUN);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Select Word Backward
-        select_word_tap('B');
-    } else if (state->count == 2 && state->pressed) {
-        // Double Hold: Select Line Backward (Shift + Up Arrow)
-        register_mods(MOD_BIT(KC_LSFT));  // Hold Shift
-        tap_code(KC_UP);                   // Tap Up Arrow
-        unregister_mods(MOD_BIT(KC_LSFT)); // Release Shift
+
     }
 }
 
-void dance_selbc_reset(tap_dance_state_t *state, void *user_data) {
+void dance_alfua_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(FUN)) {
         layer_off(FUN);
     }
@@ -2714,9 +2703,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
             case TD(TD_CAPP_N):
             return TAPPING_TERM + 100;
-            case TD(TD_SELBC):
+            case TD(TD_ALFUA):
             return TAPPING_TERM + 100;
-            case TD(TD_SELFC):
+            case TD(TD_UAALF):
             return TAPPING_TERM + 100;
             case TD(TD_BRACKET_L):
             return TAPPING_TERM + 75;
@@ -3976,8 +3965,8 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
     [TD_DELFOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delfor_finished, dance_delfor_reset),
     [TD_ALFYHYPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfyhypy_finished, dance_alfyhypy_reset),
-    [TD_SELBC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selbc_finished, dance_selbc_reset),
-    [TD_SELFC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_selfc_finished, dance_selfc_reset),
+    [TD_ALFUA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfua_finished, dance_alfua_reset),
+    [TD_UAALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uaalf_finished, dance_uaalf_reset),
         [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
     [TD_DEVONTHINK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_devonthink_finished, dance_devonthink_reset),
     [TD_SPARK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_spark_finished, dance_spark_reset),
@@ -4414,7 +4403,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               TEXTC,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        CSPACEP,  CAPP_P,   SELBC,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        CSPACEP,  CAPP_P,   ALFUA,                                     SPACE,                               SELFC,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
