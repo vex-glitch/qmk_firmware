@@ -2907,6 +2907,12 @@ enum custom_keycodes {
     WIN6_5,
     WIN7_1,
     WIN7_2,
+    WIN8_1,
+    WIN8_2,
+    WIN8_3,
+    WIN8_4,
+    WIN8_5,
+    WIN8_6,
     WIN_EXT,
     WIN_CEN,
     FULLSCR,
@@ -3618,6 +3624,78 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         register_code(KC_LCMD);
                         tap_code(KC_3);
                         unregister_code(KC_LCMD);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    case WIN8_1:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_7);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    case WIN8_2:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_6);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    case WIN8_3:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_5);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    case WIN8_4:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_4);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    case WIN8_5:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_3);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LALT);
+                        unregister_code(KC_LCTL);
+                    }
+                    return false;
+                    case WIN8_6:
+                    if (record->event.pressed) {
+                        // Ctrl + Option + Command + 3
+                        register_code(KC_LCTL);
+                        register_code(KC_LALT);
+                        register_code(KC_LSFT);
+                        tap_code(KC_2);
+                        unregister_code(KC_LSFT);
                         unregister_code(KC_LALT);
                         unregister_code(KC_LCTL);
                     }
@@ -4417,12 +4495,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                               CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
-        FULLSCR,  WIN1_1,   WIN1_2,   WIN1_3,   _______,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     _______,    _______,  _______,  _______,
-        WIN_CEN,  WIN2_1,   WIN2_2,   WIN2_3,   WIN2_4,   WIN2_5,   WIN2_6,   WIN2_7,   _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,
-        WIN_EXT,  WIN3_1,   WIN3_2,   WIN3_3,   WIN3_4,   WIN3_5,   WIN3_6,   WIN3_7,   _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,
-        _______,  WIN6_1,   WIN6_2,   WIN6_3,   WIN6_4,   WIN6_5,   _______,  _______,  _______,  _______,  _______,  _______,              _______,
-        _______,            WIN7_1,   WIN7_2,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,              _______,
-        _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
+        FULLSCR,  WIN1_1,   WIN1_2,   WIN1_3,   XXXXXXX,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        WIN_CEN,  WIN2_1,   WIN2_2,   WIN2_3,   WIN2_4,   WIN2_5,   WIN2_6,   WIN2_7,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        WIN_EXT,  WIN3_1,   WIN3_2,   WIN3_3,   WIN3_4,   WIN3_5,   WIN3_6,   WIN3_7,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        WIN8_2,   WIN6_1,   WIN6_2,   WIN6_3,   WIN6_4,   WIN6_5,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
+        WIN8_1,             WIN8_6,   WIN8_5,   WIN8_4,   WIN8_3,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
         SYSSET,   PASS,     PORTAL,   MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  _______,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  VPN,      SPEED,
