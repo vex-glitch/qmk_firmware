@@ -106,6 +106,7 @@ enum {
     TD_PASTE,
     TD_CUT,
     TD_SMILE,
+    TD_SCREEN,
 };
 
 typedef enum {
@@ -247,6 +248,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CCOPY      TD(TD_COPY)
     #define PPASTE     TD(TD_PASTE)
     #define CCUT       TD(TD_CUT)
+    #define SCREEN    TD(TD_SCREEN)
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -2641,6 +2643,38 @@ void dance_smile_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// Tap Dance Actions for Monitor Switch
+void dance_screen_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        tap_code(KC_LCTL);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        tap_code(KC_1);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        tap_code(KC_2);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        tap_code(KC_3);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    }
+}
+
+void dance_screen_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    }
+}
+
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -2757,6 +2791,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
             case TD(TD_SMILE):
             return TAPPING_TERM + 25;
+            case TD(TD_SCREEN):
+            return TAPPING_TERM + 75;
             default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -4099,6 +4135,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
     [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
     [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
+    [TD_SCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_screen_finished, dance_screen_reset),
 
 };
 
@@ -4484,7 +4521,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               WRKFLW,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        CSPACEP,  CAPP_P,   ALFUA,                                     SPACE,                               UAALF,    CAPP_N,   CSPACEN,    KC_LCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        CSPACEP,  CAPP_P,   ALFUA,                                     SPACE,                               UAALF,    CAPP_N,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
