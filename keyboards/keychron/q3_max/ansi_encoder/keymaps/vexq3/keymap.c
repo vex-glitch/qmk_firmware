@@ -2037,6 +2037,12 @@ void dance_alfyhypy_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_F3);
         wait_ms(100);
         send_string("in ");
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LSFT);  // Hold Shift
+        register_code(KC_LALT);  // Hold Option
+        tap_code(KC_F3); // Fonard Delete
+        unregister_code(KC_LALT); // Release Option
+        unregister_code(KC_LSFT); // Release Shift
     }
 }
 
