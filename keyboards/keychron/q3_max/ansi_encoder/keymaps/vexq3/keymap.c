@@ -2698,11 +2698,11 @@ void dance_full_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LGUI);
         register_code(KC_LSFT);
-        register_code(KC_CTL);
+        register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_F);
         unregister_code(KC_LALT);
-        unregister_code(KC_CTL);
+        unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
         unregister_code(KC_LGUI);
     }
