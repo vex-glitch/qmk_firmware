@@ -3032,7 +3032,7 @@ enum custom_keycodes {
     WORK,
     AST,
     TERMIN,
-    TIL,
+
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -4053,10 +4053,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;
-                    case TIL:
-                    if (record->event.pressed) {
-                        send_string("`");
-                     }
 
 
          default:
