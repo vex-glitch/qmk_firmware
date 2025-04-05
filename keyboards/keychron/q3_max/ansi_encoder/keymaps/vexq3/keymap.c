@@ -1856,7 +1856,7 @@ void dance_escape_finished(tap_dance_state_t *state, void *user_data) {
             tap_code(KC_ESC);
     } else if (state->count == 2 && !state->pressed) {
         // Double tap:
-        register_code(KC_LGUI)
+        register_code(KC_LGUI);
         tap_code(KC_W);
         unregister_code(KC_LGUI);
     } else if (state->count == 2 && state->pressed) {
