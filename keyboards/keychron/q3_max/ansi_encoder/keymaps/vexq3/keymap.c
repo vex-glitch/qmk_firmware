@@ -2707,6 +2707,10 @@ void dance_full_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
     }
 }
+void dance_full_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+    }
+}
 
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
