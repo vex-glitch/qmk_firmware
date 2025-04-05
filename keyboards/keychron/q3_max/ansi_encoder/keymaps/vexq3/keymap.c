@@ -107,6 +107,7 @@ enum {
     TD_CUT,
     TD_SMILE,
     TD_SCREEN,
+    TD_FULL,
 };
 
 typedef enum {
@@ -193,6 +194,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define RB       TD(TD_RB)
     #define VPN      TD(TD_VPN)
     #define SMILE    TD(TD_SMILE)
+    #define FULL     TD(TD_FULL)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2683,6 +2685,29 @@ void dance_screen_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// Tap Dance Actions for Full
+void dance_full_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        tap_code(KC_LCTL);
+    } else if (state->count == 1 && !state->pressed) {
+              register_code(KC_LCTL);
+            register_code(KC_LCMD);
+            tap_code(KC_F);
+            unregister_code(KC_LCMD);
+            unregister_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_CTL);
+        register_code(KC_LALT);
+        tap_code(KC_F);
+        unregister_code(KC_LALT);
+        unregister_code(KC_CTL);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    }
+}
+
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -2803,6 +2828,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
             case TD(TD_ESCAPE):
             return TAPPING_TERM + 75;
+        case TD(TD_FULL):
+            return TAPPING_TERM + 50;
             default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -2961,8 +2988,7 @@ enum custom_keycodes {
     WIN8_6,
     WIN_EXT,
     WIN_CEN,
-    FULLSCR,
-    KC_TITLE,
+        KC_TITLE,
     KMESTRO,  // Keyboard Maestro
     SYSSET,               // System Settings
     PASS,                 // 1Password
@@ -3195,16 +3221,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         // APPLICATION SHORTCUTS
-
-        case FULLSCR:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                register_code(KC_LCMD);
-                tap_code(KC_F);
-                unregister_code(KC_LCMD);
-                unregister_code(KC_LCTL);
-            }
-            return false;
 
         case ITERM:
             if (record->event.pressed) {
@@ -4147,6 +4163,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
     [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
     [TD_SCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_screen_finished, dance_screen_reset),
+    [TD_FULL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_full_finished, dance_full_reset),
 
 };
 
@@ -4543,7 +4560,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                               CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
-        FULLSCR,  WIN1_1,   WIN1_2,   WIN1_3,   XXXXXXX,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        FULL,     WIN1_1,   WIN1_2,   WIN1_3,   XXXXXXX,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         WIN_CEN,  WIN2_1,   WIN2_2,   WIN2_3,   WIN2_4,   WIN2_5,   WIN2_6,   WIN2_7,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         WIN_EXT,  WIN3_1,   WIN3_2,   WIN3_3,   WIN3_4,   WIN3_5,   WIN3_6,   WIN3_7,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         WIN8_2,   WIN6_1,   WIN6_2,   WIN6_3,   WIN6_4,   WIN6_5,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
