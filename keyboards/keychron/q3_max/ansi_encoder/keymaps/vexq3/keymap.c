@@ -43,7 +43,7 @@ enum {
     TD_PERIOD,
     TD_QUESTION,
     TD_SLASH,
-    TD_TILDE,
+    TD_ESCAPE,
     TD_CAPS,
     TD_SPACE,
     TD_COMMA,
