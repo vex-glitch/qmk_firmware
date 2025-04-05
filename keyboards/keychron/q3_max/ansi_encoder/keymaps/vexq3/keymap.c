@@ -1851,7 +1851,7 @@ void dance_escape_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LGUI);
         tap_code(KC_H);
         unregister_code(KC_LGUI);
-    } else if (state->count == 1 && state->pressed) {
+    } else if (state->count == 1 && !state->pressed) {
             // Single tap: /
             tap_code(KC_ESC);
     } else if (state->count == 2 && !state->pressed) {
