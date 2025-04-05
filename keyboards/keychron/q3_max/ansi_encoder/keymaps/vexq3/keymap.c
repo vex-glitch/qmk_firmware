@@ -146,7 +146,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define PERIOD   TD(TD_PERIOD)
     #define QUESTION TD(TD_QUESTION)
     #define SLASH    TD(TD_SLASH)
-    #define TILDE    TD(TD_TILDE)
+    #define ESCAPE    TD(TD_ESCAPE)
     #define CAPW     TD(TD_CAPS)
     #define SPACE    TD(TD_SPACE)
     #define COMMA    TD(TD_COMMA)
@@ -1844,30 +1844,32 @@ void dance_slash_reset(tap_dance_state_t *state, void *user_data) {
     // Add logic if needed for reset behavior
 }
 
-// Tap Dance Actions for Tilde
-void dance_tilde_finished(tap_dance_state_t *state, void *user_data) {
-    td_state_t dance_state = cur_dance(state);  // Use the tap dance state function
-
-    switch (dance_state) {
-        case TD_SINGLE_TAP:
-            // Single tap sends 'Esc'
+// Tap Dance Actions for ESCAPE
+void dance_escape_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        // Single tap: /
+        register_code(KC_LGUI)
+        tap_code(KC_H);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 1 && state->pressed) {
+            // Single tap: /
             tap_code(KC_ESC);
-            break;
-
-        case TD_DOUBLE_TAP:
-            // Double tap sends '`' (Backtick)
-            tap_code(KC_GRV);
-            break;
-
-        default:
-            break;
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap:
+        register_code(KC_LGUI)
+        tap_code(KC_W);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 2 && state->pressed) {
+        // Hold: |
+        register_code(KC_LGUI); // Press Shift
+        tap_code(KC_Q);      // Backslash with Shift = Pipe
+        unregister_code(KC_LGUI); // Release Shift
     }
 }
 
-void dance_tilde_reset(tap_dance_state_t *state, void *user_data) {
+void dance_escape_reset(tap_dance_state_t *state, void *user_data) {
     // Turn off MO(FUN) when the key is released
-    layer_off(FUN);
-}
+   }
 
 // Tap dance function to activate/deactivate CAPS Word
 void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
@@ -2799,6 +2801,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 25;
             case TD(TD_SCREEN):
             return TAPPING_TERM + 75;
+            case TD(TD_ESCAPE):
+            return TAPPING_TERM + 75;
             default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -3028,6 +3032,7 @@ enum custom_keycodes {
     WORK,
     AST,
     TERMIN,
+    TIL,
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
@@ -4048,6 +4053,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;
+                    case TIL:
+                    if (record->event.pressed) {
+                        send_string("`");
+                     }
 
 
          default:
@@ -4082,7 +4091,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_PERIOD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_period_finished, dance_period_reset),
     [TD_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_question_finished, dance_question_reset),
     [TD_SLASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash_finished, dance_slash_reset),
-    [TD_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tilde_finished, dance_tilde_reset),
+    [TD_ESCAPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_escape_finished, dance_escape_reset),
     [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_caps_finished, dance_caps_reset),
     [TD_SPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_space_finished, dance_space_reset),
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
@@ -4507,7 +4516,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_tkl_ansi(
         ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    KC_F15,
-        TILDE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     XXXXXXX,   XXXXXXX,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
+        ESCAPE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     XXXXXXX,   XXXXXXX,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
         WRKFLW,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       BEAR, OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
@@ -4523,7 +4532,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        TILDE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
+        ESCAPE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               WRKFLW,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
