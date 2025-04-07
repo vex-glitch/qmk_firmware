@@ -2219,8 +2219,6 @@ void dance_capp_n_reset(tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance Actions for App Previous Colemak
 void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
-    td_state_t dance_state = cur_dance(state); // Get the tap dance state
-
     if (state->count == 1 && state->pressed) {
         register_code(KC_LGUI);  // Hold Command
     } else if (state->count == 1 && !state->pressed) {
