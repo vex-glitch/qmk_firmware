@@ -2220,33 +2220,29 @@ void dance_capp_n_reset(tap_dance_state_t *state, void *user_data) {
 // Tap Dance Actions for App Previous Colemak
 void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
-        register_code(KC_LGUI);  // Hold Command
+        tap_code(KC_LGUI);
     } else if (state->count == 1 && !state->pressed) {
-        // Single Tap Hold: Activate FUN Layer
-        register_code(KC_LSFT);  // Hold Shift
-        register_code(KC_LALT);  // Hold Option
-        register_code(KC_LCTL);  // Hold Control
-        register_code(KC_LGUI);  // Hold Command
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
         tap_code(KC_F1);
-        unregister_code(KC_LGUI); // Release Command
-        unregister_code(KC_LCTL); // Release Control
-        unregister_code(KC_LALT); // Release Option
-        unregister_code(KC_LSFT); // Release Shift
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
     } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LSFT);  // Hold Shift
-        register_code(KC_LALT);  // Hold Option
-        register_code(KC_LCTL);  // Hold Control
-        register_code(KC_LGUI);  // Hold Command
-        tap_code(KC_F2);
-        unregister_code(KC_LGUI); // Release Command
-        unregister_code(KC_LCTL); // Release Control
-        unregister_code(KC_LALT); // Release Option
-        unregister_code(KC_LSFT); // Release Shift
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F9);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
     }
 }
-
 void dance_qmacro_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic for Hold or Double Hold
+
 }
 
 // Colemak move by word/line
