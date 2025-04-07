@@ -2233,9 +2233,11 @@ void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_LGUI);  // Properly register Hyper modifiers
     } else if (state->count == 2 && !state->pressed) {
         // Hold: Activate Hyper Key
-        register_code(KC_LSFT);  // Hold Shift
-        tap_code(KC_F3);
-        unregister_code(KC_LSFT); // Release Shift
+        register_code(KC_LALT);  // Hold Shift
+        register_code(KC_LCTL);
+        tap_code(KC_FQ);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT); // Release Shift
     }
 }
 
