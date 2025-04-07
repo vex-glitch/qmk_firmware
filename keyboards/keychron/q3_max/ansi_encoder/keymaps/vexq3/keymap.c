@@ -2235,7 +2235,7 @@ void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
         // Hold: Activate Hyper Key
         register_code(KC_LALT);  // Hold Shift
         register_code(KC_LCTL);
-        tap_code(KC_FQ);
+        tap_code(KC_Q);
         unregister_code(KC_LCTL);
         unregister_code(KC_LALT); // Release Shift
     }
