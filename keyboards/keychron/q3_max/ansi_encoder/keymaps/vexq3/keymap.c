@@ -2217,31 +2217,30 @@ void dance_capp_n_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LCTL); // Release Control
 }
 
-// Tap Dance Actions for App Previous Colemak
 void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        tap_code(KC_LGUI);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F1);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Activate Leader Key
+        register_code(KC_LSFT);  // Hold Shift
+        register_code(KC_LALT);  // Hold Option
+        register_code(KC_LGUI);  // Hold Shift
+        register_code(KC_LCTL);  // Hold Option
+        tap_code(KC_F1); // Fonard Delete
+        unregister_code(KC_LCTL);  // Hold Option
+        unregister_code(KC_LGUI);  // Hold Shift
+        unregister_code(KC_LALT); // Release Option
+        unregister_code(KC_LSFT); // Release Shift
+    } else if (state->count == 1 && state->pressed) {
+        tap_code(KC_LGUI)  // Properly register Hyper modifiers
     } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F9);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
+        // Hold: Activate Hyper Key
+        register_code(KC_LSFT);  // Hold Shift
+        tap_code(KC_F3);
+        unregister_code(KC_LSFT); // Release Shift
     }
 }
+
 void dance_qmacro_reset(tap_dance_state_t *state, void *user_data) {
+        // Release Hyper modifiers
 
 }
 
@@ -2766,8 +2765,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
             case TD(TD_CSPC_N):
             return TAPPING_TERM + 100;
-            case TD(TD_QMACRO):
-            return TAPPING_TERM + 50;
             case TD(TD_CAPP_N):
             return TAPPING_TERM + 100;
             case TD(TD_ALFUA):
