@@ -2247,9 +2247,6 @@ void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_qmacro_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic for Hold or Double Hold
-    unregister_code(KC_LGUI); // Release Command
-    unregister_code(KC_LALT); // Release Option
-    unregister_code(KC_LCTL); // Release Option
 }
 
 // Colemak move by word/line
@@ -2774,7 +2771,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             case TD(TD_CSPC_N):
             return TAPPING_TERM + 100;
             case TD(TD_QMACRO):
-            return TAPPING_TERM + 100;
+            return TAPPING_TERM + 50;
             case TD(TD_CAPP_N):
             return TAPPING_TERM + 100;
             case TD(TD_ALFUA):
