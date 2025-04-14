@@ -2092,6 +2092,11 @@ void dance_alfua_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 1 && state->pressed) {
         // Single Hold: Activate WINDOWS Layer
         layer_on(FUN);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Sends '"'
+        register_code(KC_LGUI);  // Hold Command
+        tap_code(KC_Y);
+        unregister_code(KC_LGUI); // Release Shift
 
     }
 }
@@ -2100,8 +2105,7 @@ void dance_alfua_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(FUN)) {
         layer_off(FUN);
     }
-    select_word_unregister(); // Ensure selection is released
-}
+  }
 
 // Tap Dance for Textc
 void dance_wrkflw_finished(tap_dance_state_t *state, void *user_data) {
