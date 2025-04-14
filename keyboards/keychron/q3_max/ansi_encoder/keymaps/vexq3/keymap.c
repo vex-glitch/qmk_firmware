@@ -4102,18 +4102,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;
-                 case MAESTRO:
-                    if (record->event.pressed) {
-                        register_code(KC_LGUI);
-                        register_code(KC_LSFT);
-                        register_code(KC_LCTL);
-                        tap_code(KC_F1);
-                        unregister_code(KC_LCTL);
-                        unregister_code(KC_LSFT);
-                        unregister_code(KC_LGUI);
-                    }
-                    return false;
-
 
          default:
             return true;  // Process all other keycodes normally
