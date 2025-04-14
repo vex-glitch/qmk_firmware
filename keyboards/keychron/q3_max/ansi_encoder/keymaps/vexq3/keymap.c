@@ -109,6 +109,8 @@ enum {
     TD_SCREEN,
     TD_FULL,
     TD_QUICKY,
+    TD_PORT,
+    TD_CLARITY,
 };
 
 typedef enum {
@@ -197,6 +199,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define SMILE    TD(TD_SMILE)
     #define FULL     TD(TD_FULL)
     #define QUICKY   TD(TD_QUICKY)
+    #define PORT     TD(TD_PORT)
+    #define CLARITY  TD(TD_CLARITY)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2740,6 +2744,59 @@ void dance_quicky_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_port_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        register_code(KC_LALT);
+        tap_code(KC_F4);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F6);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_port_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+    }
+}
+
+void dance_clarity_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LGUI);
+        tap_code(KC_C);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_C);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_port_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+    }
+}
+
+
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -2861,6 +2918,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_FULL):
             return TAPPING_TERM + 50;
         case TD(TD_QUICKY):
+            return TAPPING_TERM + 25;
+        case TD(TD_PORT):
+            return TAPPING_TERM + 25;
+            case TD(TD_CLARITY):
             return TAPPING_TERM + 25;
             default:
             return TAPPING_TERM;  // Default tapping term
@@ -4197,7 +4258,8 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_screen_finished, dance_screen_reset),
     [TD_FULL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_full_finished, dance_full_reset),
     [TD_QUICKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quicky_finished, dance_quicky_reset),
-
+    [TD_PORT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_port_finished, dance_port_reset),
+    [TD_CLARITY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clarity_finished, dance_clarity_reset),
 };
 
 // Leader key
@@ -4601,7 +4663,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
-        SYSSET,   PASS,     PORTAL,   MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  _______,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  VPN,      SPEED,
+        SYSSET,   PASS,     PORT,     MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  CLARITY,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  VPN,      SPEED,
         _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    TERMIN,   _______,  WORK,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    KMESTRO,  VSCODE,   ITERM,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,
