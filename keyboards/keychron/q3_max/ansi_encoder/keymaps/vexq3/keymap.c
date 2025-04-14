@@ -1945,7 +1945,7 @@ void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
 void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: , followed by Space
-        SEND_STRING("'");
+        leader_start();
     } else if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT); // Hold Shift
         register_code(KC_LGUI); // Hold Command
@@ -1956,13 +1956,7 @@ void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT); // Release Shift
     } else if (state->count == 2 && !state->pressed) {
         // Double tap: '
-        register_code(KC_LSFT); // Hold Shift
-        register_code(KC_LGUI); // Hold Command
-        register_code(KC_LALT); // Hold Command
-        tap_code(KC_K);      // Arrow Right
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI); // Release Command
-        unregister_code(KC_LSFT); // Release Shift
+        SEND_STRING("'");
     }
 }
 
