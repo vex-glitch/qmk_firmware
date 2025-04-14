@@ -51,7 +51,7 @@ enum {
     TD_LEAD,
     TD_DEL,
     TD_DELFOR,
-    TD_ALFYHYPY,
+    TD_TEXHYPE,
     TD_ALFUA,
     TD_UAALF,
        TD_FINDER,
@@ -153,7 +153,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define SPACE    TD(TD_SPACE)
     #define COMMA    TD(TD_COMMA)
     #define DELF     TD(TD_DELFOR)
-    #define ALFYHYPY TD(TD_ALFYHYPY)
+    #define TEXHYPE TD(TD_TEXHYPE)
     #define ALFUA    TD(TD_ALFUA)
     #define UAALF    TD(TD_UAALF)
     #define MOUSEUP  KC_MS_UP
@@ -2026,27 +2026,34 @@ void dance_delfor_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance Actions for Leader/Hyper Key
-void dance_alfyhypy_finished(tap_dance_state_t *state, void *user_data) {
+void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
-        tap_code(KC_F3);
+        register_code(KC_LSFT);
+        tap_code(KC_F19);
+        unregister_code(KC_LSFT);
     } else if (state->count == 1 && state->pressed) {
         register_mods(MOD_HYPR);  // Properly register Hyper modifiers
     } else if (state->count == 2 && !state->pressed) {
-        // Hold: Activate Hyper Key
-        tap_code(KC_F3);
-        wait_ms(100);
-        send_string("in ");
+        register_code(KC_LCTL);
+        tap_code(KC_F19);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_F19);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LSFT);  // Hold Shift
-        register_code(KC_LALT);  // Hold Option
-        tap_code(KC_F3); // Fonard Delete
-        unregister_code(KC_LALT); // Release Option
-        unregister_code(KC_LSFT); // Release Shift
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F19);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+        }
     }
-}
 
-void dance_alfyhypy_reset(tap_dance_state_t *state, void *user_data) {
+void dance_texhype_reset(tap_dance_state_t *state, void *user_data) {
         // Release Hyper modifiers
         unregister_mods(MOD_HYPR);
 }
@@ -2821,7 +2828,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
             case TD(TD_CAPS):
             return TAPPING_TERM + 25;
-            case TD(TD_ALFYHYPY):
+            case TD(TD_TEXHYPE):
             return TAPPING_TERM + 75;
             case TD(TD_LEADY):
             return TAPPING_TERM + 75;
@@ -4140,7 +4147,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_space_finished, dance_space_reset),
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
     [TD_DELFOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delfor_finished, dance_delfor_reset),
-    [TD_ALFYHYPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfyhypy_finished, dance_alfyhypy_reset),
+    [TD_TEXHYPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texhype_finished, dance_texhype_reset),
     [TD_ALFUA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfua_finished, dance_alfua_reset),
     [TD_UAALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uaalf_finished, dance_uaalf_reset),
         [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
@@ -4564,7 +4571,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    KC_F15,
         ESCAPE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     XXXXXXX,   XXXXXXX,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
         WRKFLW,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       BEAR, OFOCUS,   DRAFTS,
-        ALFYHYPY, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
+        TEXHYPE, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
         CSPACEP,  QMACRO,   XXXXXXX,                           SPACE,                                       XXXXXXX,  CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
@@ -4580,14 +4587,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
-        ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               WRKFLW,
+        TEXHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               WRKFLW,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         CSPACEP,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    CAPP_N,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
         TIL,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
-        ALFYHYPY, MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
+        TEXHYPE, MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
         KC_LCTL,  KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
         UNDO,               CUT,      COPY,     DUPLICA,  PASTE,    MSEC1,    MSEC4,    MSEC2,    DELWF,    PAGEDN,   DELWB,                _______,              _______,
         SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                               CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
