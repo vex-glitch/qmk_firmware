@@ -2119,6 +2119,10 @@ void dance_alfua_reset(tap_dance_state_t *state, void *user_data) {
 // Tap Dance for Textc
 void dance_alf_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("alfred ");
+        tap_code(KC_ENT);
     } else if (state->count == 1 && !state->pressed) {
         // Single Tap Hold: Activate FUN Layer
         tap_code(KC_F3);
