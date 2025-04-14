@@ -2791,7 +2791,7 @@ void dance_clarity_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_port_reset(tap_dance_state_t *state, void *user_data) {
+void dance_clarity_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
     }
 }
