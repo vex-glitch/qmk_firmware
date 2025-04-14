@@ -2312,7 +2312,7 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
 void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
-    }   tap_code(KC_TAB)
+    }   tap_code(KC_TAB);
     else if (state->count == 1 && state->pressed) {
         // Hold: Act as MEH key (⇧ + ⌃ + ⌘)
         register_code(KC_LSFT);  // Press Shift (⇧)
