@@ -2050,6 +2050,14 @@ void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_F19);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F19);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
         }
     }
 
