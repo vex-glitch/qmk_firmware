@@ -2312,8 +2312,7 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
 void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
-        leader_start();
-    }
+    }   tap_code(KC_TAB)
     else if (state->count == 1 && state->pressed) {
         // Hold: Act as MEH key (⇧ + ⌃ + ⌘)
         register_code(KC_LSFT);  // Press Shift (⇧)
@@ -2322,7 +2321,9 @@ void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     }
     else if (state->count == 2 && !state->pressed) {
         // Double Tap: Send F3
-        tap_code(KC_PEQL);
+        register_code(KC_LSFT);  // Press Shift (⇧)
+        tap_code(KC_TAB);
+        unregister_code(KC_LSFT); // Release Shift (⇧)
     }
 }
 
