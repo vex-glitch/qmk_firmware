@@ -108,6 +108,7 @@ enum {
     TD_SMILE,
     TD_SCREEN,
     TD_FULL,
+    TD_QUICKY,
 };
 
 typedef enum {
@@ -195,6 +196,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define VPN      TD(TD_VPN)
     #define SMILE    TD(TD_SMILE)
     #define FULL     TD(TD_FULL)
+    #define QUICKY   TD(TD_QUICKY)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2720,6 +2722,23 @@ void dance_full_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_quicky_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_Y);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Sends '"'
+        register_code(KC_LGUI);  // Hold Command
+        tap_code(KC_Y);
+        unregister_code(KC_LGUI); // Release Shift
+
+    }
+}
+
+void dance_quicky_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+    }
+}
+
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -2840,6 +2859,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
         case TD(TD_FULL):
             return TAPPING_TERM + 50;
+        case TD(TD_QUICKY):
+            return TAPPING_TERM + 25;
             default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -2895,6 +2916,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case CCOPY:
         case PPASTE:
         case CCUT:
+        case QUICKY
         add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
             return true; // Keep Caps Word active
         // Keys that continue Caps Word without shifting
@@ -4174,6 +4196,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
     [TD_SCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_screen_finished, dance_screen_reset),
     [TD_FULL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_full_finished, dance_full_reset),
+    [TD_QUICKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quicky_finished, dance_quicky_reset),
 
 };
 
@@ -4555,8 +4578,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        ESCAPE,    ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
-        LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     KC_Y,     QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
+        ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
+        LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         ALFYHYPY, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               WRKFLW,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         CSPACEP,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    CAPP_N,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
