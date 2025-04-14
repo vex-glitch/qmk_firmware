@@ -73,7 +73,7 @@ enum {
     TD_ARC,
     TD_BEAR,
     TD_EAGLE,
-    TD_WRKFLW,
+    TD_ALF,
     TD_CSPC_P,
     TD_CSPC_N,
     TD_QMACRO,
@@ -180,7 +180,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define POWER    KC_SYSTEM_POWER
     #define BBACK    KC_WWW_BACK
     #define BFORW    KC_WWW_FORWARD
-    #define WRKFLW    TD(TD_WRKFLW)
+    #define ALF    TD(TD_ALF)
     #define CSPACEP  TD(TD_CSPC_P)
     #define CSPACEN  TD(TD_CSPC_N)
     #define CAPP_N   TD(TD_CAPP_N)
@@ -2117,29 +2117,29 @@ void dance_alfua_reset(tap_dance_state_t *state, void *user_data) {
   }
 
 // Tap Dance for Textc
-void dance_wrkflw_finished(tap_dance_state_t *state, void *user_data) {
+void dance_alf_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         tap_code(KC_F3);
-        wait_ms(100);
+        wait_ms(50);
         send_string("open ");
     } else if (state->count == 1 && !state->pressed) {
         // Single Tap Hold: Activate FUN Layer
         tap_code(KC_F3);
-        wait_ms(100);
-        send_string("! ");
-        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
     } else if (state->count == 2 && !state->pressed) {
         tap_code(KC_F3);
-        wait_ms(100);
+        wait_ms(50);
+        send_string("! ");
+        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+    } else if (state->count == 2 && state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
         send_string("find ");
     }
 }
 
-void dance_wrkflw_reset(tap_dance_state_t *state, void *user_data) {
+void dance_alf_reset(tap_dance_state_t *state, void *user_data) {
     // Ensure layer is turned off when tap dance ends
-    layer_off(SYM);
-    unregister_code(KC_LALT);   // Release Option
-}
+    }
 
 // Space_p Colemak
 void dance_cspc_p_finished(tap_dance_state_t *state, void *user_data) {
@@ -2785,7 +2785,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_TEXTE):
             return TAPPING_TERM + 100;
-        case TD(TD_WRKFLW):
+        case TD(TD_ALF):
             return TAPPING_TERM + 50;
         case TD(TD_PERP):
             return TAPPING_TERM + 100;
@@ -4169,7 +4169,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ARC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_arc_finished, dance_arc_reset),
     [TD_BEAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bear_finished, dance_bear_reset),
     [TD_EAGLE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_eagle_finished, dance_eagle_reset),
-    [TD_WRKFLW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_wrkflw_finished, dance_wrkflw_reset),
+    [TD_ALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alf_finished, dance_alf_reset),
     [TD_CSPC_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cspc_n_finished, dance_cspc_n_reset),
     [TD_CSPC_P] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cspc_p_finished, dance_cspc_p_reset),
     [TD_CAPP_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_capp_n_finished, dance_capp_n_reset),
@@ -4570,7 +4570,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_tkl_ansi(
         ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    KC_F15,
         ESCAPE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     XXXXXXX,   XXXXXXX,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
-        WRKFLW,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       BEAR, OFOCUS,   DRAFTS,
+        ALF,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       BEAR, OFOCUS,   DRAFTS,
         TEXHYPE, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
         CSPACEP,  QMACRO,   XXXXXXX,                           SPACE,                                       XXXXXXX,  CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
@@ -4587,7 +4587,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
-        TEXHYPE, HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               WRKFLW,
+        TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         CSPACEP,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    CAPP_N,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
