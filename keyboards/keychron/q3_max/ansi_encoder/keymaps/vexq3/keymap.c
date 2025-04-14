@@ -2320,8 +2320,12 @@ void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LALT);  // Press Command (⌘)
     }   else if (state->count == 2 && !state->pressed) {
         // Double Tap: Send F3
-        register_code(KC_RSFT);  // Press Shift (⇧)
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+        register_code(KC_LGUI);  // Press Shift (⇧)
         tap_code(KC_TAB);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
         unregister_code(KC_RSFT); // Release Shift (⇧)
     }
 }
