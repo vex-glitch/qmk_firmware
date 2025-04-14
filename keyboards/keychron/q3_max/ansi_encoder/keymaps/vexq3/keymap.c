@@ -2051,12 +2051,25 @@ void dance_alfyhypy_reset(tap_dance_state_t *state, void *user_data) {
 
 
 void dance_uaalf_finished(tap_dance_state_t *state, void *user_data) {
+    //Single Tap: Clipboard History
     if (state->count == 1 && !state->pressed) {
-        // Single Tap: Send Tab Key
-        tap_code(KC_TAB);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F3);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
     } else if (state->count == 1 && state->pressed) {
         // Single Hold: Activate WINDOWS Layer
         layer_on(WINDOWS);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Sends '"'
+        register_code(KC_LSFT);  // Hold Shift
+        register_code(KC_LALT);  // Hold Command
+        tap_code(KC_F1);
+        unregister_code(KC_LALT); // Release Command
+        unregister_code(KC_LSFT); // Release Shift
     }
 }
 
@@ -2064,8 +2077,7 @@ void dance_uaalf_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(WINDOWS)) {
         layer_off(WINDOWS);
     }
-    select_word_unregister(); // Ensure selection is released
-}
+   }
 
 void dance_alfua_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
