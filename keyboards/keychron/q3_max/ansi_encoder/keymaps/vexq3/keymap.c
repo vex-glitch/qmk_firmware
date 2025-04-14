@@ -77,7 +77,7 @@ enum {
     TD_CSPC_P,
     TD_CSPC_N,
     TD_QMACRO,
-    TD_CAPP_N,
+    TD_FILEFRED,
     TD_CMOVE_N,
     TD_CMOVE_P,
     TD_SLEEVE,
@@ -183,7 +183,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define ALF    TD(TD_ALF)
     #define CSPACEP  TD(TD_CSPC_P)
     #define CSPACEN  TD(TD_CSPC_N)
-    #define CAPP_N   TD(TD_CAPP_N)
+    #define FILEFRED   TD(TD_FILEFRED)
     #define QMACRO   TD(TD_QMACRO)
     #define CMOVE_N  TD(TD_CMOVE_N)
     #define CMOVE_P  TD(TD_CMOVE_P)
@@ -2200,41 +2200,30 @@ void dance_cspc_n_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LGUI); // Release Command
 }
 
-// Tap Dance Actions for App Next Colemak
-void dance_capp_n_finished(tap_dance_state_t *state, void *user_data) {
-    td_state_t dance_state = cur_dance(state); // Get the tap dance state
-
-    switch (dance_state) {
-        case TD_SINGLE_TAP:
-            // Single Tap: Ctrl + Cmd + Right Arrow
-            register_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
-            tap_code(KC_RGHT);
-            unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL));
-            break;
-
-        case TD_DOUBLE_TAP:
-            // Double Tap: Move forward a word (Option + Right Arrow)
-            register_mods(MOD_BIT(KC_LALT)); // Hold Option
-            tap_code(KC_RGHT);               // Tap Right Arrow
-            unregister_mods(MOD_BIT(KC_LALT)); // Release Option
-            break;
-
-        case TD_SINGLE_HOLD:
-            // Hold: Command
-            register_code(KC_LGUI);
-            break;
-
-        default:
-            break;
+// Tap Dance Actions for Filefred
+void dance_filefred_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("ff ");
+    } else if (state->count == 1 && !state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("open ");
+    } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("find ");
+    } else if (state->count == 2 && state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("in ");
     }
 }
 
-void dance_capp_n_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic for Hold or Double Hold
-    unregister_code(KC_LGUI); // Release Command
-    unregister_code(KC_LALT); // Release Option
-    unregister_code(KC_LCTL); // Release Control
-}
+void dance_filefred_reset(tap_dance_state_t *state, void *user_data) {
+    // Ensure layer is turned off when tap dance ends
+    }
 
 void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -2807,7 +2796,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
             case TD(TD_CSPC_N):
             return TAPPING_TERM + 100;
-            case TD(TD_CAPP_N):
+            case TD(TD_FILEFRED):
             return TAPPING_TERM + 100;
             case TD(TD_ALFUA):
             return TAPPING_TERM + 100;
@@ -4172,7 +4161,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alf_finished, dance_alf_reset),
     [TD_CSPC_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cspc_n_finished, dance_cspc_n_reset),
     [TD_CSPC_P] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cspc_p_finished, dance_cspc_p_reset),
-    [TD_CAPP_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_capp_n_finished, dance_capp_n_reset),
+    [TD_FILEFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_filefred_finished, dance_filefred_reset),
     [TD_QMACRO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qmacro_finished, dance_qmacro_reset),
     [TD_CMOVE_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cmove_n_finished, dance_cmove_n_reset),
     [TD_CMOVE_P] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cmove_p_finished, dance_cmove_p_reset),
@@ -4573,7 +4562,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALF,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       BEAR, OFOCUS,   DRAFTS,
         TEXHYPE, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
-        CSPACEP,  QMACRO,   XXXXXXX,                           SPACE,                                       XXXXXXX,  CAPP_N,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        CSPACEP,  QMACRO,   XXXXXXX,                           SPACE,                                       XXXXXXX,  FILEFRED,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_tkl_ansi(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -4589,7 +4578,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        CSPACEP,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    CAPP_N,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        CSPACEP,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
