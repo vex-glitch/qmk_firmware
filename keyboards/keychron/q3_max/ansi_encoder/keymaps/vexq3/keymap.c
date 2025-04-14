@@ -2313,17 +2313,16 @@ void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
         tap_code(KC_TAB);
-    }else if (state->count == 1 && state->pressed) {
+    }   else if (state->count == 1 && state->pressed) {
         // Hold: Act as MEH key (⇧ + ⌃ + ⌘)
         register_code(KC_LSFT);  // Press Shift (⇧)
         register_code(KC_LCTL);  // Press Control (⌃)
         register_code(KC_LALT);  // Press Command (⌘)
-    }
-    else if (state->count == 2 && !state->pressed) {
+    }   else if (state->count == 2 && !state->pressed) {
         // Double Tap: Send F3
-        register_code(KC_LSFT);  // Press Shift (⇧)
+        register_code(KC_RSFT);  // Press Shift (⇧)
         tap_code(KC_TAB);
-        unregister_code(KC_LSFT); // Release Shift (⇧)
+        unregister_code(KC_RSFT); // Release Shift (⇧)
     }
 }
 
