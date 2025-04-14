@@ -2029,9 +2029,9 @@ void dance_delfor_reset(tap_dance_state_t *state, void *user_data) {
 void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
-        register_code(KC_LSFT);
+        register_code(KC_LALT);
         tap_code(KC_F19);
-        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
     } else if (state->count == 1 && state->pressed) {
         register_mods(MOD_HYPR);  // Properly register Hyper modifiers
     } else if (state->count == 2 && !state->pressed) {
