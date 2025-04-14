@@ -2050,7 +2050,7 @@ void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_F19);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
-    } else if (state->count == 4 && !state->pressed) {
+    } else if (state->count == 3 && state->pressed) {
         register_code(KC_LALT);
         register_code(KC_LSFT);
         register_code(KC_LGUI);
@@ -4102,6 +4102,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LALT);
                     }
                     return false;
+                 case MAESTRO:
+                    if (record->event.pressed) {
+                        register_code(KC_LGUI);
+                        register_code(KC_LSFT);
+                        register_code(KC_LCTL);
+                        tap_code(KC_F1);
+                        unregister_code(KC_LCTL);
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_LGUI);
+                    }
+                    return false;
 
 
          default:
@@ -4578,7 +4589,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      TEXTE,    SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      KMESTRO,  SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
@@ -4587,10 +4598,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
-        TIL,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
-        TEXHYPE, MSEWHLRI, MSEWHLDO, MSEWHLLE, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    END,      _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
-        KC_LCTL,  KC_LALT,  MSEWHLUP, KC_LGUI,  KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,              _______,
-        UNDO,               CUT,      COPY,     DUPLICA,  PASTE,    MSEC1,    MSEC4,    MSEC2,    DELWF,    PAGEDN,   DELWB,                _______,              _______,
+        TIL,      KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    PAGEUP,   KC_F9,    KC_F10,   KC_F11,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
+        TEXHYPE,  MSEC1,    MSEWHLRI, MSEWHLDO, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    MOUSEUP,  _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
+        KC_LCTL,  KC_LALT,  KC_LGUI,  MSEWHLUP, KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  MSEC1,                _______,
+        UNDO,               CUT,      COPY,     DUPLICA,  PASTE,    MSEC1,    MSEC4,    MSEC2,    MOUSELT,  MOUSERT,  MOUSEDN,                _______,              _______,
         SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                               CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
