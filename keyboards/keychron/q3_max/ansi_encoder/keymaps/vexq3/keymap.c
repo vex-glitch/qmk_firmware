@@ -2029,32 +2029,40 @@ void dance_delfor_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LGUI);  // Release Command if it was held
 }
 
-// Tap Dance Actions for Leader/Hyper Key
+// Tap Dance Actions for TextHype
 void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single Tap: Activate Leader Key
+        // Single Tap: Send Prefix String
+        send_string(" ^^");
+    } else if (state->count == 1 && state->pressed) {
+        // Single Hold: Activate Hyper Key
+        register_mods(MOD_HYPR);
+    } else if (state->count == 2 && !state->pressed) {
+        // Double tap: Inline Search
         register_code(KC_LALT);
         tap_code(KC_F19);
         unregister_code(KC_LALT);
-    } else if (state->count == 1 && state->pressed) {
-        register_mods(MOD_HYPR);  // Properly register Hyper modifiers
-    } else if (state->count == 2 && !state->pressed) {
+    } else if (state->count == 2 && state->pressed) {
+        // Double Hold: Clipboard Snippet
         register_code(KC_LCTL);
         tap_code(KC_F19);
         unregister_code(KC_LCTL);
-    } else if (state->count == 2 && state->pressed) {
+    } else if (state->count == 3 && !state->pressed) {
+        // Triple tap: New Snippet
         register_code(KC_LCTL);
         register_code(KC_LSFT);
         tap_code(KC_F19);
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
+    } else if (state->count == 3 && state->pressed) {
+        // Triple Hold: Edit Last Snippet
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_F19);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
-    } else if (state->count == 3 && state->pressed) {
+    } else if (state->count == 4 && !state->pressed) {
+        // Quadruple tap: Open Text Expander
         register_code(KC_LALT);
         register_code(KC_LSFT);
         register_code(KC_LGUI);
