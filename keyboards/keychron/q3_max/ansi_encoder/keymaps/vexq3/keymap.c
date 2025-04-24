@@ -2164,17 +2164,21 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LALT);
     } else if (state->count == 1 && !state->pressed) {
         tap_code(KC_LALT);
+        wait_ms(50);
         tap_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
         tap_code(KC_LCTL);
+        wait_ms(50);
         tap_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
         tap_code(KC_LGUI);
+        wait_ms(50);
         tap_code(KC_LGUI);
     } else if (state->count == 3 && state->pressed) {
 
     } else if (state->count == 3 && !state->pressed) {
         tap_code(KC_LSFT);
+        wait_ms(50);
         tap_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
 
