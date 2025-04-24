@@ -2161,7 +2161,7 @@ void dance_alf_reset(tap_dance_state_t *state, void *user_data) {
 // Space_p Colemak
 void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
-        SEND_STRING(SS_DOWN(X_LCTL) SS_UP(X_LCTL) SS_DELAY(100) SS_DOWN(X_LCTL) SS_UP(X_LCTL));
+        register_code(KC_LALT);
     } else if (state->count == 1 && !state->pressed) {
         tap_code_delay(KC_LALT, 10);
         wait_ms(25);
@@ -2193,7 +2193,7 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_keycue_reset(tap_dance_state_t *state, void *user_data) {
     // Release any keys if held
-    unregister_code(KC_LCTL);  // Release Option
+    unregister_code(KC_LALT);  // Release Option
   }
 
 // Space_n Colemak
