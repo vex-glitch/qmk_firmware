@@ -2887,7 +2887,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_SPACE):
             return TAPPING_TERM + 50;
         case TD(TD_KEYCUE):
-            return TAPPING_TERM + 100;
+            return TAPPING_TERM + 75;
             case TD(TD_CSPC_N):
             return TAPPING_TERM + 100;
             case TD(TD_FILEFRED):
