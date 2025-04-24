@@ -2161,7 +2161,7 @@ void dance_alf_reset(tap_dance_state_t *state, void *user_data) {
 // Space_p Colemak
 void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
-        //register_code(KC_LALT);
+        register_code(KC_LALT);
     } else if (state->count == 1 && !state->pressed) {
         tap_code_delay(KC_LALT, 15);
         wait_ms(50);
@@ -2169,19 +2169,25 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
         wait_ms(50);
         tap_code_delay(KC_LALT, 15);
     } else if (state->count == 2 && state->pressed) {
-        tap_code(KC_LCTL);
+        tap_code_delay(KC_LCTL, 15);
         wait_ms(50);
-        tap_code(KC_LCTL);
+        tap_code_delay(KC_LCTL, 15);
+        wait_ms(50);
+        tap_code_delay(KC_LCTL, 15);
     } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_LGUI);
+        tap_code_delay(KC_LGUI, 15);
         wait_ms(50);
-        tap_code(KC_LGUI);
+        tap_code_delay(KC_LGUI, 15);
+        wait_ms(50);
+        tap_code_delay(KC_LGUI, 15);
     } else if (state->count == 3 && state->pressed) {
 
     } else if (state->count == 3 && !state->pressed) {
-        tap_code(KC_LSFT);
+        tap_code_delay(KC_LSFT, 15);
         wait_ms(50);
-        tap_code(KC_LSFT);
+        tap_code_delay(KC_LSFT, 15);
+        wait_ms(50);
+        tap_code_delay(KC_LSFT, 15);
     } else if (state->count == 4 && state->pressed) {
 
     } else if (state->count == 4 && !state->pressed) {
@@ -2191,7 +2197,7 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_keycue_reset(tap_dance_state_t *state, void *user_data) {
     // Release any keys if held
-unregister_code(KC_LALT);
+    unregister_code(KC_LALT);
   }
 
 // Space_n Colemak
