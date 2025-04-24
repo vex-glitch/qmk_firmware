@@ -2161,15 +2161,15 @@ void dance_alf_reset(tap_dance_state_t *state, void *user_data) {
 // Space_p Colemak
 void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
-        SEND_STRING(SS_LCTL("ac"));
+        SEND_STRING(SS_TAP(X_LCTL) SS_DELAY(100) SS_TAP(X_LCTL));
     } else if (state->count == 1 && !state->pressed) {
-        tap_code_delay(KC_LALT, 20);
-        wait_ms(50);
-        tap_code_delay(KC_LALT, 20);
-        wait_ms(50);
-        tap_code_delay(KC_LALT, 20);
-        wait_ms(50);
-        tap_code_delay(KC_LALT, 20);
+        tap_code_delay(KC_LALT, 10);
+        wait_ms(25);
+        tap_code_delay(KC_LALT, 10);
+        wait_ms(25);
+        tap_code_delay(KC_LALT, 10);
+        wait_ms(25);
+        tap_code_delay(KC_LALT, 10);
     } else if (state->count == 2 && state->pressed) {
         tap_code(KC_LCTL);
         wait_ms(50);
