@@ -2165,7 +2165,7 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 1 && !state->pressed) {
         tap_code_delay(KC_LALT, 20);
         wait_ms(50);
-        tap_code_delay(KC_LALT, 20);  
+        tap_code_delay(KC_LALT, 20);
     } else if (state->count == 2 && state->pressed) {
         tap_code(KC_LCTL);
         wait_ms(50);
@@ -4663,7 +4663,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        KEYCUE,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_LALT,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
