@@ -2163,11 +2163,13 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LALT);
     } else if (state->count == 1 && !state->pressed) {
-        tap_code_delay(KC_LALT, 15);
+        tap_code_delay(KC_LALT, 20);
         wait_ms(100);
-        tap_code_delay(KC_LALT, 15);
+        tap_code_delay(KC_LALT, 20);
         wait_ms(100);
-        tap_code_delay(KC_LALT, 15);
+        tap_code_delay(KC_LALT, 20);
+        wait_ms(100);
+        tap_code_delay(KC_LALT, 20);
     } else if (state->count == 2 && state->pressed) {
         tap_code_delay(KC_LCTL, 15);
         wait_ms(50);
