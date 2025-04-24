@@ -2189,13 +2189,11 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 3 && state->pressed) {
 
     } else if (state->count == 3 && !state->pressed) {
-        tap_code_delay(KC_LSFT, 15);
+        tap_code_delay(KC_LSFT, 20);
         wait_ms(50);
-        tap_code_delay(KC_LSFT, 15);
+        tap_code_delay(KC_LSFT, 20);
         wait_ms(50);
-        tap_code_delay(KC_LSFT, 15);
-        wait_ms(50);
-        tap_code_delay(KC_LSFT, 15);
+        tap_code_delay(KC_LSFT, 20);
     } else if (state->count == 4 && state->pressed) {
 
     } else if (state->count == 4 && !state->pressed) {
