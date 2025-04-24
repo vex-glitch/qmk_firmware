@@ -2193,6 +2193,7 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_keycue_reset(tap_dance_state_t *state, void *user_data) {
     // Release any keys if held
+    unregister_code(KC_LCTL);  // Release Option
   }
 
 // Space_n Colemak
