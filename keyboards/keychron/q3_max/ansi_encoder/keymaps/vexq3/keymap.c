@@ -2161,7 +2161,7 @@ void dance_alf_reset(tap_dance_state_t *state, void *user_data) {
 // Space_p Colemak
 void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
-        SEND_STRING(SS_TAP(X_LCTL) SS_DELAY(100) SS_TAP(X_LCTL));
+        SEND_STRING(SS_LCTL SS_DELAY(50) SS_CTL);
     } else if (state->count == 1 && !state->pressed) {
         tap_code_delay(KC_LALT, 10);
         wait_ms(25);
