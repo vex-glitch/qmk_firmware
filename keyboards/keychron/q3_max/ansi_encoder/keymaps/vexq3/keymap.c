@@ -4663,7 +4663,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         ZED,                CCUT,     KC_C,     KC_D,     PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        KC_LALT,  QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KEYCUE,   QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED,   CSPACEN,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
