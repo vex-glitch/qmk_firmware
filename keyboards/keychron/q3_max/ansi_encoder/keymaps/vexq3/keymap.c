@@ -2167,7 +2167,9 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
         wait_ms(25);
         tap_code(KC_LALT);
         wait_ms(25);
-
+        tap_code(KC_LALT);
+        wait_ms(25);
+        tap_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
         tap_code(KC_LCTL);
         wait_ms(50);
