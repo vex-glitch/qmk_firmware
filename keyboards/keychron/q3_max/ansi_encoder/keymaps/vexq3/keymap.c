@@ -2164,9 +2164,9 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
         //register_code(KC_LALT);
     } else if (state->count == 1 && !state->pressed) {
         tap_code_delay(KC_LALT, 15);
-        wait_ms(50);
+        wait_ms(25);
         tap_code_delay(KC_LALT, 15);
-        wait_ms(50);
+        wait_ms(25);
         tap_code_delay(KC_LALT, 15);
     } else if (state->count == 2 && state->pressed) {
         tap_code(KC_LCTL);
