@@ -2168,7 +2168,11 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
         tap_code_delay(KC_LALT, 15);
         wait_ms(50);
         tap_code_delay(KC_LALT, 15);
+        wait_ms(50);
+        tap_code_delay(KC_LALT, 15);
     } else if (state->count == 2 && state->pressed) {
+        tap_code_delay(KC_LCTL, 15);
+        wait_ms(50);
         tap_code_delay(KC_LCTL, 15);
         wait_ms(50);
         tap_code_delay(KC_LCTL, 15);
@@ -2180,9 +2184,13 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
         tap_code_delay(KC_LGUI, 15);
         wait_ms(50);
         tap_code_delay(KC_LGUI, 15);
+        wait_ms(50);
+        tap_code_delay(KC_LGUI, 15);
     } else if (state->count == 3 && state->pressed) {
 
     } else if (state->count == 3 && !state->pressed) {
+        tap_code_delay(KC_LSFT, 15);
+        wait_ms(50);
         tap_code_delay(KC_LSFT, 15);
         wait_ms(50);
         tap_code_delay(KC_LSFT, 15);
