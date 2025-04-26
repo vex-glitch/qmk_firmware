@@ -335,7 +335,7 @@ void dance_sidenote_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LALT);
         register_code(KC_LSFT);
         register_code(KC_LGUI);
-        tap_code(KC_F11 );
+        tap_code(KC_F12 );
         unregister_code(KC_LGUI);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
