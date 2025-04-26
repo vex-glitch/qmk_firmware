@@ -2754,19 +2754,25 @@ void dance_screen_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 1 && !state->pressed) {
         register_code(KC_LGUI);
         register_code(KC_LSFT);
+        register_code(KC_LCTL);
         tap_code(KC_1);
+        unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
         unregister_code(KC_LGUI);
     } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LGUI);
         register_code(KC_LSFT);
+        register_code(KC_LCTL);
         tap_code(KC_2);
+        unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
         unregister_code(KC_LGUI);
     } else if (state->count == 3 && !state->pressed) {
         register_code(KC_LGUI);
         register_code(KC_LSFT);
+        register_code(KC_LCTL);
         tap_code(KC_3);
+        unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
         unregister_code(KC_LGUI);
     }
