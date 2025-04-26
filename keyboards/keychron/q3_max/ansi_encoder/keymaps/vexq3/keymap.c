@@ -111,6 +111,7 @@ enum {
     TD_QUICKY,
     TD_PORT,
     TD_CLARITY,
+    TD_SIDENOTE,
 };
 
 typedef enum {
@@ -201,6 +202,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define QUICKY   TD(TD_QUICKY)
     #define PORT     TD(TD_PORT)
     #define CLARITY  TD(TD_CLARITY)
+    #define SIDENOTE TD(TD_SIDENOTE)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -316,6 +318,65 @@ void dance_anybox_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_anybox_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+    }
+}
+
+void dance_sidenote_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LSFT);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F15 );
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_F15 );
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LALT);
+    } else if (state->count == 3 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 4 && state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_sidenote_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -2941,6 +3002,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 25;
             case TD(TD_CLARITY):
             return TAPPING_TERM + 25;
+            case TD(TD_SIDENOTE):
+            return TAPPING_TERM + 50;
             default:
             return TAPPING_TERM;  // Default tapping term
     }
@@ -4278,6 +4341,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_QUICKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quicky_finished, dance_quicky_reset),
     [TD_PORT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_port_finished, dance_port_reset),
     [TD_CLARITY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clarity_finished, dance_clarity_reset),
+    [TD_SIDENOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sidenote_finished, dance_sidenote_reset),
 };
 
 // Leader key
@@ -4657,7 +4721,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        ALFRED,   HOOK,     CLEANSHT, DROP,     ARC,      KMESTRO,  SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    CCOPY,    KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
