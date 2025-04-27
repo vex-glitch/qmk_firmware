@@ -2682,6 +2682,11 @@ void dance_copy_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LGUI);
         tap_code(KC_C);
         unregister_code(KC_LGUI);
+    } else if (state->count == 1 && state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LGUI);
+        tap_code(KC_V);
+        unregister_code(KC_LGUI);
     }
 }
 
@@ -2696,6 +2701,11 @@ void dance_cut_finished(tap_dance_state_t *state, void *user_data) {
         // Single Tap: Command + Right
         tap_code(KC_X);
     } else if (state->count == 2 && !state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LGUI);
+        tap_code(KC_X);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 1 && state->pressed) {
         // Double Tap: Control + Right
         register_code(KC_LGUI);
         tap_code(KC_X);
