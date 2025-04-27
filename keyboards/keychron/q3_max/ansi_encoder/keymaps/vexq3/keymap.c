@@ -2718,6 +2718,11 @@ void dance_paste_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LGUI);
         tap_code(KC_V);
         unregister_code(KC_LGUI);
+    } else if (state->count == 1 && state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LGUI);
+        tap_code(KC_V);
+        unregister_code(KC_LGUI);
     }
 }
 
