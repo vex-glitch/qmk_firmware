@@ -106,6 +106,7 @@ enum {
     TD_PASTE,
     TD_CUT,
     TD_DUP,
+    TD_ALL,
     TD_SMILE,
     TD_SCREEN,
     TD_FULL,
@@ -205,6 +206,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CLARITY  TD(TD_CLARITY)
     #define SIDENOTE TD(TD_SIDENOTE)
     #define DUP      TD(TD_DUP)
+    #define ALL      TD(TD_ALL)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2693,6 +2695,24 @@ void dance_copy_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_all_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        // Single Tap: Command + Right
+        tap_code(KC_A);
+    } else if (state->count == 1 && state->pressed) {
+        // Double Tap: Control + Right
+        register_code(KC_LGUI);
+        tap_code(KC_A);
+        unregister_code(KC_LGUI);
+    }
+}
+
+void dance_all_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        // Unregister any held mods on reset
+    }
+}
+
 void dance_dup_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Command + Right
@@ -2835,7 +2855,7 @@ void dance_full_reset(tap_dance_state_t *state, void *user_data) {
 void dance_quicky_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         tap_code(KC_Y);
-    } else if (state->count == 2 && !state->pressed) {
+    } else if (state->count == 1 && state->pressed) {
         // Double tap: Sends '"'
         register_code(KC_LGUI);  // Hold Command
         tap_code(KC_Y);
@@ -3022,15 +3042,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
         case TD(TD_FULL):
             return TAPPING_TERM + 50;
-        case TD(TD_QUICKY):
-            return TAPPING_TERM + 25;
         case TD(TD_PORT):
             return TAPPING_TERM + 25;
             case TD(TD_CLARITY):
             return TAPPING_TERM + 25;
             case TD(TD_SIDENOTE):
-            return TAPPING_TERM + 50;
-            case TD(TD_DUP):
             return TAPPING_TERM + 50;
             default:
             return TAPPING_TERM;  // Default tapping term
@@ -3088,6 +3104,8 @@ bool caps_word_press_user(uint16_t keycode) {
         case PPASTE:
         case CCUT:
         case QUICKY:
+        case DUP:
+        case ALL:
         add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
             return true; // Keep Caps Word active
         // Keys that continue Caps Word without shifting
@@ -4371,6 +4389,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CLARITY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clarity_finished, dance_clarity_reset),
     [TD_SIDENOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sidenote_finished, dance_sidenote_reset),
     [TD_DUP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dup_finished, dance_dup_reset),
+    [TD_ALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_all_finished, dance_all_reset),
 };
 
 // Leader key
