@@ -1778,60 +1778,27 @@ void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
 void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
 }
 
-// Bracketr::tapdance
-void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_BSPC);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_BSPC);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_BSPC);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
-}
-
-// Bracket
-void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single tap: Activate One Shot Shift
-        set_oneshot_mods(MOD_LSFT);
-    }
-}
-
-void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
-    // No reset logic needed
-}
-
-// Tap Dance Actions for Delete Forward
+// Forward Delete::tapdance
 void dance_delfor_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: Delete forward
-        tap_code(KC_DEL);       // Forward Delete
+        tap_code(KC_DEL);
     } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LALT);  // Hold Option
-        tap_code(KC_DEL); // Fonard Delete
-        unregister_code(KC_LALT); // Release Conmand
+        register_code(KC_LALT);
+        tap_code(KC_DEL);
+        unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double Hold: Select word forward and delete
-        register_code(KC_LSFT); // Hold Shift
-        register_code(KC_LGUI); // Hold Command
-        tap_code(KC_RGHT);      // Arrow Right
-        unregister_code(KC_LGUI); // Release Command
-        unregister_code(KC_LSFT); // Release Shift
-        tap_code(KC_BSPC);      // Delete (Backspace)
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_RGHT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        tap_code(KC_BSPC);
     }
 }
-
 void dance_delfor_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic: Release any held keys
-    unregister_code(KC_LALT);  // Release Option if it was held
-    unregister_code(KC_LSFT);  // Release Shift if it was held
-    unregister_code(KC_LGUI);  // Release Command if it was held
+    unregister_code(KC_LALT);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LGUI);
 }
 
 // Tap Dance Actions for TextHype
