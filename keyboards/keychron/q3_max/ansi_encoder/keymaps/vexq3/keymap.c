@@ -54,7 +54,7 @@ enum {
     TD_TEXHYPE,
     TD_ALFUA,
     TD_UAALF,
-       TD_FINDER,
+    TD_FINDER,
     TD_DEVONTHINK,
     TD_SPARK,
     TD_FANTASTICAL,
@@ -85,8 +85,8 @@ enum {
     TD_APOSTROPHE,
     TD_BRACKET_L,
     TD_BRACKET_R,
-     TD_LEADY,
-      REPEAT,
+    TD_LEADY,
+    REPEAT,
     TD_Z,
     TD_SYMPIC,
     TD_TIL,
@@ -221,8 +221,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define GUI_K RGUI_T(KC_K)
     #define ALT_L LALT_T(KC_L)
     #define CTL_SCLN RCTL_T(KC_SCLN)
-
-        #define SHIFTZ MT(MOD_LSFT, KC_Z)
+    #define SHIFTZ MT(MOD_LSFT, KC_Z)
 
 // F keys
     #define ANYBOX    TD(TD_ANYBOX)
@@ -245,10 +244,10 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define PERP      TD(TD_PERP)
     #define CHAT      TD(TD_CHAT)
     #define ARC       TD(TD_ARC)
-    #define BEAR  TD(TD_BEAR)
+    #define BEAR      TD(TD_BEAR)
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
-      #define ZED       TD(TD_Z)
+    #define ZED       TD(TD_Z)
     #define SYMPIC    TD(TD_SYMPIC)
     #define TIL       TD(TD_TIL)
     #define SBL       TD(TD_SBL)
@@ -272,58 +271,60 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 
     #define CAPS_LED 0    // Set this to the correct LED index for your CAPS key
 
-// AnyBox
-void dance_anybox_finished(tap_dance_state_t *state, void *user_data) {
+    // F KEYS - APPS
+
+    // Alfred
+void dance_alfred_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
-        tap_code(KC_F15 );
+        tap_code(KC_F3);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LGUI);
         register_code(KC_LALT);
         register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_F15 );
-        unregister_code(KC_LGUI);
+        tap_code(KC_F3);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
-        tap_code(KC_F15 );
+        tap_code(KC_F3);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LALT);
-        tap_code(KC_F15 );
+        tap_code(KC_F3);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LALT);
-        tap_code(KC_F15 );
+        tap_code(KC_F3);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LSFT);
-        tap_code(KC_F15 );
+        tap_code(KC_F3);
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
     } else if (state->count == 4 && state->pressed) {
         register_code(KC_LSFT);
         register_code(KC_LALT);
-        tap_code(KC_F15 );
+        tap_code(KC_F3);
         unregister_code(KC_LALT);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && !state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
-        tap_code(KC_F15 );
+        tap_code(KC_F3);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     }
 }
 
-void dance_anybox_reset(tap_dance_state_t *state, void *user_data) {
+void dance_alfred_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -332,6 +333,189 @@ void dance_anybox_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// Hookmark
+void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_F7);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F7);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_F7);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_F7);
+        unregister_code(KC_LALT);
+    } else if (state->count == 3 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F7);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_F7);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 4 && state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+        tap_code(KC_F7);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F7);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_hook_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+    }
+}
+
+// CleanShot::tapdance
+void dance_cleanshot_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        // Single hold: Shift + Home
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LGUI);
+        tap_code(KC_F1);
+        register_code(KC_LGUI);
+        register_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LGUI);
+        tap_code(KC_F1);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
+    } else if (state->count == 3 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F1);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        tap_code(KC_F1);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 4 && state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F1);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    }
+}
+void dance_cleanshot_reset(tap_dance_state_t *state, void *user_data) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+    }
+
+// DropZone::tapdance
+void dance_drop_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_F5);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        tap_code(KC_F5);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_F5);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_F5);
+        unregister_code(KC_LALT);
+    } else if (state->count == 3 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F5);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        tap_code(KC_F5);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 4 && state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F5);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F5);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_drop_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+    }
+}
+
+// Sidenotes::tapdance
 void dance_sidenote_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -391,77 +575,125 @@ void dance_sidenote_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-    // CleanShot
-    void dance_cleanshot_finished(tap_dance_state_t *state, void *user_data) {
-    // Determine the number of taps or holds
+// Arc::tapdance
+void dance_arc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + Home
         register_code(KC_LSFT);
-        tap_code(KC_F1);
+        tap_code(KC_F16);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        // Single tap: Option + Command + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
-        tap_code(KC_F1);
+        tap_code(KC_F16);
         unregister_code(KC_LSFT);
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double hold: Ctrl + Home
         register_code(KC_LCTL);
-        register_code(KC_LGUI);
-        tap_code(KC_F1);
-        register_code(KC_LGUI);
-        register_code(KC_LCTL);
+        tap_code(KC_F16);
+        unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Alt + Home
         register_code(KC_LALT);
-        register_code(KC_LGUI);
-        tap_code(KC_F1);
-        unregister_code(KC_LGUI);
+        tap_code(KC_F16);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
-        // Triple hold: Ctrl + Alt + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
-        tap_code(KC_F1);
+        tap_code(KC_F16);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: Shift + Ctrl + Home
         register_code(KC_LSFT);
         register_code(KC_LCTL);
-        tap_code(KC_F1);
+        tap_code(KC_F16);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        // Quad hold: Alt + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LSFT);
-        tap_code(KC_F1);
+        tap_code(KC_F16);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 4 && !state->pressed) {
-        // Quad tap: Ctrl + Alt + Shift + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
-        tap_code(KC_F1);
+        tap_code(KC_F16);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     }
 }
 
-void dance_cleanshot_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic if needed
+void dance_arc_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
         unregister_code(KC_LALT);
         unregister_code(KC_LGUI);
     }
+}
+
+    // AnyBox
+void dance_anybox_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LSFT);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F15 );
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_F15 );
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LALT);
+    } else if (state->count == 3 && state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 4 && state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 4 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        tap_code(KC_F15 );
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void dance_anybox_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+    }
+}
 
 // bear
 void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
@@ -1307,186 +1539,6 @@ void dance_muse_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Hookmark
-void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F7);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_F7);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F7);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F7);
-        unregister_code(KC_LALT);
-    } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F7);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        tap_code(KC_F7);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-        tap_code(KC_F7);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F7);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    }
-}
-
-void dance_hook_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    }
-}
-
-// Alfred
-void dance_alfred_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F3);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F3);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F3);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F3);
-        unregister_code(KC_LALT);
-    } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F3);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        tap_code(KC_F3);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-        tap_code(KC_F3);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F3);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    }
-}
-
-void dance_alfred_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    }
-}
-
-// Drop
-void dance_drop_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F5);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        tap_code(KC_F5);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F5);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F5);
-        unregister_code(KC_LALT);
-    } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F5);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_F5);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F5);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F5);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    }
-}
-
-void dance_drop_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    }
-}
-
 // Snip
 void dance_snip_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -1719,66 +1771,6 @@ void dance_chat_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_chat_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    }
-}
-
-// Arc
-void dance_arc_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F16);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        tap_code(KC_F16);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F16);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F16);
-        unregister_code(KC_LALT);
-    } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F16);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_F16);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F16);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F16);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    }
-}
-
-void dance_arc_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -4423,221 +4415,13 @@ void leader_end_user(void) {
     } else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
         // Leader, d, d, s => Types the below string
         SEND_STRING("https://start.duckduckgo.com\n");
-    // Global
-    } else if (leader_sequence_two_keys(KC_A, ZED)) {
-        // Leader, a, z => GUI+Z (Undo)
-        tap_code16(LGUI(KC_Z));
-    } else if (leader_sequence_three_keys(KC_A, ZED, ZED)) {
-        // Leader, a, z, z => GUI+SHIFT+Z (Redo)
-        tap_code16(SCMD(KC_Z));
-    } else if (leader_sequence_two_keys(KC_A, KC_Q)) {
-        // Leader, a, q => GUI+Q (Quit)
-        tap_code16(LGUI(KC_Q));
-    } else if (leader_sequence_two_keys(KC_A, KC_W)) {
-        // Leader, a, w => GUI+W (Close)
-        tap_code16(LGUI(KC_Q));
-    } else if (leader_sequence_two_keys(KC_A, KC_H)) {
-        // Leader, a, h => GUI+H (Hide)
-        tap_code16(LGUI(KC_H));
-    } else if (leader_sequence_two_keys(KC_A, KC_X)) {
-        // Leader, a, x => GUI+X (Cut)
-        tap_code16(LGUI(KC_X));
-    } else if (leader_sequence_two_keys(KC_A, KC_C)) {
-        // Leader, a, c => GUI+C (Copy)
-        tap_code16(LGUI(KC_C));
-    } else if (leader_sequence_two_keys(KC_A, KC_V)) {
-        // Leader, a, v => GUI+V (Paste)
-        tap_code16(LGUI(KC_V));
-    } else if (leader_sequence_two_keys(KC_A, KC_M)) {
-        // Leader, a, v => GUI+V (Minimize)
-        tap_code16(LGUI(KC_M));
-    } else if (leader_sequence_three_keys(KC_A, KC_C, KC_A)) {
-        // Leader, a, c, a => Cmnd+A, Cmnd+C (Copy All)
-        SEND_STRING(SS_LGUI("a") SS_LGUI("c"));
-    } else if (leader_sequence_three_keys(KC_A, KC_S, KC_A)) {
-        // Leader, a, s, a => Cmnd+A, (Select All)
-        SEND_STRING(SS_LGUI("a") SS_LGUI("c"));
-    } else if (leader_sequence_two_keys(KC_A, KC_S)) {
-        // Leader, a, s => GUI+S (Save)
-        tap_code16(LGUI(KC_S));
-    } else if (leader_sequence_two_keys(KC_A, KC_D)) {
-        // Leader, a, d => GUI+D (Duplicate)
-        tap_code16(LGUI(KC_D));
-    }else if (leader_sequence_three_keys(KC_A, KC_S, KC_S)) {
-        // Leader, b => Types the below string
-        register_code(KC_LCMD);   // Hold Command
-        tap_code(KC_COMMA);           // Tap B
-        unregister_code(KC_LCMD); // Release Command
-    // Surf
-    } else if (leader_sequence_two_keys(KC_S, KC_T)) {
-        // Leader, s, t => GUI+T (New Tab)
-        tap_code16(LGUI(KC_T));
-    } else if (leader_sequence_three_keys(KC_S, KC_T, KC_T)) {
-        // Leader, s, t, t => OPT+T (Split Tab)
-        tap_code16(LALT(KC_T));
-    } else if (leader_sequence_two_keys(KC_S, KC_N)) {
-        // Leader, s, n => GUI+N (New Window)
-        tap_code16(LGUI(KC_N));
-    } else if (leader_sequence_three_keys(KC_A, KC_D, KC_D)) {
-        // Leader, a, d, d => GUI+Backspace (Delete)
-        tap_code16(LGUI(KC_BSPC));
-    } else if (leader_sequence_three_keys(KC_S, KC_W, KC_W)) {
-        // Leader, a, z, z => GUI+SHIFT+Z (Incognito)
-        tap_code16(SCMD(KC_N));
-    } else if (leader_sequence_two_keys(KC_S, KC_W)) {
-        // Leader, s, t => GUI+T (New window)
-        tap_code16(LGUI(KC_N));
-    } else if (leader_sequence_three_keys(KC_S, KC_T, KC_R)) {
-        // Leader, a, z, z => GUI+SHIFT+Z (Retore Tab)
-        tap_code16(SCMD(KC_T));
-    } else if (leader_sequence_two_keys(KC_S, KC_C)) {
-        // Leader, s, t => GUI+T (Copy link)
-        register_code(KC_LCTL);   // Hold Control
-        register_code(KC_LALT);   // Hold Option
-        tap_code(KC_C);           // Tap B
-        unregister_code(KC_LALT); // Release Option
-        unregister_code(KC_LCTL);
-    // Codes
+       // Codes
     } else if (leader_sequence_one_key(KC_P)) {
         // Leader, p => Types the below string
         SEND_STRING("gReatestEver9000\n");
     } else if (leader_sequence_two_keys(KC_P, KC_P)) {
         // Leader, p => Types the below string
         SEND_STRING("IruletheChaos9000\n");
-    } else if (leader_sequence_three_keys(KC_S, KC_C, KC_C)) {
-    // Leader, S, C => ⌃+⇧+⌥+⌘+C (Copy URL)
-        register_code(KC_LCTL);   // Hold Control
-        register_code(KC_LALT);   // Hold Option
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Shift
-        tap_code(KC_C);           // Tap B
-        unregister_code(KC_LSFT); // Release Shift
-        unregister_code(KC_LCMD); // Release Command
-        unregister_code(KC_LALT); // Release Option
-        unregister_code(KC_LCTL);
-        // Surf
-    } else if (leader_sequence_two_keys(KC_S, KC_B)) {
-        // Leader, b => Types the below string
-        register_code(KC_LCTL);   // Hold Control
-        register_code(KC_LALT);   // Hold Option
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Shift
-        tap_code(KC_LEFT);           // Tap B
-        unregister_code(KC_LSFT); // Release Shift
-        unregister_code(KC_LCMD); // Release Command
-        unregister_code(KC_LALT); // Release Option
-        unregister_code(KC_LCTL);
-    }else if (leader_sequence_two_keys(KC_S, KC_F)) {
-        // Leader, b => Types the below string
-        register_code(KC_LCTL);   // Hold Control
-        register_code(KC_LALT);   // Hold Option
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Shift
-        tap_code(KC_RIGHT);           // Tap B
-        unregister_code(KC_LSFT); // Release Shift
-        unregister_code(KC_LCMD); // Release Command
-        unregister_code(KC_LALT); // Release Option
-        unregister_code(KC_LCTL);
-    }else if (leader_sequence_three_keys(KC_S, KC_T, KC_W)) {
-        // Leader, b => Close Browser Window
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Shift
-        tap_code(KC_W);           // Tap B
-        unregister_code(KC_LSFT); // Release Shift
-        unregister_code(KC_LCMD); // Release Command
-         ///omnifocus
-    }else if (leader_sequence_two_keys(KC_O, KC_I)) {
-        // Leader, b => Close Browser Window
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Shift
-        SEND_STRING("]");
-        unregister_code(KC_LSFT); // Release Shift
-        unregister_code(KC_LCMD); // Release Command
-    }else if (leader_sequence_two_keys(KC_O, KC_O)) {
-        // Leader, b => Close Browser Window
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Shift
-        SEND_STRING("[");
-        unregister_code(KC_LSFT); // Release Shift
-        unregister_code(KC_LCMD); // Release Command
-     ///Bear
-    }else if (leader_sequence_two_keys(KC_B, KC_B)) {
-        // Leader, b => Bear - Bold
-        register_code(KC_LCMD);   // Hold Command
-        tap_code(KC_B);
-        unregister_code(KC_LCMD); // Release Command
-    }else if (leader_sequence_two_keys(KC_B, KC_I)) {
-        // Leader, b => Bear - Italic
-        register_code(KC_LCMD);   // Hold Command
-        tap_code(KC_I);
-        unregister_code(KC_LCMD); // Release Command
-    }else if (leader_sequence_two_keys(KC_B, KC_U)) {
-        // Leader, b => Bear - Underline
-        register_code(KC_LCMD);   // Hold Command
-        tap_code(KC_U);
-        unregister_code(KC_LCMD); // Release Command
-    }else if (leader_sequence_two_keys(KC_B, KC_S)) {
-        // Leader, b => Bear - Strikethrough
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Command
-        tap_code(KC_U);
-        unregister_code(KC_LSFT); // Release Command
-        unregister_code(KC_LCMD);   // Hold Command
-    }else if (leader_sequence_two_keys(KC_B, KC_H)) {
-        // Leader, b => Bear - Highlights
-        register_code(KC_LCMD);   // Hold Command
-        register_code(KC_LSFT);   // Hold Command
-        tap_code(KC_M);
-        unregister_code(KC_LSFT); // Release Command
-        unregister_code(KC_LCMD);   // Hold Command
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_Q)) {
-        // Leader, b => Bear - Underline
-        send_string(">");
-        tap_code(KC_SPACE);
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_T)) {
-        // Leader, b => Bear - Underline
-        send_string("- [ ]");
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_L)) {
-        // Leader, b => Bear - Underline
-        send_string("---");
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_C)) {
-        // Leader, b => Bear - Underline
-        send_string("``");
-        tap_code(KC_LEFT);
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_B)) {
-        // Leader, b => Bear - Bold
-       send_string("####");
-       tap_code(KC_LEFT);
-       tap_code(KC_LEFT);
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_I)) {
-        // Leader, b => Bear - Italic
-        send_string("__");
-        tap_code(KC_LEFT);
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_U)) {
-        // Leader, b => Bear - Underline
-        send_string("~~");
-        tap_code(KC_LEFT);
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_S)) {
-        // Leader, b => Bear - Strikethrough
-        send_string("~~~~");
-        tap_code(KC_LEFT);
-        tap_code(KC_LEFT);
-    }else if (leader_sequence_three_keys(KC_B, KC_B, KC_H)) {
-        // Leader, b => Bear - Highlights
-        send_string("====");
-        tap_code(KC_LEFT);
-        tap_code(KC_LEFT);
-    }else if (leader_sequence_four_keys(KC_B, KC_B, KC_C, KC_B)) {
-        // Leader, b => Bear - Underline
-        tap_code(KC_RETURN);
-        send_string("```");
-        tap_code(KC_RETURN);
-        send_string("```");
-        tap_code(KC_RETURN);
-        tap_code(KC_UP);
-        tap_code(KC_UP);
-    }else if (leader_sequence_two_keys(KC_K, KC_P)) {
-        tap_code(KC_PEQL);
     }
 
 }
