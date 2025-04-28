@@ -2447,7 +2447,7 @@ void dance_all_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_ddup_finished(tap_dance_state_t *state, void *user_data) {
+void dance_dduplicate_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Command + Right
         tap_code(KC_D);
@@ -2459,7 +2459,7 @@ void dance_ddup_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_ddup_reset(tap_dance_state_t *state, void *user_data) {
+void dance_dduplicate_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         // Unregister any held mods on reset
     }
