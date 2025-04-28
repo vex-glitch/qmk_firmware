@@ -82,8 +82,8 @@ enum {
     TD_SLEEVE,
     TD_CLEANSHOT,
     TD_APOSTROPHE,
-    TD_ONESHOTSHIFT,
-    TD_DELETEWORD,
+    TD_BRACKET_L,
+    TD_BRACKET_R,
     TD_LEADY,
     REPEAT,
     TD_Z,
@@ -169,8 +169,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CMOVE_P  TD(TD_CMOVE_P)
     #define SLEEVE   TD(TD_SLEEVE)
     #define APOST    TD(TD_APOSTROPHE)
-    #define OSSHIFT  TD(TD_ONESHOTSHIFT)
-    #define DELWORD  TD(TD_DELETEWORD)
+    #define TDOSS    TD(TD_BRACKET_L)
+    #define TDDELW   TD(TD_BRACKET_R)
     #define LEADY    TD(TD_LEADY)
     #define RB       TD(TD_RB)
     #define SMILE    TD(TD_SMILE)
@@ -247,7 +247,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define POWER    KC_SYSTEM_POWER
     #define BBACK    KC_WWW_BACK
     #define BFORW    KC_WWW_FORWARD
-
 // QWERTY Layout
 // Left-hand home row mods
     #define CTL_A    LCTL_T(KC_A)
@@ -1779,8 +1778,8 @@ void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
 void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
 }
 
-// deleteword::tapdance
-void dance_deleteword_finished(tap_dance_state_t *state, void *user_data) {
+// Bracketr::tapdance
+void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         register_code(KC_LALT);
         tap_code(KC_BSPC);
@@ -1793,18 +1792,18 @@ void dance_deleteword_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
     }
 }
-void dance_deleteword_reset(tap_dance_state_t *state, void *user_data) {
+void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Bracket
-void dance_oneshotshift_finished(tap_dance_state_t *state, void *user_data) {
+void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate One Shot Shift
         set_oneshot_mods(MOD_LSFT);
     }
 }
 
-void dance_oneshotshift_reset(tap_dance_state_t *state, void *user_data) {
+void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
@@ -2738,9 +2737,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
             case TD(TD_UAALF):
             return TAPPING_TERM + 100;
-            case TD(TD_ONESHOTSHIFT):
+            case TD(TD_BRACKET_L):
             return TAPPING_TERM + 75;
-            case TD(TD_DELETEWORD):
+            case TD(TD_BRACKET_R):
             return TAPPING_TERM + 75;
             case TD(TD_PERIOD):
             return TAPPING_TERM + 50;
@@ -2877,8 +2876,8 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_SEMICOLON:
         case KC_GRAVE:
         case DELF:
-        case OSSHIFT:
-        case DELWORD:
+        case TDOSS:
+        case TDDELW:
         case QUESTION:
         case SLASH:
         case COMMA:
@@ -4108,8 +4107,8 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SLEEVE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sleeve_finished, dance_sleeve_reset),
     [TD_CLEANSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cleanshot_finished, dance_cleanshot_reset),
     [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
-    [TD_DELETEWORD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_deleteword_finished, dance_deleteword_reset),
-    [TD_ONESHOTSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_oneshotshift_finished, dance_oneshotshift_reset),
+    [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
+    [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
     [TD_LEADY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leady_finished, dance_leady_reset),
     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
@@ -4313,7 +4312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
         LEADY,    QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
-        ZED,                CCUT,     CCOPY,    DUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
+        ZED,                CCUT,     CCOPY,    DUP,      PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         KEYCUE,   QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
