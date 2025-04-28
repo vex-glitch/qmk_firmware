@@ -2877,8 +2877,8 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_SEMICOLON:
         case KC_GRAVE:
         case DELF:
-        case TDOSS:
-        case TDDELW:
+        case OSSHIFT:
+        case DELWORD:
         case QUESTION:
         case SLASH:
         case COMMA:
