@@ -2927,7 +2927,7 @@ void dance_clarity_reset(tap_dance_state_t *state, void *user_data) {
 void dance_qselall_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LGUI);
-        tap_code(KC_C);
+        tap_code(KC_A);
         unregister_code(KC_LGUI);
     } else if (state->count == 1 && !state->pressed) {
         tap_code(KC_Q);
