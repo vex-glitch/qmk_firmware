@@ -176,7 +176,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CLARITY  TD(TD_CLARITY)
     #define SIDENOTE TD(TD_SIDENOTE)
     #define DDUP      TD(TD_DDUPLICATE)
-    #define ALL      TD(TD_ALL)
     #define QSELALL  TD(TD_QSELALL)
     // F keys
     #define ANYBOX    TD(TD_ANYBOX)
@@ -2542,9 +2541,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
         case TD(TD_KEYCUE):
             return TAPPING_TERM + 75;
-            case TD(TD_CSPC_N):
-            return TAPPING_TERM + 100;
-            case TD(TD_FILEFRED):
+             case TD(TD_FILEFRED):
             return TAPPING_TERM + 100;
             case TD(TD_UNIALF):
             return TAPPING_TERM + 100;
