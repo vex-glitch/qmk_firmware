@@ -103,7 +103,7 @@ enum {
     TD_COPY,
     TD_PASTE,
     TD_XCUT,
-    TD_DUP,
+    TD_DDUPLICATE,
     TD_ALL,
     TD_SMILE,
     TD_SCREEN,
@@ -179,7 +179,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define PORT     TD(TD_PORT)
     #define CLARITY  TD(TD_CLARITY)
     #define SIDENOTE TD(TD_SIDENOTE)
-    #define DUP      TD(TD_DUP)
+    #define DDUP      TD(TD_DDUPLICATE)
     #define ALL      TD(TD_ALL)
     #define QSELALL  TD(TD_QSELALL)
     // F keys
@@ -2447,7 +2447,7 @@ void dance_all_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_dup_finished(tap_dance_state_t *state, void *user_data) {
+void dance_ddup_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Command + Right
         tap_code(KC_D);
@@ -2459,7 +2459,7 @@ void dance_dup_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_dup_reset(tap_dance_state_t *state, void *user_data) {
+void dance_ddup_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         // Unregister any held mods on reset
     }
@@ -2845,7 +2845,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case PPASTE:
         case XCUT:
         case QUICKY:
-        case DUP:
+        case DDUP:
         case ALL:
         add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
             return true; // Keep Caps Word active
@@ -4126,7 +4126,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_PORT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_port_finished, dance_port_reset),
     [TD_CLARITY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clarity_finished, dance_clarity_reset),
     [TD_SIDENOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sidenote_finished, dance_sidenote_reset),
-    [TD_DUP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dup_finished, dance_dup_reset),
+    [TD_DDUPLICATE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dduplicate_finished, dance_dduplicate_reset),
     [TD_ALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_all_finished, dance_all_reset),
     [TD_QSELALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qselall_finished, dance_qselall_reset),
 };
@@ -4304,7 +4304,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,       EAGLE,    DEVON,    FINDER,
         TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
-        UNMEHZ,             XCUT,     CCOPY,    DUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
+        UNMEHZ,             XCUT,     CCOPY,    DDUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
