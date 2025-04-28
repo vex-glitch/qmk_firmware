@@ -687,7 +687,7 @@ void dance_anybox_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Bear::tapdance
+// Eagle::tapdance
 void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -746,7 +746,7 @@ void dance_eagle_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Anybox::tapdance
+// Bear::tapdance
 void dance_bear_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -923,16 +923,13 @@ void dance_end_omnifocus_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Tap dance for Finder
+// Finder::tapdance
 void dance_finder_finished(tap_dance_state_t *state, void *user_data) {
-    // Determine the number of taps or holds
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + F1
         register_code(KC_LSFT);
         tap_code(KC_PGUP);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        // Single tap: F1
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
@@ -941,38 +938,32 @@ void dance_finder_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double hold: Ctrl + F1
         register_code(KC_LCTL);
         tap_code(KC_PGUP);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Alt + F1
         register_code(KC_LALT);
         tap_code(KC_PGUP);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
-        // Triple hold: Ctrl + Alt + F1
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_PGUP);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: Shift + Ctrl + F1
         register_code(KC_LSFT);
         register_code(KC_LCTL);
         tap_code(KC_PGUP);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        // Quad hold: Alt + Shift + F1
         register_code(KC_LALT);
         register_code(KC_LSFT);
         tap_code(KC_PGUP);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 4 && !state->pressed) {
-        // Quad tap: Ctrl + Alt + Shift + F1
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
@@ -982,9 +973,7 @@ void dance_finder_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_finder_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic if needed
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -993,16 +982,13 @@ void dance_finder_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Devonthink
+// DEVONTHINK::tapdance
 void dance_devonthink_finished(tap_dance_state_t *state, void *user_data) {
-    // Determine the number of taps or holds
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + Home
         register_code(KC_LSFT);
         tap_code(KC_HOME);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        // Single tap: Option + Command + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
@@ -1011,38 +997,32 @@ void dance_devonthink_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double hold: Ctrl + Home
         register_code(KC_LCTL);
         tap_code(KC_HOME);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Alt + Home
         register_code(KC_LALT);
         tap_code(KC_HOME);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
-        // Triple hold: Ctrl + Alt + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_HOME);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: Shift + Ctrl + Home
         register_code(KC_LSFT);
         register_code(KC_LCTL);
         tap_code(KC_HOME);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        // Quad hold: Alt + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LSFT);
         tap_code(KC_HOME);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 4 && !state->pressed) {
-        // Quad tap: Ctrl + Alt + Shift + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
@@ -1052,9 +1032,7 @@ void dance_devonthink_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_devonthink_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic if needed
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -1063,7 +1041,7 @@ void dance_devonthink_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Spark
+// Spark::tapdance
 void dance_spark_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -1113,7 +1091,6 @@ void dance_spark_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_spark_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1123,9 +1100,8 @@ void dance_spark_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Fantastical
+// Fantastical::tapdance
 void dance_fantastical_finished(tap_dance_state_t *state, void *user_data) {
-    // Replace KC_F14 with KC_F13
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_F13);
@@ -1174,7 +1150,6 @@ void dance_fantastical_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_fantastical_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1184,9 +1159,8 @@ void dance_fantastical_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Dayone
+// Dayone::tapdance
 void dance_dayone_finished(tap_dance_state_t *state, void *user_data) {
-    // Replace KC_F14 with KC_F13
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_F12);
@@ -1235,7 +1209,6 @@ void dance_dayone_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_dayone_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1245,9 +1218,8 @@ void dance_dayone_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Trello
+// Trello::tapdance
 void dance_trello_finished(tap_dance_state_t *state, void *user_data) {
-    // Replace KC_F14 with KC_F13
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_F11);
@@ -1296,7 +1268,6 @@ void dance_trello_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_trello_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1306,9 +1277,8 @@ void dance_trello_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Ooutliner
+// OmniOutliner::tapdance
 void dance_ooutliner_finished(tap_dance_state_t *state, void *user_data) {
-    // Replace KC_F14 with KC_F13
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_F10);
@@ -1367,68 +1337,7 @@ void dance_ooutliner_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Xmind
-void dance_xmind_finished(tap_dance_state_t *state, void *user_data) {
-    // Replace KC_F14 with KC_F13
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F9);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        tap_code(KC_F9);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F9);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F9);
-        unregister_code(KC_LALT);
-    } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F9);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_F9);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F9);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F9);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    }
-}
-
-void dance_xmind_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    }
-}
-
-// Muse
+// Muse::tapdance
 void dance_muse_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -1478,7 +1387,6 @@ void dance_muse_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_muse_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1488,7 +1396,7 @@ void dance_muse_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Snip
+// SnippetsLab::tapdance
 void dance_snip_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -1538,7 +1446,6 @@ void dance_snip_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_snip_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1548,7 +1455,7 @@ void dance_snip_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// TextExpander
+// TextExpander::tapdance
 void dance_texte_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -1598,7 +1505,6 @@ void dance_texte_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_texte_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1608,7 +1514,7 @@ void dance_texte_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Perp
+// Perplexity::tapdance
 void dance_perp_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -1658,7 +1564,6 @@ void dance_perp_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_perp_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1668,7 +1573,7 @@ void dance_perp_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Chat
+// ChatGPT::tapdance
 void dance_chat_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -1718,7 +1623,6 @@ void dance_chat_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_chat_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -1728,277 +1632,174 @@ void dance_chat_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// ClearVPN
-void dance_vpn_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F6);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_F6);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F6);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F6);
-        unregister_code(KC_LALT);
-    } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F6);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        tap_code(KC_F6);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-        tap_code(KC_F6);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F6);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    }
-}
-
-void dance_vpn_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    }
-}
-
-// Tap Dance Actions for Period
+    //  General Tap Dance Actions
+// Period::tapdance
 void dance_period_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: . Space Capitalization
         SEND_STRING(". ");
-        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+        set_oneshot_mods(MOD_LSFT);
     }else if (state->count == 1 && state->pressed) {
-            // Single tap: . Space Capitalization
-            SEND_STRING(".");
+        SEND_STRING(".");
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: : Space Capitalization
         SEND_STRING(": ");
-        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+        set_oneshot_mods(MOD_LSFT);
     } else if (state->count == 2 && state->pressed) {
-        // Double tap: : Space Capitalization
         SEND_STRING(":");
     }
 }
-
 void dance_period_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
-        clear_oneshot_mods();  // Clear One Shot Shift if hold is used
+        clear_oneshot_mods();
     }
 }
 
-// Tap Dance Actions for Question/Exclamation
+// Question::tapdance
 void dance_question_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: ? followed by Space Capitalization
         SEND_STRING("? ");
-        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+        set_oneshot_mods(MOD_LSFT);
     } else if (state->count == 1 && state->pressed) {
-            // Single tap: ? followed by Space Capitalization
-            SEND_STRING("?");
+        SEND_STRING("?");
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: ! followed by Space Capitalization
         SEND_STRING("! ");
-        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+        set_oneshot_mods(MOD_LSFT);
     } else if (state->count == 2 && state->pressed) {
-        // Double tap: ! followed by Space Capitalization
         SEND_STRING("!");
 }
 }
-
 void dance_question_reset(tap_dance_state_t *state, void *user_data) {
-    // No need to clear the one-shot mods manually; timeout will handle it
     if (state->pressed) {
-        clear_oneshot_mods();  // Clear One-Shot Shift if hold was used
+        clear_oneshot_mods();
     }
 }
 
-// Tap Dance Actions for Slash, Backslash, and Pipe
+//  Slash::tapdance
 void dance_slash_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: /
         tap_code(KC_SLSH);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap:
         tap_code(KC_BSLS);
     } else if (state->pressed) {
-        // Hold: |
-        register_code(KC_LSFT); // Press Shift
-        tap_code(KC_BSLS);      // Backslash with Shift = Pipe
-        unregister_code(KC_LSFT); // Release Shift
+        register_code(KC_LSFT);
+        tap_code(KC_BSLS);
+        unregister_code(KC_LSFT);
     }
 }
-
-// Optional: Reset Function
 void dance_slash_reset(tap_dance_state_t *state, void *user_data) {
-    // Add logic if needed for reset behavior
 }
 
-// Tap Dance Actions for ESCAPE
+// Escape::tapdance
 void dance_escape_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        // Single tap: /
+    if (state->count == 1 && state->pressed) { //Hide
         register_code(KC_LGUI);
         tap_code(KC_H);
         unregister_code(KC_LGUI);
-    } else if (state->count == 1 && !state->pressed) {
-        // Single tap: /
+    } else if (state->count == 1 && !state->pressed) {  //Escape
         tap_code(KC_ESC);
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap:
+    } else if (state->count == 2 && !state->pressed) {  //Close
         register_code(KC_LGUI);
         tap_code(KC_W);
         unregister_code(KC_LGUI);
-    } else if (state->count == 2 && state->pressed) {
-        // Hold: |
-        register_code(KC_LGUI); // Press Shift
-        tap_code(KC_Q);      // Backslash with Shift = Pipe
-        unregister_code(KC_LGUI); // Release Shift
+    } else if (state->count == 2 && state->pressed) {  //Quit
+        register_code(KC_LGUI);
+        tap_code(KC_Q);
+        unregister_code(KC_LGUI);
     }
 }
-
 void dance_escape_reset(tap_dance_state_t *state, void *user_data) {
-    // Turn off MO(FUN) when the key is released
    }
 
-// Tap dance function to activate/deactivate CAPS Word
+// Caps::tapdance
 void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {  // Single tap activates CAPS Word
-        caps_word_on();                         // Turn on CAPS Word
-        is_caps_active_flag = true;             // Set flag for CAPS active
-        caps_blink_timer = timer_read32();      // Initialize blinking timer
-    } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Sends '"'
-        register_code(KC_LSFT);  // Hold Shift
-        register_code(KC_LGUI);  // Hold Command
+    if (state->count == 1 && !state->pressed) {  //Caps Word
+        caps_word_on();
+        is_caps_active_flag = true;
+        caps_blink_timer = timer_read32();
+    } else if (state->count == 2 && !state->pressed) {  //Redo
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
         tap_code(KC_Z);
-        unregister_code(KC_LGUI); // Release Command
-        unregister_code(KC_LSFT); // Release Shift
-    } else if (state->pressed) {                // Press and hold activates Shift
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+    } else if (state->pressed) {
         register_code(KC_LSFT);
     }
 }
-
 void dance_caps_reset(tap_dance_state_t *state, void *user_data) {
     is_caps_active_flag = false;  // Directly reset CAPS blinking flag
     unregister_code(KC_LSFT);     // Release Shift key if pressed
 }
 
-// Tap Dance Functions for Space/Enter/Extend
+// Space::tapdance
 void dance_space_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single Tap: Send Space
         tap_code(KC_SPC);
     } else if (state->count == 1 && state->pressed) {
-        // Hold: Activate MO(EXTEND)
         layer_on(EXTEND);
     } else if (state->count == 2 && !state->pressed) {
-        // Double Tap: Send Enter
         tap_code(KC_ENT);
     } else if (state->count == 2 && state->pressed) {
-        // Hold: Activate MO(EXTEND)
-        register_code(KC_LSFT);  // Hold Option
-        tap_code(KC_ENT); // Fonard Delete
-        unregister_code(KC_LSFT); // Release Conmand
+        register_code(KC_LSFT);
+        tap_code(KC_ENT);
+        unregister_code(KC_LSFT);
     }
 }
-
 void dance_space_reset(tap_dance_state_t *state, void *user_data) {
-        // Release MO(EXTEND) when key is released
         layer_off(EXTEND);
 }
 
-// Tap Dance Actions for Comma
+// Comma::tapdance
 void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: , followed by Space
         SEND_STRING(", ");
     } else if (state->count == 1 && state->pressed) {
-            // Single tap: , followed by Space
-            SEND_STRING(",");
+        SEND_STRING(",");
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: '
         SEND_STRING("; ");
     } else if (state->count == 2 && state->pressed) {
-        // Double tap: '
         SEND_STRING(";");
     }
 }
-
 void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
-    // No additional reset logic needed
 }
 
-// Tap Dance Actions for Comma
+// Apostrophe::tapdance
 void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: , followed by Space
         leader_start();
     } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT); // Hold Shift
-        register_code(KC_LGUI); // Hold Command
-        register_code(KC_LALT); // Hold Command
-        tap_code(KC_K);      // Arrow Right
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        register_code(KC_LALT);
+        tap_code(KC_K);
         unregister_code(KC_LALT);
-        unregister_code(KC_LGUI); // Release Command
-        unregister_code(KC_LSFT); // Release Shift
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: '
         SEND_STRING("'");
     }
 }
-
 void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
-    // No additional reset logic needed
 }
 
-// Tap Dance Actions for Bracket
+// Bracketr::tapdance
 void dance_bracketr_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: Activate One Shot Shift
-        register_code(KC_LALT);  // Hold Option
-        tap_code(KC_BSPC); // Fonard Delete
-        unregister_code(KC_LALT); // Release Conmand
+        register_code(KC_LALT);
+        tap_code(KC_BSPC);
+        unregister_code(KC_LALT);
     } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_BSPC); // Fonard Delete
+        tap_code(KC_BSPC);
     } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LGUI);  // Hold Option
-        tap_code(KC_BSPC); // Fonard Delete
-        unregister_code(KC_LGUI); // Release Conmand
+        register_code(KC_LGUI);
+        tap_code(KC_BSPC);
+        unregister_code(KC_LGUI);
     }
 }
-
 void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
-    // No reset logic needed
 }
 
-// Tap Dance Actions for Bracket
+// Bracket
 void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate One Shot Shift
@@ -4499,12 +4300,12 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_tkl_ansi(
-        ARC,      CHAT,     PERP,     TEXTE,    SNIP,     DROP,     ALFRED,   HOOK,     MUSE,     XMIND,    OOUT,     TRELLO,   DAYONE,     KC_MUTE,    FANTAS,   SPARK,    KC_F15,
-        ESCAPE,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     XXXXXXX,   XXXXXXX,  KC_MINS,  KC_EQL,     XXXXXXX,     EAGLE,    DEVON,    FINDER,
-        ALF,    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     XXXXXXX,  XXXXXXX,       DELF,       BEAR, OFOCUS,   DRAFTS,
-        TEXHYPE, HOME_A,   ALT_S,    GUI_D,    SFT_F,    KC_G,     KC_H,     SFT_J,    GUI_K,    ALT_L,    KC_RSFT,  XXXXXXX,               KC_ENT,
-        KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     COMMA,    PERIOD,   QUESTION,             CAPW,                 KC_UP,
-        KEYCUE,  QMACRO,   XXXXXXX,                           SPACE,                                       XXXXXXX,  FILEFRED,   CSPACEN,    KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_ESC,   KC_BRID,  KC_BRIU,  KC_MCTRL, KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,    KC_MUTE,    KC_SNAP,  KC_SIRI,  RGB_MOD,
+        KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     KC_BSPC,    KC_INS,   KC_HOME,  KC_PGUP,
+        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,    KC_BSLS,    KC_DEL,   KC_END,   KC_PGDN,
+        KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,              KC_ENT,
+        KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,              KC_UP,
+        KC_LCTL,  KC_LOPTN, KC_LCMMD,                               KC_SPC,                                 KC_RCMMD, KC_ROPTN, MO(MAC_FN), KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_tkl_ansi(
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
