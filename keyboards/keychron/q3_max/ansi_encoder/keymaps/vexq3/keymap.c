@@ -60,61 +60,58 @@ enum {
     TD_BEAR,
     TD_END_OMNIFOCUS,
     TD_PD_DRAFTS,
-    TD_PERIOD,
-    TD_QUESTION,
-    TD_SLASH,
+    // Other Tapdances
+    // Tap Dance Declarations::Colemak Layer
     TD_ESCAPE,
-    TD_CAPS,
-    TD_SPACE,
-    TD_COMMA,
-    TD_COMSH,
-    TD_LEAD,
-    TD_DEL,
-    TD_FORWARDDELETE,
-    TD_TEXHYPE,
-    TD_UNIALF,
-    TD_CLIP,
-    TD_TEXTE,
-    TD_ALFMEH2,
-    TD_KEYCUE,
-    TD_CSPC_N,
-    TD_QMACRO,
-    TD_FILEFRED,
-    TD_CMOVE_N,
-    TD_CMOVE_P,
-    TD_SLEEVE,
-    TD_APOSTROPHE,
-    TD_OSSHIFT,
-    TD_DELWORD,
     TD_TAB,
+    TD_TEXHYPE,
     TD_UNMEHZ,
+    TD_KEYCUE,
+    TD_QMACRO,
+    TD_UNIALF,
+    TD_SPACE,
+    TD_CLIP,
+    TD_FILEFRED,
+    TD_SCREEN,
+    TD_CAPS,
+    TD_ALFMEH2,
     TD_HASHAT,
-    TD_TIL,
-    TD_RB,
-    TD_SBL,
-    TD_SBR,
+    TD_FORWARDDELETE,
+    TD_SMILE,
+    TD_SLASH,
+    TD_QUESTION,
+    TD_PERIOD,
+    TD_COMMA,
+    TD_DELWORD,
+    TD_OSSHIFT,
+    TD_VPASTE,
+    TD_DDUPLICATE,
+    TD_COPY,
+    TD_XCUT,
+    TD_QSELALL,
     TD_USCR,
-    TD_STAR,
-    TD_BACKT,
-    TD_EQUALS,
-    TD_UNSC,
+    TD_APOSTROPHE,
+    TD_QUICKY,
     TD_ONE,
     TD_TWO,
     TD_THREE,
-    TD_COPY,
-    TD_VPASTE,
-    TD_XCUT,
-    TD_DDUPLICATE,
-    TD_ALL,
-    TD_SMILE,
-    TD_SCREEN,
+    // Tap Dance Declarations::Extend Layer
+    TD_TIL,
+    // Tap Dance Declarations::Windows Layer
     TD_FULL,
-    TD_QUICKY,
+    // Tap Dance Declarations::Fun Layer
     TD_PORT,
     TD_CLARITY,
-    TD_QSELALL,
-    REPEAT,
-};
+    TD_SLEEVE,
+    // Tap Dance Declarations::Symbol Layer
+    TD_RB,
+    TD_SBL,
+    TD_SBR,
+    TD_BACKT,
+    TD_EQUALS,
+    TD_STAR,
+    TD_UNSC,
+  };
 
 typedef enum {
     TD_NONE,
@@ -166,8 +163,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CSPACEN  TD(TD_CSPC_N)
     #define FILEFRED TD(TD_FILEFRED)
     #define QMACRO   TD(TD_QMACRO)
-    #define CMOVE_N  TD(TD_CMOVE_N)
-    #define CMOVE_P  TD(TD_CMOVE_P)
     #define SLEEVE   TD(TD_SLEEVE)
     #define APOST    TD(TD_APOSTROPHE)
     #define OSSHIFT  TD(TD_OSSHIFT)
@@ -199,7 +194,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define ALFRED    TD(TD_ALFRED)
     #define DROP      TD(TD_DROP)
     #define SNIP      TD(TD_SNIPLAB)
-    #define TEXTE     TD(TD_TEXTE)
     #define PERP      TD(TD_PERP)
     #define CHAT      TD(TD_CHAT)
     #define ARC       TD(TD_ARC)
@@ -1452,65 +1446,6 @@ void dance_sniplab_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// TextExpander::tapdance
-void dance_texte_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F19);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_F19);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F19);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_F19);
-        unregister_code(KC_LALT);
-    } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F19);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        tap_code(KC_F19);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-        tap_code(KC_F19);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F19);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
-    }
-}
-void dance_texte_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-    }
-}
-
 // Perplexity::tapdance
 void dance_perp_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -1977,41 +1912,6 @@ void dance_keycue_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LALT);
   }
 
-// Space_n Colemak
-void dance_cspc_n_finished(tap_dance_state_t *state, void *user_data) {
-    td_state_t dance_state = cur_dance(state); // Get the tap dance state
-
-    switch (dance_state) {
-        case TD_SINGLE_TAP:
-            // Single Tap: Control + Right Arrow (Move one word right)
-            register_code(KC_LCTL);
-            tap_code(KC_RGHT);
-            unregister_code(KC_LCTL);
-            break;
-
-        case TD_SINGLE_HOLD:
-            // Hold: Option (Alt)
-            register_code(KC_LALT);
-            break;
-
-        case TD_DOUBLE_TAP:
-            // Double Tap: Command + Right Arrow (Move to end of line)
-            register_code(KC_LGUI);
-            tap_code(KC_RGHT);
-            unregister_code(KC_LGUI);
-            break;
-
-        default:
-            break;
-    }
-}
-
-void dance_cspc_n_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic for Hold or Double Hold
-    unregister_code(KC_LALT); // Release Option
-    unregister_code(KC_LGUI); // Release Command
-}
-
 // Tap Dance Actions for Filefred
 void dance_filefred_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -2058,50 +1958,6 @@ void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 void dance_qmacro_reset(tap_dance_state_t *state, void *user_data) {
-}
-
-// Colemak move by word/line
-void dance_cmove_n_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single Tap: Command + Right
-        register_mods(MOD_BIT(KC_LALT));
-        tap_code(KC_RGHT);
-        unregister_mods(MOD_BIT(KC_LALT));
-    } else if (state->count == 1 && state->pressed) {
-        // Double Tap: Control + Right
-        register_mods(MOD_BIT(KC_LGUI));
-        tap_code(KC_RGHT);
-        unregister_mods(MOD_BIT(KC_LGUI));
-    }
-}
-
-void dance_cmove_n_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        // Unregister any held mods on reset
-        unregister_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
-    }
-}
-
-// Colemak move by word/line p
-void dance_cmove_p_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single Tap: Command + Right
-        register_mods(MOD_BIT(KC_LALT));
-        tap_code(KC_LEFT);
-        unregister_mods(MOD_BIT(KC_LALT));
-    } else if (state->count == 1 && state->pressed) {
-        // Double Tap: Control + Right
-        register_mods(MOD_BIT(KC_LGUI));
-        tap_code(KC_LEFT);
-        unregister_mods(MOD_BIT(KC_LGUI));
-    }
-}
-
-void dance_cmove_p_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        // Unregister any held mods on reset
-        unregister_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
-    }
 }
 
 // Sleeve
@@ -2413,24 +2269,6 @@ void dance_copy_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_all_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        // Single Tap: Command + Right
-        tap_code(KC_A);
-    } else if (state->count == 1 && state->pressed) {
-        // Double Tap: Control + Right
-        register_code(KC_LGUI);
-        tap_code(KC_A);
-        unregister_code(KC_LGUI);
-    }
-}
-
-void dance_all_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        // Unregister any held mods on reset
-    }
-}
-
 void dance_dduplicate_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Command + Right
@@ -2683,8 +2521,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_DROP):
             return TAPPING_TERM + 100;
         case TD(TD_SNIPLAB):
-            return TAPPING_TERM + 100;
-        case TD(TD_TEXTE):
             return TAPPING_TERM + 100;
         case TD(TD_ALFMEH2):
             return TAPPING_TERM + 50;
@@ -4041,78 +3877,78 @@ void housekeeping_task_user(void) {
 
 // Tap Dance Array
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_ANYBOX] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_anybox_finished, dance_anybox_reset),
-    [TD_PD_DRAFTS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_pd_drafts_finished, dance_pd_drafts_reset),
-    [TD_END_OMNIFOCUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_end_omnifocus_finished, dance_end_omnifocus_reset),
-    [TD_PERIOD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_period_finished, dance_period_reset),
-    [TD_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_question_finished, dance_question_reset),
-    [TD_SLASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash_finished, dance_slash_reset),
-    [TD_ESCAPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_escape_finished, dance_escape_reset),
-    [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_caps_finished, dance_caps_reset),
-    [TD_SPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_space_finished, dance_space_reset),
-    [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
-    [TD_FORWARDDELETE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_forwarddelete_finished, dance_forwarddelete_reset),
-    [TD_TEXHYPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texhype_finished, dance_texhype_reset),
-    [TD_UNIALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unialf_finished, dance_unialf_reset),
-    [TD_CLIP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clip_finished, dance_clip_reset),
-    [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
-    [TD_DEVONTHINK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_devonthink_finished, dance_devonthink_reset),
-    [TD_SPARK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_spark_finished, dance_spark_reset),
-    [TD_FANTASTICAL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_fantastical_finished, dance_fantastical_reset),
-    [TD_DAYONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dayone_finished, dance_dayone_reset),
-    [TD_TRELLO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_trello_finished, dance_trello_reset),
-    [TD_OOUTLINER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ooutliner_finished, dance_ooutliner_reset),
-    [TD_MUSE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_muse_finished, dance_muse_reset),
-    [TD_HOOK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hook_finished, dance_hook_reset),
     [TD_ALFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfred_finished, dance_alfred_reset),
+    [TD_HOOK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hook_finished, dance_hook_reset),
+    [TD_CLEANSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cleanshot_finished, dance_cleanshot_reset),
     [TD_DROP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_drop_finished, dance_drop_reset),
+    [TD_SIDENOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sidenote_finished, dance_sidenote_reset),
+    [TD_ARC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_arc_finished, dance_arc_reset),
     [TD_SNIPLAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sniplab_finished, dance_sniplab_reset),
-    [TD_TEXTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texte_finished, dance_texte_reset),
     [TD_PERP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_perp_finished, dance_perp_reset),
     [TD_CHAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_chat_finished, dance_chat_reset),
-    [TD_ARC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_arc_finished, dance_arc_reset),
-    [TD_BEAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bear_finished, dance_bear_reset),
+    [TD_MUSE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_muse_finished, dance_muse_reset),
+    [TD_TRELLO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_trello_finished, dance_trello_reset),
+    [TD_OOUTLINER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ooutliner_finished, dance_ooutliner_reset),
+    [TD_DAYONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dayone_finished, dance_dayone_reset),
+    [TD_FANTASTICAL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_fantastical_finished, dance_fantastical_reset),
+    [TD_SPARK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_spark_finished, dance_spark_reset),
+    [TD_ANYBOX] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_anybox_finished, dance_anybox_reset),
     [TD_EAGLE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_eagle_finished, dance_eagle_reset),
-    [TD_ALFMEH2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfmeh2_finished, dance_alfmeh2_reset),
-    [TD_CSPC_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cspc_n_finished, dance_cspc_n_reset),
+    [TD_DEVONTHINK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_devonthink_finished, dance_devonthink_reset),
+    [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
+    [TD_BEAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bear_finished, dance_bear_reset),
+    [TD_END_OMNIFOCUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_end_omnifocus_finished, dance_end_omnifocus_reset),
+    [TD_PD_DRAFTS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_pd_drafts_finished, dance_pd_drafts_reset),
+    // Colemak Layer
+    [TD_ESCAPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_escape_finished, dance_escape_reset),
+    [TD_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tab_finished, dance_tab_reset),
+    [TD_TEXHYPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texhype_finished, dance_texhype_reset),
+    [TD_UNMEHZ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unmehz_finished, dance_unmehz_reset),
     [TD_KEYCUE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_keycue_finished, dance_keycue_reset),
-    [TD_FILEFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_filefred_finished, dance_filefred_reset),
     [TD_QMACRO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qmacro_finished, dance_qmacro_reset),
-    [TD_CMOVE_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cmove_n_finished, dance_cmove_n_reset),
-    [TD_CMOVE_P] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cmove_p_finished, dance_cmove_p_reset),
-    [TD_SLEEVE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sleeve_finished, dance_sleeve_reset),
-    [TD_CLEANSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cleanshot_finished, dance_cleanshot_reset),
-    [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
+    [TD_UNIALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unialf_finished, dance_unialf_reset),
+    [TD_SPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_space_finished, dance_space_reset),
+    [TD_CLIP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clip_finished, dance_clip_reset),
+    [TD_FILEFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_filefred_finished, dance_filefred_reset),
+    [TD_SCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_screen_finished, dance_screen_reset),
+    [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_caps_finished, dance_caps_reset),
+    [TD_ALFMEH2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfmeh2_finished, dance_alfmeh2_reset),
+    [TD_HASHAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hashat_finished, dance_hashat_reset),
+    [TD_FORWARDDELETE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_forwarddelete_finished, dance_forwarddelete_reset),
+    [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
+    [TD_SLASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash_finished, dance_slash_reset),
+    [TD_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_question_finished, dance_question_reset),
+    [TD_QUICKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quicky_finished, dance_quicky_reset),
+    [TD_PERIOD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_period_finished, dance_period_reset),
+    [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
     [TD_DELWORD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delword_finished, dance_delword_reset),
     [TD_OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_osshift_finished, dance_osshift_reset),
-    [TD_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tab_finished, dance_tab_reset),
-    [TD_UNMEHZ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unmehz_finished, dance_unmehz_reset),
-    [TD_HASHAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hashat_finished, dance_hashat_reset),
-    [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
-    [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
-    [TD_SBL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbl_finished, dance_sbl_reset),
-    [TD_SBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbr_finished, dance_sbr_reset),
+    [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
     [TD_USCR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uscr_finished, dance_uscr_reset),
-    [TD_STAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_star_finished, dance_star_reset),
-    [TD_BACKT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_backt_finished, dance_backt_reset),
-    [TD_EQUALS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_equals_finished, dance_equals_reset),
-    [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
+    [TD_VPASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_vpaste_finished, dance_vpaste_reset),
+    [TD_DDUPLICATE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dduplicate_finished, dance_dduplicate_reset),
+    [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
+    [TD_XCUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_xcut_finished, dance_xcut_reset),
+    [TD_QSELALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qselall_finished, dance_qselall_reset),
     [TD_ONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_one_finished, dance_one_reset),
     [TD_TWO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_two_finished, dance_two_reset),
     [TD_THREE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_three_finished, dance_three_reset),
-    [TD_XCUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_xcut_finished, dance_xcut_reset),
-    [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
-    [TD_VPASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_vpaste_finished, dance_vpaste_reset),
-    [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
-    [TD_SCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_screen_finished, dance_screen_reset),
+    // Extend Layer
+    [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
+    // Windows Layer
     [TD_FULL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_full_finished, dance_full_reset),
-    [TD_QUICKY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_quicky_finished, dance_quicky_reset),
+    // Fun Layer
     [TD_PORT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_port_finished, dance_port_reset),
     [TD_CLARITY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clarity_finished, dance_clarity_reset),
-    [TD_SIDENOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sidenote_finished, dance_sidenote_reset),
-    [TD_DDUPLICATE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dduplicate_finished, dance_dduplicate_reset),
-    [TD_ALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_all_finished, dance_all_reset),
-    [TD_QSELALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qselall_finished, dance_qselall_reset),
+    [TD_SLEEVE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sleeve_finished, dance_sleeve_reset),
+    // Symbol Layer
+    [TD_EQUALS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_equals_finished, dance_equals_reset),
+    [TD_STAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_star_finished, dance_star_reset),
+    [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
+    [TD_SBL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbl_finished, dance_sbl_reset),
+    [TD_SBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbr_finished, dance_sbr_reset),
+    [TD_BACKT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_backt_finished, dance_backt_reset),
+    [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
 };
 
 // Leader key
@@ -4297,7 +4133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TEXHYPE,  MSEC1,    MSEWHLRI, MSEWHLDO, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    MOUSEUP,  _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
         KC_LCTL,  KC_LALT,  KC_LGUI,  MSEWHLUP, KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  MSEC1,                _______,
         UNDO,               CUT,      COPY,     DUPLICA,  PASTE,    MSEC1,    MSEC4,    MSEC2,    MOUSELT,  MOUSERT,  MOUSEDN,                _______,              _______,
-        SLINE_P,  SWORD_B,  CMOVE_P,                                 _______,                               CMOVE_N,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
+        SLINE_P,  SWORD_B,  UNIALF,                                 _______,                                CLIP,  SELWORD,  SLINE,      _______,    _______,  _______,  _______),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
         FULL,     WIN1_1,   WIN1_2,   WIN1_3,   XXXXXXX,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
