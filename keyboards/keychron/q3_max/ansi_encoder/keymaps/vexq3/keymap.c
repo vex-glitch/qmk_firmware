@@ -84,7 +84,7 @@ enum {
     TD_APOSTROPHE,
     TD_OSSHIFT,
     TD_DELWORD,
-    TD_LEADY,
+    TD_TAB,
     REPEAT,
     TD_Z,
     TD_SYMPIC,
@@ -171,7 +171,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define APOST    TD(TD_APOSTROPHE)
     #define OSSHIFT  TD(TD_OSSHIFT)
     #define DELWORD  TD(TD_DELWORD)
-    #define LEADY    TD(TD_LEADY)
+    #define TAB    TD(TD_TAB)
     #define RB       TD(TD_RB)
     #define SMILE    TD(TD_SMILE)
     #define FULL     TD(TD_FULL)
@@ -2145,7 +2145,7 @@ void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
     // Reset logic if needed (not required in this case)
 }
 
-void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
+void dance_tab_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Activate Leader Key
         tap_code(KC_TAB);
@@ -2166,7 +2166,7 @@ void dance_leady_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_leady_reset(tap_dance_state_t *state, void *user_data) {
+void dance_tab_reset(tap_dance_state_t *state, void *user_data) {
     // Release MEH modifiers when the key is released
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
@@ -2747,7 +2747,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 25;
             case TD(TD_TEXHYPE):
             return TAPPING_TERM + 75;
-            case TD(TD_LEADY):
+            case TD(TD_TAB):
             return TAPPING_TERM + 75;
             case TD(TD_TIL):
             return TAPPING_TERM + 50;
@@ -4101,7 +4101,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
     [TD_DELWORD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delword_finished, dance_delword_reset),
     [TD_OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_osshift_finished, dance_osshift_reset),
-    [TD_LEADY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leady_finished, dance_leady_reset),
+    [TD_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tab_finished, dance_tab_reset),
     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
     [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
@@ -4302,7 +4302,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,       EAGLE,    DEVON,    FINDER,
-        LEADY,    QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
+        TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         ZED,                CCUT,     CCOPY,    DUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         KEYCUE,   QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
