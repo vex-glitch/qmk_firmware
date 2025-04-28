@@ -37,9 +37,29 @@ enum layers {
 
 // Tap Dance Declarations
 enum {
+    // F Keys
+    TD_ALFRED,
+    TD_HOOK,
+    TD_CLEANSHOT,
+    TD_DROP,
+    TD_SIDENOTE,
+    TD_ARC,
+    TD_SNIPLAB,
+    TD_PERP,
+    TD_CHAT,
+    TD_MUSE,
+    TD_TRELLO,
+    TD_OOUTLINER,
+    TD_DAYONE,
+    TD_FANTASTICAL,
+    TD_SPARK,
     TD_ANYBOX,
-    TD_PD_DRAFTS,
+    TD_EAGLE,
+    TD_DEVONTHINK,
+    TD_FINDER,
+    TD_BEAR,
     TD_END_OMNIFOCUS,
+    TD_PD_DRAFTS,
     TD_PERIOD,
     TD_QUESTION,
     TD_SLASH,
@@ -54,24 +74,7 @@ enum {
     TD_TEXHYPE,
     TD_UNIALF,
     TD_CLIP,
-    TD_FINDER,
-    TD_DEVONTHINK,
-    TD_SPARK,
-    TD_FANTASTICAL,
-    TD_DAYONE,
-    TD_TRELLO,
-    TD_OOUTLINER,
-    TD_MUSE,
-    TD_HOOK,
-    TD_ALFRED,
-    TD_DROP,
-    TD_SNIP,
     TD_TEXTE,
-    TD_PERP,
-    TD_CHAT,
-    TD_ARC,
-    TD_BEAR,
-    TD_EAGLE,
     TD_ALFMEH2,
     TD_KEYCUE,
     TD_CSPC_N,
@@ -80,12 +83,10 @@ enum {
     TD_CMOVE_N,
     TD_CMOVE_P,
     TD_SLEEVE,
-    TD_CLEANSHOT,
     TD_APOSTROPHE,
     TD_OSSHIFT,
     TD_DELWORD,
     TD_TAB,
-    REPEAT,
     TD_UNMEHZ,
     TD_HASHAT,
     TD_TIL,
@@ -111,8 +112,8 @@ enum {
     TD_QUICKY,
     TD_PORT,
     TD_CLARITY,
-    TD_SIDENOTE,
     TD_QSELALL,
+    REPEAT,
 };
 
 typedef enum {
@@ -197,7 +198,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define HOOK      TD(TD_HOOK)
     #define ALFRED    TD(TD_ALFRED)
     #define DROP      TD(TD_DROP)
-    #define SNIP      TD(TD_SNIP)
+    #define SNIP      TD(TD_SNIPLAB)
     #define TEXTE     TD(TD_TEXTE)
     #define PERP      TD(TD_PERP)
     #define CHAT      TD(TD_CHAT)
@@ -2681,7 +2682,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_DROP):
             return TAPPING_TERM + 100;
-        case TD(TD_SNIP):
+        case TD(TD_SNIPLAB):
             return TAPPING_TERM + 100;
         case TD(TD_TEXTE):
             return TAPPING_TERM + 100;
@@ -4065,7 +4066,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_HOOK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hook_finished, dance_hook_reset),
     [TD_ALFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfred_finished, dance_alfred_reset),
     [TD_DROP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_drop_finished, dance_drop_reset),
-    [TD_SNIP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_snip_finished, dance_snip_reset),
+    [TD_SNIPLAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sniplab_finished, dance_sniplab_reset),
     [TD_TEXTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texte_finished, dance_texte_reset),
     [TD_PERP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_perp_finished, dance_perp_reset),
     [TD_CHAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_chat_finished, dance_chat_reset),
