@@ -2173,7 +2173,7 @@ void dance_tab_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LALT);
 }
 
-void dance_z_finished(tap_dance_state_t *state, void *user_data) {
+void dance_mehz_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Sends 'Z'
         tap_code(KC_Z);
@@ -2191,7 +2191,7 @@ void dance_z_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 // Reset function to release Shift when key is released
-void dance_z_reset(tap_dance_state_t *state, void *user_data) {
+void dance_mehz_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     unregister_code(KC_LALT);
