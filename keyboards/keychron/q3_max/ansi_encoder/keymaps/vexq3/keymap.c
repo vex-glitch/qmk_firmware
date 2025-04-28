@@ -82,7 +82,7 @@ enum {
     TD_SLEEVE,
     TD_CLEANSHOT,
     TD_APOSTROPHE,
-    TD_BRACKET_L,
+    TD_OSSHIFT,
     TD_BRACKET_R,
     TD_LEADY,
     REPEAT,
@@ -169,7 +169,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CMOVE_P  TD(TD_CMOVE_P)
     #define SLEEVE   TD(TD_SLEEVE)
     #define APOST    TD(TD_APOSTROPHE)
-    #define TDOSS    TD(TD_BRACKET_L)
+    #define TDOSS    TD(TD_OSSHIFT)
     #define TDDELW   TD(TD_BRACKET_R)
     #define LEADY    TD(TD_LEADY)
     #define RB       TD(TD_RB)
@@ -1796,14 +1796,14 @@ void dance_bracketr_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Bracket
-void dance_bracketl_finished(tap_dance_state_t *state, void *user_data) {
+void dance_osshift_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate One Shot Shift
         set_oneshot_mods(MOD_LSFT);
     }
 }
 
-void dance_bracketl_reset(tap_dance_state_t *state, void *user_data) {
+void dance_osshift_reset(tap_dance_state_t *state, void *user_data) {
     // No reset logic needed
 }
 
@@ -2737,7 +2737,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
             case TD(TD_UAALF):
             return TAPPING_TERM + 100;
-            case TD(TD_BRACKET_L):
+            case TD(TD_OSSHIFT):
             return TAPPING_TERM + 75;
             case TD(TD_BRACKET_R):
             return TAPPING_TERM + 75;
@@ -4108,7 +4108,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CLEANSHOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cleanshot_finished, dance_cleanshot_reset),
     [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
     [TD_BRACKET_R] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketr_finished, dance_bracketr_reset),
-    [TD_BRACKET_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bracketl_finished, dance_bracketl_reset),
+    [TD_OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_osshift_finished, dance_osshift_reset),
     [TD_LEADY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leady_finished, dance_leady_reset),
     [TD_Z] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_z_finished, dance_z_reset),
     [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
