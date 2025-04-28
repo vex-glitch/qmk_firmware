@@ -2905,7 +2905,6 @@ uint16_t COMBO_LEN = 0;
 enum custom_keycodes {
     SELWORD = SAFE_RANGE,
     SWORD_B,
-    DELWORD,
     SLINE,
     SLINE_P,
     UNDO,
