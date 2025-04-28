@@ -52,7 +52,7 @@ enum {
     TD_DEL,
     TD_FORWARDDELETE,
     TD_TEXHYPE,
-    TD_ALFUA,
+    TD_UNIALF,
     TD_UAALF,
     TD_FINDER,
     TD_DEVONTHINK,
@@ -156,9 +156,9 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CAPW     TD(TD_CAPS)
     #define SPACE    TD(TD_SPACE)
     #define COMMA    TD(TD_COMMA)
-    #define FORDEL     TD(TD_FORWARDDELETE)
+    #define FORDEL   TD(TD_FORWARDDELETE)
     #define TEXHYPE  TD(TD_TEXHYPE)
-    #define ALFUA    TD(TD_ALFUA)
+    #define UNIALF   TD(TD_UNIALF)
     #define UAALF    TD(TD_UAALF)
     #define ALF      TD(TD_ALF)
     #define KEYCUE   TD(TD_KEYCUE)
@@ -171,7 +171,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define APOST    TD(TD_APOSTROPHE)
     #define OSSHIFT  TD(TD_OSSHIFT)
     #define DELWORD  TD(TD_DELWORD)
-    #define TAB    TD(TD_TAB)
+    #define TAB      TD(TD_TAB)
     #define RB       TD(TD_RB)
     #define SMILE    TD(TD_SMILE)
     #define FULL     TD(TD_FULL)
@@ -205,7 +205,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define BEAR      TD(TD_BEAR)
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
-    #define MEHZ       TD(TD_MEHZ)
+    #define MEHZ      TD(TD_MEHZ)
     #define SYMPIC    TD(TD_SYMPIC)
     #define TIL       TD(TD_TIL)
     #define SBL       TD(TD_SBL)
@@ -1906,7 +1906,7 @@ void dance_uaalf_reset(tap_dance_state_t *state, void *user_data) {
     }
    }
 
-void dance_alfua_finished(tap_dance_state_t *state, void *user_data) {
+void dance_unialf_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Send Alt + Shift + Tab
         register_code(KC_LALT);
@@ -1928,7 +1928,7 @@ void dance_alfua_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_alfua_reset(tap_dance_state_t *state, void *user_data) {
+void dance_unialf_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(FUN)) {
         layer_off(FUN);
     }
@@ -2726,7 +2726,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
             case TD(TD_FILEFRED):
             return TAPPING_TERM + 100;
-            case TD(TD_ALFUA):
+            case TD(TD_UNIALF):
             return TAPPING_TERM + 100;
             case TD(TD_UAALF):
             return TAPPING_TERM + 100;
@@ -4069,7 +4069,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
     [TD_FORWARDDELETE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_forwarddelete_finished, dance_forwarddelete_reset),
     [TD_TEXHYPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texhype_finished, dance_texhype_reset),
-    [TD_ALFUA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfua_finished, dance_alfua_reset),
+    [TD_UNIALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unialf_finished, dance_unialf_reset),
     [TD_UAALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uaalf_finished, dance_uaalf_reset),
         [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
     [TD_DEVONTHINK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_devonthink_finished, dance_devonthink_reset),
@@ -4305,7 +4305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         MEHZ,                CCUT,     CCOPY,    DUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        KEYCUE,   QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                               UAALF,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
