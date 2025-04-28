@@ -2891,12 +2891,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-            case REPEAT:
-            if (record->event.pressed) {
-                tap_code16(REPEAT);  // Ensure it triggers repeat
-            }
-            return false;
-
         case DELWF:  // Delete Word Forward
             if (record->event.pressed) {
                 register_code(KC_LALT);
