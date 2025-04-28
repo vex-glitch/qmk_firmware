@@ -114,6 +114,7 @@ enum {
     TD_PORT,
     TD_CLARITY,
     TD_SIDENOTE,
+    TD_QSELALL,
 };
 
 typedef enum {
@@ -207,6 +208,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define SIDENOTE TD(TD_SIDENOTE)
     #define DUP      TD(TD_DUP)
     #define ALL      TD(TD_ALL)
+    #define QSELALL  TD(TD_QSELALL)
 
 // QWERTY Layout
 // Left-hand home row mods
@@ -2922,6 +2924,21 @@ void dance_clarity_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_qselall_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_C);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 1 && !state->pressed) {
+        tap_code(KC_Q);
+    }
+}
+
+void dance_qsellall_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+    }
+}
+
 
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -4391,6 +4408,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SIDENOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sidenote_finished, dance_sidenote_reset),
     [TD_DUP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dup_finished, dance_dup_reset),
     [TD_ALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_all_finished, dance_all_reset),
+    [TD_QSELALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qselall_finished, dance_qselall_reset),
 };
 
 // Leader key
@@ -4772,7 +4790,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
-        LEADY,    KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
+        LEADY,    QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         ZED,                CCUT,     CCOPY,    DUP,      PPASTE,   TDOSS,    TDDELW,   KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         KEYCUE,   QMACRO,   ALFUA,                                     SPACE,                               UAALF,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
