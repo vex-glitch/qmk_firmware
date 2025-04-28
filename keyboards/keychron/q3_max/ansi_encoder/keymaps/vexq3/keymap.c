@@ -53,7 +53,7 @@ enum {
     TD_FORWARDDELETE,
     TD_TEXHYPE,
     TD_UNIALF,
-    TD_UAALF,
+    TD_CLIP,
     TD_FINDER,
     TD_DEVONTHINK,
     TD_SPARK,
@@ -159,7 +159,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define FORDEL   TD(TD_FORWARDDELETE)
     #define TEXHYPE  TD(TD_TEXHYPE)
     #define UNIALF   TD(TD_UNIALF)
-    #define UAALF    TD(TD_UAALF)
+    #define CLIP    TD(TD_CLIP)
     #define ALF      TD(TD_ALF)
     #define KEYCUE   TD(TD_KEYCUE)
     #define CSPACEN  TD(TD_CSPC_N)
@@ -1877,7 +1877,7 @@ void dance_texhype_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 
-void dance_uaalf_finished(tap_dance_state_t *state, void *user_data) {
+void dance_clip_finished(tap_dance_state_t *state, void *user_data) {
     //Single Tap: Clipboard History
     if (state->count == 1 && !state->pressed) {
         register_code(KC_LALT);
@@ -1900,7 +1900,7 @@ void dance_uaalf_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_uaalf_reset(tap_dance_state_t *state, void *user_data) {
+void dance_clip_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(WINDOWS)) {
         layer_off(WINDOWS);
     }
@@ -2728,7 +2728,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
             case TD(TD_UNIALF):
             return TAPPING_TERM + 100;
-            case TD(TD_UAALF):
+            case TD(TD_CLIP):
             return TAPPING_TERM + 100;
             case TD(TD_OSSHIFT):
             return TAPPING_TERM + 75;
@@ -4070,8 +4070,8 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_FORWARDDELETE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_forwarddelete_finished, dance_forwarddelete_reset),
     [TD_TEXHYPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texhype_finished, dance_texhype_reset),
     [TD_UNIALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unialf_finished, dance_unialf_reset),
-    [TD_UAALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uaalf_finished, dance_uaalf_reset),
-        [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
+    [TD_CLIP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_clip_finished, dance_clip_reset),
+    [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
     [TD_DEVONTHINK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_devonthink_finished, dance_devonthink_reset),
     [TD_SPARK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_spark_finished, dance_spark_reset),
     [TD_FANTASTICAL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_fantastical_finished, dance_fantastical_reset),
@@ -4304,8 +4304,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,       EAGLE,    DEVON,    FINDER,
         TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
-        MEHZ,                CCUT,     CCOPY,    DUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                               UAALF,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        MEHZ,               CCUT,     CCOPY,    DUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
+        KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
