@@ -50,7 +50,7 @@ enum {
     TD_COMSH,
     TD_LEAD,
     TD_DEL,
-    TD_DELFOR,
+    TD_FORWARDDELETE,
     TD_TEXHYPE,
     TD_ALFUA,
     TD_UAALF,
@@ -156,7 +156,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CAPW     TD(TD_CAPS)
     #define SPACE    TD(TD_SPACE)
     #define COMMA    TD(TD_COMMA)
-    #define DELF     TD(TD_DELFOR)
+    #define FORDEL     TD(TD_FORWARDDELETE)
     #define TEXHYPE  TD(TD_TEXHYPE)
     #define ALFUA    TD(TD_ALFUA)
     #define UAALF    TD(TD_UAALF)
@@ -1795,43 +1795,36 @@ void dance_delword_finished(tap_dance_state_t *state, void *user_data) {
 void dance_delword_reset(tap_dance_state_t *state, void *user_data) {
 }
 
-// Bracket
+// OneShotShift::tapdance
 void dance_osshift_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: Activate One Shot Shift
         set_oneshot_mods(MOD_LSFT);
     }
 }
-
 void dance_osshift_reset(tap_dance_state_t *state, void *user_data) {
-    // No reset logic needed
 }
 
-// Tap Dance Actions for Delete Forward
-void dance_delfor_finished(tap_dance_state_t *state, void *user_data) {
+// Forward Delete::tapdance
+void dance_forwarddelete_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single tap: Delete forward
-        tap_code(KC_DEL);       // Forward Delete
+        tap_code(KC_DEL);
     } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LALT);  // Hold Option
-        tap_code(KC_DEL); // Fonard Delete
-        unregister_code(KC_LALT); // Release Conmand
+        register_code(KC_LALT);
+        tap_code(KC_DEL);
+        unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double Hold: Select word forward and delete
-        register_code(KC_LSFT); // Hold Shift
-        register_code(KC_LGUI); // Hold Command
-        tap_code(KC_RGHT);      // Arrow Right
-        unregister_code(KC_LGUI); // Release Command
-        unregister_code(KC_LSFT); // Release Shift
-        tap_code(KC_BSPC);      // Delete (Backspace)
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_RGHT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        tap_code(KC_BSPC);
     }
 }
-
-void dance_delfor_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic: Release any held keys
-    unregister_code(KC_LALT);  // Release Option if it was held
-    unregister_code(KC_LSFT);  // Release Shift if it was held
-    unregister_code(KC_LGUI);  // Release Command if it was held
+void dance_forwarddelete_reset(tap_dance_state_t *state, void *user_data) {
+    unregister_code(KC_LALT);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LGUI);
 }
 
 // Tap Dance Actions for TextHype
@@ -2748,7 +2741,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
                return TAPPING_TERM + 75;
             case TD(TD_SLASH):
             return TAPPING_TERM + 75;
-            case TD(TD_DELFOR):
+            case TD(TD_FORWARDDELETE):
             return TAPPING_TERM + 75;
             case TD(TD_CAPS):
             return TAPPING_TERM + 25;
@@ -2875,7 +2868,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_NONUS_HASH:
         case KC_SEMICOLON:
         case KC_GRAVE:
-        case DELF:
+        case FORDEL:
         case OSSHIFT:
         case DELWORD:
         case QUESTION:
@@ -4074,7 +4067,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_caps_finished, dance_caps_reset),
     [TD_SPACE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_space_finished, dance_space_reset),
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
-    [TD_DELFOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delfor_finished, dance_delfor_reset),
+    [TD_FORWARDDELETE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_forwarddelete_finished, dance_forwarddelete_reset),
     [TD_TEXHYPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texhype_finished, dance_texhype_reset),
     [TD_ALFUA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfua_finished, dance_alfua_reset),
     [TD_UAALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uaalf_finished, dance_uaalf_reset),
@@ -4308,7 +4301,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      DELF,       EAGLE,    DEVON,    FINDER,
+        ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,       EAGLE,    DEVON,    FINDER,
         LEADY,    QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         ZED,                CCUT,     CCOPY,    DUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
