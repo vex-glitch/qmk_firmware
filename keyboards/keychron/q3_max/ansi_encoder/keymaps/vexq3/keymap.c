@@ -61,7 +61,6 @@ enum {
     TD_DAYONE,
     TD_TRELLO,
     TD_OOUTLINER,
-    TD_XMIND,
     TD_MUSE,
     TD_HOOK,
     TD_ALFRED,
@@ -101,7 +100,6 @@ enum {
     TD_ONE,
     TD_TWO,
     TD_THREE,
-    TD_VPN,
     TD_COPY,
     TD_PASTE,
     TD_CUT,
@@ -199,7 +197,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define TDDELW   TD(TD_BRACKET_R)
     #define LEADY    TD(TD_LEADY)
     #define RB       TD(TD_RB)
-    #define VPN      TD(TD_VPN)
     #define SMILE    TD(TD_SMILE)
     #define FULL     TD(TD_FULL)
     #define QUICKY   TD(TD_QUICKY)
@@ -220,7 +217,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define DAYONE    TD(TD_DAYONE)
     #define TRELLO    TD(TD_TRELLO)
     #define OOUT      TD(TD_OOUTLINER)
-    #define XMIND     TD(TD_XMIND)
     #define MUSE      TD(TD_MUSE)
     #define HOOK      TD(TD_HOOK)
     #define ALFRED    TD(TD_ALFRED)
@@ -2701,8 +2697,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_OOUTLINER):
             return TAPPING_TERM + 100;
-        case TD(TD_XMIND):
-            return TAPPING_TERM + 100;
         case TD(TD_MUSE):
             return TAPPING_TERM + 100;
         case TD(TD_HOOK):
@@ -4092,7 +4086,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_DAYONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dayone_finished, dance_dayone_reset),
     [TD_TRELLO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_trello_finished, dance_trello_reset),
     [TD_OOUTLINER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ooutliner_finished, dance_ooutliner_reset),
-    [TD_XMIND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_xmind_finished, dance_xmind_reset),
     [TD_MUSE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_muse_finished, dance_muse_reset),
     [TD_HOOK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hook_finished, dance_hook_reset),
     [TD_ALFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfred_finished, dance_alfred_reset),
@@ -4131,7 +4124,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ONE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_one_finished, dance_one_reset),
     [TD_TWO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_two_finished, dance_two_reset),
     [TD_THREE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_three_finished, dance_three_reset),
-    [TD_VPN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_vpn_finished, dance_vpn_reset),
     [TD_CUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cut_finished, dance_cut_reset),
     [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
     [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
@@ -4340,7 +4332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
-        SYSSET,   PASS,     PORT,     MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  CLARITY,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  VPN,      SPEED,
+        SYSSET,   PASS,     PORT,     MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  CLARITY,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  _______,      SPEED,
         _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    TERMIN,   _______,  WORK,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    KMESTRO,  VSCODE,   ITERM,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,
