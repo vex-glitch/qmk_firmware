@@ -1925,8 +1925,8 @@ void dance_escape_finished(tap_dance_state_t *state, void *user_data) {
         tap_code(KC_H);
         unregister_code(KC_LGUI);
     } else if (state->count == 1 && !state->pressed) {
-            // Single tap: /
-            tap_code(KC_ESC);
+        // Single tap: /
+        tap_code(KC_ESC);
     } else if (state->count == 2 && !state->pressed) {
         // Double tap:
         register_code(KC_LGUI);
@@ -2830,21 +2830,15 @@ void dance_full_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         tap_code(KC_LCTL);
     } else if (state->count == 1 && !state->pressed) {
-              register_code(KC_LCTL);
-            register_code(KC_LCMD);
-            tap_code(KC_F);
-            unregister_code(KC_LCMD);
-            unregister_code(KC_LCTL);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
         register_code(KC_LCTL);
-        register_code(KC_LALT);
+        register_code(KC_LCMD);
         tap_code(KC_F);
-        unregister_code(KC_LALT);
+        unregister_code(KC_LCMD);
         unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_F);
+        unregister_code(KC_LCTL);
     }
 }
 void dance_full_reset(tap_dance_state_t *state, void *user_data) {
