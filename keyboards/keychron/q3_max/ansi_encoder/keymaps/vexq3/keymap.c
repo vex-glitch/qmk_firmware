@@ -2934,7 +2934,7 @@ void dance_qselall_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_qsellall_reset(tap_dance_state_t *state, void *user_data) {
+void dance_qselall_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
     }
 }
