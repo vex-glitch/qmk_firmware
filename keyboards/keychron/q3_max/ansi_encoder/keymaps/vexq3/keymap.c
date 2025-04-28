@@ -2663,7 +2663,6 @@ bool caps_word_press_user(uint16_t keycode) {
         case XCUT:
         case QUICKY:
         case DDUP:
-        case ALL:
         add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
             return true; // Keep Caps Word active
         // Keys that continue Caps Word without shifting
@@ -2844,7 +2843,6 @@ uint16_t SELECT_WORD_KEYCODE = SELWORD;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Process existing macros
     if (!process_sentence_case(keycode, record)) { return false; }
-    if (!process_repeat_key(keycode, record, REPEAT)) { return false; }
     if (!process_select_word_back(keycode, record, SWORD_B)) return false;
     if (!process_autocorrection(keycode, record)) { return false; }
     if (!process_achordion(keycode, record)) { return false; }
