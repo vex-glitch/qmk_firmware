@@ -87,7 +87,7 @@ enum {
     TD_TAB,
     REPEAT,
     TD_UNMEHZ,
-    TD_SYMPIC,
+    TD_HASHAT,
     TD_TIL,
     TD_RB,
     TD_SBL,
@@ -206,7 +206,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
     #define UNMEHZ      TD(TD_UNMEHZ)
-    #define SYMPIC    TD(TD_SYMPIC)
+    #define HASHAT    TD(TD_HASHAT)
     #define TIL       TD(TD_TIL)
     #define SBL       TD(TD_SBL)
     #define SBR       TD(TD_SBR)
@@ -2197,7 +2197,7 @@ void dance_unmehz_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LALT);
 }
 
-void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
+void dance_hashat_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Activate one-shot SYM layer
         send_string("#");
@@ -2209,7 +2209,7 @@ void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_sympic_reset(tap_dance_state_t *state, void *user_data) {
+void dance_hashat_reset(tap_dance_state_t *state, void *user_data) {
     // Always turn off the PIC layer when the key is released (no need to check state->pressed)
     layer_off(SYM);
 }
@@ -2769,7 +2769,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
             case TD(TD_EQUALS):
             return TAPPING_TERM + 50;
-            case TD(TD_SYMPIC):
+            case TD(TD_HASHAT):
             return TAPPING_TERM + 50;
             case TD(TD_RB):
             return TAPPING_TERM + 50;
@@ -4103,7 +4103,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_osshift_finished, dance_osshift_reset),
     [TD_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tab_finished, dance_tab_reset),
     [TD_UNMEHZ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unmehz_finished, dance_unmehz_reset),
-    [TD_SYMPIC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sympic_finished, dance_sympic_reset),
+    [TD_HASHAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hashat_finished, dance_hashat_reset),
     [TD_TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_til_finished, dance_til_reset),
     [TD_RB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rb_finished, dance_rb_reset),
     [TD_SBL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sbl_finished, dance_sbl_reset),
@@ -4301,11 +4301,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,       EAGLE,    DEVON,    FINDER,
+        ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,     EAGLE,    DEVON,    FINDER,
         TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
         UNMEHZ,             XCUT,     CCOPY,    DDUP,     VPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,     FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  ARC_B,    ARC_F,    REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
