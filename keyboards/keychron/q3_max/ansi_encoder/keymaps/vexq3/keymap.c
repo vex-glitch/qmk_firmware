@@ -72,7 +72,7 @@ enum {
     TD_ARC,
     TD_BEAR,
     TD_EAGLE,
-    TD_ALF,
+    TD_ALFMEH2,
     TD_KEYCUE,
     TD_CSPC_N,
     TD_QMACRO,
@@ -159,8 +159,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define FORDEL   TD(TD_FORWARDDELETE)
     #define TEXHYPE  TD(TD_TEXHYPE)
     #define UNIALF   TD(TD_UNIALF)
-    #define CLIP    TD(TD_CLIP)
-    #define ALF      TD(TD_ALF)
+    #define CLIP     TD(TD_CLIP)
+    #define ALFMEH2  TD(TD_ALFMEH2)
     #define KEYCUE   TD(TD_KEYCUE)
     #define CSPACEN  TD(TD_CSPC_N)
     #define FILEFRED TD(TD_FILEFRED)
@@ -205,7 +205,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define BEAR      TD(TD_BEAR)
     #define EAGLE     TD(TD_EAGLE)
     #define CLEANSHT  TD(TD_CLEANSHOT)
-    #define UNMEHZ      TD(TD_UNMEHZ)
+    #define UNMEHZ    TD(TD_UNMEHZ)
     #define HASHAT    TD(TD_HASHAT)
     #define TIL       TD(TD_TIL)
     #define SBL       TD(TD_SBL)
@@ -1822,45 +1822,38 @@ void dance_forwarddelete_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 void dance_forwarddelete_reset(tap_dance_state_t *state, void *user_data) {
-    unregister_code(KC_LALT);
-    unregister_code(KC_LSFT);
-    unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
 }
 
-// Tap Dance Actions for TextHype
+// TextHype::tapdance
 void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single Tap: Send Prefix String
         send_string(" ^^");
     } else if (state->count == 1 && state->pressed) {
-        // Single Hold: Activate Hyper Key
         register_mods(MOD_HYPR);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Inline Search
         register_code(KC_LALT);
         tap_code(KC_F19);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double Hold: Clipboard Snippet
         register_code(KC_LCTL);
         tap_code(KC_F19);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: New Snippet
         register_code(KC_LCTL);
         register_code(KC_LSFT);
         tap_code(KC_F19);
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && state->pressed) {
-        // Triple Hold: Edit Last Snippet
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_F19);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 4 && !state->pressed) {
-        // Quadruple tap: Open Text Expander
         register_code(KC_LALT);
         register_code(KC_LSFT);
         register_code(KC_LGUI);
@@ -1870,15 +1863,12 @@ void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LALT);
         }
     }
-
 void dance_texhype_reset(tap_dance_state_t *state, void *user_data) {
-        // Release Hyper modifiers
         unregister_mods(MOD_HYPR);
 }
 
-
+// Clip::tapdance
 void dance_clip_finished(tap_dance_state_t *state, void *user_data) {
-    //Single Tap: Clipboard History
     if (state->count == 1 && !state->pressed) {
         register_code(KC_LALT);
         register_code(KC_LSFT);
@@ -1888,27 +1878,24 @@ void dance_clip_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 1 && state->pressed) {
-        // Single Hold: Activate WINDOWS Layer
         layer_on(WINDOWS);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Sends '"'
-        register_code(KC_LSFT);  // Hold Shift
-        register_code(KC_LALT);  // Hold Command
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
         tap_code(KC_F1);
-        unregister_code(KC_LALT); // Release Command
-        unregister_code(KC_LSFT); // Release Shift
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
     }
 }
-
 void dance_clip_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(WINDOWS)) {
         layer_off(WINDOWS);
     }
    }
 
+// UniversalAlfred::tapdance
 void dance_unialf_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        // Single Tap: Send Alt + Shift + Tab
         register_code(KC_LALT);
         register_code(KC_LSFT);
         register_code(KC_LCTL);
@@ -1917,17 +1904,13 @@ void dance_unialf_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 1 && state->pressed) {
-        // Single Hold: Activate WINDOWS Layer
         layer_on(FUN);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Sends '"'
         register_code(KC_LGUI);  // Hold Command
         tap_code(KC_Y);
         unregister_code(KC_LGUI); // Release Shift
-
     }
 }
-
 void dance_unialf_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(FUN)) {
         layer_off(FUN);
@@ -1935,7 +1918,7 @@ void dance_unialf_reset(tap_dance_state_t *state, void *user_data) {
   }
 
 // Tap Dance for Textc
-void dance_alf_finished(tap_dance_state_t *state, void *user_data) {
+void dance_alfmeh2_finished(tap_dance_state_t *state, void *user_data) {
         //Single Hold = MEH2
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);  // Press Shift (⇧)
@@ -1952,7 +1935,7 @@ void dance_alf_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_alf_reset(tap_dance_state_t *state, void *user_data) {
+void dance_alfmeh2_reset(tap_dance_state_t *state, void *user_data) {
     // Ensure layer is turned off when tap dance ends
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
@@ -2702,7 +2685,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_TEXTE):
             return TAPPING_TERM + 100;
-        case TD(TD_ALF):
+        case TD(TD_ALFMEH2):
             return TAPPING_TERM + 50;
         case TD(TD_PERP):
             return TAPPING_TERM + 100;
@@ -4089,7 +4072,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ARC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_arc_finished, dance_arc_reset),
     [TD_BEAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bear_finished, dance_bear_reset),
     [TD_EAGLE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_eagle_finished, dance_eagle_reset),
-    [TD_ALF] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alf_finished, dance_alf_reset),
+    [TD_ALFMEH2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfmeh2_finished, dance_alfmeh2_reset),
     [TD_CSPC_N] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cspc_n_finished, dance_cspc_n_reset),
     [TD_KEYCUE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_keycue_finished, dance_keycue_reset),
     [TD_FILEFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_filefred_finished, dance_filefred_reset),
@@ -4303,7 +4286,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,     EAGLE,    DEVON,    FINDER,
         TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      HASHAT,     BEAR,     OFOCUS,   DRAFTS,
-        TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
+        TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALFMEH2,
         UNMEHZ,             XCUT,     CCOPY,    DDUP,     VPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,     FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
