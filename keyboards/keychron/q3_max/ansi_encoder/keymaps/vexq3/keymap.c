@@ -101,7 +101,7 @@ enum {
     TD_TWO,
     TD_THREE,
     TD_COPY,
-    TD_PASTE,
+    TD_VPASTE,
     TD_XCUT,
     TD_DDUPLICATE,
     TD_ALL,
@@ -219,7 +219,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define TWO       TD(TD_TWO)
     #define THREE     TD(TD_THREE)
     #define CCOPY     TD(TD_COPY)
-    #define PPASTE    TD(TD_PASTE)
+    #define VPASTE    TD(TD_VPASTE)
     #define XCUT      TD(TD_XCUT)
     #define SCREEN    TD(TD_SCREEN)
     // Not tapdances
@@ -2369,7 +2369,7 @@ void dance_one_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
         tap_code(KC_1);
-    } else if (state->count == 2 && !state->pressed) {
+    } else if (state->count == 1 && state->pressed) {
         // Hold: Inserts { } with the cursor between
         register_code(KC_LCTL);
         tap_code(KC_1);
@@ -2384,7 +2384,7 @@ void dance_two_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
         tap_code(KC_2);
-    } else if (state->count == 2 && !state->pressed) {
+    } else if (state->count == 1 && state->pressed) {
         // Hold: Inserts { } with the cursor between
         register_code(KC_LCTL);
         tap_code(KC_2);
@@ -2399,7 +2399,7 @@ void dance_three_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single tap: Inserts < > with the cursor between
         tap_code(KC_3);
-    } else if (state->count == 2 && !state->pressed) {
+    } else if (state->count == 1 && state->pressed) {
         // Hold: Inserts { } with the cursor between
         register_code(KC_LCTL);
         tap_code(KC_3);
@@ -2483,7 +2483,7 @@ void dance_xcut_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_paste_finished(tap_dance_state_t *state, void *user_data) {
+void dance_vpaste_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         // Single Tap: Command + Right
         tap_code(KC_V);
@@ -2495,7 +2495,7 @@ void dance_paste_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_paste_reset(tap_dance_state_t *state, void *user_data) {
+void dance_vpaste_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         // Unregister any held mods on reset
     }
@@ -2842,7 +2842,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case CTL_SCLN:
         case UNMEHZ:
         case CCOPY:
-        case PPASTE:
+        case VPASTE:
         case XCUT:
         case QUICKY:
         case DDUP:
@@ -4118,7 +4118,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_THREE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_three_finished, dance_three_reset),
     [TD_XCUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_xcut_finished, dance_xcut_reset),
     [TD_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_copy_finished, dance_copy_reset),
-    [TD_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_paste_finished, dance_paste_reset),
+    [TD_VPASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_vpaste_finished, dance_vpaste_reset),
     [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
     [TD_SCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_screen_finished, dance_screen_reset),
     [TD_FULL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_full_finished, dance_full_reset),
@@ -4304,7 +4304,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,       EAGLE,    DEVON,    FINDER,
         TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      SYMPIC,     BEAR,     OFOCUS,   DRAFTS,
         TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALF,
-        UNMEHZ,             XCUT,     CCOPY,    DDUP,      PPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
+        UNMEHZ,             XCUT,     CCOPY,    DDUP,     VVPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,    FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
