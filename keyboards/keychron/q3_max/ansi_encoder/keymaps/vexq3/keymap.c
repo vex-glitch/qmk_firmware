@@ -2203,11 +2203,11 @@ void dance_alfua_reset(tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance for Textc
 void dance_alf_finished(tap_dance_state_t *state, void *user_data) {
+        //Single Hold = MEH2
     if (state->count == 1 && state->pressed) {
-        tap_code(KC_F3);
-        wait_ms(50);
-        send_string("alfred ");
-        tap_code(KC_ENT);
+        register_code(KC_LSFT);  // Press Shift (⇧)
+        register_code(KC_LCTL);  // Press Control (⌃)
+        register_code(KC_LGUI);  // Press Command (⌘)
     } else if (state->count == 1 && !state->pressed) {
         // Single Tap Hold: Activate FUN Layer
         tap_code(KC_F3);
@@ -2221,6 +2221,9 @@ void dance_alf_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_alf_reset(tap_dance_state_t *state, void *user_data) {
     // Ensure layer is turned off when tap dance ends
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+    unregister_code(KC_LGUI);
     }
 
 // Space_p Colemak
@@ -2454,13 +2457,17 @@ void dance_z_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
     } else if (state->pressed) {
         // Hold: Acts as Shift
-        register_code(KC_LSFT); // Press Shift
+        register_code(KC_LSFT);  // Press Shift (⇧)
+        register_code(KC_LCTL);  // Press Control (⌃)
+        register_code(KC_LALT);  // Press Command (⌘)
     }
 }
 
 // Reset function to release Shift when key is released
 void dance_z_reset(tap_dance_state_t *state, void *user_data) {
-    unregister_code(KC_LSFT); // Release Shift
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+    unregister_code(KC_LALT);
 }
 
 void dance_sympic_finished(tap_dance_state_t *state, void *user_data) {
