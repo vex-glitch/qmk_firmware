@@ -154,12 +154,12 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define PERIOD   TD(TD_PERIOD)
     #define QUESTION TD(TD_QUESTION)
     #define SLASH    TD(TD_SLASH)
-    #define ESCAPE    TD(TD_ESCAPE)
+    #define ESCAPE   TD(TD_ESCAPE)
     #define CAPW     TD(TD_CAPS)
     #define SPACE    TD(TD_SPACE)
     #define COMMA    TD(TD_COMMA)
     #define DELF     TD(TD_DELFOR)
-    #define TEXHYPE TD(TD_TEXHYPE)
+    #define TEXHYPE  TD(TD_TEXHYPE)
     #define ALFUA    TD(TD_ALFUA)
     #define UAALF    TD(TD_UAALF)
     #define MOUSEUP  KC_MS_UP
@@ -186,10 +186,10 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define POWER    KC_SYSTEM_POWER
     #define BBACK    KC_WWW_BACK
     #define BFORW    KC_WWW_FORWARD
-    #define ALF    TD(TD_ALF)
-    #define KEYCUE  TD(TD_KEYCUE)
+    #define ALF      TD(TD_ALF)
+    #define KEYCUE   TD(TD_KEYCUE)
     #define CSPACEN  TD(TD_CSPC_N)
-    #define FILEFRED   TD(TD_FILEFRED)
+    #define FILEFRED TD(TD_FILEFRED)
     #define QMACRO   TD(TD_QMACRO)
     #define CMOVE_N  TD(TD_CMOVE_N)
     #define CMOVE_P  TD(TD_CMOVE_P)
@@ -209,21 +209,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define DUP      TD(TD_DUP)
     #define ALL      TD(TD_ALL)
     #define QSELALL  TD(TD_QSELALL)
-
-// QWERTY Layout
-// Left-hand home row mods
-    #define CTL_A LCTL_T(KC_A)
-    #define ALT_S LALT_T(KC_S)
-    #define GUI_D LGUI_T(KC_D)
-    #define SFT_F LSFT_T(KC_F)
-// Right-hand home row mods
-    #define SFT_J RSFT_T(KC_J)
-    #define GUI_K RGUI_T(KC_K)
-    #define ALT_L LALT_T(KC_L)
-    #define CTL_SCLN RCTL_T(KC_SCLN)
-    #define SHIFTZ MT(MOD_LSFT, KC_Z)
-
-// F keys
+    // F keys
     #define ANYBOX    TD(TD_ANYBOX)
     #define DRAFTS    TD(TD_PD_DRAFTS)
     #define OFOCUS    TD(TD_END_OMNIFOCUS)
@@ -260,10 +246,25 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define ONE       TD(TD_ONE)
     #define TWO       TD(TD_TWO)
     #define THREE     TD(TD_THREE)
-    #define CCOPY      TD(TD_COPY)
-    #define PPASTE     TD(TD_PASTE)
-    #define CCUT       TD(TD_CUT)
+    #define CCOPY     TD(TD_COPY)
+    #define PPASTE    TD(TD_PASTE)
+    #define CCUT      TD(TD_CUT)
     #define SCREEN    TD(TD_SCREEN)
+
+// QWERTY Layout
+// Left-hand home row mods
+    #define CTL_A    LCTL_T(KC_A)
+    #define ALT_S    LALT_T(KC_S)
+    #define GUI_D    LGUI_T(KC_D)
+    #define SFT_F    LSFT_T(KC_F)
+// Right-hand home row mods
+    #define SFT_J    RSFT_T(KC_J)
+    #define GUI_K    RGUI_T(KC_K)
+    #define ALT_L    LALT_T(KC_L)
+    #define CTL_SCLN RCTL_T(KC_SCLN)
+    #define SHIFTZ   MT(MOD_LSFT, KC_Z)
+
+
 
     // Leds
     static bool is_caps_active_flag = false;  // Tracks Caps Word state
@@ -272,8 +273,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CAPS_LED 0    // Set this to the correct LED index for your CAPS key
 
     // F KEYS - APPS
-
-    // Alfred
+// Alfred::tapdance
 void dance_alfred_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -323,7 +323,6 @@ void dance_alfred_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_alfred_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -333,7 +332,7 @@ void dance_alfred_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Hookmark
+// Hookmark::tapdance
 void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -344,7 +343,7 @@ void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_LSFT);
         register_code(KC_LGUI);
         tap_code(KC_F7);
-        unregister_code(KC_LGUI);
+         unregister_code(KC_LGUI);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
@@ -383,7 +382,6 @@ void dance_hook_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_hook_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -396,7 +394,6 @@ void dance_hook_reset(tap_dance_state_t *state, void *user_data) {
 // CleanShot::tapdance
 void dance_cleanshot_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + Home
         register_code(KC_LSFT);
         tap_code(KC_F1);
         unregister_code(KC_LSFT);
@@ -505,7 +502,6 @@ void dance_drop_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_drop_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -514,7 +510,6 @@ void dance_drop_reset(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
     }
 }
-
 // Sidenotes::tapdance
 void dance_sidenote_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -565,7 +560,6 @@ void dance_sidenote_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_sidenote_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -625,7 +619,6 @@ void dance_arc_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_arc_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -635,7 +628,7 @@ void dance_arc_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-    // AnyBox
+// AnyBox::tapdance
 void dance_anybox_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
@@ -685,7 +678,6 @@ void dance_anybox_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_anybox_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
@@ -695,16 +687,13 @@ void dance_anybox_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// bear
+// Bear::tapdance
 void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
-    // Determine the number of taps or holds
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + Home
         register_code(KC_LSFT);
         tap_code(KC_INS);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        // Single tap: Option + Command + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
@@ -713,38 +702,32 @@ void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double hold: Ctrl + Home
         register_code(KC_LCTL);
         tap_code(KC_INS);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Alt + Home
         register_code(KC_LALT);
         tap_code(KC_INS);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
-        // Triple hold: Ctrl + Alt + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_INS);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: Shift + Ctrl + Home
         register_code(KC_LSFT);
         register_code(KC_LCTL);
         tap_code(KC_INS);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        // Quad hold: Alt + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LSFT);
         tap_code(KC_INS);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 4 && !state->pressed) {
-        // Quad tap: Ctrl + Alt + Shift + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
@@ -754,9 +737,7 @@ void dance_eagle_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_eagle_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic if needed
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -765,16 +746,13 @@ void dance_eagle_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Anybox
+// Anybox::tapdance
 void dance_bear_finished(tap_dance_state_t *state, void *user_data) {
-    // Determine the number of taps or holds
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + Home
         register_code(KC_LSFT);
         tap_code(KC_DEL);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        // Single tap: Option + Command + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
@@ -783,38 +761,32 @@ void dance_bear_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double hold: Ctrl + Home
         register_code(KC_LCTL);
         tap_code(KC_DEL);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Alt + Home
         register_code(KC_LALT);
         tap_code(KC_DEL);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
-        // Triple hold: Ctrl + Alt + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_DEL);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: Shift + Ctrl + Home
         register_code(KC_LSFT);
         register_code(KC_LCTL);
         tap_code(KC_DEL);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        // Quad hold: Alt + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LSFT);
         tap_code(KC_DEL);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 4 && !state->pressed) {
-        // Quad tap: Ctrl + Alt + Shift + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
@@ -824,9 +796,7 @@ void dance_bear_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_bear_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic if needed
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -834,16 +804,14 @@ void dance_bear_reset(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
     }
 }
-// Tap Dance Actions for Page Down (PD) - Drafts
+
+// Drafts::tapdance
 void dance_pd_drafts_finished(tap_dance_state_t *state, void *user_data) {
-    // Determine the number of taps or holds
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + Home
         register_code(KC_LSFT);
         tap_code(KC_PGDN);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        // Single tap: Option + Command + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
@@ -852,38 +820,32 @@ void dance_pd_drafts_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double hold: Ctrl + Home
         register_code(KC_LCTL);
         tap_code(KC_PGDN);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Alt + Home
         register_code(KC_LALT);
         tap_code(KC_PGDN);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
-        // Triple hold: Ctrl + Alt + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_PGDN);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: Shift + Ctrl + Home
         register_code(KC_LSFT);
         register_code(KC_LCTL);
         tap_code(KC_PGDN);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        // Quad hold: Alt + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LSFT);
         tap_code(KC_PGDN);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 4 && !state->pressed) {
-        // Quad tap: Ctrl + Alt + Shift + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
@@ -893,9 +855,7 @@ void dance_pd_drafts_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_pd_drafts_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic if needed
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -904,16 +864,13 @@ void dance_pd_drafts_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// Tap Action for End - OmniFocus
+// OmniFocus::tapdance
 void dance_end_omnifocus_finished(tap_dance_state_t *state, void *user_data) {
-    // Determine the number of taps or holds
     if (state->count == 1 && state->pressed) {
-        // Single hold: Shift + Home
         register_code(KC_LSFT);
         tap_code(KC_END);
         unregister_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
-        // Single tap: Option + Command + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
@@ -922,38 +879,32 @@ void dance_end_omnifocus_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
-        // Double hold: Ctrl + Home
         register_code(KC_LCTL);
         tap_code(KC_END);
         unregister_code(KC_LCTL);
     } else if (state->count == 2 && !state->pressed) {
-        // Double tap: Alt + Home
         register_code(KC_LALT);
         tap_code(KC_END);
         unregister_code(KC_LALT);
     } else if (state->count == 3 && state->pressed) {
-        // Triple hold: Ctrl + Alt + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         tap_code(KC_END);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
-        // Triple tap: Shift + Ctrl + Home
         register_code(KC_LSFT);
         register_code(KC_LCTL);
         tap_code(KC_END);
         unregister_code(KC_LCTL);
         unregister_code(KC_LSFT);
     } else if (state->count == 4 && state->pressed) {
-        // Quad hold: Alt + Shift + Home
         register_code(KC_LALT);
         register_code(KC_LSFT);
         tap_code(KC_END);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     } else if (state->count == 4 && !state->pressed) {
-        // Quad tap: Ctrl + Alt + Shift + Home
         register_code(KC_LCTL);
         register_code(KC_LALT);
         register_code(KC_LSFT);
@@ -963,9 +914,7 @@ void dance_end_omnifocus_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-
 void dance_end_omnifocus_reset(tap_dance_state_t *state, void *user_data) {
-    // Reset logic if needed
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -2327,9 +2276,6 @@ void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LALT); // Release Option
         unregister_code(KC_LSFT); // Release Shift
     } else if (state->count == 1 && state->pressed) {
-        tap_code(KC_LGUI);  // Properly register Hyper modifiers
-    } else if (state->count == 2 && !state->pressed) {
-        // Hold: Activate Hyper Key
         register_code(KC_LALT);  // Hold Shift
         register_code(KC_LCTL);
         tap_code(KC_H);
@@ -2337,10 +2283,7 @@ void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LALT); // Release Shift
     }
 }
-
 void dance_qmacro_reset(tap_dance_state_t *state, void *user_data) {
-        // Release Hyper modifiers
-
 }
 
 // Colemak move by word/line
