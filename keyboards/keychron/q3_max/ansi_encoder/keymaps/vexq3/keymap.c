@@ -1394,7 +1394,7 @@ void dance_muse_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // SnippetsLab::tapdance
-void dance_snip_finished(tap_dance_state_t *state, void *user_data) {
+void dance_sniplab_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_F20);
@@ -1443,7 +1443,7 @@ void dance_snip_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-void dance_snip_reset(tap_dance_state_t *state, void *user_data) {
+void dance_sniplab_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
