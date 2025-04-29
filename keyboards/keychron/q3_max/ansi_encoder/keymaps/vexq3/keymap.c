@@ -90,7 +90,7 @@ enum {
     TD_XCUT,
     TD_QSELALL,
     TD_USCR,
-    TD_APOSTROPHE,
+    TD_LEADOSTROPHE,
     TD_QUICKY,
     TD_ONE,
     TD_TWO,
@@ -164,7 +164,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define FILEFRED TD(TD_FILEFRED)
     #define QMACRO   TD(TD_QMACRO)
     #define SLEEVE   TD(TD_SLEEVE)
-    #define APOST    TD(TD_APOSTROPHE)
+    #define LEADPOST    TD(TD_LEADOSTROPHE)
     #define OSSHIFT  TD(TD_OSSHIFT)
     #define DELWORD  TD(TD_DELWORD)
     #define TAB      TD(TD_TAB)
@@ -1694,8 +1694,8 @@ void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
 void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
 }
 
-// Apostrophe::tapdance
-void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
+// LEADOSTROPHE::tapdance
+void dance_leadostrophe_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         leader_start();
     } else if (state->count == 1 && state->pressed) {
@@ -1710,7 +1710,7 @@ void dance_apostrophe_finished(tap_dance_state_t *state, void *user_data) {
         SEND_STRING("'");
     }
 }
-void dance_apostrophe_reset(tap_dance_state_t *state, void *user_data) {
+void dance_leadostrophe_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Delword::tapdance
@@ -2535,7 +2535,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 100;
         case TD(TD_SLEEVE):
             return TAPPING_TERM + 100;
-        case TD(TD_APOSTROPHE):
+        case TD(TD_LEADOSTROPHE):
             return TAPPING_TERM + 50;
         case TD(TD_SPACE):
             return TAPPING_TERM + 50;
@@ -2691,7 +2691,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case SLASH:
         case COMMA:
         case PERIOD:
-        case APOST:
+        case LEADPOST:
 
                 return true;
         default:
@@ -3912,7 +3912,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_comma_finished, dance_comma_reset),
     [TD_DELWORD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_delword_finished, dance_delword_reset),
     [TD_OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_osshift_finished, dance_osshift_reset),
-    [TD_APOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_apostrophe_finished, dance_apostrophe_reset),
+    [TD_LEADOSTROPHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_leadostrophe_finished, dance_leadostrophe_reset),
     [TD_USCR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uscr_finished, dance_uscr_reset),
     [TD_VPASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_vpaste_finished, dance_vpaste_reset),
     [TD_DDUPLICATE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dduplicate_finished, dance_dduplicate_reset),
@@ -4112,7 +4112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
         ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,     EAGLE,    DEVON,    FINDER,
         TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      HASHAT,     BEAR,     OFOCUS,   DRAFTS,
-        TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     APOST,    KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALFMEH2,
+        TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     LEADPOST, KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALFMEH2,
         UNMEHZ,             XCUT,     CCOPY,    DDUP,     VPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
         KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,     FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
