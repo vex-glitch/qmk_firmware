@@ -58,8 +58,8 @@ enum {
     TD_DEVONTHINK,
     TD_FINDER,
     TD_BEAR,
-    TD_END_OMNIFOCUS,
-    TD_PD_DRAFTS,
+    TD_OMNIFOCUS,
+    TD_DRAFTS,
     // Other Tapdances
     // Tap Dance Declarations::Colemak Layer
     TD_ESCAPE,
@@ -179,8 +179,8 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define QSELALL  TD(TD_QSELALL)
     // F keys
     #define ANYBOX    TD(TD_ANYBOX)
-    #define DRAFTS    TD(TD_PD_DRAFTS)
-    #define OFOCUS    TD(TD_END_OMNIFOCUS)
+    #define DRAFTS    TD(TD_DRAFTS)
+    #define OFOCUS    TD(TD_OMNIFOCUS)
     #define FINDER    TD(TD_FINDER)
     #define DEVON     TD(TD_DEVONTHINK)
     #define SPARK     TD(TD_SPARK)
@@ -796,7 +796,7 @@ void dance_bear_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Drafts::tapdance
-void dance_pd_drafts_finished(tap_dance_state_t *state, void *user_data) {
+void dance_drafts_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_PGDN);
@@ -845,7 +845,7 @@ void dance_pd_drafts_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-void dance_pd_drafts_reset(tap_dance_state_t *state, void *user_data) {
+void dance_drafts_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -855,7 +855,7 @@ void dance_pd_drafts_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // OmniFocus::tapdance
-void dance_end_omnifocus_finished(tap_dance_state_t *state, void *user_data) {
+void dance_omnifocus_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
         tap_code(KC_END);
@@ -904,7 +904,7 @@ void dance_end_omnifocus_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LCTL);
     }
 }
-void dance_end_omnifocus_reset(tap_dance_state_t *state, void *user_data) {
+void dance_omnifocus_reset(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
@@ -2489,11 +2489,11 @@ void dance_qselall_reset(tap_dance_state_t *state, void *user_data) {
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TD(TD_PD_DRAFTS):  // Use the keycode TD(...) for the tap dance
+        case TD(TD_DRAFTS):  // Use the keycode TD(...) for the tap dance
             return TAPPING_TERM + 100;  // Adjust this value as needed
         case TD(TD_ANYBOX):
             return TAPPING_TERM + 100;
-        case TD(TD_END_OMNIFOCUS):
+        case TD(TD_OMNIFOCUS):
             return TAPPING_TERM + 100;
         case TD(TD_CLEANSHOT):
             return TAPPING_TERM + 100;
@@ -3886,8 +3886,8 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_DEVONTHINK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_devonthink_finished, dance_devonthink_reset),
     [TD_FINDER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_finder_finished, dance_finder_reset),
     [TD_BEAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_bear_finished, dance_bear_reset),
-    [TD_END_OMNIFOCUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_end_omnifocus_finished, dance_end_omnifocus_reset),
-    [TD_PD_DRAFTS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_pd_drafts_finished, dance_pd_drafts_reset),
+    [TD_OMNIFOCUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_omnifocus_finished, dance_omnifocus_reset),
+    [TD_DRAFTS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_drafts_finished, dance_drafts_reset),
     // Colemak Layer
     [TD_ESCAPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_escape_finished, dance_escape_reset),
     [TD_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tab_finished, dance_tab_reset),
