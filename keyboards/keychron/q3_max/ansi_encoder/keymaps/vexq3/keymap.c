@@ -1624,11 +1624,11 @@ void dance_escape_reset(tap_dance_state_t *state, void *user_data) {
    }
 // Caps::tapdance
 void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {  //Caps Word
+    if (state->count == 1 && !state->pressed) {
         caps_word_on();
         is_caps_active_flag = true;
         caps_blink_timer = timer_read32();
-    } else if (state->count == 2 && !state->pressed) {  //Redo
+    } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LSFT);
         register_code(KC_LGUI);
         tap_code(KC_Z);
@@ -1639,8 +1639,8 @@ void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 void dance_caps_reset(tap_dance_state_t *state, void *user_data) {
-    is_caps_active_flag = false;  // Directly reset CAPS blinking flag
-    unregister_code(KC_LSFT);     // Release Shift key if pressed
+    is_caps_active_flag = false;
+    unregister_code(KC_LSFT);
 }
 // Space::tapdance
 void dance_space_finished(tap_dance_state_t *state, void *user_data) {
@@ -1772,7 +1772,7 @@ void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
         }
-    }
+}
 void dance_texhype_reset(tap_dance_state_t *state, void *user_data) {
         unregister_mods(MOD_HYPR);
 }
@@ -1800,7 +1800,7 @@ void dance_clip_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(WINDOWS)) {
         layer_off(WINDOWS);
     }
-   }
+}
 // UniversalAlfred::tapdance
 void dance_unialf_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -1814,35 +1814,32 @@ void dance_unialf_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 1 && state->pressed) {
         layer_on(FUN);
     } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LGUI);  // Hold Command
+        register_code(KC_LGUI);
         tap_code(KC_Y);
-        unregister_code(KC_LGUI); // Release Shift
+        unregister_code(KC_LGUI);
     }
 }
 void dance_unialf_reset(tap_dance_state_t *state, void *user_data) {
     if (layer_state_is(FUN)) {
         layer_off(FUN);
     }
-  }
+}
 // Alfmeh2::Tapdance
 void dance_alfmeh2_finished(tap_dance_state_t *state, void *user_data) {
-        //Single Hold = MEH2
     if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);  // Press Shift (⇧)
-        register_code(KC_LCTL);  // Press Control (⌃)
-        register_code(KC_LGUI);  // Press Command (⌘)
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_LGUI);
     } else if (state->count == 1 && !state->pressed) {
-        // Single Tap Hold: Activate FUN Layer
         tap_code(KC_F3);
     } else if (state->count == 2 && !state->pressed) {
         tap_code(KC_F3);
         wait_ms(50);
         send_string("! ");
-        set_oneshot_mods(MOD_LSFT);  // Activate One-Shot Shift
+        set_oneshot_mods(MOD_LSFT);
     }
 }
 void dance_alfmeh2_reset(tap_dance_state_t *state, void *user_data) {
-    // Ensure layer is turned off when tap dance ends
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     unregister_code(KC_LGUI);
@@ -1864,15 +1861,15 @@ void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
         wait_ms(50);
         tap_code_delay(KC_LGUI, 15);
     } else if (state->count == 3 && state->pressed) {
-
+        //////////////////////////
     } else if (state->count == 3 && !state->pressed) {
         tap_code_delay(KC_LSFT, 15);
         wait_ms(50);
         tap_code_delay(KC_LSFT, 15);
     } else if (state->count == 4 && state->pressed) {
-
+        ////////////////////////////
     } else if (state->count == 4 && !state->pressed) {
-
+        ///////////////////////////
     }
 }
 void dance_keycue_reset(tap_dance_state_t *state, void *user_data) {
