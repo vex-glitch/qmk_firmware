@@ -1549,59 +1549,7 @@ void dance_drafts_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  General Tap Dance Actions
-// Period::tapdance
-void dance_period_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        SEND_STRING(". ");
-        set_oneshot_mods(MOD_LSFT);
-    }else if (state->count == 1 && state->pressed) {
-        SEND_STRING(".");
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING(": ");
-        set_oneshot_mods(MOD_LSFT);
-    } else if (state->count == 2 && state->pressed) {
-        SEND_STRING(":");
-    }
-}
-void dance_period_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        clear_oneshot_mods();
-    }
-}
-// Question::tapdance
-void dance_question_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        SEND_STRING("? ");
-        set_oneshot_mods(MOD_LSFT);
-    } else if (state->count == 1 && state->pressed) {
-        SEND_STRING("?");
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("! ");
-        set_oneshot_mods(MOD_LSFT);
-    } else if (state->count == 2 && state->pressed) {
-        SEND_STRING("!");
-    }
-}
-void dance_question_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->pressed) {
-        clear_oneshot_mods();
-    }
-}
-//  Slash::tapdance
-void dance_slash_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_SLSH);
-    } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_BSLS);
-    } else if (state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_BSLS);
-        unregister_code(KC_LSFT);
-    }
-}
-void dance_slash_reset(tap_dance_state_t *state, void *user_data) {
-}
+// Colemak tapdance actions
 // Escape::tapdance
 void dance_escape_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) { //Hide
@@ -1621,121 +1569,29 @@ void dance_escape_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 void dance_escape_reset(tap_dance_state_t *state, void *user_data) {
-   }
-// Caps::tapdance
-void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
+}
+// Tab::tapdance
+void dance_tab_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        caps_word_on();
-        is_caps_active_flag = true;
-        caps_blink_timer = timer_read32();
-    } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_TAB);
+    }   else if (state->count == 1 && state->pressed) {
         register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_LALT);
+    }   else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
         register_code(KC_LGUI);
-        tap_code(KC_Z);
+        tap_code(KC_TAB);
         unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-    } else if (state->pressed) {
-        register_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_RSFT);
     }
 }
-void dance_caps_reset(tap_dance_state_t *state, void *user_data) {
-    is_caps_active_flag = false;
+void dance_tab_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LSFT);
-}
-// Space::tapdance
-void dance_space_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_SPC);
-    } else if (state->count == 1 && state->pressed) {
-        layer_on(EXTEND);
-    } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_ENT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_ENT);
-        unregister_code(KC_LSFT);
-    }
-}
-void dance_space_reset(tap_dance_state_t *state, void *user_data) {
-        layer_off(EXTEND);
-}
-// Comma::tapdance
-void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        SEND_STRING(", ");
-    } else if (state->count == 1 && state->pressed) {
-        SEND_STRING(",");
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("; ");
-    } else if (state->count == 2 && state->pressed) {
-        SEND_STRING(";");
-    }
-}
-void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
-}
-// LEADOSTROPHE::tapdance
-void dance_leadostrophe_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        leader_start();
-    } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        register_code(KC_LALT);
-        tap_code(KC_K);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("'");
-    }
-}
-void dance_leadostrophe_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Delword::tapdance
-void dance_delword_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_BSPC);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_BSPC);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_BSPC);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_delword_reset(tap_dance_state_t *state, void *user_data) {
-}
-// OneShotShift::tapdance
-void dance_osshift_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        set_oneshot_mods(MOD_LSFT);
-    }
-}
-void dance_osshift_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Forward Delete::tapdance
-void dance_forwarddelete_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_DEL);
-    } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_DEL);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_RGHT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        tap_code(KC_BSPC);
-    }
-}
-void dance_forwarddelete_reset(tap_dance_state_t *state, void *user_data) {
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
+    unregister_code(KC_LCTL);
+    unregister_code(KC_LALT);
 }
 // TextHype::tapdance
 void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
@@ -1771,79 +1627,30 @@ void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LGUI);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
-        }
+    }
 }
 void dance_texhype_reset(tap_dance_state_t *state, void *user_data) {
-        unregister_mods(MOD_HYPR);
+    unregister_mods(MOD_HYPR);
 }
-// Clip::tapdance
-void dance_clip_finished(tap_dance_state_t *state, void *user_data) {
+// UnmehZ::tapdance
+void dance_unmehz_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_F3);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 1 && state->pressed) {
-        layer_on(WINDOWS);
+        tap_code(KC_Z);
     } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-        tap_code(KC_F1);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-    }
-}
-void dance_clip_reset(tap_dance_state_t *state, void *user_data) {
-    if (layer_state_is(WINDOWS)) {
-        layer_off(WINDOWS);
-    }
-}
-// UniversalAlfred::tapdance
-void dance_unialf_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        register_code(KC_LALT);
+        register_code(KC_LGUI);
+        tap_code(KC_Z);
+        unregister_code(KC_LGUI);
+    } else if (state->pressed) {
         register_code(KC_LSFT);
         register_code(KC_LCTL);
-        tap_code(KC_L);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-    } else if (state->count == 1 && state->pressed) {
-        layer_on(FUN);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_Y);
-        unregister_code(KC_LGUI);
+        register_code(KC_LALT);
     }
 }
-void dance_unialf_reset(tap_dance_state_t *state, void *user_data) {
-    if (layer_state_is(FUN)) {
-        layer_off(FUN);
-    }
-}
-// Alfmeh2::Tapdance
-void dance_alfmeh2_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        register_code(KC_LGUI);
-    } else if (state->count == 1 && !state->pressed) {
-        tap_code(KC_F3);
-    } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_F3);
-        wait_ms(50);
-        send_string("! ");
-        set_oneshot_mods(MOD_LSFT);
-    }
-}
-void dance_alfmeh2_reset(tap_dance_state_t *state, void *user_data) {
+void dance_unmehz_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
-    unregister_code(KC_LGUI);
-    }
+    unregister_code(KC_LALT);
+}
 // Keycue::tapdance
 void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -1876,28 +1683,6 @@ void dance_keycue_reset(tap_dance_state_t *state, void *user_data) {
     // Release any keys if held
     unregister_code(KC_LALT);
 }
-// FileFred::tapdance
-void dance_filefred_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        tap_code(KC_F3);
-        wait_ms(50);
-        send_string("ff ");
-    } else if (state->count == 1 && !state->pressed) {
-        tap_code(KC_F3);
-        wait_ms(50);
-        send_string("open ");
-    } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_F3);
-        wait_ms(50);
-        send_string("find ");
-    } else if (state->count == 2 && state->pressed) {
-        tap_code(KC_F3);
-        wait_ms(50);
-        send_string("in ");
-    }
-}
-void dance_filefred_reset(tap_dance_state_t *state, void *user_data) {
-}
 // QMacro::tapdance
 void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -1920,67 +1705,164 @@ void dance_qmacro_finished(tap_dance_state_t *state, void *user_data) {
 }
 void dance_qmacro_reset(tap_dance_state_t *state, void *user_data) {
 }
-// Sleeve::tapdance
-void dance_sleeve_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_F5);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-    } else if (state->count == 2) {
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_9);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Tab::tapdance
-void dance_tab_finished(tap_dance_state_t *state, void *user_data) {
+// UniversalAlfred::tapdance
+void dance_unialf_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        tap_code(KC_TAB);
-    }   else if (state->count == 1 && state->pressed) {
+        register_code(KC_LALT);
         register_code(KC_LSFT);
         register_code(KC_LCTL);
-        register_code(KC_LALT);
-    }   else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LALT);
-        register_code(KC_LGUI);
-        tap_code(KC_TAB);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LALT);
-        unregister_code(KC_RSFT);
-    }
-}
-void dance_tab_reset(tap_dance_state_t *state, void *user_data) {
-        unregister_code(KC_LSFT);
+        tap_code(KC_L);
         unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
-}
-// UnmehZ::tapdance
-void dance_unmehz_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_Z);
+    } else if (state->count == 1 && state->pressed) {
+        layer_on(FUN);
     } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LGUI);
-        tap_code(KC_Z);
+        tap_code(KC_Y);
         unregister_code(KC_LGUI);
-    } else if (state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
     }
 }
-void dance_unmehz_reset(tap_dance_state_t *state, void *user_data) {
+void dance_unialf_reset(tap_dance_state_t *state, void *user_data) {
+    if (layer_state_is(FUN)) {
+        layer_off(FUN);
+    }
+}
+// Space::tapdance
+void dance_space_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_SPC);
+    } else if (state->count == 1 && state->pressed) {
+        layer_on(EXTEND);
+    } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_ENT);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_ENT);
         unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
+    }
+}
+void dance_space_reset(tap_dance_state_t *state, void *user_data) {
+    layer_off(EXTEND);
+}
+// Clip::tapdance
+void dance_clip_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_F3);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
+    } else if (state->count == 1 && state->pressed) {
+        layer_on(WINDOWS);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LALT);
+        tap_code(KC_F1);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+    }
+}
+void dance_clip_reset(tap_dance_state_t *state, void *user_data) {
+    if (layer_state_is(WINDOWS)) {
+        layer_off(WINDOWS);
+    }
+}
+// FileFred::tapdance
+void dance_filefred_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("ff ");
+    } else if (state->count == 1 && !state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("open ");
+    } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("find ");
+    } else if (state->count == 2 && state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("in ");
+    }
+}
+void dance_filefred_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Screen::tapdance
+void dance_screen_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        tap_code(KC_LCTL);
+    } else if (state->count == 1 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        tap_code(KC_1);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        tap_code(KC_2);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        tap_code(KC_3);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
+    }
+}
+void dance_screen_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Caps::tapdance
+void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        caps_word_on();
+        is_caps_active_flag = true;
+        caps_blink_timer = timer_read32();
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_Z);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+    } else if (state->pressed) {
+        register_code(KC_LSFT);
+    }
+}
+void dance_caps_reset(tap_dance_state_t *state, void *user_data) {
+    is_caps_active_flag = false;
+    unregister_code(KC_LSFT);
+}
+// Alfmeh2::Tapdance
+void dance_alfmeh2_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_LGUI);
+    } else if (state->count == 1 && !state->pressed) {
+        tap_code(KC_F3);
+    } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_F3);
+        wait_ms(50);
+        send_string("! ");
+        set_oneshot_mods(MOD_LSFT);
+    }
+}
+void dance_alfmeh2_reset(tap_dance_state_t *state, void *user_data) {
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+    unregister_code(KC_LGUI);
 }
 // Hashat::tapdance
 void dance_hashat_finished(tap_dance_state_t *state, void *user_data) {
@@ -1995,52 +1877,191 @@ void dance_hashat_finished(tap_dance_state_t *state, void *user_data) {
 void dance_hashat_reset(tap_dance_state_t *state, void *user_data) {
     layer_off(SYM);
 }
-// Til::tapdance
-void dance_til_finished(tap_dance_state_t *state, void *user_data) {
+// Forward Delete::tapdance
+void dance_forwarddelete_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        SEND_STRING("~");
+        tap_code(KC_DEL);
     } else if (state->count == 1 && state->pressed) {
-        SEND_STRING("~~~~");
-        tap_code(KC_LEFT);
-        tap_code(KC_LEFT);
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("~~");
-        tap_code(KC_LEFT);
+        register_code(KC_LALT);
+        tap_code(KC_DEL);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_RGHT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        tap_code(KC_BSPC);
     }
 }
-void dance_til_reset(tap_dance_state_t *state, void *user_data) {
+void dance_forwarddelete_reset(tap_dance_state_t *state, void *user_data) {
+    unregister_code(KC_LALT);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LGUI);
 }
-// Rb::tapdance
-void dance_rb_finished(tap_dance_state_t *state, void *user_data) {
+// Smile::tapdance
+void dance_smile_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        SEND_STRING(">");
+        send_string("=");
+    } else if (state->count == 2 && !state->pressed) {
+        register_code(KC_LCTL);
+        register_code(KC_LGUI);
+        tap_code(KC_SPC);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LCTL);
+    }
+}
+void dance_smile_reset(tap_dance_state_t *state, void *user_data) {
+}
+//  Slash::tapdance
+void dance_slash_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_SLSH);
+    } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_BSLS);
+    } else if (state->pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_BSLS);
+        unregister_code(KC_LSFT);
+    }
+}
+void dance_slash_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Question::tapdance
+void dance_question_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING("? ");
+        set_oneshot_mods(MOD_LSFT);
     } else if (state->count == 1 && state->pressed) {
-        SEND_STRING(">");
-        tap_code(KC_SPACE);
-    }
-}
-void dance_rb_reset(tap_dance_state_t *state, void *user_data) {
-}
-// SBL::tapdance
-void dance_sbl_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        SEND_STRING("[");
+        SEND_STRING("?");
     } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("[[");
+        SEND_STRING("! ");
+        set_oneshot_mods(MOD_LSFT);
+    } else if (state->count == 2 && state->pressed) {
+        SEND_STRING("!");
     }
 }
-void dance_sbl_reset(tap_dance_state_t *state, void *user_data) {
+void dance_question_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        clear_oneshot_mods();
+    }
 }
-// SBR::tapdance
-void dance_sbr_finished(tap_dance_state_t *state, void *user_data) {
+// Period::tapdance
+void dance_period_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        SEND_STRING("]");
+        SEND_STRING(". ");
+        set_oneshot_mods(MOD_LSFT);
+    }else if (state->count == 1 && state->pressed) {
+        SEND_STRING(".");
     } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("- [ ]");
-        tap_code(KC_SPACE);
+        SEND_STRING(": ");
+        set_oneshot_mods(MOD_LSFT);
+    } else if (state->count == 2 && state->pressed) {
+        SEND_STRING(":");
     }
 }
-void dance_sbr_reset(tap_dance_state_t *state, void *user_data) {
+void dance_period_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        clear_oneshot_mods();
+    }
+}
+// Comma::tapdance
+void dance_comma_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING(", ");
+    } else if (state->count == 1 && state->pressed) {
+        SEND_STRING(",");
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("; ");
+    } else if (state->count == 2 && state->pressed) {
+        SEND_STRING(";");
+    }
+}
+void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Delword::tapdance
+void dance_delword_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_BSPC);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && !state->pressed) {
+        tap_code(KC_BSPC);
+    } else if (state->count == 2 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_BSPC);
+        unregister_code(KC_LGUI);
+    }
+}
+void dance_delword_reset(tap_dance_state_t *state, void *user_data) {
+}
+// OneShotShift::tapdance
+void dance_osshift_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        set_oneshot_mods(MOD_LSFT);
+    }
+}
+void dance_osshift_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Paste::tapdance
+void dance_vpaste_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_V);
+    } else if (state->count == 1 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_V);
+        unregister_code(KC_LGUI);
+    }
+}
+void dance_vpaste_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Duplicate::tapdance
+void dance_dduplicate_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_D);
+    } else if (state->count == 1 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_D);
+        unregister_code(KC_LGUI);
+    }
+}
+void dance_dduplicate_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Copy::tapdance
+void dance_copy_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_C);
+    } else if (state->count == 1 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_C);
+        unregister_code(KC_LGUI);
+    }
+}
+void dance_copy_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Cut::tapdance
+void dance_xcut_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_X);
+    } else if (state->count == 1 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_X);
+        unregister_code(KC_LGUI);
+    }
+}
+void dance_xcut_reset(tap_dance_state_t *state, void *user_data) {
+}
+// QSelAll::tapdance
+void dance_qselall_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_A);
+        unregister_code(KC_LGUI);
+    } else if (state->count == 1 && !state->pressed) {
+        tap_code(KC_Q);
+    }
+}
+void dance_qselall_reset(tap_dance_state_t *state, void *user_data) {
 }
 // USCR::tapdance
 void dance_uscr_finished(tap_dance_state_t *state, void *user_data) {
@@ -2054,54 +2075,35 @@ void dance_uscr_finished(tap_dance_state_t *state, void *user_data) {
 }
 void dance_uscr_reset(tap_dance_state_t *state, void *user_data) {
 }
-// Star::tapdance
-void dance_star_finished(tap_dance_state_t *state, void *user_data) {
+// LEADOSTROPHE::tapdance
+void dance_leadostrophe_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        SEND_STRING("*");
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("****");
-        tap_code(KC_LEFT);
-        tap_code(KC_LEFT);
-    }
-}
-void dance_star_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Backt::tapdance
-void dance_backt_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        SEND_STRING("`");
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("``");
-        tap_code(KC_LEFT);
-    }
-}
-void dance_backt_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Equals::tapdance
-void dance_equals_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        SEND_STRING("=");
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("====");
-        tap_code(KC_LEFT);
-        tap_code(KC_LEFT);
-    }
-}
-void dance_equals_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Underscore::tapdance
-void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        SEND_STRING("_");
-    } else if (state->count == 2 && !state->pressed) {
-        SEND_STRING("____");
-        tap_code(KC_LEFT);
-        tap_code(KC_LEFT);
+        leader_start();
     } else if (state->count == 1 && state->pressed) {
-        SEND_STRING("___");
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        register_code(KC_LALT);
+        tap_code(KC_K);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("'");
     }
 }
-void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
+void dance_leadostrophe_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Quicky::tapdance
+void dance_quicky_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        tap_code(KC_Y);
+    } else if (state->count == 1 && state->pressed) {
+        register_code(KC_LGUI);
+        tap_code(KC_Y);
+        unregister_code(KC_LGUI);
+    }
+}
+void dance_quicky_reset(tap_dance_state_t *state, void *user_data) {
 }
 //  One::tapdance
 void dance_one_finished(tap_dance_state_t *state, void *user_data) {
@@ -2139,100 +2141,25 @@ void dance_three_finished(tap_dance_state_t *state, void *user_data) {
 }
 void dance_three_reset(tap_dance_state_t *state, void *user_data) {
 }
-// Copy::tapdance
-void dance_copy_finished(tap_dance_state_t *state, void *user_data) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extend::tapdance actions
+// Til::tapdance
+void dance_til_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        tap_code(KC_C);
+        SEND_STRING("~");
     } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_C);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_copy_reset(tap_dance_state_t *state, void *user_data) {
-}
- // Duplicate::tapdance
-void dance_dduplicate_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_D);
-    } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_D);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_dduplicate_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Cut::tapdance
-void dance_xcut_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_X);
-    } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_X);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_xcut_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Paste::tapdance
-void dance_vpaste_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_V);
-    } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_V);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_vpaste_reset(tap_dance_state_t *state, void *user_data) {
-}
-// Smile::tapdance
-void dance_smile_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        send_string("=");
+        SEND_STRING("~~~~");
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
     } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LGUI);
-        tap_code(KC_SPC);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LCTL);
+        SEND_STRING("~~");
+        tap_code(KC_LEFT);
     }
 }
-void dance_smile_reset(tap_dance_state_t *state, void *user_data) {
+void dance_til_reset(tap_dance_state_t *state, void *user_data) {
 }
-// Screen::tapdance
-void dance_screen_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
-        tap_code(KC_LCTL);
-    } else if (state->count == 1 && !state->pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_1);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-    } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_2);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_3);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_screen_reset(tap_dance_state_t *state, void *user_data) {
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Windows::tapdance actions
 // Full::tapdance
 void dance_full_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -2251,18 +2178,8 @@ void dance_full_finished(tap_dance_state_t *state, void *user_data) {
 }
 void dance_full_reset(tap_dance_state_t *state, void *user_data) {
 }
-// Quicky::tapdance
-void dance_quicky_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_Y);
-    } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LGUI);
-        tap_code(KC_Y);
-        unregister_code(KC_LGUI);
-    }
-}
-void dance_quicky_reset(tap_dance_state_t *state, void *user_data) {
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fun::tapdance actions
 // Port::tapdance
 void dance_port_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
@@ -2309,17 +2226,108 @@ void dance_clarity_finished(tap_dance_state_t *state, void *user_data) {
 }
 void dance_clarity_reset(tap_dance_state_t *state, void *user_data) {
 }
-// QSelAll::tapdance
-void dance_qselall_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && state->pressed) {
+// Sleeve::tapdance
+void dance_sleeve_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
         register_code(KC_LGUI);
-        tap_code(KC_A);
+        tap_code(KC_F5);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
         unregister_code(KC_LGUI);
-    } else if (state->count == 1 && !state->pressed) {
-        tap_code(KC_Q);
+    } else if (state->count == 2) {
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_9);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
     }
 }
-void dance_qselall_reset(tap_dance_state_t *state, void *user_data) {
+void dance_sleeve_reset(tap_dance_state_t *state, void *user_data) {
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Symbols::tapdance actions
+// Rb::tapdance
+void dance_rb_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING(">");
+    } else if (state->count == 1 && state->pressed) {
+        SEND_STRING(">");
+        tap_code(KC_SPACE);
+    }
+}
+void dance_rb_reset(tap_dance_state_t *state, void *user_data) {
+}
+// SBL::tapdance
+void dance_sbl_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING("[");
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("[[");
+    }
+}
+void dance_sbl_reset(tap_dance_state_t *state, void *user_data) {
+}
+// SBR::tapdance
+void dance_sbr_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING("]");
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("- [ ]");
+        tap_code(KC_SPACE);
+    }
+}
+void dance_sbr_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Backt::tapdance
+void dance_backt_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING("`");
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("``");
+        tap_code(KC_LEFT);
+    }
+}
+void dance_backt_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Equals::tapdance
+void dance_equals_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING("=");
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("====");
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+    }
+}
+void dance_equals_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Star::tapdance
+void dance_star_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING("*");
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("****");
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+    }
+}
+void dance_star_reset(tap_dance_state_t *state, void *user_data) {
+}
+// Underscore::tapdance
+void dance_unsc_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1 && !state->pressed) {
+        SEND_STRING("_");
+    } else if (state->count == 2 && !state->pressed) {
+        SEND_STRING("____");
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+    } else if (state->count == 1 && state->pressed) {
+        SEND_STRING("___");
+    }
+}
+void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
