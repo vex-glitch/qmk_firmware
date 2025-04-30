@@ -3584,7 +3584,7 @@ void leader_end_user(void) {
         // Leader, p => Types the below string
         SEND_STRING("IruletheChaos9000\n");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    } else if (leader_sequence_two_key(KC_T, KC_C)) {
+    } else if (leader_sequence_two_keys(KC_T, KC_C)) {
         SEND_STRING("osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"CAP Selection\"'\n");
     }
 }
