@@ -2492,13 +2492,6 @@ bool caps_word_press_user(uint16_t keycode) {
         case HOME_I:
         case HOME_O:
         case USCR:
-        case ALT_S:
-        case GUI_D:
-        case SFT_F:
-        case SFT_J:
-        case GUI_K:
-        case ALT_L:
-        case CTL_SCLN:
         case UNMEHZ:
         case CCOPY:
         case VPASTE:
