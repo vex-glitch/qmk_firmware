@@ -2579,7 +2579,7 @@ uint16_t COMBO_LEN = 0;
 
 enum custom_keycodes {
 // Moom
-    WIN1_1, = SAFE_RANGE,
+    WIN1_1  = SAFE_RANGE,
     WIN1_2,
     WIN1_3,
     WIN2_1,
@@ -3516,7 +3516,7 @@ switch (keycode) {
     default:
         return true;
     }
-    
+
     return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
