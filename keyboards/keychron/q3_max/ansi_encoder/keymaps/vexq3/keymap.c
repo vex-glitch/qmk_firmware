@@ -229,18 +229,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define POWER    KC_SYSTEM_POWER
     #define BBACK    KC_WWW_BACK
     #define BFORW    KC_WWW_FORWARD
-// QWERTY Layout
-// Left-hand home row mods
-    #define CTL_A    LCTL_T(KC_A)
-    #define ALT_S    LALT_T(KC_S)
-    #define GUI_D    LGUI_T(KC_D)
-    #define SFT_F    LSFT_T(KC_F)
-// Right-hand home row mods
-    #define SFT_J    RSFT_T(KC_J)
-    #define GUI_K    RGUI_T(KC_K)
-    #define ALT_L    LALT_T(KC_L)
-    #define CTL_SCLN RCTL_T(KC_SCLN)
-    #define SHIFTZ   MT(MOD_LSFT, KC_Z)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Leds
