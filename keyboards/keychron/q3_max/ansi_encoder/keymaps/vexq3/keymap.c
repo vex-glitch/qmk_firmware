@@ -2568,31 +2568,15 @@ return true; // Keep Caps Word active
         case LEADPOST:
 return true;
     default:
-        return false; // End Caps Word for other keys
+return false; // End Caps Word for other keys
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-combo_t key_combos[] = {};
-uint16_t COMBO_LEN = 0;
-
-// Macros
+// Macro Definitions
 enum custom_keycodes {
-    SELWORD = SAFE_RANGE,
-    SWORD_B,
-    SLINE,
-    SLINE_P,
-    UNDO,
-    COPY,
-    CUT,
-    PASTE,
-    DUPLICA,
-    DELWB,
-    DELWF,
-    ARC_B,
-    ARC_F,
-    WIN1_1,
+// Moom
+    WIN1_1,   = SAFE_RANGE,
     WIN1_2,
     WIN1_3,
     WIN2_1,
@@ -2630,17 +2614,23 @@ enum custom_keycodes {
     WIN8_4,
     WIN8_5,
     WIN8_6,
-    WIN_EXT,
-    WIN_CEN,
-        KC_TITLE,
-    KMESTRO,  // Keyboard Maestro
-    SYSSET,               // System Settings
-    PASS,                 // 1Password
-    SPOTIFY,              // Spotify
-    PORTAL,               // Portal
-    SPEED,            // Speedtest
-    MSG,                  // Messages
-    WHATSAPP,             // WhatsApp
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extend Layer
+    UNDO,
+    COPY,
+    CUT,
+    PASTE,
+    DUPLICA,
+    SPOTIFY,
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fun Layer
+    KMESTRO,
+    SYSSET,
+    PASS,
+    PORTAL,
+    SPEED,
+    MSG,
+    WHATSAPP,
     ELGATO,
     LDECK,
     ITERM,
@@ -2652,15 +2642,14 @@ enum custom_keycodes {
     SLVMUTE,
     SLVLIKE,
     VSCODE,
-    ZOOMIN,
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ZOOMIN,  //Encoder::Extend
     ZOOMOUT,
-
-    SELWFWD,  // Select Word Forward
-    SELWBAK,              // Select Word Backward
-    SELLINE,              // Select Line Forward
-    SELLINE_B,            // Select Line Backward
-    HAZEDN,
-    HAZEUP,
+    // WIN_EXT,
+    // WIN_CEN,
+    // KC_TITLE,
+    HAZEDN,  //Encoder::Extend
+    HAZEUP,  //Encoder::Extend
     BTICK,
     POUND,
     DOLLAR,
@@ -2702,7 +2691,6 @@ enum custom_keycodes {
     WORK,
     AST,
     TERMIN,
-
 };
 
 uint16_t SELECT_WORD_KEYCODE = SELWORD;
