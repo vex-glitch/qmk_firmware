@@ -3801,32 +3801,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Auto Shift Definitions
-bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
-    // Handle Home Row Mods and Tap Dances for Auto Shift
-    switch (keycode) {
-        // Home Row Mods (Enable Auto Shift for single-tap behavior):
-       // QWERTY Layout
-        case LALT_T(KC_S):
-        case LGUI_T(KC_D):
-        case LSFT_T(KC_F):
-        case RSFT_T(KC_J):
-        case RGUI_T(KC_K):
-        case LALT_T(KC_L):
-        case RCTL_T(KC_SCLN):
-        // COLEMAK Home Row Mods
-        case LCTL_T(KC_A):
-        case LALT_T(KC_R):
-        case LGUI_T(KC_S):
-        case LSFT_T(KC_T):
-        case LSFT_T(KC_N):
-        case RGUI_T(KC_E):
-        case LALT_T(KC_I):
-        case RCTL_T(KC_O):
-        case LSFT_T(KC_Z):
-            return true; // Allow Auto Shift for home row mods when tapped
-
-        default:
-            return false; // Auto Shift disabled for all other keys
-    }
-}
