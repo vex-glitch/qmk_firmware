@@ -2574,6 +2574,9 @@ return false; // End Caps Word for other keys
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Macro Definitions
+combo_t key_combos[] = {};
+uint16_t COMBO_LEN = 0;
+
 enum custom_keycodes {
 // Moom
     WIN1_1,   = SAFE_RANGE,
@@ -2695,8 +2698,8 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_autocorrection(keycode, record)) { return false; }
     if (!process_achordion(keycode, record)) { return false; }
-    switch (keycode) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+switch (keycode) {
 // Moom Macros
     case WIN1_1:
         if (record->event.pressed) {
@@ -3510,7 +3513,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
         return false;
     default:
-        return true;  // Process all other keycodes normally
+        return true;
     }
     return true;
 }
@@ -3520,7 +3523,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void housekeeping_task_user(void) {
   achordion_task();
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tap Dance Array
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ALFRED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfred_finished, dance_alfred_reset),
@@ -3596,12 +3600,11 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_BACKT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_backt_finished, dance_backt_reset),
     [TD_UNSC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unsc_finished, dance_unsc_reset),
 };
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Leader key
 void leader_start_user(void) {
-    // Do something when the leader key is pressed
 }
-
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_F)) {
         // Leader, f => Types the below string
@@ -3617,10 +3620,10 @@ void leader_end_user(void) {
         // Leader, p => Types the below string
         SEND_STRING("IruletheChaos9000\n");
     }
-
 }
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// RGB Effects
 #include "quantum.h"
 
 // Define custom flags for specific keys
