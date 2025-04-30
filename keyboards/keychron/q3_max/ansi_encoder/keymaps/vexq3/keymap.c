@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
+#include "quantum.h"
 #include "features/autocorrection.h"
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3586,62 +3587,49 @@ void leader_end_user(void) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // RGB Effects
-#include "quantum.h"
-
 // Define custom flags for specific keys
 #define LED_FLAG_F  0x02  // F key
 #define LED_FLAG_U  0x04  // U key
 #define LED_FLAG_N  0x08  // N key
 #define LED_FLAG_W  0x10  // W key
 #define LED_FLAG_I  0x20  // I key
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void keyboard_post_init_user(void) {
-    // Enable RGB Matrix
-    rgb_matrix_enable();
-
-    // Set the default effect to Starlight
-    rgb_matrix_mode(RGB_MATRIX_STARLIGHT);
-    rgb_matrix_sethsv(11, 176, 255);
-    eeconfig_update_rgb_matrix(); // Ensure it persists across power cycles
+    rgb_matrix_enable();                                                 // Enable RGB matrix
+    rgb_matrix_mode(RGB_MATRIX_STARLIGHT);                               // Set the default effect to Starlight
+    rgb_matrix_sethsv(11, 176, 255);                                     // Set the default color to Coral
+    eeconfig_update_rgb_matrix();                                        // Ensure it persists across power cycles
 }
 
-// Track the current mode
-uint8_t current_mode = RGB_MATRIX_NONE;
+uint8_t current_mode = RGB_MATRIX_NONE;                                  // Track the current mode
 
-// Set the layer effect only when mode changes
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {                // Set the layer effect only when mode changes
     uint8_t layer = get_highest_layer(state);
     uint8_t default_layer = get_highest_layer(default_layer_state);
-    uint8_t new_mode = current_mode;  // Keep previous mode by default
+    uint8_t new_mode = current_mode;                                     // Keep previous mode by default
 
-    // Handle active layers
-    switch (layer) {
+    switch (layer) {                                                     // Handle active layers
         case EXTEND:
-            new_mode = RGB_MATRIX_DIGITAL_RAIN;  // Set effect for Extend
+            new_mode = RGB_MATRIX_DIGITAL_RAIN;                          // Set Extend to Digital Rain
             break;
-
+        default:                                                         // Return to the default layer RGB effect
+    switch (default_layer) {
+        case CMAK_BASE:
+            new_mode = RGB_MATRIX_STARLIGHT;                             // Starlight for Colemak
+            break;
+        case MAC_BASE:
+            new_mode = RGB_MATRIX_STARLIGHT;                             // Starlight for MacBase
+            rgb_matrix_sethsv(128, 255, 128);                            // Set color to Teal
+            break;
         default:
-            // Return to the default layer RGB effect
-            switch (default_layer) {
-                case CMAK_BASE:
-                    new_mode = RGB_MATRIX_STARLIGHT;  // Typing heatmap for Colemak
-                    break;
-                case MAC_BASE:
-                    new_mode = RGB_MATRIX_STARLIGHT;
-                    rgb_matrix_sethsv(128, 255, 128);
-                    break;
-                default:
-                    break;
-            }
             break;
+        }
+        break;
     }
-
-    // Apply the new mode if it has changed
-    if (new_mode != current_mode) {
+    if (new_mode != current_mode) {                                      // Apply the new mode if it has changed
         current_mode = new_mode;
         rgb_matrix_mode_noeeprom(new_mode);
     }
-
     return state;
 }
 
