@@ -2413,13 +2413,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_SMILE):
             return TAPPING_TERM + 50;
         case TD(TD_SLASH):
-            return TAPPING_TERM + 75;
+            return TAPPING_TERM + 50;
         case TD(TD_QUESTION):
             return TAPPING_TERM + 50;
         case TD(TD_PERIOD):
             return TAPPING_TERM + 50;
         case TD(TD_COMMA):
-            return TAPPING_TERM + 50;    
+            return TAPPING_TERM + 50;
         case TD(TD_DELWORD):
             return TAPPING_TERM + 50;
         case TD(TD_OSSHIFT):
@@ -2431,7 +2431,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
      // case TD(TD_COPY):
      //     return TAPPING_TERM + 75;
      // case TD(TD_XCUT):
-     //     return TAPPING_TERM + 75;       
+     //     return TAPPING_TERM + 75;
      // case TD(TD_QSELALL):
      //     return TAPPING_TERM + 75;
         case TD(TD_USCR):
@@ -2439,7 +2439,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case TD(TD_LEADOSTROPHE):
             return TAPPING_TERM + 50;
      // case TD(TD_QUICKY):
-     //     return TAPPING_TERM + 75;        
+     //     return TAPPING_TERM + 75;
         case TD(TD_ONE):
             return TAPPING_TERM + 25;
         case TD(TD_TWO):
@@ -2536,9 +2536,10 @@ bool caps_word_press_user(uint16_t keycode) {
         case XCUT:
         case QUICKY:
         case DDUP:
-        add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
-            return true; // Keep Caps Word active
-        // Keys that continue Caps Word without shifting
+        case QSELALL:
+    add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
+return true; // Keep Caps Word active
+// Keys that continue Caps Word without shifting
         case KC_1:
         case KC_2:
         case KC_3:
@@ -2565,20 +2566,13 @@ bool caps_word_press_user(uint16_t keycode) {
         case COMMA:
         case PERIOD:
         case LEADPOST:
-
-                return true;
-        default:
-            return false; // End Caps Word for other keys
+return true;
+    default:
+        return false; // End Caps Word for other keys
     }
 }
-// Cap word indicator
-void caps_word_set_user(bool active) {
-    if (active) {
-        // Do something when Caps Word activates.
-    } else {
-        // Do something when Caps Word deactivates.
-    }
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 combo_t key_combos[] = {};
 uint16_t COMBO_LEN = 0;
