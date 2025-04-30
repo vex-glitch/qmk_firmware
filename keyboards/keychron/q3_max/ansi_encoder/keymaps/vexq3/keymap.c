@@ -2690,6 +2690,7 @@ enum custom_keycodes {
     DLB,
     DRB,
     AST,
+    TROSA,
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2744,7 +2745,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_LALT);
         }
             return false;
-    WIN2_2:
+    case WIN2_2:
         if (record->event.pressed) {
             register_code(KC_LALT);
             register_code(KC_LSFT);
@@ -3516,7 +3517,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(KC_LSFT);
             tap_code(KC_6);
             unregister_code(KC_LSFT);
-    }
+        }
         return false;
     default:
         return true;
