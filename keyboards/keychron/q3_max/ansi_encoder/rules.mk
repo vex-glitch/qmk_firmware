@@ -1,5 +1,4 @@
 # This file intentionally left blank
-# AUTO_SHIFT_ENABLE = yes
 RETRO_SHIFT_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 CAPS_WORD_ENABLE = yes
@@ -11,10 +10,8 @@ ENCODER_MAP_ENABLE = yes
 RGB_MATRIX_ENABLE = yes # For advanced RGB effects
 RGB_MATRIX_EFFECTS = yes
 RGB_MATRIX_EXTRA_EFFECTS = yes
-#CUSTOM_LAYER_STATE_ENABLE = yes
 RGB_MATRIX_SOLID_REACTIVE_NEXUS_ENABLE = yes
 RGB_MATRIX_KEYREACTIVE_ENABLE = yes
 RGB_MATRIX_STARLIGHT = yes
 SRC += features/autocorrection.c
 LTO_ENABLE = yes
-
