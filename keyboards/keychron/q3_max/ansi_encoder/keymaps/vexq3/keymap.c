@@ -205,30 +205,30 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define STAR      TD(TD_STAR)
     #define UNSC      TD(TD_UNSC)
 // Not tapdances
-    #define MOUSEUP  KC_MS_UP
-    #define MOUSEDN  KC_MS_DOWN
-    #define MOUSELT  KC_MS_LEFT
-    #define MOUSERT  KC_MS_RIGHT
-    #define MSEWHLUP KC_MS_WH_UP
-    #define MSEWHLDO KC_MS_WH_DOWN
-    #define MSEWHLLE KC_MS_WH_LEFT
-    #define MSEWHLRI KC_MS_WH_RIGHT
-    #define MSEC1    KC_MS_BTN1
-    #define MSEC2    KC_MS_BTN2
-    #define MSEC3    KC_MS_BTN3
-    #define MSEC4    KC_MS_BTN4
-    #define PAGEUP   KC_PGUP
-    #define PAGEDN   KC_PGDN
-    #define HOME     KC_HOME
-    #define END      KC_END
-    #define PLAY     KC_MEDIA_PLAY_PAUSE
-    #define REWIND   KC_MEDIA_PREV_TRACK
-    #define NEXT     KC_MEDIA_FAST_FORWARD
-    #define MCNTRL   KC_MISSION_CONTROL
-    #define LNCHPAD  KC_LAUNCHPAD
-    #define POWER    KC_SYSTEM_POWER
-    #define BBACK    KC_WWW_BACK
-    #define BFORW    KC_WWW_FORWARD
+    #define MOUSEUP   KC_MS_UP
+    #define MOUSEDN   KC_MS_DOWN
+    #define MOUSELT   KC_MS_LEFT
+    #define MOUSERT   KC_MS_RIGHT
+    #define MSEWHLUP  KC_MS_WH_UP
+    #define MSEWHLDO  KC_MS_WH_DOWN
+    #define MSEWHLLE  KC_MS_WH_LEFT
+    #define MSEWHLRI  KC_MS_WH_RIGHT
+    #define MSEC1     KC_MS_BTN1
+    #define MSEC2     KC_MS_BTN2
+    #define MSEC3     KC_MS_BTN3
+    #define MSEC4     KC_MS_BTN4
+    #define PAGEUP    KC_PGUP
+    #define PAGEDN    KC_PGDN
+    #define HOME      KC_HOME
+    #define END       KC_END
+    #define PLAY      KC_MEDIA_PLAY_PAUSE
+    #define REWIND    KC_MEDIA_PREV_TRACK
+    #define NEXT      KC_MEDIA_FAST_FORWARD
+    #define MCNTRL    KC_MISSION_CONTROL
+    #define LNCHPAD   KC_LAUNCHPAD
+    #define POWER     KC_SYSTEM_POWER
+    #define BBACK     KC_WWW_BACK
+    #define BFORW     KC_WWW_FORWARD
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Leds
@@ -2536,9 +2536,6 @@ return false; // End Caps Word for other keys
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Macro Definitions
-combo_t key_combos[] = {};
-uint16_t COMBO_LEN = 0;
-
 enum custom_keycodes {
 // Moom
     WIN1_1  = SAFE_RANGE,
