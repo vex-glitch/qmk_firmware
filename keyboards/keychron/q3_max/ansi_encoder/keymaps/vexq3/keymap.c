@@ -2698,8 +2698,7 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_autocorrection(keycode, record)) { return false; }
     if (!process_achordion(keycode, record)) { return false; }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-switch (keycode) {
+    switch (keycode) {
 // Moom Macros
     case WIN1_1:
         if (record->event.pressed) {
@@ -3512,7 +3511,13 @@ switch (keycode) {
             send_string("*");
     }
         return false;
-
+    case TROSA:
+        if (record->event.pressed) {
+            register_code(KC_LSFT);
+            tap_code(KC_6);
+            unregister_code(KC_LSFT);
+    }
+        return false;
     default:
         return true;
     }
