@@ -17,4 +17,4 @@ RGB_MATRIX_KEYREACTIVE_ENABLE = yes
 RGB_MATRIX_STARLIGHT = yes
 SRC += features/autocorrection.c
 LTO_ENABLE = yes
-COMBO_ENABLE = yes
+
