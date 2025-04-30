@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+~ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -2334,128 +2334,156 @@ void dance_unsc_reset(tap_dance_state_t *state, void *user_data) {
 // Per key tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TD(TD_DRAFTS):  // Use the keycode TD(...) for the tap dance
-            return TAPPING_TERM + 100;  // Adjust this value as needed
-        case TD(TD_ANYBOX):
+        case TD(TD_ALFRED):
             return TAPPING_TERM + 100;
-        case TD(TD_OMNIFOCUS):
+        case TD(TD_HOOK):
             return TAPPING_TERM + 100;
         case TD(TD_CLEANSHOT):
             return TAPPING_TERM + 100;
-        case TD(TD_FINDER):
+        case TD(TD_DROP):
             return TAPPING_TERM + 100;
-        case TD(TD_DEVONTHINK):
+        case TD(TD_SIDENOTE):
             return TAPPING_TERM + 100;
-        case TD(TD_SPARK):
+        case TD(TD_ARC):
             return TAPPING_TERM + 100;
-        case TD(TD_FANTASTICAL):
+        case TD(TD_SNIPLAB):
             return TAPPING_TERM + 100;
-        case TD(TD_DAYONE):
+        case TD(TD_PERP):
+            return TAPPING_TERM + 100;
+        case TD(TD_CHAT):
+            return TAPPING_TERM + 100;
+        case TD(TD_MUSE):
             return TAPPING_TERM + 100;
         case TD(TD_TRELLO):
             return TAPPING_TERM + 100;
         case TD(TD_OOUTLINER):
             return TAPPING_TERM + 100;
-        case TD(TD_MUSE):
+        case TD(TD_DAYONE):
             return TAPPING_TERM + 100;
-        case TD(TD_HOOK):
+        case TD(TD_FANTASTICAL):
             return TAPPING_TERM + 100;
-        case TD(TD_ALFRED):
+        case TD(TD_SPARK):
             return TAPPING_TERM + 100;
-        case TD(TD_DROP):
-            return TAPPING_TERM + 100;
-        case TD(TD_SNIPLAB):
-            return TAPPING_TERM + 100;
-        case TD(TD_ALFMEH2):
-            return TAPPING_TERM + 50;
-        case TD(TD_PERP):
-            return TAPPING_TERM + 100;
-        case TD(TD_CHAT):
-            return TAPPING_TERM + 100;
-        case TD(TD_ARC):
-            return TAPPING_TERM + 100;
-        case TD(TD_BEAR):
+        case TD(TD_ANYBOX):
             return TAPPING_TERM + 100;
         case TD(TD_EAGLE):
             return TAPPING_TERM + 100;
-        case TD(TD_SLEEVE):
+        case TD(TD_DEVONTHINK):
             return TAPPING_TERM + 100;
-        case TD(TD_LEADOSTROPHE):
-            return TAPPING_TERM + 50;
-        case TD(TD_SPACE):
-            return TAPPING_TERM + 50;
+        case TD(TD_FINDER):
+            return TAPPING_TERM + 100;
+        case TD(TD_BEAR):
+            return TAPPING_TERM + 100;
+        case TD(TD_OMNIFOCUS):
+            return TAPPING_TERM + 100;
+        case TD(TD_DRAFTS):
+            return TAPPING_TERM + 100;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Colemak Per Key Tapdancing
+        case TD(TD_ESCAPE):
+            return TAPPING_TERM + 75;
+        case TD(TD_TAB):
+            return TAPPING_TERM + 75;
+        case TD(TD_TEXHYPE):
+            return TAPPING_TERM + 75;
+     // case TD(TD_UNMEHZ):
+     //     return TAPPING_TERM + 75;
         case TD(TD_KEYCUE):
             return TAPPING_TERM + 75;
-             case TD(TD_FILEFRED):
-            return TAPPING_TERM + 100;
-            case TD(TD_UNIALF):
-            return TAPPING_TERM + 100;
-            case TD(TD_CLIP):
-            return TAPPING_TERM + 100;
-            case TD(TD_OSSHIFT):
+     // case TD(TD_QMMACRO):
+     //     return TAPPING_TERM + 75;
+        case TD(TD_UNIALF):
             return TAPPING_TERM + 75;
-            case TD(TD_DELWORD):
-            return TAPPING_TERM + 75;
-            case TD(TD_PERIOD):
+        case TD(TD_SPACE):
             return TAPPING_TERM + 50;
-            case TD(TD_QUESTION):
+        case TD(TD_CLIP):
             return TAPPING_TERM + 75;
-               return TAPPING_TERM + 75;
-            case TD(TD_SLASH):
+        case TD(TD_FILEFRED):
             return TAPPING_TERM + 75;
-            case TD(TD_FORWARDDELETE):
+        case TD(TD_SCREEN):
             return TAPPING_TERM + 75;
-            case TD(TD_CAPS):
+        case TD(TD_CAPS):
             return TAPPING_TERM + 25;
-            case TD(TD_TEXHYPE):
+        case TD(TD_ALFMEH2):
+            return TAPPING_TERM + 50;
+        case TD(TD_HASHAT):
+            return TAPPING_TERM + 50;
+        case TD(TD_FORWARDDELETE):
+            return TAPPING_TERM + 50;
+        case TD(TD_SMILE):
+            return TAPPING_TERM + 50;
+        case TD(TD_SLASH):
             return TAPPING_TERM + 75;
-            case TD(TD_TAB):
-            return TAPPING_TERM + 75;
-            case TD(TD_TIL):
+        case TD(TD_QUESTION):
             return TAPPING_TERM + 50;
-            case TD(TD_ONE):
+        case TD(TD_PERIOD):
+            return TAPPING_TERM + 50;
+        case TD(TD_COMMA):
+            return TAPPING_TERM + 50;    
+        case TD(TD_DELWORD):
+            return TAPPING_TERM + 50;
+        case TD(TD_OSSHIFT):
+            return TAPPING_TERM + 50;
+     // case TD(TD_VPASTE):
+     //     return TAPPING_TERM + 75;
+     // case TD(TD_DDUPLICATE):
+     //     return TAPPING_TERM + 75;
+     // case TD(TD_COPY):
+     //     return TAPPING_TERM + 75;
+     // case TD(TD_XCUT):
+     //     return TAPPING_TERM + 75;       
+     // case TD(TD_QSELALL):
+     //     return TAPPING_TERM + 75;
+        case TD(TD_USCR):
+            return TAPPING_TERM + 50;
+        case TD(TD_LEADOSTROPHE):
+            return TAPPING_TERM + 50;
+     // case TD(TD_QUICKY):
+     //     return TAPPING_TERM + 75;        
+        case TD(TD_ONE):
             return TAPPING_TERM + 25;
-            case TD(TD_TWO):
+        case TD(TD_TWO):
             return TAPPING_TERM + 25;
-            case TD(TD_THREE):
+        case TD(TD_THREE):
             return TAPPING_TERM + 25;
-            case TD(TD_BACKT):
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extend Per Key Tapdancing
+        case TD(TD_TIL):
             return TAPPING_TERM + 50;
-            case TD(TD_SBL):
-            return TAPPING_TERM + 50;
-            case TD(TD_SBR):
-            return TAPPING_TERM + 50;
-            case TD(TD_STAR):
-            return TAPPING_TERM + 50;
-            case TD(TD_UNSC):
-            return TAPPING_TERM + 50;
-            case TD(TD_EQUALS):
-            return TAPPING_TERM + 50;
-            case TD(TD_HASHAT):
-            return TAPPING_TERM + 50;
-            case TD(TD_RB):
-            return TAPPING_TERM + 50;
-            case TD(TD_USCR):
-            return TAPPING_TERM + 50;
-            case TD(TD_SMILE):
-            return TAPPING_TERM + 25;
-            case TD(TD_SCREEN):
-            return TAPPING_TERM + 75;
-            case TD(TD_ESCAPE):
-            return TAPPING_TERM + 75;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Windows Per Key Tapdancing
         case TD(TD_FULL):
             return TAPPING_TERM + 50;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fun Per Key Tapdancing
         case TD(TD_PORT):
-            return TAPPING_TERM + 25;
-            case TD(TD_CLARITY):
-            return TAPPING_TERM + 25;
-            case TD(TD_SIDENOTE):
             return TAPPING_TERM + 50;
-            default:
-            return TAPPING_TERM;  // Default tapping term
+        case TD(TD_CLARITY):
+            return TAPPING_TERM + 50;
+        case TD(TD_SLEEVE):
+            return TAPPING_TERM + 50;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Symbols Per Key Tapdancing
+        case TD(TD_RB):
+            return TAPPING_TERM + 50;
+        case TD(TD_SBL):
+            return TAPPING_TERM + 50;
+        case TD(TD_SBR):
+            return TAPPING_TERM + 50;
+        case TD(TD_BACKT):
+            return TAPPING_TERM + 50;
+        case TD(TD_EQUALS):
+            return TAPPING_TERM + 50;
+        case TD(TD_STAR):
+            return TAPPING_TERM + 50;
+        case TD(TD_UNSC):
+            return TAPPING_TERM + 50;
+        default:
+            return TAPPING_TERM;
     }
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Caps Word User Function
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
