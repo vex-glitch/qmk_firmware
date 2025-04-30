@@ -2532,8 +2532,8 @@ bool caps_word_press_user(uint16_t keycode) {
         case QUICKY:
         case DDUP:
         case QSELALL:
-    add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift
-return true; // Keep Caps Word active
+    add_weak_mods(MOD_BIT(KC_LSFT));        // Apply shift
+return true;                                // Keep Caps Word active
 // Keys that continue Caps Word without shifting
         case KC_1:
         case KC_2:
@@ -3212,17 +3212,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case PORTAL:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F6))))); // Ctrl + Opt + Cmd + F6
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F6)))));
     }
         return false;
     case SPEED:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F7))))); // Ctrl + Opt + Cmd + F7
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F7)))));
     }
         return false;
     case MSG:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F8))))); // Ctrl + Opt + Cmd + F8
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F8)))));
     }
         return false;
     case WHATSAPP:
@@ -3237,7 +3237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case LDECK:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_L))))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_L)))));
     }
         return false;
     case ITERM:
@@ -3253,42 +3253,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case SLVPP:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_0))))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_0)))));
     }
         return false;
     case SLVNEXT:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_0)))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_0))));
     }
         return false;
     case SLVPREV:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_9)))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_9))));
     }
         return false;
     case SLVVOLU:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_7)))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_7))));
     }
         return false;
     case SLVVOLD:
         if (record->event.pressed) {
-            SEND_STRING(SS_LALT(SS_LCTL(SS_LGUI(SS_TAP(X_8))))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LALT(SS_LCTL(SS_LGUI(SS_TAP(X_8)))));
     }
         return false;
     case SLVMUTE:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_6)))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_6))));
     }
         return false;
     case SLVLIKE:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTL(SS_LALT(SS_LGUI(SS_TAP(X_0))))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LCTL(SS_LALT(SS_LGUI(SS_TAP(X_0)))));
     }
         return false;
     case VSCODE:
         if (record->event.pressed) {
-            SEND_STRING(SS_LALT(SS_LGUI(SS_LSFT(SS_TAP(X_C))))); // Ctrl + Opt + Cmd + F10
+            SEND_STRING(SS_LALT(SS_LGUI(SS_LSFT(SS_TAP(X_C)))));
     }
         return false;
     case WORK:
