@@ -3595,50 +3595,45 @@ void leader_end_user(void) {
 #define LED_FLAG_I  0x20  // I key
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void keyboard_post_init_user(void) {
-    rgb_matrix_enable();                                                 // Enable RGB matrix
-    rgb_matrix_mode(RGB_MATRIX_STARLIGHT);                               // Set the default effect to Starlight
-    rgb_matrix_sethsv(11, 176, 255);                                     // Set the default color to Coral
-    eeconfig_update_rgb_matrix();                                        // Ensure it persists across power cycles
+    rgb_matrix_enable();                                                     // Enable RGB matrix
+    rgb_matrix_mode(RGB_MATRIX_STARLIGHT);                                   // Set the default effect to Starlight
+    rgb_matrix_sethsv(11, 176, 255);                                         // Set the default color to Coral
+    eeconfig_update_rgb_matrix();                                            // Ensure it persists across power cycles
 }
-
-uint8_t current_mode = RGB_MATRIX_NONE;                                  // Track the current mode
-
-layer_state_t layer_state_set_user(layer_state_t state) {                // Set the layer effect only when mode changes
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    uint8_t current_mode = RGB_MATRIX_NONE;                                  // Track the current mode
+layer_state_t layer_state_set_user(layer_state_t state) {                    // Set the layer effect only when mode changes
     uint8_t layer = get_highest_layer(state);
     uint8_t default_layer = get_highest_layer(default_layer_state);
-    uint8_t new_mode = current_mode;                                     // Keep previous mode by default
-
-    switch (layer) {                                                     // Handle active layers
+    uint8_t new_mode = current_mode;                                         // Keep previous mode by default
+    switch (layer) {                                                         // Handle active layers
         case EXTEND:
-            new_mode = RGB_MATRIX_DIGITAL_RAIN;                          // Set Extend to Digital Rain
+            new_mode = RGB_MATRIX_DIGITAL_RAIN;                              // Set Extend to Digital Rain
             break;
-        default:                                                         // Return to the default layer RGB effect
+        default:                                                             // Return to the default layer RGB effect
     switch (default_layer) {
         case CMAK_BASE:
-            new_mode = RGB_MATRIX_STARLIGHT;                             // Starlight for Colemak
+            new_mode = RGB_MATRIX_STARLIGHT;                                 // Starlight for Colemak
             break;
         case MAC_BASE:
-            new_mode = RGB_MATRIX_STARLIGHT;                             // Starlight for MacBase
-            rgb_matrix_sethsv(128, 255, 128);                            // Set color to Teal
+            new_mode = RGB_MATRIX_STARLIGHT;                                 // Starlight for MacBase
+            rgb_matrix_sethsv(128, 255, 128);                                // Set color to Teal
             break;
         default:
             break;
         }
         break;
     }
-    if (new_mode != current_mode) {                                      // Apply the new mode if it has changed
+    if (new_mode != current_mode) {                                          // Apply the new mode if it has changed
         current_mode = new_mode;
         rgb_matrix_mode_noeeprom(new_mode);
     }
     return state;
 }
-
-// Handle default layer changes dynamically
-layer_state_t default_layer_state_set_user(layer_state_t state) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+layer_state_t default_layer_state_set_user(layer_state_t state) {            // Handle default layer changes dynamically
     uint8_t default_layer = get_highest_layer(state);
-
-    // Update RGB effects or colors based on default layer
-    switch (default_layer) {
+    switch (default_layer) {                                                 // Update RGB effects based on default layer
         case CMAK_BASE:
             rgb_matrix_mode_noeeprom(RGB_MATRIX_STARLIGHT);
             break;
@@ -3649,44 +3644,35 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
         default:
             break;
     }
-
     return state;
 }
-
-// Advanced user function for per-key RGB lighting
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {  // Advanced user function for per-key RGB lighting
     uint8_t layer = get_highest_layer(layer_state);
     uint8_t default_layer = get_highest_layer(default_layer_state);
-
-    // Force MAC_BASE to use its color
-    if (default_layer == MAC_BASE) {
-        //rgb_matrix_sethsv(132, 102, 255);  // 🔹 Explicitly reapply color
+    if (default_layer == MAC_BASE) {                                          // Force MAC_BASE to use its color
+            rgb_matrix_sethsv(128, 255, 128);
     }
-
     for (uint8_t i = led_min; i < led_max; i++) {
-          // SYMBOL Layer: Only S, Y, M should light up
-          if (layer == FUN) {
-            rgb_matrix_set_color(36, RGB_RED); // Light up 'S'
-            rgb_matrix_set_color(42, RGB_RED); // Light up 'Y'
-            rgb_matrix_set_color(58, RGB_RED); // Light up 'M'
+        if (layer == FUN) {
+            rgb_matrix_set_color(36, RGB_RED);                                // Light up 'F'
+            rgb_matrix_set_color(42, RGB_RED);                                // Light up 'U'
+            rgb_matrix_set_color(58, RGB_RED);                                // Light up 'N'
         }
-        // WINDOWS Layer: Only W, I, N should light up
         if (layer == WINDOWS) {
-            rgb_matrix_set_color(35, RGB_CYAN); // Light up 'S'
-            rgb_matrix_set_color(60, RGB_CYAN); // Light up 'Y'
-            rgb_matrix_set_color(58, RGB_CYAN); // Light up 'M'
+            rgb_matrix_set_color(35, RGB_CYAN);                               // Light up 'W'
+            rgb_matrix_set_color(60, RGB_CYAN);                               // Light up 'I'
+            rgb_matrix_set_color(58, RGB_CYAN);                               // Light up 'N'
         }
-          // SYMBOL Layer: Only S, Y, M should light up
-            if (layer == SYM) {
-                rgb_matrix_set_color(53, RGB_GOLDENROD); // Light up 'S'
-                rgb_matrix_set_color(43, RGB_GOLDENROD); // Light up 'Y'
-                rgb_matrix_set_color(57, RGB_GOLDENROD); // Light up 'M'
+        if (layer == SYM) {
+            rgb_matrix_set_color(53, RGB_GOLDENROD);                          // Light up 'S'
+            rgb_matrix_set_color(43, RGB_GOLDENROD);                          // Light up 'Y'
+            rgb_matrix_set_color(57, RGB_GOLDENROD);                          // Light up 'M'
             }
-          // SYMBOL Layer: Only S, Y, M should light up
-          if (layer == PIC) {
-            rgb_matrix_set_color(37, RGB_RED); // Light up 'S'
-            rgb_matrix_set_color(60, RGB_RED); // Light up 'Y'
-            rgb_matrix_set_color(65, RGB_RED); // Light up 'M'
+        if (layer == PIC) {
+            rgb_matrix_set_color(37, RGB_RED);                                // Light up 'P'
+            rgb_matrix_set_color(65, RGB_RED);                                // Light up 'C'
+            rgb_matrix_set_color(60, RGB_RED);                                // Light up 'I'
         }
         // CAPS LOCK Blinking
         if (i == CAPS_LED && is_caps_word_on()) {
@@ -3696,8 +3682,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
-
-    return false;  // Allow other matrix effects to run
+    return false;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
