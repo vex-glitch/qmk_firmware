@@ -52,7 +52,7 @@ enum {
 // Tap Dance Declarations::Colemak Layer
     TD_ESCAPE,
     TD_TAB,
-    TD_TEXHYPE,
+    TD_HYPENATOR,
     TD_UNMEHZ,
     TD_KEYCUE,
     TD_QMACRO,
@@ -161,7 +161,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
 // Tap Dance Declarations::Colemak Layer
     #define ESCAPE    TD(TD_ESCAPE)
     #define TAB       TD(TD_TAB)
-    #define TEXHYPE   TD(TD_TEXHYPE)
+    #define HYPENATOR TD(TD_HYPENATOR)
     #define UNMEHZ    TD(TD_UNMEHZ)
     #define KEYCUE    TD(TD_KEYCUE)
     #define QMACRO    TD(TD_QMACRO)
@@ -1566,43 +1566,43 @@ void dance_tab_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_LCTL);
     unregister_code(KC_LALT);
 }
-// TextHype::tapdance
-void dance_texhype_finished(tap_dance_state_t *state, void *user_data) {
+// HypeNator::tapdance
+void dance_hypenator_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
         send_string(" ^^");
     } else if (state->count == 1 && state->pressed) {
         register_mods(MOD_HYPR);
     } else if (state->count == 2 && !state->pressed) {
         register_code(KC_LALT);
-        tap_code(KC_F19);
+        tap_code(KC_F2);
         unregister_code(KC_LALT);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
-        tap_code(KC_F19);
+        tap_code(KC_F2);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && !state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LSFT);
-        tap_code(KC_F19);
+        tap_code(KC_F2);
         unregister_code(KC_LSFT);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LALT);
-        tap_code(KC_F19);
+        tap_code(KC_F2);
         unregister_code(KC_LALT);
         unregister_code(KC_LCTL);
     } else if (state->count == 4 && !state->pressed) {
         register_code(KC_LALT);
         register_code(KC_LSFT);
         register_code(KC_LGUI);
-        tap_code(KC_F19);
+        tap_code(KC_F2);
         unregister_code(KC_LGUI);
         unregister_code(KC_LSFT);
         unregister_code(KC_LALT);
     }
 }
-void dance_texhype_reset(tap_dance_state_t *state, void *user_data) {
+void dance_hypenator_reset(tap_dance_state_t *state, void *user_data) {
     unregister_mods(MOD_HYPR);
 }
 // UnmehZ::tapdance
@@ -2357,7 +2357,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 75;
         case TD(TD_TAB):
             return TAPPING_TERM + 75;
-        case TD(TD_TEXHYPE):
+        case TD(TD_HYPENATOR):
             return TAPPING_TERM + 75;
      // case TD(TD_UNMEHZ):
      //     return TAPPING_TERM + 75;
@@ -3516,7 +3516,7 @@ tap_dance_action_t tap_dance_actions[] = {
     // Colemak Layer
     [TD_ESCAPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_escape_finished, dance_escape_reset),
     [TD_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_tab_finished, dance_tab_reset),
-    [TD_TEXHYPE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_texhype_finished, dance_texhype_reset),
+    [TD_HYPENATOR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hypenator_finished, dance_hypenator_reset),
     [TD_UNMEHZ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_unmehz_finished, dance_unmehz_reset),
     [TD_KEYCUE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_keycue_finished, dance_keycue_reset),
     [TD_QMACRO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_qmacro_finished, dance_qmacro_reset),
@@ -3693,72 +3693,72 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {  //
 // Keymap Layout
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_tkl_ansi(
-        KC_ESC,   KC_BRID,  KC_BRIU,  KC_MCTRL, KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,    KC_MUTE,    KC_SNAP,  KC_SIRI,  RGB_MOD,
-        KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,     KC_BSPC,    KC_INS,   KC_HOME,  KC_PGUP,
-        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,    KC_BSLS,    KC_DEL,   KC_END,   KC_PGDN,
-        KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,              KC_ENT,
-        KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,              KC_UP,
-        KC_LCTL,  KC_LOPTN, KC_LCMMD,                               KC_SPC,                                 KC_RCMMD, KC_ROPTN, MO(MAC_FN), KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_ESC,    KC_BRID,   KC_BRIU,   KC_MCTRL,  KC_LNPAD,  RGB_VAD,   RGB_VAI,   KC_MPRV,   KC_MPLY,   KC_MNXT,   KC_MUTE,    KC_VOLD,     KC_VOLU,     KC_MUTE,    KC_SNAP,   KC_SIRI,  RGB_MOD,
+        KC_GRV,    KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,       KC_MINS,     KC_EQL,      KC_BSPC,    KC_INS,    KC_HOME,  KC_PGUP,
+        KC_TAB,    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,       KC_LBRC,     KC_RBRC,     KC_BSLS,    KC_DEL,    KC_END,   KC_PGDN,
+        KC_CAPS,   KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      KC_H,      KC_J,      KC_K,      KC_L,      KC_SCLN,    KC_QUOT,                  KC_ENT,
+        KC_LSFT,              KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      KC_N,      KC_M,      KC_COMM,   KC_DOT,     KC_SLSH,                  KC_RSFT,              KC_UP,
+        KC_LCTL,   KC_LOPTN,  KC_LCMMD,                                   KC_SPC,                                     KC_RCMMD,   KC_ROPTN,    MO(MAC_FN),  KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_tkl_ansi(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
-        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
+        XXXXXXX,              XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
-        ALFRED,   HOOK,     CLEANSHT, DROP,     SIDENOTE, ARC,      SNIP,     PERP,     CHAT,     MUSE,     TRELLO,   OOUT,     DAYONE,     KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        ESCAPE,   ONE,      TWO,      THREE,    KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  SMILE,      FORDEL,     EAGLE,    DEVON,    FINDER,
-        TAB,      QSELALL,  KC_W,     KC_F,     KC_P,     KC_B,     USCR,     KC_J,     KC_L,     KC_U,     QUICKY,   QUESTION, SLASH,      HASHAT,     BEAR,     OFOCUS,   DRAFTS,
-        TEXHYPE,  HOME_A,   HOME_R,   HOME_S,   HOME_T,   KC_G,     LEADPOST, KC_M,     HOME_N,   HOME_E,   HOME_I,   HOME_O,               ALFMEH2,
-        UNMEHZ,             XCUT,     CCOPY,    DDUP,     VPASTE,   OSSHIFT,  DELWORD,  KC_K,     KC_H,     COMMA,    PERIOD,               CAPW,                KC_UP,
-        KEYCUE,   QMACRO,   UNIALF,                                     SPACE,                              CLIP,     FILEFRED, KC_LALT,    SCREEN,    KC_LEFT,  KC_DOWN,  KC_RGHT),
+        ALFRED,    HOOK,      CLEANSHT,  DROP,      SIDENOTE,  ARC,       SNIP,      PERP,      CHAT,      MUSE,      TRELLO,     OOUT,        DAYONE,      KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
+        ESCAPE,    ONE,       TWO,       THREE,     KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,       KC_MINS,     SMILE,       FORDEL,     EAGLE,    DEVON,    FINDER,
+        TAB,       QSELALL,   KC_W,      KC_F,      KC_P,      KC_B,      USCR,      KC_J,      KC_L,      KC_U,      QUICKY,     QUESTION,    SLASH,       HASHAT,     BEAR,     OFOCUS,   DRAFTS,
+        HYPENATOR, HOME_A,    HOME_R,    HOME_S,    HOME_T,    KC_G,      LEADPOST,  KC_M,      HOME_N,    HOME_E,    HOME_I,     HOME_O,                   ALFMEH2,
+        UNMEHZ,               XCUT,      CCOPY,     DDUP,      VPASTE,    OSSHIFT,   DELWORD,   KC_K,      KC_H,      COMMA,      PERIOD,                   CAPW,                KC_UP,
+        KEYCUE,    QMACRO,    UNIALF,                                      SPACE,                                     CLIP,       FILEFRED,    KC_LALT,     SCREEN,     KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
-        SHTDWN,   SLEEP,    RSTART,   MCNTRL,   LNCHPAD,  _______,  _______,  _______,  _______,  REWIND,   PLAY,     NEXT,     SPOTIFY,    RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
-        TIL,      KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,     RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
-        TEXHYPE,  MSEC1,    MSEWHLRI, MSEWHLDO, MSEWHLLE, _______,  MOUSEUP,  _______,  HOME,     KC_UP,    MOUSEUP,  _______,  _______,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
-        KC_LCTL,  KC_LALT,  KC_LGUI,  MSEWHLUP, KC_LSFT,  MOUSELT,  MOUSEDN,  MOUSERT,  KC_LEFT,  KC_DOWN,  KC_RGHT,  MSEC1,                _______,
-        UNDO,               CUT,      COPY,     DUPLICA,  PASTE,    MSEC1,    MSEC4,    MSEC2,    MOUSELT,  MOUSERT,  MOUSEDN,              _______,              _______,
-        KEYCUE,   QMACRO,   UNIALF,                                 _______,                                CLIP,     FILEFRED,  KC_LALT,   SCREEN,    _______,  _______,  _______),
+        SHTDWN,    SLEEP,     RSTART,    MCNTRL,    LNCHPAD,   _______,   _______,   _______,   _______,   REWIND,    PLAY,       NEXT,        SPOTIFY,     RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LV L,
+        TIL,       KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,      KC_F12,      RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SA I,
+        HYPENATOR, MSEC1,     MSEWHLRI,  MSEWHLDO,  MSEWHLLE,  _______,   MOUSEUP,   _______,   HOME,      KC_UP,     MOUSEUP,    _______,     _______,     RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SA D,
+        KC_LCTL,   KC_LALT,   KC_LGUI,   MSEWHLUP,  KC_LSFT,   MOUSELT,   MOUSEDN,   MOUSERT,   KC_LEFT,   KC_DOWN,   KC_RGHT,    MSEC1,                    _______ ,
+        UNDO,                 CUT,       COPY,      DUPLICA,   PASTE,     MSEC1,     MSEC4,     MSEC2,     MOUSELT,   MOUSERT,    MOUSEDN,                  _______ ,              _______,
+        KEYCUE,    QMACRO,    UNIALF,                                     _______,                                    CLIP,       FILEFRED,     KC_LALT,    SCREEN,     _______,  _______,  _______),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
-        FULL,     WIN1_1,   WIN1_2,   WIN1_3,   XXXXXXX,  WIN4_1,   WIN4_2,   WIN4_3,   WIN4_4,   WIN5_1,   WIN5_2,   WIN5_3,   WIN5_4,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        _______,  WIN2_1,   WIN2_2,   WIN2_3,   WIN2_4,   WIN2_5,   WIN2_6,   WIN2_7,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        _______,  WIN3_1,   WIN3_2,   WIN3_3,   WIN3_4,   WIN3_5,   WIN3_6,   WIN3_7,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        WIN8_2,   WIN6_1,   WIN6_2,   WIN6_3,   WIN6_4,   WIN6_5,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
-        WIN8_1,             WIN8_6,   WIN8_5,   WIN8_4,   WIN8_3,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+        FULL,      WIN1_1,    WIN1_2,    WIN1_3,    XXXXXXX,   WIN4_1,    WIN4_2,    WIN4_3,    WIN4_4,    WIN5_1,    WIN5_2,     WIN5_3,      WIN5_4,      XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        _______,   WIN2_1,    WIN2_2,    WIN2_3,    WIN2_4,    WIN2_5,    WIN2_6,    WIN2_7,    XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        _______,   WIN3_1,    WIN3_2,    WIN3_3,    WIN3_4,    WIN3_5,    WIN3_6,    WIN3_7,    XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        WIN8_2,    WIN6_1,    WIN6_2,    WIN6_3,    WIN6_4,    WIN6_5,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
+        WIN8_1,               WIN8_6,    WIN8_5,    WIN8_4,    WIN8_3,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXX,                                     XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
-        SYSSET,   PASS,     PORT,     MSG,      WHATSAPP, ELGATO,   LDECK,    _______,  CLARITY,  SLVPREV,  SLVPP,    SLVNEXT,  SLEEVE,     SLVMUTE,    SLVLIKE,  _______,  SPEED,
-        _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    TERMIN,   ITERM,    WORK,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    KMESTRO,  VSCODE,   _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,
-        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,              _______,
-        _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______),
+        SYSSET,    PASS,      PORT,      MSG,       WHATSAPP,  ELGATO,    LDECK,     _______,   CLARITY,   SLVPREV,   SLVPP,      SLVNEXT,     SLEEVE,      SLVMUTE,    SLVLIKE,  _______,  SPEED,
+        _______,   BT_HST1,   BT_HST2,   BT_HST3,   P2P4G,     _______,   _______,   _______,   _______,   _______,   _______,    _______,     _______,     _______,    TERMIN,   ITERM,    WORK,
+        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,     _______,     _______,    KMESTRO,  VSCODE,   _______,
+        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,                  _______,
+        _______,              _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,                  _______,              _______,
+        _______,   _______,   _______,                                    _______,                                    _______,    _______,     _______,     _______,    _______,  _______,  _______),
 
     [SYM] = LAYOUT_tkl_ansi(
-        XXXXXXX,  POUND,    DOLLAR,   EURO,     YEN,      OG,       TM,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        TIL,      LB,       RB,       BB,       DLB,      BRB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  LAARROW,  LARROW,   ARROW,    AARROW,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        DPIPE,    SBL,      SBR,      SBC,      SBTD,     TROSA,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  PLUS,     EQUALS,   STAR,       XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        DDOT,     BRL,      BRR,      BRB,      DONE,     INF,      PI,       PER,      XXXXXXX,  XXXXXXX,  MINUS,    UNSC,                 XXXXXXX,
-        DSLASH,             CBL,      CBR,      CBB,      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  AND,                  XXXXXXX,              XXXXXXX,
-        BACKT,    XXXXXXX,  XXXXXXX,                                XXXXXXX,                                AST,      XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+        XXXXXXX,   POUND,     DOLLAR,    EURO,      YEN,       OG,        TM,        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        TIL,       LB,        RB,        BB,        DLB,       BRB,       XXXXXXX,   XXXXXXX,   XXXXXXX,   LAARROW,   LARROW,     ARROW,       AARROW,      XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        DPIPE,     SBL,       SBR,       SBC,       SBTD,      TROSA,     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   PLUS,       EQUALS,      STAR,        XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        DDOT,      BRL,       BRR,       BRB,       DONE,      INF,       PI,        PER,       XXXXXXX,   XXXXXXX,   MINUS,      UNSC,                     XXXXXXX,
+        DSLASH,               CBL,       CBR,       CBB,       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    AND,                      XXXXXXX,              XXXXXXX,
+        BACKT,     XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    AST,        XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [PIC] = LAYOUT_tkl_ansi(
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,
-        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,              XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
+        XXXXXXX,              XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
 };
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Encoder Map
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
