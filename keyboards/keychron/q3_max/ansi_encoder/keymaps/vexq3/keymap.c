@@ -3717,9 +3717,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KEYCUE,    QMACRO,    UNIALF,                                      SPACE,                                     CLIP,       FILEFRED,    KC_LALT,     SCREEN,     KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [EXTEND] = LAYOUT_tkl_ansi(
-        SHTDWN,    SLEEP,     RSTART,    MCNTRL,    LNCHPAD,   _______,   _______,   _______,   _______,   REWIND,    PLAY,       NEXT,        SPOTIFY,     RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LV L,
-        TIL,       KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,      KC_F12,      RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SA I,
-        HYPENATOR, MSEC1,     MSEWHLRI,  MSEWHLDO,  MSEWHLLE,  _______,   MOUSEUP,   _______,   HOME,      KC_UP,     MOUSEUP,    _______,     _______,     RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SA D,
+        SHTDWN,    SLEEP,     RSTART,    MCNTRL,    LNCHPAD,   _______,   _______,   _______,   _______,   REWIND,    PLAY,       NEXT,        SPOTIFY,     RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
+        TIL,       KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,      KC_F12,      RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
+        HYPENATOR, MSEC1,     MSEWHLRI,  MSEWHLDO,  MSEWHLLE,  _______,   MOUSEUP,   _______,   HOME,      KC_UP,     MOUSEUP,    _______,     _______,     RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
         KC_LCTL,   KC_LALT,   KC_LGUI,   MSEWHLUP,  KC_LSFT,   MOUSELT,   MOUSEDN,   MOUSERT,   KC_LEFT,   KC_DOWN,   KC_RGHT,    MSEC1,                    _______ ,
         UNDO,                 CUT,       COPY,      DUPLICA,   PASTE,     MSEC1,     MSEC4,     MSEC2,     MOUSELT,   MOUSERT,    MOUSEDN,                  _______ ,              _______,
         KEYCUE,    QMACRO,    UNIALF,                                     _______,                                    CLIP,       FILEFRED,     KC_LALT,    SCREEN,     _______,  _______,  _______),
@@ -3730,7 +3730,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   WIN3_1,    WIN3_2,    WIN3_3,    WIN3_4,    WIN3_5,    WIN3_6,    WIN3_7,    XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         WIN8_2,    WIN6_1,    WIN6_2,    WIN6_3,    WIN6_4,    WIN6_5,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
         WIN8_1,               WIN8_6,    WIN8_5,    WIN8_4,    WIN8_3,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
-        XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXX,                                     XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
+        XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                     XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
         SYSSET,    PASS,      PORT,      MSG,       WHATSAPP,  ELGATO,    LDECK,     _______,   CLARITY,   SLVPREV,   SLVPP,      SLVNEXT,     SLEEVE,      SLVMUTE,    SLVLIKE,  _______,  SPEED,
