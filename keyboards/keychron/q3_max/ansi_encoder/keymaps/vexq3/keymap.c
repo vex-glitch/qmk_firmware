@@ -6,7 +6,8 @@
 // Removed Auto Shift
 // Removed Layer Lock
 // Added & to TD_HASHAT
-// TD_HYPENATOR::Moved Snip from selection to double hold & suggest snip to triple tap
+// TD_HYPENATOR::Moved Snip from selection to double hold & suggest snip to triple tapt
+// Removed TD_FORWARDDELETE :: 2025.05.02-20:29
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include QMK_KEYBOARD_H
@@ -66,7 +67,6 @@ enum {
     TD_CAPS,
     TD_ALFMEH2,
     TD_HASHAT,
-    TD_FORWARDDELETE,
     TD_SMILE,
     TD_SLASH,
     TD_QUESTION,
@@ -175,7 +175,6 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     #define CAPW      TD(TD_CAPS)
     #define ALFMEH2   TD(TD_ALFMEH2)
     #define HASHAT    TD(TD_HASHAT)
-    #define FORDEL    TD(TD_FORWARDDELETE)
     #define SMILE     TD(TD_SMILE)
     #define SLASH     TD(TD_SLASH)
     #define QUESTION  TD(TD_QUESTION)
@@ -1860,28 +1859,6 @@ void dance_hashat_finished(tap_dance_state_t *state, void *user_data) {
 void dance_hashat_reset(tap_dance_state_t *state, void *user_data) {
     layer_off(SYM);
 }
-// Forward Delete::tapdance
-void dance_forwarddelete_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
-        tap_code(KC_DEL);
-    } else if (state->count == 1 && state->pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_DEL);
-        unregister_code(KC_LALT);
-    } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_RGHT);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        tap_code(KC_BSPC);
-    }
-}
-void dance_forwarddelete_reset(tap_dance_state_t *state, void *user_data) {
-    unregister_code(KC_LALT);
-    unregister_code(KC_LSFT);
-    unregister_code(KC_LGUI);
-}
 // Smile::tapdance
 void dance_smile_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
@@ -2404,8 +2381,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50;
         case TD(TD_HASHAT):
             return TAPPING_TERM + 50;
-        case TD(TD_FORWARDDELETE):
-            return TAPPING_TERM + 50;
         case TD(TD_SMILE):
             return TAPPING_TERM + 50;
         case TD(TD_SLASH):
@@ -2547,7 +2522,6 @@ return true;                                // Keep Caps Word active
         case KC_NONUS_HASH:
         case KC_SEMICOLON:
         case KC_GRAVE:
-        case FORDEL:
         case OSSHIFT:
         case DELWORD:
         case QUESTION:
@@ -3551,7 +3525,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_caps_finished, dance_caps_reset),
     [TD_ALFMEH2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_alfmeh2_finished, dance_alfmeh2_reset),
     [TD_HASHAT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_hashat_finished, dance_hashat_reset),
-    [TD_FORWARDDELETE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_forwarddelete_finished, dance_forwarddelete_reset),
     [TD_SMILE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_smile_finished, dance_smile_reset),
     [TD_SLASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_slash_finished, dance_slash_reset),
     [TD_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_question_finished, dance_question_reset),
@@ -3733,7 +3706,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CMAK_BASE] = LAYOUT_tkl_ansi(
         ALFRED,    HOOK,      CLEANSHT,  DROP,      SIDENOTE,  ARC,       SNIP,      PERP,      CHAT,      MUSE,      TRELLO,     OOUT,        DAYONE,      KC_MUTE,    FANTAS,   SPARK,    ANYBOX,
-        ESCAPE,    ONE,       TWO,       THREE,     KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,       KC_MINS,     SMILE,       FORDEL,     EAGLE,    DEVON,    FINDER,
+        ESCAPE,    ONE,       TWO,       THREE,     KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,       KC_MINS,     SMILE,       KEYCUE,     EAGLE,    DEVON,    FINDER,
         TAB,       QSELALL,   KC_W,      KC_F,      KC_P,      KC_B,      USCR,      KC_J,      KC_L,      KC_U,      QUICKY,     QUESTION,    SLASH,       HASHAT,     BEAR,     OFOCUS,   DRAFTS,
         HYPENATOR, HOME_A,    HOME_R,    HOME_S,    HOME_T,    KC_G,      LEADPOST,  KC_M,      HOME_N,    HOME_E,    HOME_I,     HOME_O,                   ALFMEH2,
         UNMEHZ,               XCUT,      CCOPY,     DDUP,      VPASTE,    OSSHIFT,   DELWORD,   KC_K,      KC_H,      COMMA,      PERIOD,                   CAPW,                KC_UP,
