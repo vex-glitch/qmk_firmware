@@ -5,6 +5,8 @@
 // Removed Unicode reference from Rules
 // Removed Auto Shift
 // Removed Layer Lock
+// Added & to TD_HASHAT
+// TD_HYPENATOR::Moved Snip from selection to double hold & suggest snip to triple tap
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include QMK_KEYBOARD_H
@@ -1962,16 +1964,29 @@ void dance_comma_reset(tap_dance_state_t *state, void *user_data) {
 }
 // Delword::tapdance
 void dance_delword_finished(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1 && !state->pressed) {
+    if (state->count == 1 && !state->pressed) {              // Delete word::Backwards
         register_code(KC_LALT);
         tap_code(KC_BSPC);
         unregister_code(KC_LALT);
-    } else if (state->count == 2 && !state->pressed) {
-        tap_code(KC_BSPC);
-    } else if (state->count == 2 && state->pressed) {
+    } else if (state->count == 1 && state->pressed) {        // Delete Line::Backwards
         register_code(KC_LGUI);
         tap_code(KC_BSPC);
         unregister_code(KC_LGUI);
+    } else if (state->count == 2 && !state->pressed) {       // Delete word::Forwards
+        register_code(KC_LALT);
+        tap_code(KC_DEL);
+        unregister_code(KC_LALT);
+    } else if (state->count == 2 && state->pressed) {        // Delete Line::Forwards
+        register_code(KC_LSFT);
+        register_code(KC_LGUI);
+        tap_code(KC_RGHT);
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        tap_code(KC_BSPC);
+    } else if (state->count == 3 && !state->pressed) {       // Delete Character::Backwards
+        tap_code(KC_BSPC);
+    } else if (state->count == 3 && state->pressed) {        // Delete Character::Forwards
+        tap_code(KC_DEL);
     }
 }
 void dance_delword_reset(tap_dance_state_t *state, void *user_data) {
