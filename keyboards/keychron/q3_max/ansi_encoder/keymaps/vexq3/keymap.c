@@ -1569,7 +1569,7 @@ void dance_tab_reset(tap_dance_state_t *state, void *user_data) {
 // HypeNator::tapdance
 void dance_hypenator_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        send_string(" ^^");
+        send_string("^");
     } else if (state->count == 1 && state->pressed) {
         register_mods(MOD_HYPR);
     } else if (state->count == 2 && !state->pressed) {
