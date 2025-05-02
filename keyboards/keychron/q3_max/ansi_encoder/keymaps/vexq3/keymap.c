@@ -1578,13 +1578,13 @@ void dance_hypenator_finished(tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
-        tap_code(KC_F2);
-        unregister_code(KC_LCTL);
-    } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LCTL);
         register_code(KC_LSFT);
         tap_code(KC_F2);
         unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 3 && !state->pressed) {
+        register_code(KC_LCTL);
+        tap_code(KC_F2);
         unregister_code(KC_LCTL);
     } else if (state->count == 3 && state->pressed) {
         register_code(KC_LCTL);
