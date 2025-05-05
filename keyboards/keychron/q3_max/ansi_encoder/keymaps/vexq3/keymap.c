@@ -1582,23 +1582,13 @@ void dance_hypenator_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 3 && state->pressed) {
         tap_code16(LAG(KC_F2)); // ⎇⌘ F2 :: 2025.05.05-07:29
     } else if (state->count == 4 && state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        tap_code(KC_F2);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
+        tap_code16(MEH(KC_F2)); // ⎈⇧⎇ F2 :: 2025.05.05-07:37
     } else if (state->count == 4 && !state->pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        register_code(KC_LGUI);
-        tap_code(KC_F2);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
+        tap_code16(LCAG(KC_F2));    // ⎈⎇⌘ F2 :: 2025.05.05-07:35
     }
 }
 void dance_hypenator_reset(tap_dance_state_t *state, void *user_data) {
-    unregister_mods(MOD_HYPR);
+    clear_mods()
 }
 // UnmehZ::tapdance
 void dance_unmehz_finished(tap_dance_state_t *state, void *user_data) {
