@@ -1588,7 +1588,7 @@ void dance_hypenator_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 void dance_hypenator_reset(tap_dance_state_t *state, void *user_data) {
-    clear_mods()
+    clear_mods();
 }
 // UnmehZ::tapdance
 void dance_unmehz_finished(tap_dance_state_t *state, void *user_data) {
