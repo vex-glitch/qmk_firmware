@@ -1576,21 +1576,11 @@ void dance_hypenator_finished(tap_dance_state_t *state, void *user_data) {
     } else if (state->count == 2 && !state->pressed) {
         tap_code16(C(KC_F2));   // ⎈ F2 :: 2025.05.05-07:22
     } else if (state->count == 2 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        tap_code(KC_F2);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
+        tap_code16(LCA(KC_F2)); // ⎈⎇ F2 :: 2025.05.05-07:26
     } else if (state->count == 3 && !state->pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_F2);
-        unregister_code(KC_LCTL);
+        tap_code16(LSA(KC_F2)); // ⇧⎇ F2 :: 2025.05.05-07:27
     } else if (state->count == 3 && state->pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_LALT);
-        tap_code(KC_F2);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LCTL);
+        tap_code16(LAG(KC_F2)); // ⎇⌘ F2 :: 2025.05.05-07:29
     } else if (state->count == 4 && state->pressed) {
         register_code(KC_LALT);
         register_code(KC_LSFT);
