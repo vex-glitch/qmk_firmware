@@ -1570,13 +1570,11 @@ void dance_tab_reset(tap_dance_state_t *state, void *user_data) {
 // HypeNator::tapdance
 void dance_hypenator_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && !state->pressed) {
-        send_string("^");
+        tap_code16(S(KC_F2));   // ⇧ F2 :: 2025.05.05-07:19
     } else if (state->count == 1 && state->pressed) {
         register_mods(MOD_HYPR);
     } else if (state->count == 2 && !state->pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_F2);
-        unregister_code(KC_LSFT);
+        tap_code16(C(KC_F2));   // ⎈ F2 :: 2025.05.05-07:22
     } else if (state->count == 2 && state->pressed) {
         register_code(KC_LCTL);
         register_code(KC_LSFT);
@@ -1635,18 +1633,19 @@ void dance_unmehz_reset(tap_dance_state_t *state, void *user_data) {
 void dance_keycue_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1 && state->pressed) {
         register_code(KC_LALT);
+        register_code(KC_LSFT);
     } else if (state->count == 1 && !state->pressed) {
         tap_code_delay(KC_LALT, 15);
         wait_ms(50);
         tap_code_delay(KC_LALT, 15);
     } else if (state->count == 2 && state->pressed) {
-        tap_code_delay(KC_LCTL, 15);
+        tap_code_delay(KC_LGUI, 15);
         wait_ms(50);
-        tap_code_delay(KC_LCTL, 15);
+        tap_code_delay(KC_LGUI, 15);
     } else if (state->count == 2 && !state->pressed) {
-        tap_code_delay(KC_LGUI, 15);
+        tap_code_delay(KC_LCTL, 15);
         wait_ms(50);
-        tap_code_delay(KC_LGUI, 15);
+        tap_code_delay(KC_LCTL, 15);
     } else if (state->count == 3 && state->pressed) {
         //////////////////////////
     } else if (state->count == 3 && !state->pressed) {
