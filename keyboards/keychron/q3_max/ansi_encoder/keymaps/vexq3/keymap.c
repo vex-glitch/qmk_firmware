@@ -2322,12 +2322,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
-        SYSSET,    PASS,      PORT,      MSG,       WHATSAPP,  ELGATO,    LDECK,     _______,   ENDEL,     SLVPREV,   SLVPP,      SLVNEXT,     SLEEVE,      SLVMUTE,    SLVLIKE,  _______,  SPEED,
-        _______,   BT_HST1,   BT_HST2,   BT_HST3,   P2P4G,     _______,   _______,   _______,   _______,   _______,   _______,    _______,     _______,     _______,    XXXXXXX,  XXXXXXX,  TERMIN,
-        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,     _______,     _______,    KMESTRO,  VSCODE,   ITERM,
-        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,                  _______,
-        _______,              _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,                  _______,              _______,
-        _______,   _______,   _______,                                    _______,                                    _______,    _______,     _______,     _______,    _______,  _______,  _______),
+        SYSSET,    PASS,      PORT,      MSG,       WHATSAPP,  ELGATO,    LDECK,     XXXXXXX,   ENDEL,     SLVPREV,   SLVPP,      SLVNEXT,     SLEEVE,      SLVMUTE,    SLVLIKE,  XXXXXXX,  SPEED,
+        XXXXXXX,   BT_HST1,   BT_HST2,   BT_HST3,   P2P4G,     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  TERMIN,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    KMESTRO,  VSCODE,   ITERM,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
+        XXXXXXX,              XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [SYM] = LAYOUT_tkl_ansi(
         XXXXXXX,   POUND,     DOLLAR,    EURO,      YEN,       OG,        TM,        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
