@@ -2847,7 +2847,7 @@ void dance_leadtype_finished(tap_dance_state_t *state, void *user_data) {
 	} else if (state->count == 1 && !state->pressed) {
 		leader_start();    //   :: 2025.05.26-11:38
 	} else if (state->count == 2 && state->pressed) {
-		tap_code16(A(KC_F1));   // ⎇ F1 :: 2025.05.26-11:38
+		tap_code16(S(KC_F1));   // ⎇ F1 :: 2025.05.26-11:38
 	} else if (state->count == 2 && !state->pressed) {
 		tap_code16(C(S(KC_F1)));    // ⎈⇧ F1 :: 2025.05.26-11:38
 	} else if (state->count == 3 && state->pressed) {
