@@ -1901,22 +1901,22 @@ void dance_hook_reset(tap_dance_state_t *state, void *user_data) {
 }
 // CLEANSHOT::TapDance 🪩
 void dance_cleanshot_finished(tap_dance_state_t *state, void *user_data) {
-	if (state->count == 1 && state->pressed) {
-		tap_code16(S(KC_F7));	// ⇧ F7 :: 2025.05.18-10:27
-	} else if (state->count == 1 && !state->pressed) {
-		tap_code16(C(KC_F7));	// ⎈ F7 :: 2025.05.18-10:27
-	} else if (state->count == 2 && state->pressed) {
-		tap_code16(A(KC_F7));	// ⎇ F7 :: 2025.05.18-10:28
-	} else if (state->count == 2 && !state->pressed) {
-		tap_code16(C(S(KC_F7)));	// ⎈⇧ F7 :: 2025.05.18-10:28
-	} else if (state->count == 3 && state->pressed) {
-		tap_code16(S(A(KC_F7)));	// ⇧⎇ F7 :: 2025.05.18-10:28
-	} else if (state->count == 3 && !state->pressed) {
-		tap_code16(C(A(KC_F7)));	// ⎈⎇ F7 :: 2025.05.18-10:28
-	} else if (state->count == 4 && state->pressed) {
-		tap_code16(MEH(KC_F7));	// MEH F7 :: 2025.05.18-10:29
-	} else if (state->count == 4 && !state->pressed) {
-		tap_code16(A(G(KC_F7)));	// ⎇⌘ F7 :: 2025.05.18-10:29
+	if (state->count == 1 && state->pressed) {	// ❄️ PALETTE
+		tap_code16(S(KC_F7));   // ⇧ F7 :: 2025.06.02-19:32
+	} else if (state->count == 1 && !state->pressed) {	// ❄️ CAPTURE WINDOW
+		tap_code16(A(KC_P5));   // ⎇ P5 :: 2025.06.02-19:32
+	} else if (state->count == 2 && state->pressed) {	// ❄️ CAPTURE & ANNOTATE
+		tap_code16(A(KC_P7));   // ⎇ P7 :: 2025.06.02-19:33
+	} else if (state->count == 2 && !state->pressed) {	// ❄️ SCROLLING CAPTURE
+		tap_code16(A(KC_P9));   // ⎇ P9 :: 2025.06.02-19:33
+	} else if (state->count == 3 && state->pressed) {	// ❄️ ANNOTATE LAST SCREENSHOT
+		tap_code16(C(A(KC_P9)));    // ⎈⎇ P9 :: 2025.06.02-19:33
+	} else if (state->count == 3 && !state->pressed) {	// ❄️ RECORD/STOP RECORDING
+		tap_code16(A(KC_P8));   // ⎇ P8 :: 2025.06.02-19:34
+	} else if (state->count == 4 && state->pressed) {	// ❄️ CHOOSE & PIN IMAGE
+		tap_code16(C(A(KC_P1)));    // ⎈⎇ P1 :: 2025.06.02-19:40
+	} else if (state->count == 4 && !state->pressed) {	// ❄️ CLOSE ALL PINS
+		tap_code16(C(A(KC_P3)));    // ⎈⎇ P3 :: 2025.06.02-19:38
 	}
 }
 void dance_cleanshot_reset(tap_dance_state_t *state, void *user_data) {
