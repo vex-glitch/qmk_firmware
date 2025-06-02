@@ -4239,9 +4239,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,    SLEEP,     RSTART,    MCNTRL,    LNCHPAD,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   REWIND,    PLAY,       NEXT,        SPOTIFY,     RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
         XXXXXXX,   KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,      KC_F12,      RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
-        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   MSEWHLUP,  KC_UP,     MOUSEUP,    XXXXXXX,     XXXXXXX,     RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   MSEWHLDO,  KC_UP,     MOUSEUP,    MSEWHLLE,    MSEWHLRI,    RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
         XXXXXXX,   KC_LCTL,   KC_LALT,   KC_LGUI,   KC_LSFT,   XXXXXXX,   XXXXXXX,   MOUSELT,   KC_LEFT,   KC_DOWN,   KC_RGHT,    MOUSERT,                  XXXXXXX,
-        XXXXXXX,              CUT,       COPY,      DUPLICA,   PASTE,     XXXXXXX,   XXXXXXX,   MSEC2,     MSEWHLDO,  MSEC1,      MOUSEDN,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,              CUT,       COPY,      DUPLICA,   PASTE,     XXXXXXX,   XXXXXXX,   MSEC2,     MSEWHLUP,  MSEC1,      MOUSEDN,                  XXXXXXX,              XXXXXXX,
         XXXXXXX,   XXXXXXX,   XXXXXXX,                                     _______,                                   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
