@@ -255,11 +255,17 @@ enum custom_keycodes {
     PASTE_3_PREVIOUS_LINES,
     PASTE_4_PREVIOUS_LINES,
 // ✅ SHIFT :: PREVIOUS LINES UP
-    MOVE_TO_THE_END_LINE_UP,
+    MOVE_TO_THE_BEGINNING_LINE_UP,
     MOVE_CURRENT_LINE_UP,
     MOVE_PREVIOUS_LINE_UP,
     MOVE_2_PREVIOUS_LINES_UP,
     MOVE_3_PREVIOUS_LINES_UP,
+// ✅ SHIFT :: PREVIOUS LINES DOWN
+    MOVE_TO_THE_END_LINE_DOWN,
+    MOVE_CURRENT_LINE_DOWN,
+    MOVE_PREVIOUS_LINE_DOWN,
+    MOVE_2_PREVIOUS_LINES_DOWN,
+    MOVE_3_PREVIOUS_LINES_DOWN,
 // ✅ MOVE :: NEXT LINES
     MOVE_TO_THE_END_OF_A_LINE,
     MOVE_TO_THE_END_OF_NEXT_LINE,
@@ -319,6 +325,7 @@ enum custom_keycodes {
     LEADERCOPY,
     LEADER_CUT,
     LEADER_PASTE,
+    LEAD_DUPLICATE,
 // ✅ GENERAL :: DELETIONS
     LEADER_DELETE,
     LEADER_DELETE2,
@@ -957,6 +964,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
     	    SEND_STRING(SS_LGUI("v"));  // Send ⌘ ("v") :: 2025.05.28-14:11
 	    } return false;
+    case LEAD_DUPLICATE:
+        if (record->event.pressed) {
+            SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_C) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎⌘ ⚫︎C ⬆︎⌘ ⌘ → ⬇︎SFT ⚫︎ENT ⬆︎SFT ⌘ ← ⬇︎⌘ ⚫︎V ⬆︎⌘) :: 2025.05.31-12:06
+        } return false;
 // ✅ GENERAL :: DELETIONS
     case LEADER_DELETE:
         if (record->event.pressed) {
@@ -1533,7 +1544,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.30-14:13
 		} return false;
 // ✅ SHIFT PREVIOUS LINES UP
-    case MOVE_TO_THE_END_LINE_UP:
+    case MOVE_TO_THE_BEGINNING_LINE_UP:
         if (record->event.pressed) {
             SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.30-20:38
             SEND_STRING(SS_TAP(X_UP) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT)); // Send  (⚫︎UP ⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⚫︎ENT ⬆︎SFT) :: 2025.05.30-21:23
@@ -1568,6 +1579,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_X)  SS_UP(X_LGUI) SS_TAP(X_BSPC) SS_TAP(X_UP)); // Send  (⬇︎GUI ⚫︎X ⬆︎GUI ⚫︎BSPC ⚫︎UP) :: 2025.05.30-20:57
             SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI) :: 2025.05.30-21:19
             SEND_STRING(SS_LGUI(SS_TAP(X_V)));  // Send ⌘ (⚫︎V) :: 2025.05.30-21:20
+        } return false;
+// ✅ SHIFT PREVIOUS LINES DOWN
+    case MOVE_TO_THE_END_LINE_DOWN:
+        if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⬇︎GUI ⚫︎RGHT ⬆︎SFT ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-06:30
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-06:31
+        } return false;
+    case MOVE_CURRENT_LINE_DOWN:
+        if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-07:56
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:17
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-08:19
+        } return false;
+    case MOVE_PREVIOUS_LINE_DOWN:
+        if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI) :: 2025.05.31-06:49
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_UP) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⚫︎UP ⬆︎SFT ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-08:20
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:13
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-08:15
+    	} return false;
+    case MOVE_2_PREVIOUS_LINES_DOWN:
+        if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI) :: 2025.05.31-06:49
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_UP) SS_TAP(X_UP) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI)); // Send  (⬇︎SFT ⚫︎UP ⚫︎UP ⬆︎SFT ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-08:22
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:13
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-08:15
+        } return false;
+    case MOVE_3_PREVIOUS_LINES_DOWN:
+        if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI) :: 2025.05.31-06:49
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_UP) SS_TAP(X_UP) SS_TAP(X_UP) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⚫︎UP ⚫︎UP ⚫︎UP ⬆︎SFT ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-08:25
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:13
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.3108:15
         } return false;
 
 // ✅ MOVE NEXT LINES
@@ -2465,7 +2509,9 @@ void dance_midkey_reset(tap_dance_state_t *state, void *user_data) {
 // SPACE::TapDance 🪩
 void dance_space_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1 && state->pressed) {
-		// 💀 DO NOTHING :: 2025.05.24-11:25
+		register_code(KC_LCTL);
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);    // ⬇⎈⌘⇧ ⬆⎈⇧⌘ :: 2025.05.31-15:15
 	} else if (state->count == 1 && !state->pressed) {
 		tap_code(KC_SPC);    //  ⚫︎SPC  :: 2025.05.24-11:26
 	} else if (state->count == 2 && state->pressed) {
@@ -3244,6 +3290,9 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(KC_V)) { 	// 💀 PASTE :: 2025.05.28-14:41
         SEND_STRING(SS_LGUI("v"));
         set_last_keycode(LEADER_PASTE);
+    } else if (leader_sequence_one_key(KC_D)) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_C) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎⌘ ⚫︎C ⬆︎⌘ ⌘ → ⬇︎SFT ⚫︎ENT ⬆︎SFT ⌘ ← ⬇︎⌘ ⚫︎V ⬆︎⌘) :: 2025.05.31-12:06
+        set_last_keycode(LEAD_DUPLICATE);
 // ✅ GENERAL :: SELECTIONS & MOVEMENT
     } else if (leader_sequence_one_key(KC_T)) { 	// 💀 SELECT ALL :: 2025.05.22-19:11
 	    SEND_STRING(SS_LGUI("a"));  // Send ⌘ ("a") :: 2025.05.22-19:10
@@ -3251,8 +3300,14 @@ void leader_end_user(void) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_A) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_C) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎A ⬆︎GUI ⬇︎GUI ⚫︎C ⬆︎GUI) :: 2025.05.30-18:40
     } else if (leader_sequence_two_keys(KC_T, KC_X)) { 	// 💀 CUT ALL :: 2025.05.30-18:42
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_A) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎A ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.30-18:41
+    } else if (leader_sequence_two_keys(KC_T, KC_V)) {
+	    SEND_STRING(SS_LGUI(SS_TAP(X_A) SS_TAP(X_V)));  // Send ⌘ (⚫︎A ⚫︎V) :: 2025.05.31-09:09
     } else if (leader_sequence_two_keys(KC_T, KC_N)) { 	// 💀 DELETE ALL :: 2025.05.30-18:42
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_A) SS_UP(X_LGUI) SS_TAP(X_BSPC));  // Send  (⬇︎GUI ⚫︎A ⬆︎GUI ⚫︎BSPC) :: 2025.05.30-18:42
+    } else if (leader_sequence_two_keys(KC_T, KC_V)) {
+	    SEND_STRING(SS_LGUI(SS_TAP(X_A) SS_TAP(X_V)));  // Send ⌘ (⚫︎A ⚫︎V) :: 2025.05.31-09:09
+    } else if (leader_sequence_two_keys(KC_T, KC_D)) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_A) SS_TAP(X_C) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎A ⬆︎GUI ⬇︎⌘ ⚫︎C ⬆︎⌘ ⌘ → ⬇︎SFT ⚫︎ENT ⬆︎SFT ⌘ ← ⬇︎⌘ ⚫︎V ⬆︎⌘) :: 2025.05.31-12:06
     } else if (leader_sequence_two_keys(KC_T, KC_A)) { 	// 💀 SELECT TO BEGGINNING :: 2025.05.30-18:12
         SEND_STRING(SS_LSFT(SS_LGUI(SS_TAP(X_UP))));    // Send ⇧⌘ (⚫︎UP) :: 2025.05.30-18:10
     } else if (leader_sequence_two_keys(KC_T, KC_O)) { 	// 💀 SELECT TO END :: 2025.05.30-18:12
@@ -3730,7 +3785,7 @@ void leader_end_user(void) {
         SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.30-20:38
         SEND_STRING(SS_TAP(X_UP) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT)); // Send  (⚫︎UP ⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⚫︎ENT ⬆︎SFT) :: 2025.05.30-21:23
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.30-21:24
-        set_last_keycode(MOVE_TO_THE_END_LINE_UP);
+        set_last_keycode(MOVE_TO_THE_BEGINNING_LINE_UP);
     } else if (leader_sequence_two_keys(KC_R, KC_A)) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.29-15:58
         SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_UP) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));  // Send  (⚫︎BSPC ⚫︎UP ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.30-20:45
@@ -3757,6 +3812,34 @@ void leader_end_user(void) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI) :: 2025.05.30-21:19
         SEND_STRING(SS_LGUI(SS_TAP(X_V)));  // Send ⌘ (⚫︎V) :: 2025.05.30-21:20
         set_last_keycode(MOVE_3_PREVIOUS_LINES_UP);
+// ✅ LEAD => MOVE :: PREVIOUS LINES DOWN
+    } else if (leader_sequence_two_keys(KC_O, KC_R)) {
+        SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⬇︎GUI ⚫︎RGHT ⬆︎SFT ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-06:30
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-06:31
+        set_last_keycode(MOVE_TO_THE_END_LINE_DOWN);
+    } else if (leader_sequence_two_keys(KC_R, KC_O)) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-07:56
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:17
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-08:19
+        set_last_keycode(MOVE_CURRENT_LINE_DOWN);
+    } else if (leader_sequence_three_keys(KC_R, KC_R, KC_O)) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI) :: 2025.05.31-06:49
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_UP) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⚫︎UP ⬆︎SFT ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-08:20
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:13
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-08:15
+        set_last_keycode(MOVE_PREVIOUS_LINE_DOWN);
+    } else if (leader_sequence_four_keys(KC_R, KC_R, KC_R, KC_O)) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI) :: 2025.05.31-06:49
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_UP) SS_TAP(X_UP) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI)); // Send  (⬇︎SFT ⚫︎UP ⚫︎UP ⬆︎SFT ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-08:22
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:13
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.31-08:15
+        set_last_keycode(MOVE_2_PREVIOUS_LINES_DOWN);
+    } else if (leader_sequence_five_keys(KC_R, KC_R, KC_R, KC_R, KC_O)) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎GUI ⚫︎RGHT ⬆︎GUI ⬇︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎SFT ⬆︎GUI) :: 2025.05.31-06:49
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_UP) SS_TAP(X_UP) SS_TAP(X_UP) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI));  // Send  (⬇︎SFT ⚫︎UP ⚫︎UP ⚫︎UP ⬆︎SFT ⬇︎GUI ⚫︎X ⬆︎GUI) :: 2025.05.31-08:25
+        SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_DOWN) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI));    // Send  (⚫︎BSPC ⚫︎DOWN ⬇︎GUI ⚫︎RGHT ⬆︎GUI) :: 2025.05.31-08:13
+        SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));    // Send  (⬇︎SFT ⚫︎ENT ⬆︎SFT ⬇︎GUI ⚫︎LEFT ⬆︎GUI ⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.3108:15
+        set_last_keycode(MOVE_3_PREVIOUS_LINES_DOWN);
 
 // ✅ LEAD => PASTE :: PREVIOUS LINES
     } else if (leader_sequence_two_keys(KC_R, KC_V)) {	// 💀 PASTE LINE TO THE BEGGINING :: 2025.05.29-09:58
@@ -3936,25 +4019,30 @@ void leader_end_user(void) {
         SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_DOWN) SS_TAP(X_DOWN) SS_UP(X_LSFT) SS_DOWN(X_LSFT) SS_TAP(X_DOWN) SS_UP(X_LSFT) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎SFT ⚫︎DOWN ⚫︎DOWN ⬆︎SFT ⬇︎SFT ⚫︎DOWN ⬆︎SFT ⬇︎SFT ⬇︎GUI ⚫︎RGHT ⬆︎SFT ⬆︎GUI) :: 2025.05.29-18:34
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.30-14:13
         set_last_keycode(PASTE_4_NEXT_LINES);
+// ✅ LEAD => SHIFT NEXT LINES UP
+    } else if (leader_sequence_two_keys(KC_A, KC_I)) {
+    SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI) SS_TAP(X_UP) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));
+    set_last_keycode(MOVE_NEXT_LINE_TO_THE_END_UP);
+
 
 ///////////////////////////////////////////✨R O W S  & P A R A G R A P H S ✨//////////////////////////////////////////////
 // ✅ NEXT ROWS
 	} else if (leader_sequence_one_key(KC_O)) {
         SEND_STRING(SS_LSFT(SS_TAP(X_ENT)));
         set_last_keycode(NEW_ROW);
-    } else if (leader_sequence_two_keys(KC_O, KC_R)) {
+    } else if (leader_sequence_two_keys(KC_O, KC_A)) {
         SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_BSPC) SS_UP(X_LGUI));
         set_last_keycode(LEADER_START_OF_ROW);
 	} else if (leader_sequence_two_keys(KC_O, KC_O)) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_TAP(X_ENT) SS_UP(X_LSFT));
         set_last_keycode(NEW_PARAGRAPH);
-    } else if (leader_sequence_three_keys(KC_O, KC_O, KC_R)) {
+    } else if (leader_sequence_three_keys(KC_O, KC_O, KC_A)) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI));
         set_last_keycode(LEADER_START_OF_PARAGRAPH);
     } else if (leader_sequence_three_keys(KC_O, KC_O, KC_O)) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT));
         set_last_keycode(UNIVERSAL_ROW);
-    } else if (leader_sequence_two_keys(KC_R, KC_O)) {
+    } else if (leader_sequence_two_keys(KC_A, KC_O)) {
         SEND_STRING(SS_LALT(SS_TAP(X_ENT)));
         set_last_keycode(TYPINATOR_ROW);
 	} else if (leader_sequence_four_keys(KC_O, KC_O, KC_O, KC_O)) {
