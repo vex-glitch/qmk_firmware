@@ -517,156 +517,125 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ////////////////////////////////////////////////✨M O O M  M A C R O S ✨//////////////////////////////////////////////
     case WIN1_1:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_1))));  // ⇧⎇⌘ 1 :: 2025.05.22-16:14
+            tap_code16(C(KC_P0));   // ⎈ P0 :: 2025.06.02-14:27
         } return false;
     case WIN1_2:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_2))));  // ⇧⎇⌘ 2 :: 2025.05.22-16:15
+            tap_code16(C(KC_P1));   // ⎈ P1 :: 2025.06.02-14:27
         } return false;
     case WIN1_3:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_3))));  // ⇧⎇⌘ 3 :: 2025.05.22-16:15
+            tap_code16(C(KC_P2));   // ⎈ P2 :: 2025.06.02-14:28
         } return false;
     case WIN2_1:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_4))));  // ⇧⎇⌘ 4 :: 2025.05.22-16:16
+            tap_code16(C(KC_P3));   // ⎈ P3 :: 2025.06.02-14:28
         } return false;
     case WIN2_2:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_5))));  // ⇧⎇⌘ 5 :: 2025.05.22-16:16
+            tap_code16(C(KC_P4));   // ⎈ P4 :: 2025.06.02-14:29
         } return false;
     case WIN2_3:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_6))));  // ⇧⎇⌘ 6 :: 2025.05.22-16:17
+            tap_code16(C(KC_P5));   // ⎈ P5 :: 2025.06.02-14:29
         } return false;
     case WIN2_4:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_7))));  // ⇧⎇⌘ 7 :: 2025.05.22-16:17
+            tap_code16(C(KC_P6));   // ⎈ P6 :: 2025.06.02-14:30
         } return false;
     case WIN2_5:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_8))));  // ⇧⎇⌘ 8 :: 2025.05.22-16:17
+            tap_code16(C(KC_P7));   // ⎈ P7 :: 2025.06.02-14:31
         } return false;
     case WIN2_6:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_9))));  // ⇧⎇⌘ 9 :: 2025.05.22-16:18
+            tap_code16(C(KC_P8));   // ⎈ P8 :: 2025.06.02-14:31
         } return false;
     case WIN2_7:
         if (record->event.pressed) {
-            tap_code16(S(A(G(KC_0))));  // ⇧⎇⌘ 0 :: 2025.05.22-16:18
+            tap_code16(C(KC_P9));   // ⎈ P9 :: 2025.06.02-14:32
         } return false;
     case WIN3_1:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_1))); // ⎇⌘ 1 :: 2025.05.22-16:19
+            tap_code16(C(S(KC_P0)));    // ⎈⇧ P0 :: 2025.06.02-14:33
         } return false;
     case WIN3_2:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_2))); // ⎇⌘ 2 :: 2025.05.22-16:19
+            tap_code16(C(S(KC_P1)));    // ⎈⇧ P1 :: 2025.06.02-14:33
         } return false;
     case WIN3_3:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_3))); // ⎇⌘ 3 :: 2025.05.22-16:20
+            tap_code16(C(S(KC_P2)));    // ⎈⇧ P2 :: 2025.06.02-14:34
         } return false;
     case WIN3_4:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_4))); // ⎇⌘ 4 :: 2025.05.22-16:20
+            tap_code16(C(S(KC_P3)));    // ⎈⇧ P3 :: 2025.06.02-14:34
         } return false;
     case WIN3_5:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_5))); // ⎇⌘ 5 :: 2025.05.22-16:20
+            tap_code16(C(S(KC_P4)));    // ⎈⇧ P4 :: 2025.06.02-14:34
         } return false;
     case WIN3_6:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_6))); // ⎇⌘ 6 :: 2025.05.22-16:21
+            tap_code16(C(S(KC_P5)));    // ⎈⇧ P5 :: 2025.06.02-14:35
         } return false;
     case WIN3_7:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_7))); // ⎇⌘ 7 :: 2025.05.22-16:21
+            tap_code16(C(S(KC_P6)));    // ⎈⇧ P6 :: 2025.06.02-14:36
         } return false;
     case WIN4_1:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_8))); // ⎇⌘ 8 :: 2025.05.22-16:22
+            tap_code16(C(S(KC_P7)));    // ⎈⇧ P7 :: 2025.06.02-14:37
         } return false;
     case WIN4_2:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_9))); // ⎇⌘ 9 :: 2025.05.22-16:22
+            tap_code16(C(S(KC_P8)));    // ⎈⇧ P8 :: 2025.06.02-14:37
         } return false;
     case WIN4_3:
         if (record->event.pressed) {
-            tap_code16(A(G(KC_0))); // ⎇⌘ 0 :: 2025.05.22-16:23
+            tap_code16(C(S(KC_P9)));    // ⎈⇧ P9 :: 2025.06.02-14:37
         } return false;
     case WIN4_4:
         if (record->event.pressed) {
-            tap_code16(C(A(G(KC_1))));  // ⎈⎇⌘ 1 :: 2025.05.22-16:23
+            tap_code16(MEH(KC_P0)); // MEH P0 :: 2025.06.02-14:38
         } return false;
     case WIN5_1:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_2))); // ⎈⎇ 2 :: 2025.05.22-16:24
+            tap_code16(MEH(KC_P1)); // MEH P1 :: 2025.06.02-14:38
         } return false;
     case WIN5_2:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_3))); // ⎈⎇ 3 :: 2025.05.22-16:24
+            tap_code16(MEH(KC_P2)); // MEH P2 :: 2025.06.02-14:38
         } return false;
     case WIN5_3:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_4))); // ⎈⎇ 4 :: 2025.05.22-16:25
+            tap_code16(MEH(KC_P3)); // MEH P3 :: 2025.06.02-14:39
         } return false;
     case WIN5_4:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_5))); // ⎈⎇ 5 :: 2025.05.22-16:25
+            tap_code16(MEH(KC_P4)); // MEH P4 :: 2025.06.02-14:39
         } return false;
     case WIN6_1:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_7))); // ⎈⎇ 7 :: 2025.05.22-16:26
+            tap_code16(MEH(KC_P5)); // MEH P5 :: 2025.06.02-14:39
         } return false;
     case WIN6_2:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_6))); // ⎈⎇ 7 :: 2025.05.22-16:26
+            tap_code16(MEH(KC_P6)); // MEH P6 :: 2025.06.02-14:40
         } return false;
     case WIN6_3:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_8))); // ⎈⎇ 8 :: 2025.05.22-16:27
+            tap_code16(MEH(KC_P7)); // MEH P7 :: 2025.06.02-14:40
         } return false;
     case WIN6_4:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_9))); // ⎈⎇ 9 :: 2025.05.22-16:27
+            tap_code16(MEH(KC_P8)); // MEH P8 :: 2025.06.02-14:40
         } return false;
     case WIN6_5:
         if (record->event.pressed) {
-            tap_code16(C(A(KC_0))); // ⎈⎇ 0 :: 2025.05.22-16:27
+            tap_code16(MEH(KC_P9)); // MEH P9 :: 2025.06.02-14:41
         } return false;
-    case WIN7_1:
-        if (record->event.pressed) {
-            tap_code16(C(A(G(KC_2))));  // ⎈⎇⌘ 2 :: 2025.05.22-16:28
-        } return false;
-    case WIN7_2:
-        if (record->event.pressed) {
-            tap_code16(C(A(G(KC_3))));  // ⎈⎇⌘ 3 :: 2025.05.22-16:28
-        } return false;
-    case WIN8_1:
-        if (record->event.pressed) {
-            tap_code16(MEH(KC_7));  // MEH 6 :: 2025.05.22-16:29
-        } return false;
-    case WIN8_2:
-        if (record->event.pressed) {
-            tap_code16(MEH(KC_6));  // MEH 6 :: 2025.05.22-16:30
-        } return false;
-    case WIN8_3:
-        if (record->event.pressed) {
-            tap_code16(MEH(KC_5));  // MEH 5 :: 2025.05.22-16:30
-        } return false;
-    case WIN8_4:
-        if (record->event.pressed) {
-            tap_code16(MEH(KC_4));  // MEH 4 :: 2025.05.22-16:31
-        } return false;
-    case WIN8_5:
-        if (record->event.pressed) {
-            tap_code16(MEH(KC_3));  // MEH 3 :: 2025.05.22-16:31
-        } return false;
-    case WIN8_6:
-        if (record->event.pressed) {
-            tap_code16(MEH(KC_2));  // MEH 2 :: 2025.05.22-16:32
-        } return false;
+
 //////////////////////////////////////////////✨E X T E N D  M A C R O S ✨//////////////////////////////////////////////
     case HAZEDN:	// 💀 EXTEND ENCODER :: 2025.05.22-17:27
         if (record->event.pressed) {
@@ -4248,8 +4217,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         FULL,      WIN1_1,    WIN1_2,    WIN1_3,    XXXXXXX,   WIN4_1,    WIN4_2,    WIN4_3,    WIN4_4,    WIN5_1,    WIN5_2,     WIN5_3,      WIN5_4,      XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,   WIN2_1,    WIN2_2,    WIN2_3,    WIN2_4,    WIN2_5,    WIN2_6,    WIN2_7,    XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,   WIN3_1,    WIN3_2,    WIN3_3,    WIN3_4,    WIN3_5,    WIN3_6,    WIN3_7,    XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-        WIN8_2,    WIN6_1,    WIN6_2,    WIN6_3,    WIN6_4,    WIN6_5,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
-        WIN8_1,               WIN8_6,    WIN8_5,    WIN8_4,    WIN8_3,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,   WIN6_1,    WIN6_2,    WIN6_3,    WIN6_4,    WIN6_5,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
+        XXXXXXX,              XXXXXXX,   XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
         XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
