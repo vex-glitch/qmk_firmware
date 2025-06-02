@@ -2469,7 +2469,7 @@ void dance_qmacro_reset(tap_dance_state_t *state, void *user_data) {
 // MIDKEY::TapDance 🪩
 void dance_midkey_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1 && state->pressed) {	// 💀 UNIVERSAL COMMAND PALETTE
-		tap_code16(S(A(G(KC_K))));	// ⇧⎇⌘ K :: 2025.05.19-13:58
+		tap_code16(S(A(G(KC_MINS))));	// ⇧⎇⌘ K :: 2025.05.19-13:58
 	} else if (state->count == 1 && !state->pressed) {	// 💀 CLIPBOARD HISTORY
 		tap_code16(C(S(G(KC_X))));	// ⎈⇧⌘ X :: 2025.05.19-13:59
 	} else if (state->count == 2 && state->pressed) {	// 💀 SCREENSHOT HISTORY
@@ -4218,7 +4218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,   WIN2_1,    WIN2_2,    WIN2_3,    WIN2_4,    WIN2_5,    WIN2_6,    WIN2_7,    XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,   WIN3_1,    WIN3_2,    WIN3_3,    WIN3_4,    WIN3_5,    WIN3_6,    WIN3_7,    XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,   WIN6_1,    WIN6_2,    WIN6_3,    WIN6_4,    WIN6_5,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
-        XXXXXXX,              XXXXXXX,   XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,              XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,              XXXXXXX,
         XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
