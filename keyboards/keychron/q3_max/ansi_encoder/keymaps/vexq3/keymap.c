@@ -306,6 +306,8 @@ enum custom_keycodes {
     PASTE_2_NEXT_LINES,
     PASTE_3_NEXT_LINES,
     PASTE_4_NEXT_LINES,
+// ✅ LEAD :: SHIFT NEXT LINES UP
+    MOVE_NEXT_LINE_TO_THE_END_UP,
 
 //////////////////////////////////////////////✨R O W S ✨//////////////////////////////////////////////
 // ✅ ROWS & PARAGRAPHS
@@ -1783,6 +1785,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_DOWN) SS_TAP(X_DOWN) SS_UP(X_LSFT) SS_DOWN(X_LSFT) SS_TAP(X_DOWN) SS_UP(X_LSFT) SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI));   // Send  (⬇︎SFT ⚫︎DOWN ⚫︎DOWN ⬆︎SFT ⬇︎SFT ⚫︎DOWN ⬆︎SFT ⬇︎SFT ⬇︎GUI ⚫︎RGHT ⬆︎SFT ⬆︎GUI) :: 2025.05.29-18:34
             SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI)); // Send  (⬇︎GUI ⚫︎V ⬆︎GUI) :: 2025.05.30-14:13
         } return false;
+// ✅ LEAD => SHIFT NEXT LINES UP
+    case MOVE_NEXT_LINE_TO_THE_END_UP:
+        if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI) SS_TAP(X_UP) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));
+        } return false;
 //////////////////////////////////////////////✨R O W S ✨//////////////////////////////////////////////
 
     case NEW_ROW:
@@ -2469,7 +2476,7 @@ void dance_zsetnot_finished(tap_dance_state_t *state, void *user_data) {
 	} else if (state->count == 2 && state->pressed) {
 		tap_code16(G(KC_COMM));	// ⌘ , :: 2025.05.19-09:48
 	} else if (state->count == 2 && !state->pressed) {
-		tap_code16(S(A(G(KC_MINS))));	// ⇧⎇⌘ − :: 2025.05.19-09:48
+		tap_code16(S(G(KC_MINS)));	// ⇧⌘ − :: 2025.05.19-09:48
 	}
 }
 void dance_zsetnot_reset(tap_dance_state_t *state, void *user_data) {
@@ -4021,8 +4028,8 @@ void leader_end_user(void) {
         set_last_keycode(PASTE_4_NEXT_LINES);
 // ✅ LEAD => SHIFT NEXT LINES UP
     } else if (leader_sequence_two_keys(KC_A, KC_I)) {
-    SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI) SS_TAP(X_UP) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));
-    set_last_keycode(MOVE_NEXT_LINE_TO_THE_END_UP);
+        SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LSFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_X) SS_UP(X_LGUI) SS_TAP(X_UP) SS_DOWN(X_LGUI) SS_TAP(X_RGHT) SS_UP(X_LGUI) SS_DOWN(X_LSFT) SS_TAP(X_ENT) SS_UP(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI));
+
 
 
 ///////////////////////////////////////////✨R O W S  & P A R A G R A P H S ✨//////////////////////////////////////////////
@@ -4231,11 +4238,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [EXTEND] = LAYOUT_tkl_ansi(
         SHTDWN,    SLEEP,     RSTART,    MCNTRL,    LNCHPAD,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   REWIND,    PLAY,       NEXT,        SPOTIFY,     RGB_TOG,    RGB_RMOD, RGB_MOD,  BAT_LVL,
-        TIL,       KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,      KC_F12,      RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
-        LEADTYPE,  QK_REP,    MSEWHLRI,  MSEWHLDO,  MSEWHLLE,  XXXXXXX,   MOUSEUP,   XXXXXXX,   HOME,      KC_UP,     MOUSEUP,    XXXXXXX,     XXXXXXX,     RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
-        KC_LCTL,   KC_LALT,   KC_LGUI,   MSEWHLUP,  KC_LSFT,   MOUSELT,   MOUSEDN,   MOUSERT,   KC_LEFT,   KC_DOWN,   KC_RGHT,    MSEC1,                    _______ ,
-        UNDO,                 CUT,       COPY,      DUPLICA,   PASTE,     MSEC1,     MSEC4,     MSEC2,     MOUSELT,   MOUSERT,    MOUSEDN,                  _______ ,              _______,
-        XXXXXXX,   XXXXXXX,   QMACRO,                                     _______,                                    XXXXXXX,    FILEFRED,    KC_LALT,     SCREEN,     _______,   _______,  _______),
+        XXXXXXX,   KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,      KC_F12,      RGB_SPI,    RGB_VAI,  RGB_HUI,  RGB_SAI,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   MSEWHLUP,  KC_UP,     MOUSEUP,    XXXXXXX,     XXXXXXX,     RGB_SPD,    RGB_VAD,  RGB_HUD,  RGB_SAD,
+        XXXXXXX,   KC_LCTL,   KC_LALT,   KC_LGUI,   KC_LSFT,   XXXXXXX,   XXXXXXX,   MOUSELT,   KC_LEFT,   KC_DOWN,   KC_RGHT,    MOUSERT,                  XXXXXXX,
+        XXXXXXX,              CUT,       COPY,      DUPLICA,   PASTE,     XXXXXXX,   XXXXXXX,   MSEC2,     MSEWHLDO,  MSEC1,      MOUSEDN,                  XXXXXXX,              XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,                                     _______,                                   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [WINDOWS] = LAYOUT_tkl_ansi(
         FULL,      WIN1_1,    WIN1_2,    WIN1_3,    XXXXXXX,   WIN4_1,    WIN4_2,    WIN4_3,    WIN4_4,    WIN5_1,    WIN5_2,     WIN5_3,      WIN5_4,      XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,
