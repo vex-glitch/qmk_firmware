@@ -1932,7 +1932,7 @@ void dance_drop_finished(tap_dance_state_t *state, void *user_data) {
 	} else if (state->count == 2 && state->pressed) {
 		tap_code16(G(KC_C));    // ⌘C :: 2025.06.04-15:20
         wait_ms(20);    //  🕙20  :: 2025.06.04-15:20
-        qmc        
+        tap_code16(C(S(KC_F8)));    // ⎈⇧ F8 :: 2025.06.04-15:21        
 	} else if (state->count == 2 && !state->pressed) {
 		tap_code16(C(S(KC_F8)));	// ⎈⇧ F8 :: 2025.05.18-10:33
 	} else if (state->count == 3 && state->pressed) {
