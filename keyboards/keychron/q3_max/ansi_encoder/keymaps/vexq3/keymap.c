@@ -1931,8 +1931,8 @@ void dance_drop_finished(tap_dance_state_t *state, void *user_data) {
 		tap_code16(C(KC_F8));	// ⎈ F8 :: 2025.05.18-10:33
 	} else if (state->count == 2 && state->pressed) {   // INSTANT SEND
 		tap_code16(G(KC_C));    // COPY
-        wait_ms(20);    //  🕙20ms
-        tap_code16(C(S(KC_F8)));    // SEND TO DROPOVER
+        wait_ms(50);    //  🕙50ms
+        tap_code16(C(S(KC_F8)));	// ⎈⇧ F8 :: 2025.05.18-10:33
 	} else if (state->count == 2 && !state->pressed) {
 		tap_code16(C(S(KC_F8)));	// ⎈⇧ F8 :: 2025.05.18-10:33
 	} else if (state->count == 3 && state->pressed) {
