@@ -1929,12 +1929,12 @@ void dance_drop_finished(tap_dance_state_t *state, void *user_data) {
 		tap_code16(S(KC_F8));	// ⇧ F8 :: 2025.05.18-10:32
 	} else if (state->count == 1 && !state->pressed) {
 		tap_code16(C(KC_F8));	// ⎈ F8 :: 2025.05.18-10:33
-	} else if (state->count == 2 && state->pressed) {
-		tap_code16(A(KC_F8));	// ⎇ F8 :: 2025.05.18-10:33
+	} else if (state->count == 2 && state->pressed) {   // INSTANT SEND
+		tap_code16(G(KC_C));    // COPY
+        wait_ms(20);    //  🕙20ms
+        tap_code16(C(S(KC_F8)));    // SEND TO DROPOVER
 	} else if (state->count == 2 && !state->pressed) {
-        tap_code16(G(KC_V));    // ⌘V :: 2025.06.04-15:25
-        wait_ms(50);    //  🕙50  :: 2025.06.04-15:25
-        tap_code16(C(S(KC_F8)));    // ⎈⇧ F8 :: 2025.06.04-15:25
+		tap_code16(C(S(KC_F8)));	// ⎈⇧ F8 :: 2025.05.18-10:33
 	} else if (state->count == 3 && state->pressed) {
 		tap_code16(S(A(KC_F8)));	// ⇧⎇ F8 :: 2025.05.18-10:33
 	} else if (state->count == 3 && !state->pressed) {
