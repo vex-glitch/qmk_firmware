@@ -647,15 +647,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } return false;
     case SHTDWN:
         if (record->event.pressed) {
-            tap_code16(HYPR(KC_1)); // HYPR 1 :: 2025.05.22-17:21
+            tap_code16(MEH(KC_0));  // MEH0 :: 2025.06.04-17:30
         } return false;
     case SLEEP:
         if (record->event.pressed) {
-            tap_code16(HYPR(KC_2)); // HYPR 2 :: 2025.05.22-17:21
+            tap_code16(MEH(KC_8));  // MEH8 :: 2025.06.04-17:31
         } return false;
     case RSTART:
         if (record->event.pressed) {
-            tap_code16(HYPR(KC_3)); // HYPR 3 :: 2025.05.22-17:22
+            tap_code16(MEH(KC_9));  // MEH9 :: 2025.06.04-17:33
         } return false;
     case UNDO:
         if (record->event.pressed) {
