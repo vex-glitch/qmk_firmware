@@ -1930,9 +1930,7 @@ void dance_drop_finished(tap_dance_state_t *state, void *user_data) {
 	} else if (state->count == 1 && !state->pressed) {
 		tap_code16(C(KC_F8));	// ⎈ F8 :: 2025.05.18-10:33
 	} else if (state->count == 2 && state->pressed) {   // INSTANT SEND
-		tap_code16(G(KC_C));    // COPY
-        wait_ms(50);    //  🕙50ms
-        tap_code16(C(S(KC_F8)));	// ⎈⇧ F8 :: 2025.05.18-10:33
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_C) SS_UP(X_LGUI) SS_DELAY(50) SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_F8) SS_UP(X_LCTL) SS_UP(X_LSFT));   // Send  (⬇︎⌘ ⚫︎C ⬆︎⌘ 🕘50 ⬇︎CTL ⬇︎SFT ⚫︎F8 ⬆︎CTL ⬆︎SFT) :: 2025.06.04-15:53
 	} else if (state->count == 2 && !state->pressed) {
 		tap_code16(C(S(KC_F8)));	// ⎈⇧ F8 :: 2025.05.18-10:33
 	} else if (state->count == 3 && state->pressed) {
