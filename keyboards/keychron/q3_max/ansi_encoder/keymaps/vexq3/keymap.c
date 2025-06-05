@@ -2544,7 +2544,7 @@ void dance_caps_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1 && state->pressed) {	// 💀 UNDO
 		tap_code16(S(G(KC_Z)));	// ⇧⌘ Z :: 2025.05.19-15:24
 	} else if (state->count == 1 && !state->pressed) {	// 💀 ONE SHOT SHIFT
-		add_oneshot_mods(MOD_BIT(KC_LSFT));	//  :: 2025.05.19-15:24
+		tap_code16(OSM(MOD_LSFT));	//  :: 2025.05.19-15:24
 	} else if (state->count == 2 && !state->pressed) {	// 💀 CAPS WORD
 		caps_word_on();
 		is_caps_active_flag = true;
@@ -2566,7 +2566,7 @@ void dance_hypefred_finished(tap_dance_state_t *state, void *user_data) {
 		tap_code(KC_F3);    //  ⚫︎F3  :: 2025.05.24-11:49
 	} else if (state->count == 2 && !state->pressed) {
 		SEND_STRING(SS_TAP(X_F3) SS_DELAY(50) "! ");    // Send  (⚫︎F3 🕘50 "! ") :: 2025.05.24-11:49
-		add_oneshot_mods(MOD_BIT(KC_LSFT));    //   :: 2025.05.24-11:49
+		tap_code16(OSM(MOD_LSFT));    //   :: 2025.05.24-11:49
 	}
 }
 void dance_hypefred_reset(tap_dance_state_t *state, void *user_data) {
@@ -2623,12 +2623,12 @@ void dance_question_finished(tap_dance_state_t *state, void *user_data) {
 		SEND_STRING("?");	// Send  ("?") :: 2025.05.19-16:37
 	} else if (state->count == 1 && !state->pressed) {
 		SEND_STRING("? ");	// Send  ("? ") :: 2025.05.19-16:37
-		add_oneshot_mods(MOD_BIT(KC_LSFT));    //   :: 2025.05.22-13:21
+		tap_code16(OSM(MOD_LSFT));    //   :: 2025.05.22-13:21
 	} else if (state->count == 2 && state->pressed) {
 		SEND_STRING("!");	// Send  ("!") :: 2025.05.19-16:38
 	} else if (state->count == 2 && !state->pressed) {
 		SEND_STRING("! ");	// Send  ("! ") :: 2025.05.19-16:38
-		add_oneshot_mods(MOD_BIT(KC_LSFT));    //   :: 2025.05.22-13:20
+		tap_code16(OSM(MOD_LSFT));    //   :: 2025.05.22-13:20
 	}
 }
 void dance_question_reset(tap_dance_state_t *state, void *user_data) {
@@ -2640,12 +2640,12 @@ void dance_period_finished(tap_dance_state_t *state, void *user_data) {
 		SEND_STRING(".");	// Send  (".") :: 2025.05.19-16:39
 	} else if (state->count == 1 && !state->pressed) {
 		SEND_STRING(". ");	// Send  (". ") :: 2025.05.19-16:40
-        add_oneshot_mods(MOD_BIT(KC_LSFT));    //   :: 2025.05.22-13:19
+        tap_code16(OSM(MOD_LSFT));    //   :: 2025.05.22-13:19
     } else if (state->count == 2 && state->pressed) {
 		SEND_STRING(":");	// Send  (":") :: 2025.05.19-16:40
 	} else if (state->count == 2 && !state->pressed) {
 		SEND_STRING(": ");	// Send  (": ") :: 2025.05.19-16:40
-		add_oneshot_mods(MOD_BIT(KC_LSFT));    //   :: 2025.05.22-13:20
+		tap_code16(OSM(MOD_LSFT));    //   :: 2025.05.22-13:20
 	}
 }
 void dance_period_reset(tap_dance_state_t *state, void *user_data) {
@@ -2685,7 +2685,7 @@ void dance_delword_reset(tap_dance_state_t *state, void *user_data) {
 void dance_uscr_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1 && state->pressed) {
 		SEND_STRING(" - ");	// Send  ("_") :: 2025.05.19-18:20
-        add_oneshot_mods(MOD_BIT(KC_LSFT)); //  :: 2025.05.19-18:51
+        tap_code16(OSM(MOD_LSFT)); //  :: 2025.05.19-18:51
 	} else if (state->count == 1 && !state->pressed) {
 		SEND_STRING("_");	// Send  (" - ") :: 2025.05.19-18:20
 	} else if (state->count == 2 && state->pressed) {
