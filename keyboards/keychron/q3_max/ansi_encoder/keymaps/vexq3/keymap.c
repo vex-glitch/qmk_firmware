@@ -3292,16 +3292,16 @@ void leader_end_user(void) {
         SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
         set_last_keycode(LEADER_DELETE_5);
 // ✅ GENERAL :: FORWARD DELETIONS
-    } else if (leader_sequence_two_keys(KC_T, KC_N)) {
+    } else if (leader_sequence_two_keys(KC_O, KC_N)) {
         SEND_STRING(SS_TAP(X_DEL));
         set_last_keycode(LEADER_FORWARD_DELETE);
-    } else if (leader_sequence_three_keys(KC_T, KC_N, KC_N)) {
+    } else if (leader_sequence_three_keys(KC_O, KC_N, KC_N)) {
         SEND_STRING(SS_TAP(X_DEL) SS_TAP(X_DEL));
         set_last_keycode(LEADER_FORWARD_DELETE2);
-    } else if (leader_sequence_four_keys(KC_T, KC_N, KC_N, KC_N)) {
+    } else if (leader_sequence_four_keys(KC_O, KC_N, KC_N, KC_N)) {
         SEND_STRING(SS_TAP(X_DEL) SS_TAP(X_DEL) SS_TAP(X_DEL));
         set_last_keycode(LEADER_FORWARD_DELETE3);
-    } else if (leader_sequence_five_keys(KC_T, KC_N, KC_N, KC_N, KC_N)) {
+    } else if (leader_sequence_five_keys(KC_O, KC_N, KC_N, KC_N, KC_N)) {
         SEND_STRING(SS_TAP(X_DEL) SS_TAP(X_DEL) SS_TAP(X_DEL) SS_TAP(X_DEL));
         set_last_keycode(LEADER_FORWARD_DELETE4);
 // ✅ MOVEMENT :: ARROWS
