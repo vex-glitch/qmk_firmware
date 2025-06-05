@@ -411,7 +411,6 @@ enum {
     TD_FULL,
 /////////////////////////////////////////✨F U N  L A Y E R  T A P D A N C E S ✨////////////////////////////////////////
     TD_PORT,
-    TD_ENDEL,
     TD_SLEEVE,
 ///////////////////////////////////////✨S Y M B O L  L A Y E R  T A P D A N C E S ✨//////////////////////////////////////////
     TD_RB,
@@ -476,7 +475,6 @@ enum {
     #define FULL      TD(TD_FULL)
 //////////////////////////////////////////////✨F U N  D E F S ✨//////////////////////////////////////////////
     #define PORT      TD(TD_PORT)
-    #define ENDEL	  TD(TD_ENDEL)
     #define SLEEVE    TD(TD_SLEEVE)
 //////////////////////////////////////////////✨S Y M B O L  D E F S ✨//////////////////////////////////////////////
     #define RB        TD(TD_RB)
@@ -682,11 +680,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(C(S(G(KC_F4)))); // ⎈⇧⌘ F4 :: 2025.05.22-17:24
         } return false;
 //////////////////////////////////////////////✨F U N  M A C R O S ✨//////////////////////////////////////////////
-    case ZOOMIN:    // ✅ FUN ENCODER 
+    case ZOOMIN:    // ✅ FUN ENCODER
         if (record->event.pressed) {
             tap_code16(G(KC_EQL));  // ⌘ = :: 2025.06.05-17:17
         } return false;
-    case ZOOMOUT:   // ✅ FUN ENCODER 
+    case ZOOMOUT:   // ✅ FUN ENCODER
         if (record->event.pressed) {
             tap_code16(G(KC_MINS)); // ⌘ − :: 2025.06.05-17:18
         } return false;
@@ -2876,20 +2874,6 @@ void dance_port_reset(tap_dance_state_t *state, void *user_data) {
 	clear_keyboard();
 	layer_clear();
 }
-// ENDEL::TapDance 🪩
-void dance_endel_finished(tap_dance_state_t *state, void *user_data) {
-	if (state->count == 1 && state->pressed) {
-		// 💀 DO NOTHING :: 2025.05.22-14:00
-	} else if (state->count == 1 && !state->pressed) {
-		tap_code16(C(A(G(KC_E))));  // ⎈⎇⌘ E :: 2025.05.22-14:01
-	} else if (state->count == 2 && !state->pressed) {
-		tap_code16(C(S(G(KC_E))));  // ⎈⇧⌘ E :: 2025.05.22-14:01
-	}
-}
-void dance_endel_reset(tap_dance_state_t *state, void *user_data) {
-	clear_keyboard();
-	layer_clear();
-}
 // SLEEVE::TapDance 🪩
 void dance_sleeve_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 1 && state->pressed) {
@@ -3090,8 +3074,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 //////////////////////////////////////////////✨F U N  P E R  K E Y ✨//////////////////////////////////////////////
         case TD(TD_PORT):
             return TAPPING_TERM + 50;
-        case TD(TD_ENDEL):
-			return TAPPING_TERM + 50;
         case TD(TD_SLEEVE):
             return TAPPING_TERM + 50;
 //////////////////////////////////////////////✨S Y M B O L  P E R  K E Y ✨//////////////////////////////////////////////
@@ -3239,7 +3221,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_FULL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_full_finished, dance_full_reset),
 //////////////////////////////////////////////✨F U N  A R R A Y ✨//////////////////////////////////////////////
     [TD_PORT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_port_finished, dance_port_reset),
-    [TD_ENDEL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_endel_finished, dance_endel_reset),
     [TD_SLEEVE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_sleeve_finished, dance_sleeve_reset),
 ///////////////////////////////////////////✨S Y M B O L  A R R A Y ✨//////////////////////////////////////////////
     [TD_EQUALS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_equals_finished, dance_equals_reset),
@@ -4220,7 +4201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,   XXXXXXX,   XXXXXXX,                                    XXXXXXX,                                    XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX),
 
     [FUN] = LAYOUT_tkl_ansi(
-        SYSSET,    PASS,      PORT,      MSG,       WHATSAPP,  ELGATO,    LDECK,     XXXXXXX,   ENDEL,     SLVPREV,   SLVPP,      SLVNEXT,     SLEEVE,      SLVMUTE,    SLVLIKE,  XXXXXXX,  SPEED,
+        SYSSET,    PASS,      PORT,      MSG,       WHATSAPP,  ELGATO,    LDECK,     XXXXXXX,   XXXXXXX,   SLVPREV,   SLVPP,      SLVNEXT,     SLEEVE,      SLVMUTE,    SLVLIKE,  XXXXXXX,  SPEED,
         XXXXXXX,   BT_HST1,   BT_HST2,   BT_HST3,   P2P4G,     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,  TERMIN,
         XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     XXXXXXX,    KMESTRO,  VSCODE,   ITERM,
         XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX,                  XXXXXXX,
