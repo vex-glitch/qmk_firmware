@@ -682,17 +682,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(C(S(G(KC_F4)))); // ⎈⇧⌘ F4 :: 2025.05.22-17:24
         } return false;
 //////////////////////////////////////////////✨F U N  M A C R O S ✨//////////////////////////////////////////////
-    case ZOOMIN:                                // Encoder::Fun
+    case ZOOMIN:    // ✅ FUN ENCODER 
         if (record->event.pressed) {
-            register_code(KC_LALT);
-            tap_code(MSEWHLDO);
-            unregister_code(KC_LALT);
+            tap_code16(G(KC_EQL));  // ⌘ = :: 2025.06.05-17:17
         } return false;
-    case ZOOMOUT:                                // Encoder::Fun
+    case ZOOMOUT:   // ✅ FUN ENCODER 
         if (record->event.pressed) {
-            register_code(KC_LALT);
-            tap_code(MSEWHLUP);
-            unregister_code(KC_LALT);
+            tap_code16(G(KC_MINS)); // ⌘ − :: 2025.06.05-17:18
         } return false;
     case KMESTRO:
         if (record->event.pressed) {
