@@ -4078,7 +4078,7 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_G, KC_E)) {
         SEND_STRING("gReatestEver9000\n");    // Send  ("gReatestEver9000" ⏎) :: 2025.05.22-19:01;
         clear_keyboard();
-    } else if (leader_sequence_two_keys(KC_R, KC_C)) {
+    } else if (leader_sequence_three_keys(KC_I, KC_R, KC_C)) {
         SEND_STRING("IruletheChaos9000\n");
         clear_keyboard();
     }
