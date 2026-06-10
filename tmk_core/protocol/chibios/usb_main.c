@@ -468,7 +468,11 @@ void send_nkro(report_nkro_t *report) {
 
 void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
-    send_report(USB_ENDPOINT_IN_MOUSE, report, sizeof(report_mouse_t));
+    // Local patch (2026-06-11): generic send_report blocks up to 100ms when the
+    // host is slow to poll the endpoint — freezing the whole main loop (matrix,
+    // sensor reads) once per report while the trackball moves. Cap the wait at
+    // 2ms and drop the report instead: a lost micro-delta beats a frozen loop.
+    usb_endpoint_in_send(&usb_endpoints_in[USB_ENDPOINT_IN_MOUSE], (uint8_t *)report, sizeof(report_mouse_t), TIME_MS2I(2), false);
 #endif
 }
 
