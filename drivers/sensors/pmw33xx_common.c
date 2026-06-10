@@ -23,6 +23,10 @@ static const pin_t cs_pins_right[] = PMW33XX_CS_PINS_RIGHT;
 static bool in_burst_left[ARRAY_SIZE(cs_pins_left)]   = {0};
 static bool in_burst_right[ARRAY_SIZE(cs_pins_right)] = {0};
 
+// Count of burst frames discarded as corrupt (reserved bits set / implausible
+// deltas). Readable from keymap code for on-LED diagnostics.
+volatile uint32_t pmw33xx_corrupt_frames = 0;
+
 bool __attribute__((cold)) pmw33xx_upload_firmware(uint8_t sensor);
 bool __attribute__((cold)) pmw33xx_check_signature(uint8_t sensor);
 
@@ -222,8 +226,14 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
     spi_receive((uint8_t *)&report, sizeof(report));
 
     // panic recovery, sometimes burst mode works weird.
-    if (report.motion.w & 0b111) {
+    // A frame with reserved motion bits set, or deltas beyond physical
+    // plausibility, is corrupt — discard it instead of moving the cursor with
+    // garbage (sign-flipped/huge deltas read as cursor "jitter").
+    if ((report.motion.w & 0b111) || report.delta_x > 2000 || report.delta_x < -2000 || report.delta_y > 2000 || report.delta_y < -2000) {
         in_burst[sensor] = false;
+        pmw33xx_corrupt_frames++;
+        spi_stop();
+        return (pmw33xx_report_t){0};
     }
 
     spi_stop();
